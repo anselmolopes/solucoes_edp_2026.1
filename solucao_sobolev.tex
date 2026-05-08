@@ -1,3 +1,13 @@
+\documentclass[cs_edp_2026.1.tex]{subfiles} % Aponta para o pai
+\begin{document}
+	
+% CONFIGURAÇÃO PARA COMPILAÇÃO INDIVIDUAL
+\ifSubfilesClassLoaded{
+	\def\listid{L5}
+	\setcounter{numquestao}{84}
+	\section*{Espaços de Sobolev}
+}{}
+
 \questao{Mostre que $u(x) = |x|$ está em $W^{1,p}(U)$, para todo $1 \le p \le \infty$, quando $U = B_1(0) \subset \mathbb{R}^n$.}
 
 \solucao{
@@ -20,3 +30,5 @@
 	
 	Como tanto a função quanto sua derivada fraca possuem norma $L^p$ finita para todo $1 \le p \le \infty$, concluímos que $u \in W^{1,p}(B_1(0))$.
 }
+
+\end{document}

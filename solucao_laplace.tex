@@ -1,3 +1,13 @@
+\documentclass[cs_edp_2026.1.tex]{subfiles} % Aponta para o pai
+\begin{document}
+
+% CONFIGURAÇÃO PARA COMPILAÇÃO INDIVIDUAL
+\ifSubfilesClassLoaded{
+	\def\listid{L2}
+	\setcounter{numquestao}{3}
+	\section*{Equação de Laplace}
+}{}
+
 \questao{Se $U$ é um domínio limitado que satisfaz o teorema do divergente, mostre que existe no máximo uma solução para o problema de Dirichlet:
 	$$ \begin{cases} \Delta u = f(x), & x \in U \\ u = g(x), & x \in \partial U \\ u \text{ em } C^2(U) \cap C^1(\overline{U}). \end{cases} $$}
 
@@ -21,3 +31,5 @@
 	$$ 0 = 0 - \int_U |\nabla w|^2 \, dx \implies \int_U |\nabla w|^2 \, dx = 0 $$
 	Como $|\nabla w|^2 \ge 0$ e $w \in C^1(\overline{U})$, a integral nula implica que $\nabla w \equiv 0$ em $U$. Logo, $w$ é constante em cada componente conexa de $U$. Como $w = 0$ na fronteira $\partial U$, concluímos que $w \equiv 0$ em todo $U$, ou seja, $u_1 = u_2$.
 }
+
+\end{document}

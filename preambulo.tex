@@ -31,8 +31,9 @@
 	},
 	arrow/.style={-Stealth, thick}
 }
+% Referências Bibliográficas
 \usepackage[backend=biber, style=abnt]{biblatex} % Recomendado usar biber para bibliografias modernas
-\addbibresource{referencias.bib}
+%\addbibresource{referencias.bib}
 
 % --- Elementos Visuais e Layout ---
 \usepackage[most]{tcolorbox}
@@ -69,6 +70,9 @@
 % =============================================================================
 % COMANDOS ESTRUTURAIS DO PROJETO
 % =============================================================================
+
+% VALOR PADRÃO PARA EVITAR ERROS NA COMPILAÇÃO INDIVIDUAL DO SUBFILE
+\providecommand{\listid}{L0}
 
 \newcounter{numquestao}
 

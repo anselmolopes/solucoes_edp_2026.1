@@ -1,3 +1,13 @@
+\documentclass[cs_edp_2026.1.tex]{subfiles} % Aponta para o pai
+\begin{document}
+	
+% CONFIGURAÇÃO PARA COMPILAÇÃO INDIVIDUAL
+\ifSubfilesClassLoaded{
+	\def\listid{L4}
+	\setcounter{numquestao}{74}
+	\section*{Equação da Onda} % Adiciona o título apenas na compilação isolada
+}{}
+	
 \questao{(De volta a equação de transporte)
 	\begin{enumerate}[label=(\alph*)]
 		\item Suponha que se $v = v(x, t)$ satisfaz a equação de transporte homogênea $v_t + v_x = 0$ em $\mathbb{R} \times [0, \infty)$; $v(x, 0) = g(x); x \in \mathbb{R}$; então $v = g(x - t)$;
@@ -11,7 +21,8 @@
 		\item Veja então que $u$ satisfaz a equação não homogênea $u_t - u_x = g'(x - t) + h(x - t)$ em $\mathbb{R} \times [0, \infty)$; $u(x, 0) = g(x)$;
 		\item Conclua que 
 		$$ u(x, t) = \frac{1}{2} \int_{x-t}^{x+t} h(s) ds + \frac{1}{2} [g(x + t) + g(x - t)]. $$
-\end{enumerate}}
+	\end{enumerate}
+}
 
 \analise{
 	\textbf{Análise do Enunciado:} Esta questão foi estruturada como um roteiro de construção analítica. O objetivo não é apenas encontrar a solução final, mas derivar a fórmula de d'Alembert para a equação da onda através de etapas intermediárias. A lógica consiste em utilizar a teoria de equações de transporte (de 1\f ordem) para resolver a equação da onda (de 2\m ordem). Assim, cada item, de (a) a (e), atua como um lema necessário para a conclusão final no item (f). As hipóteses centrais são a regularidade $u \in C^2$ no domínio $\mathbb{R} \times [0, \infty)$ e as condições iniciais clássicas $u(x,0) = g(x)$ e $u_t(x,0) = h(x)$.
@@ -76,3 +87,5 @@
 	
 	O item (a) fornece a técnica de solução para a direita, usada no item (d) para descobrir a variável auxiliar $v$. Esta variável $v$ torna-se a fonte de um transporte para a esquerda no item (e). Finalmente, no item (f), unimos a solução homogênea (do transporte para a esquerda) com a solução particular (via Duhamel, baseada no item b) para reconstruir a solução completa de d'Alembert.
 }
+
+\end{document}

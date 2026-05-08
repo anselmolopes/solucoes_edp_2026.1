@@ -3,6 +3,11 @@
 % Importação do preâmbulo customizado
 \input{preambulo}
 
+\usepackage{subfiles}
+% Carrega a bibliografia apenas se NÃO for uma compilação individual de subfile
+\ifSubfilesClassLoaded{}{
+	\addbibresource{referencias.bib}
+}
 \begin{document}
 \nocite{*}
 	% =============================================================================
@@ -76,6 +81,8 @@
 	\end{center}
 	A intenção é explicitar o método e a lógica empregada, transformando a resolução em um exercício de reflexão analítica. Este material não pretende esgotar o assunto nem estabelecer verdades definitivas, mas sim servir como um diário de bordo --- um caminho de pensamento para compreender a estrutura das EDPs e a beleza da sua construção lógica.
 	
+	Para detalhes sobre a configuração técnica e a customização da visualização deste documento, consulte a seção de Instruções Técnicas a seguir.
+	
 	\vspace{1cm}
 	\begin{center}
 		\small
@@ -88,6 +95,54 @@
 	\end{flushright}
 	
 	\newpage
+	\section*{Instruções Técnicas}
+	\addcontentsline{toc}{section}{Instruções Técnicas}
+	
+	Este documento foi projetado para ser modular e customizável. Para otimizar a experiência de leitura e a compilação, foram implementadas as seguintes funcionalidades:
+	
+	\vspace{0.3cm}
+	
+	\begin{tcolorbox}[
+		enhanced, 
+		sharp corners, 
+		boxrule=0.5pt, 
+		colback=white, 
+		colframe=gray!40, % Cinza claro e discreto
+		left=10pt, right=10pt, top=10pt, bottom=10pt
+		]
+		\textbf{Customização de Visibilidade} \\
+		
+		\vspace{0.2cm}
+		O documento utiliza interruptores lógicos no \texttt{preambulo.tex} para controlar a exibição de blocos analíticos. É possível gerar versões diferentes do PDF alterando os valores de \texttt{true} (exibe) para \texttt{false} (oculta):
+		\begin{itemize}
+			\item \texttt{\textbackslash setbool\{showanalise\}\{false\}} $\longrightarrow$ Oculta a \textbf{Análise e Fundamentação Teórica}.
+			\item \texttt{\textbackslash setbool\{showsintese\}\{false\}} $\longrightarrow$ Oculta a \textbf{Síntese da Construção}.
+		\end{itemize}
+		Isso permite alternar entre uma versão de estudo aprofundado e uma versão focada apenas nos resultados.
+	\end{tcolorbox}
+	
+	\begin{tcolorbox}[
+		enhanced, 
+		sharp corners, 
+		boxrule=0.5pt, 
+		colback=white, 
+		colframe=gray!40, % Cinza claro e discreto
+		left=10pt, right=10pt, top=10pt, bottom=10pt
+		]
+		\textbf{Compilação Modular (Subfiles)} \\
+		
+		\vspace{0.2cm}
+		Para evitar a compilação de todo o projeto a cada pequena alteração, utilizamos o pacote \texttt{subfiles}. 
+		\begin{itemize}
+			\item \textbf{Compilação Global:} Compile o arquivo principal (\texttt{cs\_edp\_2026.1.tex}) para gerar o documento completo com capa, sumário e todas as seções.
+			\item \textbf{Compilação Local:} Para trabalhar em uma questão específica, abra o arquivo correspondente (ex: \texttt{solucao\_eqonda.tex}) e compile-o diretamente. O \LaTeX\ herdará automaticamente todas as configurações do preâmbulo, gerando um PDF apenas daquele tópico.
+		\end{itemize}
+	\end{tcolorbox}
+	
+	\vspace{0.3cm}
+	Para a renderização correta da bibliografia, recomenda-se a sequência de compilação: \texttt{LuaLaTeX $\to$ Biber $\to$ LuaLaTeX}.
+	
+	\newpage
 	
 	% =============================================================================
 	% SUMÁRIO
@@ -96,40 +151,39 @@
 	\newpage
 	
 	% =============================================================================
-	% CORPO DO TRABALHO (FLUXO CONTÍNUO)
+	% CORPO DO TRABALHO (USANDO SUBFILES)
 	% =============================================================================
 	
 	\section{Equação do Transporte}
 	\def\listid{L1} 
 	\setcounter{numquestao}{0} 
-	\input{solucao_eqtransporte.tex}
+	\subfile{solucao_eqtransporte}
 	
 	\section{Equação de Laplace}
 	\def\listid{L2} 
-	\setcounter{numquestao}{0} 
-	\input{solucao_laplace.tex}
+	\setcounter{numquestao}{3} 
+	\subfile{solucao_laplace}
 	
 	\section{Equação do Calor}
 	\def\listid{L3} 
-	\setcounter{numquestao}{0} 
-	\input{solucao_eqcalor.tex}
+	\setcounter{numquestao}{54} 
+	\subfile{solucao_eqcalor}
 	
 	\section{Equação da Onda}
 	\def\listid{L4} 
 	\setcounter{numquestao}{74} 
-	\input{solucao_eqonda.tex}
+	\subfile{solucao_eqonda}
 	
 	\section{Espaços de Sobolev}
 	\def\listid{L5} 
-	\setcounter{numquestao}{0} 
-	\input{solucao_sobolev.tex}
+	\setcounter{numquestao}{84} 
+	\subfile{solucao_sobolev}
 	
 	\newpage
 	% =============================================================================
 	% BIBLIOGRAFIA
 	% =============================================================================
 	% Esta linha adiciona a Bibliografia ao Sumário (ToC)
-	\addcontentsline{toc}{section}{Referências Bibliográficas} 
-	\printbibliography[title={Referências Bibliográficas}]
+	\printbibliography[heading=bibintoc, title={Referências Bibliográficas}]
 	
 \end{document}

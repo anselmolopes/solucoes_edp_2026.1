@@ -1,3 +1,13 @@
+\documentclass[cs_edp_2026.1.tex]{subfiles} % Aponta para o pai
+\begin{document}
+
+% CONFIGURAÇÃO PARA COMPILAÇÃO INDIVIDUAL
+\ifSubfilesClassLoaded{
+	\def\listid{L3}
+	\setcounter{numquestao}{54}
+	\section*{Equação do Calor}
+}{}
+
 \questao{Suponha que $u = u(x,t)$ é a solução da equação do calor:
 	$$ \begin{cases} u_t - \Delta u = 0, & \text{em } \mathbb{R}^n \times (0, \infty) \\ u(x,0) = g(x), & \text{para } x \in \mathbb{R}^n. \end{cases} $$
 	Mostre que:
@@ -25,3 +35,5 @@
 	Aplicando a condição inicial $\hat{u}(y,0) = \hat{g}(y)$, obtemos $C(y) = \hat{g}(y)$. Portanto:
 	$$ \hat{u}(y,t) = e^{-|y|^2 t} \hat{g}(y) $$
 }
+
+\end{document}
