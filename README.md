@@ -29,7 +29,7 @@ Para garantir a clareza e a reprodutibilidade do raciocínio, cada problema é r
 
 ## ⚙️ Guia Técnico e Compilação
 
-O projeto foi desenvolvido em $\LaTeX$ utilizando o motor **Lua$\LaTeX$**, visando a máxima qualidade tipográfica e modularidade.
+O projeto foi desenvolvido em $\LaTeX$ utilizando o motor **LuaLaTeX**, visando a máxima qualidade tipográfica e modularidade.
 
 ### 🛠️ Estrutura de Compilação
 Para garantir a renderização correta da bibliografia e do sumário, a sequência de compilação recomendada é:
@@ -39,7 +39,7 @@ Para garantir a renderização correta da bibliografia e do sumário, a sequênc
 
 ### 🧩 Modularidade com `subfiles`
 Para otimizar o tempo de compilação, utilizei o pacote `subfiles`. Isso permite que você compile:
-- **O Documento Completo:** Compilando o arquivo principal `caminhos_analiticos_edp.tex`.
+- **O Documento Completo:** Compilando o arquivo principal `cs_edp_2026.1.tex`.
 - **Um Tópico Específico:** Compilando diretamente o arquivo `.tex` da seção desejada (ex: `solucao_eqonda.tex`), herdando automaticamente todo o preâmbulo.
 
 ### 👁️ Customização de Visibilidade
@@ -58,6 +58,4 @@ Sugestões, críticas ou correções são muito bem-vindas e podem ser enviadas 
 👉 [Formulário de Observações](https://forms.gle/UcBrKWL7YxdXCX7y9)
 
 ---
-\begin{center}
-\textit{Campina Grande - PB, 2026}
-\end{center}
+Campina Grande - PB, 2026
