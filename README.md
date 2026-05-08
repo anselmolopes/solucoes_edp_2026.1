@@ -29,7 +29,7 @@ Para garantir a clareza e a reprodutibilidade do raciocínio, cada problema é r
 
 ## ⚙️ Guia Técnico e Compilação
 
-O projeto foi desenvolvido em $\LaTeX$ utilizando o motor **Lua$\LaTeX$**, visando a máxima qualidade tipográfica e modularidade.
+O projeto foi desenvolvido em $\LaTeX$ utilizando o motor **Lua $\LaTeX$**, visando a máxima qualidade tipográfica e modularidade.
 
 ### 🛠️ Estrutura de Compilação
 Para garantir a renderização correta da bibliografia e do sumário, a sequência de compilação recomendada é:
