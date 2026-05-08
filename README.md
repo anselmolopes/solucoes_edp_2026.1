@@ -39,7 +39,7 @@ Para garantir a renderização correta da bibliografia e do sumário, a sequênc
 
 ### 🧩 Modularidade com `subfiles`
 Para otimizar o tempo de compilação, utilizei o pacote `subfiles`. Isso permite que você compile:
-- **O Documento Completo:** Compilando o arquivo principal `caminhos_analiticos_edp.tex`.
+- **O Documento Completo:** Compilando o arquivo principal `cs_edp_2026.1.tex`.
 - **Um Tópico Específico:** Compilando diretamente o arquivo `.tex` da seção desejada (ex: `solucao_eqonda.tex`), herdando automaticamente todo o preâmbulo.
 
 ### 👁️ Customização de Visibilidade
