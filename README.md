@@ -58,6 +58,4 @@ Sugestões, críticas ou correções são muito bem-vindas e podem ser enviadas 
 👉 [Formulário de Observações](https://forms.gle/UcBrKWL7YxdXCX7y9)
 
 ---
-\begin{center}
-\textit{Campina Grande - PB, 2026}
-\end{center}
+Campina Grande - PB, 2026
