@@ -1,0 +1,24 @@
+# Arquivos temporários do LaTeX
+*.aux
+*.bbl
+*.blg
+*.brf
+*.fdb_latexmk
+*.fls
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+*.bcf
+*.run.xml
+
+# Ignorar arquivos do TeXstudio
+*.tex.bak
+*.tex.sav

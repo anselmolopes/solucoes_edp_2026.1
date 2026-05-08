@@ -1,0 +1,22 @@
+\questao{Mostre que $u(x) = |x|$ está em $W^{1,p}(U)$, para todo $1 \le p \le \infty$, quando $U = B_1(0) \subset \mathbb{R}^n$.}
+
+\solucao{
+	\textbf{Análise do Enunciado:} 
+	Devemos verificar se a função $u(x) = |x|$, definida na bola unitária $B_1(0)$, pertence ao espaço de Sobolev $W^{1,p}$. Isso exige que $u \in L^p(U)$ e que sua derivada fraca $\nabla u$ também pertença a $L^p(U)$.
+	
+	\textbf{Fundamentação Teórica:} 
+	Uma função $u$ pertence a $W^{1,p}(U)$ se $u \in L^p(U)$ e existe $v \in L^p(U, \mathbb{R}^n)$ tal que para todo $\phi \in C^\infty_c(U)$:
+	$$ \int_U u \frac{\partial \phi}{\partial x_i} dx = - \int_U v_i \phi dx, \quad i=1, \dots, n $$
+	(Referência: Brezis, Cap. 9).
+	
+	\textbf{Desenvolvimento Formal:} 
+	1. \textbf{Integrabilidade de $u$}: Como $|x| \le 1$ em $B_1(0)$, temos $\int_{B_1(0)} |x|^p dx \le \text{vol}(B_1(0)) < \infty$ para todo $p \ge 1$. Logo, $u \in L^p(U)$.
+	
+	2. \textbf{Derivada Fraca}: A função $u(x) = |x|$ é diferenciável em $U \setminus \{0\}$ com:
+	$$ \nabla u(x) = \frac{x}{|x|} $$
+	Notamos que $|\nabla u(x)| = 1$ quase em toda parte em $U$. Como a função é Lipschitziana com constante $L=1$, sua derivada fraca coincide com a derivada clássica q.t.p. Verificamos a integrabilidade de $\nabla u$:
+	$$ \int_{B_1(0)} |\nabla u|^p dx = \int_{B_1(0)} 1^p dx = \text{vol}(B_1(0)) < \infty $$
+	Para $p = \infty$, temos $\|u\|_{L^\infty} = 1$ e $\|\nabla u\|_{L^\infty} = 1$.
+	
+	Como tanto a função quanto sua derivada fraca possuem norma $L^p$ finita para todo $1 \le p \le \infty$, concluímos que $u \in W^{1,p}(B_1(0))$.
+}

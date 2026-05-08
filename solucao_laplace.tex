@@ -1,0 +1,23 @@
+\questao{Se $U$ é um domínio limitado que satisfaz o teorema do divergente, mostre que existe no máximo uma solução para o problema de Dirichlet:
+	$$ \begin{cases} \Delta u = f(x), & x \in U \\ u = g(x), & x \in \partial U \\ u \text{ em } C^2(U) \cap C^1(\overline{U}). \end{cases} $$}
+
+\solucao{
+	\textbf{Análise do Enunciado:} 
+	O objetivo é provar a unicidade da solução para o problema de Dirichlet. Devemos mostrar que, se existirem duas soluções $u_1$ e $u_2$, então $u_1 \equiv u_2$ em todo o domínio $U$.
+	
+	\textbf{Fundamentação Teórica:} 
+	Utilizaremos o método da energia baseado na Primeira Identidade de Green (Evans, Cap. 2.2). A estratégia consiste em analisar a função diferença $w = u_1 - u_2$.
+	
+	\textbf{Desenvolvimento Formal:} 
+	Sejam $u_1$ e $u_2$ duas soluções do problema. Definimos $w = u_1 - u_2$. Pela linearidade do operador Laplaciano, temos:
+	$$ \Delta w = \Delta u_1 - \Delta u_2 = f(x) - f(x) = 0 \quad \text{em } U $$
+	E nas condições de contorno:
+	$$ w = u_1 - u_2 = g(x) - g(x) = 0 \quad \text{em } \partial U $$
+	Consideramos a integral da energia:
+	$$ \int_U w \Delta w \, dx = 0 $$
+	Aplicando a Primeira Identidade de Green:
+	$$ \int_U w \Delta w \, dx = \int_{\partial U} w \frac{\partial w}{\partial \nu} \, d\sigma - \int_U |\nabla w|^2 \, dx $$
+	Como $w = 0$ em $\partial U$, a integral de superfície anula-se, resultando em:
+	$$ 0 = 0 - \int_U |\nabla w|^2 \, dx \implies \int_U |\nabla w|^2 \, dx = 0 $$
+	Como $|\nabla w|^2 \ge 0$ e $w \in C^1(\overline{U})$, a integral nula implica que $\nabla w \equiv 0$ em $U$. Logo, $w$ é constante em cada componente conexa de $U$. Como $w = 0$ na fronteira $\partial U$, concluímos que $w \equiv 0$ em todo $U$, ou seja, $u_1 = u_2$.
+}

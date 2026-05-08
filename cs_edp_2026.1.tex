@@ -1,0 +1,135 @@
+\documentclass[10pt,a4paper]{article}
+
+% Importação do preâmbulo customizado
+\input{preambulo}
+
+\begin{document}
+\nocite{*}
+	% =============================================================================
+	% CAPA MINIMALISTA
+	% =============================================================================
+	\begin{titlepage}
+		\begin{center}
+			\vspace*{4cm}
+			
+			\rule{\linewidth}{0.5mm} \\[0.4cm]
+			{ \huge \bfseries Caminhos Analíticos e Construção de Soluções em EDP II \\[0.4cm] }
+			\rule{\linewidth}{0.5mm} \\[2cm]
+			
+			\large
+			\textbf{Anselmo Ribeiro Lopes}\\
+			
+			\vfill
+			
+			\large
+			Campina Grande - PB\\
+			2026
+		\end{center}
+	\end{titlepage}
+	
+	% =============================================================================
+	% PREFÁCIO REFLEXIVO E METODOLÓGICO
+	% =============================================================================
+	\section*{Prefácio}
+	\addcontentsline{toc}{section}{Prefácio}
+	
+	Este documento é um registro pessoal de estudos e um processo de aprofundamento na disciplina de \textbf{Equações Diferenciais Parciais II (EDP II)} do semestre \textbf{2026.1}, no \textbf{Programa de Pós-Graduação em Matemática (PPGMAT)} da \textbf{UFCG}, ministrada pelo \textbf{Professor Marco Aurelio Souto}.
+	
+	Mais do que a simples resolução de exercícios, busco aqui visualizar a construção de cada solução, refletindo sobre o 'porquê' e o 'para que' de cada etapa. Compreendo que cada questão, para além do resultado final, carrega fatos matemáticos essenciais e provoca reflexões que são fundamentais para a construção do pensamento matemático. A estruturação deste trabalho segue rigorosamente o fluxo das \textbf{listas de exercícios da disciplina}, fundamentando-se nas discussões em sala de aula e nas referências bibliográficas de \textbf{Lawrence C. Evans, Haim Brezis e Gilbarg \& Trudinger}. Para facilitar a navegação e a compreensão conceitual, optei por organizar o conteúdo em divisões temáticas. Essas divisões não rompem a sequência lógica dos exercícios, mas servem como marcos que agrupam problemas com naturezas e ferramentas semelhantes, permitindo uma visão mais clara da evolução dos temas da disciplina.
+	
+	Para que este método de estudo seja claro, adotei a seguinte organização para cada problema. O fluxo de pensamento é desenhado como uma escada de complexidade, onde cada passo é fundamental para o próximo:
+	
+	\begin{itemize}
+		\item \textbf{Enunciado da Questão:} A transcrição literal do problema, servindo como o ponto de partida e a definição do desafio.
+		\item \textbf{Análise e Fundamentação Teórica:} Identificação dos fatos matemáticos, a base teórica necessária e a reflexão inicial.
+		\item \textbf{Estratégia para Solução:} O roteiro lógico e o plano de ataque para a resolução.
+		\item \textbf{Solução:} O desenvolvimento formal e exaustivo, sem omissões, utilizando linguagem natural e referências cruzadas.
+		\item \textbf{Síntese da Construção:} Um fechamento reflexivo que apresenta a lógica da solução e a lição extraída.
+	\end{itemize}
+	% --- DIAGRAMA TIKZ: A ESCADA DA CONSTRUÇÃO ANALÍTICA (LARGURA OTIMIZADA) ---
+	\begin{center}
+			\begin{tikzpicture}[
+				scale=0.7,
+				node distance=1.2cm,
+				arrow/.style={-Stealth, thick}
+				]
+				% Definição dos passos com xshift reduzido para diminuir a largura total
+				\node (enun) [passo, font=\bfseries, fill=blue!5] {Enunciado da Questão};
+				\node (anal) [passo, font=\bfseries, fill=blue!15, xshift=1.5cm, yshift=1.2cm] {Análise e Fundamentação Teórica};
+				\node (estr) [passo, font=\bfseries, fill=blue!25, xshift=3cm, yshift=2.4cm] {Estratégia para Solução};
+				\node (solu) [passo, font=\bfseries, fill=blue!35, xshift=4.5cm, yshift=3.6cm] {Solução};
+				\node (sint) [passo, font=\bfseries, fill=blue!45, xshift=6cm, yshift=4.8cm] {Síntese da Construção};
+				
+				% 1. SETA ROXA DE SUBIDA (Lado Esquerdo)
+				% Afastada 1cm para a esquerda para manter a harmonia com a nova largura
+				\draw [arrow, blue!45, line width=2pt] 
+				([xshift=-1.7cm]enun.west) -- ([xshift=-1.7cm]sint.west) 
+				node[midway, above left, font=\small\bfseries, blue!45] {Caminho da Construção};
+				
+				% 2. SETA DE RETORNO (Lado Direito)
+				% Reta, afastada 1cm para a direita
+				\draw [arrow, gray, line width=1pt] 
+				([xshift=1.7cm]sint.east) -- ([xshift=1.7cm]enun.east)
+				node[midway, below right, font=\small\bfseries, gray] {Reflexão Analítica};
+				
+			\end{tikzpicture}
+	\end{center}
+	A intenção é explicitar o método e a lógica empregada, transformando a resolução em um exercício de reflexão analítica. Este material não pretende esgotar o assunto nem estabelecer verdades definitivas, mas sim servir como um diário de bordo --- um caminho de pensamento para compreender a estrutura das EDPs e a beleza da sua construção lógica.
+	
+	\vspace{1cm}
+	\begin{center}
+		\small
+		Este material é distribuído sob a \textbf{Licença CC BY-NC-SA 4.0}. \\
+		Sugestões, críticas ou correções são muito bem-vindas via: \href{https://forms.gle/UcBrKWL7YxdXCX7y9}{\textbf{\color{blue!70!black}Formulário de Observações}}
+	\end{center}
+	\begin{flushright}
+		\textit{Campina Grande, \today} \\
+		\textbf{Anselmo Ribeiro Lopes}
+	\end{flushright}
+	
+	\newpage
+	
+	% =============================================================================
+	% SUMÁRIO
+	% =============================================================================
+	\tableofcontents
+	\newpage
+	
+	% =============================================================================
+	% CORPO DO TRABALHO (FLUXO CONTÍNUO)
+	% =============================================================================
+	
+	\section{Equação do Transporte}
+	\def\listid{L1} 
+	\setcounter{numquestao}{0} 
+	\input{solucao_eqtransporte.tex}
+	
+	\section{Equação de Laplace}
+	\def\listid{L2} 
+	\setcounter{numquestao}{0} 
+	\input{solucao_laplace.tex}
+	
+	\section{Equação do Calor}
+	\def\listid{L3} 
+	\setcounter{numquestao}{0} 
+	\input{solucao_eqcalor.tex}
+	
+	\section{Equação da Onda}
+	\def\listid{L4} 
+	\setcounter{numquestao}{74} 
+	\input{solucao_eqonda.tex}
+	
+	\section{Espaços de Sobolev}
+	\def\listid{L5} 
+	\setcounter{numquestao}{0} 
+	\input{solucao_sobolev.tex}
+	
+	\newpage
+	% =============================================================================
+	% BIBLIOGRAFIA
+	% =============================================================================
+	% Esta linha adiciona a Bibliografia ao Sumário (ToC)
+	\addcontentsline{toc}{section}{Referências Bibliográficas} 
+	\printbibliography[title={Referências Bibliográficas}]
+	
+\end{document}

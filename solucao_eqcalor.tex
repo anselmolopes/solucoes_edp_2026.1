@@ -1,0 +1,27 @@
+\questao{Suponha que $u = u(x,t)$ é a solução da equação do calor:
+	$$ \begin{cases} u_t - \Delta u = 0, & \text{em } \mathbb{R}^n \times (0, \infty) \\ u(x,0) = g(x), & \text{para } x \in \mathbb{R}^n. \end{cases} $$
+	Mostre que:
+	(a) $\hat{u}_t(y,t) = -|y|^2 \hat{u}(y,t)$ e $\hat{u}(y,0) = \hat{g}(y)$;
+	(b) Conclua que $\hat{u}(y,t) = e^{-|y|^2 t} \hat{g}(y)$.}
+
+\solucao{
+	\textbf{Análise do Enunciado:} 
+	O problema solicita a resolução da equação do calor no espaço infinito utilizando a Transformada de Fourier no espaço espacial $x$. O objetivo é converter a EDP em uma EDO no tempo $t$ para cada frequência $y$.
+	
+	\textbf{Fundamentação Teórica:} 
+	Utilizaremos as propriedades da Transformada de Fourier $\mathcal{F}\{u\}(y,t) = \hat{u}(y,t)$. A propriedade fundamental é que $\mathcal{F}\{\Delta u\} = -|y|^2 \hat{u}$ (Evans, Cap. 2.3).
+	
+	\textbf{Desenvolvimento Formal:} 
+	Aplicamos a Transformada de Fourier em ambos os lados da equação $u_t - \Delta u = 0$ em relação a $x$:
+	$$ \mathcal{F}\{u_t\} - \mathcal{F}\{\Delta u\} = 0 $$
+	Assumindo que a derivada em $t$ pode ser trocada com a integral da transformada:
+	$$ \frac{\partial}{\partial t} \hat{u}(y,t) - (-|y|^2 \hat{u}(y,t)) = 0 \implies \hat{u}_t(y,t) = -|y|^2 \hat{u}(y,t) $$
+	Para a condição inicial, temos:
+	$$ \hat{u}(y,0) = \mathcal{F}\{u(x,0)\} = \mathcal{F}\{g(x)\} = \hat{g}(y) $$
+	Isto prova o item (a). Para o item (b), observamos que para cada $y$ fixo, temos uma EDO linear de primeira ordem em $t$:
+	$$ \frac{d\hat{u}}{dt} = -|y|^2 \hat{u} $$
+	A solução geral desta EDO é:
+	$$ \hat{u}(y,t) = C(y) e^{-|y|^2 t} $$
+	Aplicando a condição inicial $\hat{u}(y,0) = \hat{g}(y)$, obtemos $C(y) = \hat{g}(y)$. Portanto:
+	$$ \hat{u}(y,t) = e^{-|y|^2 t} \hat{g}(y) $$
+}

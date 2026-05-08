@@ -1,0 +1,23 @@
+\questao{Resolva a seguinte equação linear de primeira ordem
+	$$ \begin{cases} u_t + a \cdot \nabla u = u, & \text{em } \mathbb{R}^n \times \mathbb{R} \\ u(x,0) = g(x), & \text{quando } x \in \mathbb{R}^n. \end{cases} $$
+	Que condições devemos impôr à função $g$ para obtermos soluções clássicas?}
+
+\solucao{
+	\textbf{Análise do Enunciado:} 
+	O problema apresenta uma EDP linear de primeira ordem com um termo de fonte dependente de $u$. Buscamos a solução $u(x,t)$ dado um perfil inicial $g(x)$. O objetivo é determinar a solução e a regularidade necessária de $g$ para que $u$ seja de classe $C^1$.
+	
+	\textbf{Fundamentação Teórica:} 
+	Utilizaremos o Método das Características (Evans, Cap. 2.2). Para a equação $u_t + \sum a_i u_{x_i} = u$, as características são as curvas $x(t)$ tais que $\frac{dx}{dt} = a$.
+	
+	\textbf{Desenvolvimento Formal:} 
+	Definimos o sistema de equações diferenciais ordinárias (EDOs) para as características:
+	$$ \frac{dx}{dt} = a \implies x(t) = at + x_0 $$
+	$$ \frac{du}{dt} = u $$
+	Resolvendo a segunda EDO:
+	$$ \ln(u) = t + C \implies u(t) = u(0)e^t $$
+	Utilizando a condição inicial $u(x_0, 0) = g(x_0)$, temos:
+	$$ u(x(t), t) = g(x_0)e^t $$
+	Como $x_0 = x - at$, substituímos para obter a solução geral:
+	$$ u(x, t) = g(x - at)e^t $$
+	Para que a solução seja clássica ($u \in C^1$), devemos exigir que a função $g$ seja de classe $C^1(\mathbb{R}^n)$, visto que as derivadas parciais de $u$ envolverão as derivadas de $g$ via regra da cadeia.
+}
