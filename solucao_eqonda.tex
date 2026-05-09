@@ -1,91 +1,91 @@
 \documentclass[cs_edp_2026.1.tex]{subfiles} % Aponta para o pai
 \begin{document}
 	
-% CONFIGURAÇÃO PARA COMPILAÇÃO INDIVIDUAL
-\ifSubfilesClassLoaded{
-	\def\listid{L4}
-	\setcounter{numquestao}{74}
-	\section*{Equação da Onda} % Adiciona o título apenas na compilação isolada
-}{}
+	% CONFIGURAÇÃO PARA COMPILAÇÃO INDIVIDUAL
+	\ifSubfilesClassLoaded{
+		\def\listid{L4}
+		\setcounter{numquestao}{74}
+		\section*{Equação da Onda} % Adiciona o título apenas na compilação isolada
+	}{}
 	
-\questao{(De volta a equação de transporte)
-	\begin{enumerate}[label=(\alph*)]
-		\item Suponha que se $v = v(x, t)$ satisfaz a equação de transporte homogênea $v_t + v_x = 0$ em $\mathbb{R} \times [0, \infty)$; $v(x, 0) = g(x); x \in \mathbb{R}$; então $v = g(x - t)$;
-		\item Se $w = w(x, t)$ satisfaz a equação não homogênea de transporte $w_t - w_x = f(x, t)$ em $\mathbb{R} \times [0, \infty)$; $w(x, 0) = 0; x \in \mathbb{R}$; então 
-		$$ w(x, t) = \int_0^t f(x + t - s, s) ds; $$
-		(aqui tem o princípio de Duhamel)
-		\item Se $f(x, t) = g(x - t)$ em (b), então 
-		$$ w(x, t) = \int_0^t g(x + t - 2s) ds = \frac{1}{2} \int_{x-t}^{x+t} g(s) ds = \frac{1}{2} [G(x + t) - G(x - t)]; $$
-		onde $G$ é uma primitiva de $g$.
-		\item Considere $u$ uma solução de classe $C^2$ da equação da onda homogênea: $u_{tt} - u_{xx} = 0$ em $\mathbb{R} \times [0, \infty)$; $u(x, 0) = g(x); u_t(x, 0) = h(x); x \in \mathbb{R}$. Mostre que $v(x, t) = u_t - u_x$ satisfaz a equação de transporte do item (a), com $v(x, 0) = g'(x) + h(x)$, e conclua que $v(x, t) = g'(x - t) + h(x - t)$;
-		\item Veja então que $u$ satisfaz a equação não homogênea $u_t - u_x = g'(x - t) + h(x - t)$ em $\mathbb{R} \times [0, \infty)$; $u(x, 0) = g(x)$;
-		\item Conclua que 
-		$$ u(x, t) = \frac{1}{2} \int_{x-t}^{x+t} h(s) ds + \frac{1}{2} [g(x + t) + g(x - t)]. $$
-	\end{enumerate}
-}
-
-\analise{
-	\textbf{Análise do Enunciado:} Esta questão foi estruturada como um roteiro de construção analítica. O objetivo não é apenas encontrar a solução final, mas derivar a fórmula de d'Alembert para a equação da onda através de etapas intermediárias. A lógica consiste em utilizar a teoria de equações de transporte (de 1\f ordem) para resolver a equação da onda (de 2\m ordem). Assim, cada item, de (a) a (e), atua como um lema necessário para a conclusão final no item (f). As hipóteses centrais são a regularidade $u \in C^2$ no domínio $\mathbb{R} \times [0, \infty)$ e as condições iniciais clássicas $u(x,0) = g(x)$ e $u_t(x,0) = h(x)$.
+	%%%% QUESTÃO 75 %%%%
+	\questao{(De volta a equação de transporte)
+		\begin{enumerate}[label=(\alph*)]
+			\item Suponha que se $v = v(x, t)$ satisfaz a equação de transporte homogênea $v_t + v_x = 0$ em $\mathbb{R} \times [0, \infty)$; $v(x, 0) = g(x); x \in \mathbb{R}$; então $v = g(x - t)$;
+			\item Se $w = w(x, t)$ satisfaz a equação não homogênea de transporte $w_t - w_x = f(x, t)$ em $\mathbb{R} \times [0, \infty)$; $w(x, 0) = 0; x \in \mathbb{R}$; então 
+			$$ w(x, t) = \int_0^t f(x + t - s, s) ds; $$
+			(aqui tem o princípio de Duhamel)
+			\item Se $f(x, t) = g(x - t)$ em (b), então 
+			$$ w(x, t) = \int_0^t g(x + t - 2s) ds = \frac{1}{2} \int_{x-t}^{x+t} g(s) ds = \frac{1}{2} [G(x + t) - G(x - t)]; $$
+			onde $G$ é uma primitiva de $g$.
+			\item Considere $u$ uma solução de classe $C^2$ da equação da onda homogênea: $u_{tt} - u_{xx} = 0$ em $\mathbb{R} \times [0, \infty)$; $u(x, 0) = g(x); u_t(x, 0) = h(x); x \in \mathbb{R}$. Mostre que $v(x, t) = u_t - u_x$ satisfaz a equação de transporte do item (a), com $v(x, 0) = g'(x) + h(x)$, e conclua que $v(x, t) = g'(x - t) + h(x - t)$;
+			\item Veja então que $u$ satisfaz a equação não homogênea $u_t - u_x = g'(x - t) + h(x - t)$ em $\mathbb{R} \times [0, \infty)$; $u(x, 0) = g(x)$;
+			\item Conclua que 
+			$$ u(x, t) = \frac{1}{2} \int_{x-t}^{x+t} h(s) ds + \frac{1}{2} [g(x + t) + g(x - t)]. $$
+	\end{enumerate}}
 	
-	\par\textbf{Fundamentação Teórica:} A base para a resolução é o Método das Características (Evans, Cap. 2.2), onde a solução de $u_t + c u_x = 0$ é constante ao longo das retas $x - ct = \text{constante}$. Para a parte não homogênea, aplicamos o Princípio de Duhamel (Evans, Cap. 2.3), que trata a fonte externa como uma sucessão de impulsos que geram novas condições iniciais ao longo do tempo. Por fim, utilizamos a fatoração do operador de onda $\partial_{tt} - \partial_{xx} = (\partial_t - \partial_x)(\partial_t + \partial_x)$, o que justifica a introdução de variáveis auxiliares para reduzir a ordem da EDP.
+	\analise{
+		\textbf{Análise do Enunciado:} Esta questão foi estruturada como um roteiro de construção analítica. O objetivo não é apenas encontrar a solução final, mas derivar a fórmula de d'Alembert para a equação da onda através de etapas intermediárias. A lógica consiste em utilizar a teoria de equações de transporte (de 1\f ordem) para resolver a equação da onda (de 2\m ordem). Assim, cada item, de (a) a (e), atua como um lema necessário para a conclusão final no item (f), estabelecendo a ponte entre a propagação de ondas unidirecionais e a solução geral da equação da onda. As hipóteses centrais são a regularidade $u \in C^2$ no domínio $\mathbb{R} \times [0, \infty)$ e as condições iniciais clássicas $u(x,0) = g(x)$ e $u_t(x,0) = h(x)$.
+		
+		\par\textbf{Fundamentação Teórica:} Utilizamos o Método das Características (Evans, Cap. 2.2), onde a solução de $u_t + c u_x = 0$ é constante ao longo das retas $x - ct = \text{constante}$. Para a parte não homogênea, aplicamos o Princípio de Duhamel (Evans, Cap. 2.3), que trata a fonte externa como uma sucessão de impulsos que geram novas condições iniciais ao longo do tempo. A base para a redução da equação da onda é a fatoração do operador $\partial_{tt} - \partial_{xx}$ no produto $(\partial_t - \partial_x)(\partial_t + \partial_x)$.
+		
+		\par\textbf{Estratégias:} Começamos resolvendo a equação de transporte homogênea e a não homogênea via características. Em seguida, definimos a variável auxiliar $v = u_t - u_x$ para reduzir a ordem da equação da onda. Por fim, integramos a solução via Princípio da Superposição, somando a parte homogênea e a particular.
+	}
 	
-	\par\textbf{Estratégias:} O plano de ataque consiste em resolver a equação de transporte homogênea no item (a) e a não homogênea no item (b). No item (d), definiremos a variável auxiliar $v = u_t - u_x$ para transformar a equação da onda em uma de transporte. Em seguida, interpretaremos $u$ no item (e) como um problema de transporte não homogêneo. Finalmente, aplicaremos o Princípio da Superposição no item (f), somando a solução homogênea e a particular para chegar à fórmula de d'Alembert.
-}
-
-\solucao{
-	\textbf{(a)} Começamos com a equação $v_t + v_x = 0$. Definimos a curva característica por $\frac{dx}{dt} = 1$. Integrando, temos $x(t) = t + x_0$, ou $x_0 = x - t$. Ao longo dessa curva, a variação de $v$ é:
-	$$ \frac{d}{dt} v(x(t), t) = v_t + \frac{dx}{dt}v_x = v_t + v_x $$
-	Como a equação nos diz que $v_t + v_x = 0$, temos $\frac{d}{dt} v(x(t), t) = 0$, o que significa que $v$ é constante ao longo da característica. Assim, $v(x, t) = v(x_0, 0)$. Substituindo $x_0$ e a condição inicial $v(x,0) = g(x)$, chegamos a:
-	$$ v(x, t) = g(x - t) $$
+	\solucao{
+		\textbf{(a)} Começamos com a equação $v_t + v_x = 0$. Definimos a curva característica por $\tfrac{dx}{dt} = 1$. Integrando, temos $x(t) = t + x_0$, ou $x_0 = x - t$. Ao longo dessa curva, a variação de $v$ é:
+		$$ \frac{d}{dt} v(x(t), t) = \frac{\partial v}{\partial x} \frac{dx}{dt} + \frac{\partial v}{\partial t} = v_x(1) + v_t = v_t + v_x $$
+		Como a equação nos diz que $v_t + v_x = 0$, temos $\frac{d}{dt} v(x(t), t) = 0$, o que significa que $v$ é constante ao longo da característica. Assim, $v(x, t) = v(x_0, 0)$. Substituindo $x_0$ e a condição inicial $v(x,0) = g(x)$, chegamos a:
+		$$ \boxed{v(x, t) = g(x - t) \quad (\ast)} $$
+		
+		\textbf{(b)} Agora analisamos $w_t - w_x = f(x, t)$ com $w(x,0) = 0$. As características são $\tfrac{dx}{ds} = -1$, logo $x(s) = x + t - s$. Calculando a derivada de $w$ ao longo dessa curva:
+		$$ \frac{d}{ds} w(x + t - s, s) = -w_x + w_s = f(x + t - s, s) $$
+		Integrando de $s=0$ até $s=t$:
+		$$ \int_0^t \frac{d}{ds} w(x + t - s, s) ds = \int_0^t f(x + t - s, s) ds $$
+		$$ w(x, t) - w(x+t, 0) = \int_0^t f(x + t - s, s) ds $$
+		Como $w(x,0) = 0$, a solução é:
+		$$ \boxed{w(x, t) = \int_0^t f(x + t - s, s) ds \quad (\ast\ast)} $$
+		
+		\textbf{(c)} Usamos o resultado $(\ast\ast)$ com a fonte $f(x, t) = g(x - t)$:
+		$$ w(x, t) = \int_0^t g((x + t - s) - s) ds = \int_0^t g(x + t - 2s) ds $$
+		Fazemos a mudança de variável $\sigma = x + t - 2s$, com $d\sigma = -2 ds$. Os limites mudam para $s=0 \to \sigma=x+t$ e $s=t \to \sigma=x-t$. A integral fica:
+		$$ w(x, t) = \int_{x+t}^{x-t} g(\sigma) \left( -\tfrac{1}{2} \right) d\sigma = \tfrac{1}{2} \int_{x-t}^{x+t} g(\sigma) d\sigma = \tfrac{1}{2} [G(x + t) - G(x - t)] $$
+		
+		\textbf{(d)} Seja $v = u_t - u_x$. Calculamos as derivadas parciais:
+		$$ v_t = u_{tt} - u_{tx} \quad \text{e} \quad v_x = u_{tx} - u_{xx} $$
+		Somando as duas, temos $v_t + v_x = u_{tt} - u_{xx}$. Como $u$ resolve a equação da onda homogênea, $u_{tt} - u_{xx} = 0$, logo $v_t + v_x = 0$. Para a condição inicial:
+		$$ v(x, 0) = u_t(x, 0) - u_x(x, 0) = h(x) - g'(x) $$
+		\textit{Nota: O PDF indica $g'(x)+h(x)$, mas a dedução rigorosa dá $h(x)-g'(x)$. Usaremos o sinal correto para a consistência de (f).}
+		
+		\vspace{0.2cm}
+		Observamos que a equação $v_t + v_x = 0$ com dado inicial $v(x,0) = h(x) - g'(x)$ é idêntica à estrutura resolvida no item (a). Portanto, aplicando a solução $(\ast)$, temos:
+		$$ v(x, t) = h(x - t) - g'(x - t) $$
+		
+		\textbf{(e)} Pela definição de $v$ no item (d), temos:
+		$$ u_t - u_x = v(x, t) = h(x - t) - g'(x - t) $$
+		com $u(x, 0) = g(x)$. Esta é a equação de transporte não homogênea do item (b), cuja solução geral é dada por $(\ast\ast)$.
+		
+		\textbf{(f)} Para achar $u$, usamos o Princípio da Superposição, somando a solução homogênea $u_h$ e a particular $u_p$ ($u = u_h + u_p$).
+		Para $u_h$, resolvemos $u_t - u_x = 0$ com $u(x,0) = g(x)$. Pelas características $\tfrac{dx}{dt} = -1$, temos $u_h(x, t) = g(x + t)$.
+		Para $u_p$, resolvemos $u_t - u_x = f$ com $u(x,0) = 0$. Usando o resultado $(\ast\ast)$ com $f(x, s) = h(x - s) - g'(x - s)$:
+		$$ u_p = \int_0^t [h(x + t - 2s) - g'(x + t - 2s)] ds $$
+		Fazendo $\sigma = x + t - 2s$ ($ds = -\tfrac{1}{2} d\sigma$), temos:
+		$$ u_p = \tfrac{1}{2} \int_{x-t}^{x+t} h(\sigma) d\sigma - \tfrac{1}{2} \int_{x-t}^{x+t} g'(\sigma) d\sigma = \tfrac{1}{2} \int_{x-t}^{x+t} h(\sigma) d\sigma - \tfrac{1}{2} [g(x + t) - g(x - t)] $$
+		Somando $u_h$ e $u_p$:
+		$$ u(x, t) = g(x + t) + \tfrac{1}{2} \int_{x-t}^{x+t} h(s) ds - \tfrac{1}{2} g(x + t) + \tfrac{1}{2} g(x - t) $$
+		Simplificando, chegamos à fórmula de d'Alembert:
+		$$ \boxed{u(x, t) = \tfrac{1}{2} [g(x + t) + g(x - t)] + \tfrac{1}{2} \int_{x-t}^{x+t} h(s) ds \quad (\ast\ast\ast)} $$
+	}
 	
-	\textbf{(b)} Agora analisamos $w_t - w_x = f(x, t)$ com $w(x,0) = 0$. As características são $\frac{dx}{ds} = -1$. Para atingir o ponto $(x, t)$, a trajetória é $x(s) = x + t - s$. Calculando a derivada de $w$ ao longo dessa curva:
-	$$ \frac{d}{ds} w(x + t - s, s) = w_s - w_x $$
-	Pela equação, $w_s - w_x = f(x + t - s, s)$. Integrando de $s=0$ até $s=t$:
-	$$ \int_0^t \frac{d}{ds} w(x + t - s, s) ds = \int_0^t f(x + t - s, s) ds $$
-	$$ w(x, t) - w(x+t, 0) = \int_0^t f(x + t - s, s) ds $$
-	Como $w(x,0) = 0$, temos $w(x, t) = \int_0^t f(x + t - s, s) ds$. Este resultado é a aplicação direta do \textbf{Princípio de Duhamel}, onde a solução do problema não homogêneo é construída integrando a fonte $f$ como se fossem sucessivos dados iniciais.
+	\sintese{
+		A resolução desta questão demonstra que a equação da onda é a superposição de dois fluxos de transporte em direções opostas. A \textbf{Construção Analítica} do raciocínio pode ser resumida no seguinte fluxo:
+		
+		\begin{center}
+			$\text{Item (a)} \longrightarrow \text{Item (d)} \longrightarrow \text{Item (e)} \longrightarrow \text{Item (f)}$ \\
+			$\text{Item (b)} \longrightarrow \text{Item (f)}$
+		\end{center}
+		
+		O resultado do Item (a) fornece a técnica de solução para a direita, usada no Item (d) para descobrir a variável auxiliar $v$. O resultado do Item (b) fornece a solução para o transporte não homogêneo, usada no Item (f) para reconstruir a solução completa de d'Alembert.
+	}
 	
-	\textbf{(c)} Usamos o resultado de (b) com a fonte $f(x, t) = g(x - t)$:
-	$$ w(x, t) = \int_0^t g((x + t - s) - s) ds = \int_0^t g(x + t - 2s) ds $$
-	Fazemos a mudança de variável $\sigma = x + t - 2s$, com $d\sigma = -2 ds$. Os limites mudam para $s=0 \to \sigma=x+t$ e $s=t \to \sigma=x-t$. A integral fica:
-	$$ w(x, t) = \int_{x+t}^{x-t} g(\sigma) \left( -\frac{1}{2} \right) d\sigma = \frac{1}{2} \int_{x-t}^{x+t} g(\sigma) d\sigma $$
-	Se $G$ é a primitiva de $g$, temos $w(x, t) = \frac{1}{2} [G(x + t) - G(x - t)]$.
-	
-	\textbf{(d)} Seja $v = u_t - u_x$. Calculamos as derivadas parciais:
-	$$ v_t = u_{tt} - u_{tx} \quad \text{e} \quad v_x = u_{tx} - u_{xx} $$
-	Somando as duas, temos $v_t + v_x = u_{tt} - u_{xx}$. Como $u$ resolve a equação da onda homogênea, $u_{tt} - u_{xx} = 0$, logo $v_t + v_x = 0$. Para a condição inicial:
-	$$ v(x, 0) = u_t(x, 0) - u_x(x, 0) = h(x) - g'(x) $$
-	\textit{Nota: O PDF indica $g'(x)+h(x)$, mas a dedução rigorosa dá $h(x)-g'(x)$. Usaremos o sinal correto para a consistência de (f).}
-	
-	\vspace{0.2cm}
-	Agora, observemos que a equação $v_t + v_x = 0$ com dado inicial $v(x,0) = h(x) - g'(x)$ é idêntica à estrutura resolvida no item (a). Portanto, a solução para $v$ é a translação do seu dado inicial:
-	$$ v(x, t) = h(x - t) - g'(x - t) $$
-	
-	\textbf{(e)} Pela definição de $v$ no item (d), temos:
-	$$ u_t - u_x = v(x, t) = h(x - t) - g'(x - t) $$
-	com $u(x, 0) = g(x)$. Esta é a equação de transporte não homogênea do item (b) com fonte $f(x, t) = h(x - t) - g'(x - t)$.
-	
-	\textbf{(f)} Para achar $u$, usamos o Princípio da Superposição, somando a solução homogênea $u_h$ e a particular $u_p$ ($u = u_h + u_p$).
-	Para $u_h$, resolvemos $u_t - u_x = 0$ com $u(x,0) = g(x)$. Pelas características $\frac{dx}{dt} = -1$, temos $u_h(x, t) = g(x + t)$.
-	Para $u_p$, resolvemos $u_t - u_x = f$ com $u(x,0) = 0$. Usando o resultado de (b) com $f(x, s) = h(x - s) - g'(x - s)$:
-	$$ u_p = \int_0^t [h(x + t - 2s) - g'(x + t - 2s)] ds $$
-	Fazendo $\sigma = x + t - 2s$ ($ds = -\frac{1}{2} d\sigma$), temos:
-	$$ u_p = \frac{1}{2} \int_{x-t}^{x+t} h(\sigma) d\sigma - \frac{1}{2} \int_{x-t}^{x+t} g'(\sigma) d\sigma = \frac{1}{2} \int_{x-t}^{x+t} h(\sigma) d\sigma - \frac{1}{2} [g(x + t) - g(x - t)] $$
-	Somando $u_h$ e $u_p$:
-	$$ u(x, t) = g(x + t) + \frac{1}{2} \int_{x-t}^{x+t} h(s) ds - \frac{1}{2} g(x + t) + \frac{1}{2} g(x - t) $$
-	Simplificando, chegamos à fórmula de d'Alembert:
-	$$ u(x, t) = \frac{1}{2} [g(x + t) + g(x - t)] + \frac{1}{2} \int_{x-t}^{x+t} h(s) ds $$
-}
-
-\sintese{
-	A resolução desta questão demonstra que a equação da onda é a superposição de dois fluxos de transporte em direções opostas. A "Grande Montagem" do raciocínio pode ser resumida no seguinte fluxo:
-	
-	\begin{center}
-		$\text{Item (a)} \longrightarrow \text{Item (d)} \longrightarrow \text{Item (e)} \longrightarrow \text{Item (f)}$ \\
-		$\text{Item (b)} \longrightarrow \text{Item (f)}$
-	\end{center}
-	
-	O item (a) fornece a técnica de solução para a direita, usada no item (d) para descobrir a variável auxiliar $v$. Esta variável $v$ torna-se a fonte de um transporte para a esquerda no item (e). Finalmente, no item (f), unimos a solução homogênea (do transporte para a esquerda) com a solução particular (via Duhamel, baseada no item b) para reconstruir a solução completa de d'Alembert.
-}
-
 \end{document}
