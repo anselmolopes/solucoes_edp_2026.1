@@ -24,6 +24,7 @@ Para garantir a clareza e a reprodutibilidade do raciocínio, cada problema é r
 3. **Estratégia para Solução:** O roteiro lógico e o plano de ataque antes da execução formal.
 4. **Solução:** O desenvolvimento exaustivo e rigoroso, sem omissões e com referências cruzadas.
 5. **Síntese da Construção:** Um fechamento reflexivo sobre a lógica da montagem e a lição extraída.
+6. **Aprofundamento Teórico:** Espaço dedicado a reflexões extensas, conexões com teoremas avançados, discussões sobre regularidade em espaços de Sobolev ou generalizações do problema.
 
 ---
 
@@ -47,6 +48,7 @@ No arquivo `preambulo.tex`, implementei "interruptores" lógicos que permitem ge
 
 - `\setbool{showanalise}{true/false}` $\rightarrow$ Controla a exibição da **Análise e Fundamentação**.
 - `\setbool{showsintese}{true/false}` $\rightarrow$ Controla a exibição da **Síntese da Construção**.
+-  `\setbool{showaprofundamento}{true/false}` $\longrightarrow$ Controla a exibição do **Aprofundamento**.
 
 ---
 
