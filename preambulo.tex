@@ -58,6 +58,11 @@
 \everymath{\displaystyle}
 \pagestyle{empty}
 \setlength{\overfullrule}{5pt} % Desenha uma barra de 5pt no final de hboxes
+\newcommand{\linhaestilizada}{ % Comando para a linha estilizada
+	\begin{center}
+		\rule{0.3\textwidth}{0.4pt} $\diamond$ \rule{0.3\textwidth}{0.4pt}
+	\end{center}
+}
 
 % =============================================================================
 % SISTEMA DE CONTROLE DE VISIBILIDADE (INTERRUPTORES)
@@ -69,6 +74,9 @@
 
 \newbool{showsintese}
 \setbool{showsintese}{true} % Controla a exibição da \sintese
+
+\newbool{showaprofundamento} 
+\setbool{showaprofundamento}{true} % Controla a exibição da \aprofundamento
 
 % =============================================================================
 % COMANDOS ESTRUTURAIS DO PROJETO
@@ -127,19 +135,7 @@
 	}{}%
 }
 
-% --- Configuração para Resultados Extras (Aprofundamento) ---
-
-\newbool{showaprofundamento} 
-\setbool{showaprofundamento}{true} % Altere para 'false' para ocultar
-
-% Comando para a linha estilizada
-\newcommand{\linhaestilizada}{%
-	\begin{center}
-		\rule{0.3\textwidth}{0.4pt} $\diamond$ \rule{0.3\textwidth}{0.4pt}
-	\end{center}
-}
-
-% Definição do comando \resultadoextra
+% 6. Aprofundamento: O ambiente para discussões mais aprofundadas e generalizações
 \newcommand{\aprofundamento}[1]{%
 	\ifbool{showaprofundamento}{%
 		\linhaestilizada
