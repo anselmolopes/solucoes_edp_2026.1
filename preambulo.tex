@@ -17,8 +17,10 @@
 % --- Tikz e Referências ---
 
 \usepackage{csquotes} % Elimina o aviso do babel
-\usepackage{tikz} 
+\usepackage{tikz}
 \usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 \tikzset{
 	passo/.style={
 		rectangle, 
@@ -55,6 +57,7 @@
 \binoppenalty=10000
 \everymath{\displaystyle}
 \pagestyle{empty}
+\setlength{\overfullrule}{5pt} % Desenha uma barra de 5pt no final de hboxes
 
 % =============================================================================
 % SISTEMA DE CONTROLE DE VISIBILIDADE (INTERRUPTORES)
@@ -124,6 +127,29 @@
 	}{}%
 }
 
+% --- Configuração para Resultados Extras (Aprofundamento) ---
+
+\newbool{showaprofundamento} 
+\setbool{showaprofundamento}{true} % Altere para 'false' para ocultar
+
+% Comando para a linha estilizada
+\newcommand{\linhaestilizada}{%
+	\begin{center}
+		\rule{0.3\textwidth}{0.4pt} $\diamond$ \rule{0.3\textwidth}{0.4pt}
+	\end{center}
+}
+
+% Definição do comando \resultadoextra
+\newcommand{\aprofundamento}[1]{%
+	\ifbool{showaprofundamento}{%
+		\linhaestilizada
+		\nopagebreak % Tenta evitar quebra de página logo após a linha
+		\subsection*{\underline{Aprofundamento Teórico}}
+		#1
+		\par\vspace{0.5em}
+		\linhaestilizada
+	}{}%
+}
 % =============================================================================
 % OPERADORES E NOTAÇÃO DE ANÁLISE
 % =============================================================================
