@@ -26,13 +26,18 @@
 \end{enumerate}}
 
 \analise{
-	\textbf{Análise do Enunciado:} Esta questão foi estruturada como um roteiro de construção analítica. O objetivo não é apenas encontrar a solução final, mas derivar a fórmula de d'Alembert para a equação da onda através de etapas intermediárias. A lógica consiste em utilizar a teoria de equações de transporte (de 1\f ordem) para resolver a equação da onda (de 2\m ordem). Assim, cada item, de (a) a (e), atua como um lema necessário para a conclusão final no item (f), estabelecendo a ponte entre a propagação de ondas unidirecionais e a solução geral da equação da onda. As hipóteses centrais são a regularidade $u \in C^2$ no domínio $\mathbb{R} \times [0, \infty)$ e as condições iniciais clássicas $u(x,0) = g(x)$ e $u_t(x,0) = h(x)$.
+	\textbf{Análise do Enunciado:} Esta questão foi estruturada como um roteiro de construção analítica. O objetivo não é apenas encontrar a solução final, mas derivar a fórmula de d'Alembert para a equação da onda através de etapas intermediárias. A lógica consiste em utilizar a teoria de equações de transporte (de 1\f ordem) para resolver a equação da onda (de 2\f ordem). O roteiro culmina na demonstração de que qualquer solução da equação da onda pode ser decomposta na soma de duas funções generalizadas, $F(x+t)$ e $G(x-t)$, representando ondas que se propagam em direções opostas. As hipóteses centrais são a regularidade $u \in C^2$ no domínio $\mathbb{R} \times [0, \infty)$ e as condições iniciais clássicas $u(x,0) = g(x)$ e $u_t(x,0) = h(x)$.
 	
 	\par\textbf{Fundamentação Teórica:} Utilizamos o Método das Características (Evans, Cap. 2.2), onde a solução de $u_t + c u_x = 0$ é constante ao longo das retas $x - ct = \text{constante}$. Para a parte não homogênea, aplicamos o Princípio de Duhamel (Evans, Cap. 2.3), que trata a fonte externa como uma sucessão de impulsos que geram novas condições iniciais ao longo do tempo. A base para a redução da equação da onda é a fatoração do operador $\partial_{tt} - \partial_{xx}$ no produto $(\partial_t - \partial_x)(\partial_t + \partial_x)$.
 	
-	\par\textbf{Estratégias:} Começamos resolvendo a equação de transporte homogênea e a não homogênea via características. Em seguida, definimos a variável auxiliar $v = u_t - u_x$ para reduzir a ordem da equação da onda. Por fim, integramos a solução via Princípio da Superposição, somando a parte homogênea e a particular.
+	\par\textbf{Estratégias:} 
+	\begin{enumerate}
+		\item Resolver a equação de transporte homogênea e a não homogênea via características.
+		\item Definir a variável auxiliar $v = u_t - u_x$ para reduzir a ordem da equação da onda.
+		\item Integrar a solução via Princípio da Superposição, somando a parte homogênea e a particular para chegar à fórmula de d'Alembert.
+		\item Utilizar o Teorema Fundamental do Cálculo para expressar a integral de $h$ via sua primitiva $H$, permitindo a decomposição final em $F(x+t) + G(x-t)$.
+	\end{enumerate}
 }
-
 \solucao{
 	\textbf{(a)} Começamos com a equação $v_t + v_x = 0$. Definimos a curva característica por $\tfrac{dx}{dt} = 1$. Integrando, temos $x(t) = t + x_0$, ou $x_0 = x - t$. Ao longo dessa curva, a variação de $v$ é:
 	$$ \frac{d}{dt} v(x(t), t) = \frac{\partial v}{\partial x} \frac{dx}{dt} + \frac{\partial v}{\partial t} = v_x(1) + v_t = v_t + v_x $$
@@ -94,14 +99,10 @@
 }
 
 \sintese{
-	A resolução desta questão demonstra que a equação da onda é a superposição de dois fluxos de transporte em direções opostas. A \textbf{Construção Analítica} do raciocínio pode ser resumida no seguinte fluxo:
-	
+	A resolução desta questão demonstra que a equação da onda é a superposição de dois fluxos de transporte em direções opostas. A \textbf{Construção Analítica} revelou que a solução complexa $u(x,t)$ pode ser simplificada na forma $F(x+t) + G(x-t)$, onde $F$ e $G$ são determinados inteiramente pelos dados iniciais de posição ($g$) e velocidade ($h$). Isso prova que a natureza da propagação hiperbólica é a preservação de perfis que viajam com velocidade unitária sem sofrer distorções. O fluxo lógico foi:
 	\begin{center}
-		$\text{Item (a)} \longrightarrow \text{Item (d)} \longrightarrow \text{Item (e)} \longrightarrow \text{Item (f)}$ \\
-		$\text{Item (b)} \longrightarrow \text{Item (f)}$
+		$\text{Transporte Homogêneo} \longrightarrow \text{Princípio de Duhamel} \longrightarrow \text{Variável Auxiliar } v \longrightarrow $ \\ $\longrightarrow \text{Fórmula de d'Alembert} \longrightarrow \text{Decomposição em Ondas Viajantes}$
 	\end{center}
-	
-	O resultado do Item (a) fornece a técnica de solução para a direita, usada no Item (d) para descobrir a variável auxiliar $v$. O resultado do Item (b) fornece a solução para o transporte não homogêneo, usada no Item (f) para reconstruir a solução completa de d'Alembert.
 }
 	
 %%%% QUESTÃO 76 %%%
@@ -546,79 +547,59 @@
 }
 
 \analise{
-	\textbf{Análise do Enunciado:} O objetivo é calcular a derivada de integrais onde o domínio de integração depende de um parâmetro $t$. No item (a), o domínio é uma bola que cresce com $t$. No item (b), a bola decresce. No item (c), ocorre a situação mais geral: tanto o domínio quanto a função integranda variam com $t$. A tese é a demonstração da relação entre a derivada do volume e a integral sobre a superfície da fronteira.
+	\textbf{Análise do Enunciado:} Esta questão explora a diferenciação de integrais cujos domínios de integração são bolas com raios dependentes de um parâmetro $t$. O problema é construído em três etapas de complexidade crescente: no item (a), analisa-se o crescimento de uma bola; no item (b), o decréscimo do raio; e no item (c), a variação simultânea do domínio e da função integranda. A tese central é a demonstração de que a derivada de uma integral de volume, em relação ao raio da bola, resulta em uma integral de superfície sobre a fronteira desse domínio.
 	
-	\par\textbf{Fundamentação Teórica:} A base teórica reside no uso de coordenadas polares (referenciadas na \textbf{Questão 22}) e no Teorema de Leibniz para dimensões superiores. Para uma função $f(t) = \int_{\Omega(t)} u(x, t) dx$, a derivada é dada por:
-	$$ f'(t) = \int_{\Omega(t)} \frac{\partial u}{\partial t} dx + \int_{\partial \Omega(t)} u (\mathbf{v} \cdot \mathbf{n}) d\sigma $$
-	onde $\mathbf{v}$ é a velocidade de deslocamento da fronteira $\partial \Omega(t)$ e $\mathbf{n}$ é o vetor normal exterior. No caso de bolas centradas em $x_0$, a velocidade da fronteira é radial e sua magnitude é a derivada do raio em relação a $t$.
+	\par\textbf{Fundamentação Teórica:} A base teórica reside no uso de coordenadas polares e no Teorema Fundamental do Cálculo para a redução de dimensões (do volume para a superfície). Para o caso mais geral (item c), utilizamos a regra da cadeia para funções de múltiplas variáveis e o conceito de desacoplamento de dependências. A fundamentação repousa na ideia de que a variação de uma integral em um domínio móvel é a soma da variação interna do campo (derivada temporal) com o fluxo de valor na fronteira (integral de superfície).
 	
 	\par\textbf{Estratégias:} 
 	\begin{enumerate}
 		\item Para o item (a), expressar a integral de volume via coordenadas polares $\int_0^t \int_{\partial B_\rho} u d\sigma d\rho$ e aplicar o Teorema Fundamental do Cálculo.
-		\item Para o item (b), aplicar a regra da cadeia à função $f(r)$ do item (a), onde $r = R-t$.
-		\item Para o item (c), aplicar a fórmula geral de Leibniz, identificando a velocidade da fronteira como $\mathbf{v} = -1 \cdot \mathbf{n}$ (movimento para dentro), resultando no sinal negativo da integral de superfície.
+		\item Para o item (b), utilizar a regra da cadeia sobre o resultado de (a), substituindo o raio $t$ por $R-t$, o que introduz o sinal negativo na derivada.
+		\item Para o item (c), introduzir a função auxiliar de duas variáveis $H(t, s) = \int_{|x-x_0| \le R-s} v(x, t) dx$.
+		\item Calcular a derivada parcial $\partial_t H$ (campo variando, domínio fixo) e a derivada parcial $\partial_s H$ (campo fixo, domínio variando via item b).
+		\item Aplicar a regra da cadeia total $h'(t) = \frac{\partial H}{\partial t}(t, t) + \frac{\partial H}{\partial s}(t, t)$ para obter a expressão final.
 	\end{enumerate}
 }
 
 \solucao{
 	\textbf{(a)} Utilizando a representação da integral em coordenadas polares centradas em $x_0$ (conforme \textbf{Questão 22}), podemos escrever a integral de volume como uma sucessão de integrais sobre superfícies esféricas de raio $\rho$:
-	$$ f(t) = \int_0^t \left( \int_{|x-x_0|=\rho} u(x) d\sigma \right) d\rho $$
-	Definimos a função $\psi(\rho) = \int_{|x-x_0|=\rho} u(x) d\sigma$. Como $u$ é contínua, $\psi$ também é contínua. Pelo Teorema Fundamental do Cálculo:
+	$$ f(t) = \int_0^t \left( \int_{|y-x_0|=\rho} u(y) d\sigma \right) d\rho $$
+	Definimos a função $\psi(\rho) = \int_{|y-x_0|=\rho} u(y) d\sigma$. Como $u$ é contínua, $\psi$ também é contínua. Pelo Teorema Fundamental do Cálculo:
 	$$ f'(t) = \frac{d}{dt} \int_0^t \psi(\rho) d\rho = \psi(t) $$
 	Portanto:
-	$$ \boxed{f'(t) = \int_{|x-x_0|=t} u(x) d\sigma} $$
+	$$ \boxed{f'(t) = \int_{|y-x_0|=t} u(y) d\sigma} $$
 	
 	\textbf{(b)} Definimos a função $g(t)$ em termos de $f$:
 	$$ g(t) = f(R-t) $$
 	Aplicando a regra da cadeia, temos:
 	$$ g'(t) = f'(R-t) \cdot \frac{d}{dt}(R-t) = f'(R-t) \cdot (-1) $$
 	Substituindo o resultado do item (a) para o raio $\rho = R-t$:
-	$$ g'(t) = - \int_{|x-x_0|=R-t} u(x) d\sigma $$
+	$$ g'(t) = - \int_{|y-x_0|=R-t} u(y) d\sigma $$
 	Assim, a derivada é a negativa da integral sobre a superfície da bola de raio $R-t$:
 	$$ \boxed{g'(t) = - \int_{|y-x_0|=R-t} u(y) d\sigma} $$
 	
-	\textbf{(c)} Consideramos agora a função $h(t) = \int_{\Omega(t)} v(x, t) dx$, onde $\Omega(t) = \{x \in \mathbb{R}^n : |x-x_0| \le R-t\}$. Pelo Teorema de Leibniz para domínios variáveis:
-	$$ h'(t) = \int_{\Omega(t)} \frac{\partial v}{\partial t}(x, t) dx + \int_{\partial \Omega(t)} v(x, t) (\mathbf{v} \cdot \mathbf{n}) d\sigma $$
-	Onde $\mathbf{v}$ é o vetor velocidade da fronteira $\partial \Omega(t)$. A fronteira é a esfera de raio $r(t) = R-t$. O vetor velocidade da fronteira é:
-	$$ \mathbf{v} = \frac{\partial r}{\partial t} \mathbf{n} = -1 \cdot \mathbf{n} $$
-	onde $\mathbf{n}$ é o vetor normal exterior unitário à esfera. Logo, o produto escalar $\mathbf{v} \cdot \mathbf{n} = -1$. Substituindo na fórmula:
-	$$ h'(t) = \int_{|x-x_0| \le R-t} v_t(x, t) dx + \int_{|y-x_0|=R-t} v(y, t) (-1) d\sigma $$
-	Portanto:
-	$$ \boxed{h'(t) = \int_{|x-x_0| \le R-t} v_t(x, t) dx - \int_{|y-x_0|=R-t} v(y, t) d\sigma} $$
-}
-\solucaoalt{
-	\textbf{(c)} Para evitar a aplicação direta do Teorema de Leibniz para domínios variáveis, realizamos uma mudança de variáveis que transforma o domínio móvel $\Omega(t) = \{x \in \mathbb{R}^n : |x-x_0| \le R-t\}$ em um domínio fixo $\Omega_0 = \{z \in \mathbb{R}^n : |z| \le 1\}$.
+	\textbf{(c)} Para calcular a derivada de $h(t) = \int_{|x-x_0| \le R-t} v(x, t) dx$, introduzimos a função auxiliar $H(t, s)$, que separa a dependência temporal da função da variação geométrica do domínio:
+	$$ H(t, s) = \int_{|x-x_0| \le R-s} v(x, t) dx $$
+	Observamos que $h(t)$ é a restrição de $H$ à reta $s=t$, ou seja, $h(t) = H(t, t)$. Pela regra da cadeia para funções de múltiplas variáveis, a derivada total de $h$ é:
+	$$ \boxed{h'(t) = \frac{\partial H}{\partial t}(t, t) + \frac{\partial H}{\partial s}(t, t) \quad (\ast)} $$
 	
-	Definimos a transformação:
-	$$ x = x_0 + (R-t)z, \quad \text{onde } z \in B_1(0). $$
-	O determinante do Jacobiano desta transformação é $|\det J| = (R-t)^n$. Assim, a integral $h(t)$ pode ser reescrita como:
-	$$ h(t) = \int_{B_1(0)} v(x_0 + (R-t)z, t) (R-t)^n dz $$
-	Agora que o domínio de integração $B_1(0)$ é independente de $t$, podemos aplicar a regra da derivada de Leibniz para domínios fixos, derivando o integrando:
-	$$ h'(t) = \int_{B_1(0)} \frac{\partial}{\partial t} \left[ (R-t)^n v(x_0 + (R-t)z, t) \right] dz $$
-	Aplicamos a regra do produto no integrando:
-	$$ \frac{\partial}{\partial t} \left[ (R-t)^n v(x_0 + (R-t)z, t) \right] = n(R-t)^{n-1}(-1)v + (R-t)^n \frac{\partial}{\partial t} \left[ v(x_0 + (R-t)z, t) \right] $$
-	Para a segunda parte, utilizamos a regra da cadeia:
-	$$ \frac{\partial}{\partial t} v(x_0 + (R-t)z, t) = \nabla v(x_0 + (R-t)z, t) \cdot (-z) + v_t(x_0 + (R-t)z, t) $$
-	Substituindo tudo de volta na integral:
-	$$ h'(t) = \int_{B_1(0)} \left[ -n(R-t)^{n-1}v - (R-t)^n \langle \nabla v, z \rangle + (R-t)^n v_t \right] dz $$
-	Agora, retornamos para a variável original $x = x_0 + (R-t)z$, onde $dz = (R-t)^{-n} dx$ e $z = \tfrac{x-x_0}{R-t}$:
-	$$ h'(t) = \int_{|x-x_0| \le R-t} \left[ \frac{-n}{R-t} v - \left\langle \nabla v, \frac{x-x_0}{R-t} \right\rangle + v_t \right] dx $$
-	Agrupamos os termos envolvendo $v$ e $\nabla v$, observando que o parâmetro $t$ permanece constante para a operação de divergência:
-	$$ h'(t) = \int_{|x-x_0| \le R-t} v_t(x, t) dx - \int_{|x-x_0| \le R-t} \frac{1}{R-t} \left( n v(x, t) + \langle \nabla v(x, t), x-x_0 \rangle \right) dx $$
-	Note que a expressão entre parênteses é a divergência do campo vetorial $\mathbf{F}(x, t) = v(x, t)(x-x_0)$ em relação a $x$:
-	$$ \text{div}_x (v(x, t)(x-x_0)) = \langle \nabla v(x, t), x-x_0 \rangle + v(x, t) \text{div}_x(x-x_0) = \langle \nabla v, x-x_0 \rangle + n v(x, t) $$
-	Aplicando o Teorema da Divergência (Gauss) na segunda integral:
-	$$ \int_{|x-x_0| \le R-t} \frac{1}{R-t} \text{div}_x (v(x, t)(x-x_0)) dx = \frac{1}{R-t} \int_{|y-x_0|=R-t} v(y, t) \langle y-x_0, \nu \rangle d\sigma $$
-	Na esfera de raio $R-t$, o vetor normal exterior $\nu$ é $\frac{y-x_0}{|y-x_0|} = \frac{y-x_0}{R-t}$. Logo, o produto interno é:
-	$$ \langle y-x_0, \nu \rangle = \left\langle y-x_0, \frac{y-x_0}{R-t} \right\rangle = \frac{|y-x_0|^2}{R-t} = \frac{(R-t)^2}{R-t} = R-t $$
-	Substituindo na integral de superfície:
-	$$ \frac{1}{R-t} \int_{|y-x_0|=R-t} v(y, t) (R-t) d\sigma = \int_{|y-x_0|=R-t} v(y, t) d\sigma $$
-	Finalmente, recuperamos a expressão para a derivada de $h(t)$:
-	$$ \boxed{h'(t) = \int_{|x-x_0| \le R-t} v_t(x, t) dx - \int_{|y-x_0|=R-t} v(y, t) d\sigma} $$
+	Calculamos agora cada derivada parcial separadamente:
+	
+	\textbf{1. Variação do Campo (Derivada em $t$):} Para um $s$ fixo, o domínio de integração $\{x \in \mathbb{R}^n : |x-x_0| \le R-s\}$ é constante. Assim, derivamos sob o sinal da integral:
+	$$\boxed{\frac{\partial H}{\partial t}(t, s) = \int_{|x-x_0| \le R-s} v_t(x, t) dx \quad (\ast\ast)}$$
+	
+	\textbf{2. Variação do Domínio (Derivada em $s$):} Para um $t$ fixo, a função $v(x, t)$ comporta-se como uma função estática. Por analogia ao resultado obtido na \textbf{letra (b)}, obtemos que:
+	$$\boxed{\frac{\partial H}{\partial s}(t, s) = - \int_{|y-x_0|=R-s} v(y, t) d\sigma(y) \quad (\ast\ast\ast)}$$
+	
+	Fazendo $s=t$ em $(\ast\ast)$ e $(\ast\ast\ast)$, e substituindo na expressão $(\ast)$, obtemos a derivada final:
+	$$ \boxed{h'(t) = \int_{|x-x_0| \le R-t} v_t(x, t) dx - \int_{|y-x_0|=R-t} v(y, t) d\sigma(y)} $$
 }
 
 \sintese{
-	A resolução demonstra a relação íntima entre a variação do volume de um domínio e a medida de sua fronteira. A transição do item (a) para o (c) mostra a evolução de uma integral estática para uma dinâmica, onde a derivada total captura tanto a mudança interna da função quanto o \textbf{fluxo} de material atravessando a fronteira móvel. Esse resultado é fundamental para provar propriedades de médias esféricas e para a derivação de leis de conservação em domínios variáveis, estabelecendo o fluxo lógico: $$\text{Cálculo em Polares} \longrightarrow \text{Regra da Cadeia} \longrightarrow \text{Teorema de Leibniz}.$$
+	A resolução desta questão estabelece a conexão fundamental entre a variação de volumes e a medida de suas fronteiras. A progressão dos itens revela que a derivada de uma integral sobre um domínio variável é composta por dois efeitos: a evolução intrínseca da função e a variação geométrica da região de integração. A transição do item (a) para o (c) demonstra a potência do método de desacoplamento de variáveis, transformando um problema de domínio móvel em uma soma de derivadas parciais simples. 
+	
+	A lição matemática reside no fato de que a "velocidade" com que a integral muda é precisamente a medida do valor da função na casca da esfera, multiplicada pela velocidade de deslocamento dessa casca. O fluxo lógico da construção foi: 
+	$$\text{Crescimento Radial (a)} \longrightarrow \text{Decréscimo Radial (b)} \longrightarrow \text{Desacoplamento de Variáveis (c)} \longrightarrow \text{Soma de Fluxos}.$$
 }
 
 %%%% QUESTÃO 82 %%%%
@@ -832,6 +813,7 @@
 }
 
 \sintese{
-	A prova demonstra o decaimento temporal $\tfrac{1}{t}$ através da análise da medida de interseção $|\partial B_t(x) \cap B_R(0)|$. A essência do resultado é que, em $\mathbb{R}^3$, a solução depende estritamente de valores na casca da esfera (Princípio Forte de Huygens). Como o suporte dos dados iniciais é limitado, a \textbf{quantidade de sinal} capturada pela esfera não cresce com $t$, enquanto a amplitude da solução é inversamente proporcional ao raio da esfera. O fluxo lógico foi: $$\text{Fórmula de Kirchhoff} \longrightarrow \text{Decomposição de Termos} \longrightarrow \text{Limitação via Suporte Compacto} \longrightarrow \text{Cota Global } c.$$
+	A prova demonstra o decaime
+	nto temporal $\tfrac{1}{t}$ através da análise da medida de interseção $|\partial B_t(x) \cap B_R(0)|$. A essência do resultado é que, em $\mathbb{R}^3$, a solução depende estritamente de valores na casca da esfera (Princípio Forte de Huygens). Como o suporte dos dados iniciais é limitado, a \textbf{quantidade de sinal} capturada pela esfera não cresce com $t$, enquanto a amplitude da solução é inversamente proporcional ao raio da esfera. O fluxo lógico foi: $$\text{Fórmula de Kirchhoff} \longrightarrow \text{Decomposição de Termos} \longrightarrow \text{Limitação via Suporte Compacto} \longrightarrow \text{Cota Global } c.$$
 }
 \end{document}
