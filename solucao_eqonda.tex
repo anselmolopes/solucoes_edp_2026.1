@@ -22,6 +22,7 @@
 		\item Veja então que $u$ satisfaz a equação não homogênea $u_t - u_x = g'(x - t) + h(x - t)$ em $\mathbb{R} \times [0, \infty)$; $u(x, 0) = g(x)$;
 		\item Conclua que 
 		$$ u(x, t) = \frac{1}{2} \int_{x-t}^{x+t} h(s) ds + \frac{1}{2} [g(x + t) + g(x - t)]. $$
+		\item Conclua que $u(x, t) = F(x+t) - G(x-t)$, onde $F(x) = \frac{1}{2}(g(x) + H(x))$, $G(x) = \frac{1}{2}(g(x) - H(x))$ e $H$ é uma primitiva de $h$, $H'(x) = h(x)$.
 \end{enumerate}}
 
 \analise{
@@ -49,7 +50,7 @@
 	\textbf{(c)} Usamos o resultado $(\ast\ast)$ com a fonte $f(x, t) = g(x - t)$:
 	$$ w(x, t) = \int_0^t g((x + t - s) - s) ds = \int_0^t g(x + t - 2s) ds $$
 	Fazemos a mudança de variável $\sigma = x + t - 2s$, com $d\sigma = -2 ds$. Os limites mudam para $s=0 \to \sigma=x+t$ e $s=t \to \sigma=x-t$. A integral fica:
-	$$ w(x, t) = \int_{x+t}^{x-t} g(\sigma) \left( -\tfrac{1}{2} \right) d\sigma = \tfrac{1}{2} \int_{x-t}^{x+t} g(\sigma) d\sigma = \tfrac{1}{2} [G(x + t) - G(x - t)] $$
+	$$ w(x, t) = \int_{x+t}^{x-t} g(\sigma) \left( -\frac{1}{2} \right) d\sigma = \frac{1}{2} \int_{x-t}^{x+t} g(\sigma) d\sigma = \frac{1}{2} [G(x + t) - G(x - t)] $$
 	
 	\textbf{(d)} Seja $v = u_t - u_x$. Calculamos as derivadas parciais:
 	$$ v_t = u_{tt} - u_{tx} \quad \text{e} \quad v_x = u_{tx} - u_{xx} $$
@@ -70,11 +71,26 @@
 	Para $u_p$, resolvemos $u_t - u_x = f$ com $u(x,0) = 0$. Usando o resultado $(\ast\ast)$ com $f(x, s) = h(x - s) - g'(x - s)$:
 	$$ u_p = \int_0^t [h(x + t - 2s) - g'(x + t - 2s)] ds $$
 	Fazendo $\sigma = x + t - 2s$ ($ds = -\tfrac{1}{2} d\sigma$), temos:
-	$$ u_p = \tfrac{1}{2} \int_{x-t}^{x+t} h(\sigma) d\sigma - \tfrac{1}{2} \int_{x-t}^{x+t} g'(\sigma) d\sigma = \tfrac{1}{2} \int_{x-t}^{x+t} h(\sigma) d\sigma - \tfrac{1}{2} [g(x + t) - g(x - t)] $$
+	$$ u_p = \frac{1}{2} \int_{x-t}^{x+t} h(\sigma) d\sigma - \frac{1}{2} \int_{x-t}^{x+t} g'(\sigma) d\sigma = \tfrac{1}{2} \int_{x-t}^{x+t} h(\sigma) d\sigma - \tfrac{1}{2} [g(x + t) - g(x - t)] $$
 	Somando $u_h$ e $u_p$:
-	$$ u(x, t) = g(x + t) + \tfrac{1}{2} \int_{x-t}^{x+t} h(s) ds - \tfrac{1}{2} g(x + t) + \tfrac{1}{2} g(x - t) $$
+	$$ u(x, t) = g(x + t) + \frac{1}{2} \int_{x-t}^{x+t} h(s) ds - \frac{1}{2} g(x + t) + \tfrac{1}{2} g(x - t) $$
 	Simplificando, chegamos à fórmula de d'Alembert:
-	$$ \boxed{u(x, t) = \tfrac{1}{2} [g(x + t) + g(x - t)] + \tfrac{1}{2} \int_{x-t}^{x+t} h(s) ds \quad (\ast\ast\ast)} $$
+	$$ \boxed{u(x, t) = \frac{1}{2} [g(x + t) + g(x - t)] + \frac{1}{2} \int_{x-t}^{x+t} h(s) ds \quad (\ast\ast\ast)}.$$
+	
+	\textbf{(g)} De fato, da solução obtida no item (f) e do Teorema Fundamental do Cálculo, obtemos:
+	\begin{align*}
+		u(x, t) &= \frac{1}{2} \int_{x-t}^{x+t} h(s) ds + \frac{1}{2} [g(x + t) + g(x - t)]\\
+		\\
+		&= \frac{1}{2} [H(x+t) - H(x-t)] + \frac{1}{2} [g(x + t) + g(x - t)]\\
+		\\
+		&= \frac{1}{2} g(x+t) + \frac{1}{2} H(x+t) + \frac{1}{2} g(x-t) - \frac{1}{2} H(x-t) \\
+		\\
+		&= \underbrace{\frac{1}{2} [g(x+t) + H(x+t)]}_{\text{Onda para a esquerda}} + \underbrace{\frac{1}{2} [g(x-t) - H(x-t)]}_{\text{Onda para a direita}},
+	\end{align*}
+	onde $H$ é uma primitiva de $h$, ou seja, $H'(x)=h(x)$. Definindo as funções conforme proposto:
+	$$ F(x) = \frac{1}{2}[g(x) + H(x)] \quad \text{e} \quad G(x) = \frac{1}{2}[g(x) - H(x)],$$
+	notamos que a expressão anterior é exatamente a soma de $F(x+t)$ e $G(x-t)$. Portanto:
+	$$\boxed{u(x, t) = F(x+t) + G(x-t)\quad (\ast\ast\ast\ast)}$$
 }
 
 \sintese{
@@ -418,7 +434,7 @@
 }
 
 \solucao{
-	\textbf{(a)} Para uma função radialmente simétrica $u(x, t) = u(r, t)$ com $r = |x|$, o Laplaciano em $\mathbb{R}^n$ é dado por $\Delta u = u_{rr} + \tfrac{n-1}{r} u_r$. Substituindo na equação da onda $u_{tt} - \Delta u = 0$, obtemos a equação de Euler-Poisson-Darboux:
+	\textbf{(a)} Para uma função radialmente simétrica $u(x, t) = u(r, t)$ com $r = |x|$, sabemos que $\Delta u = u_{rr} + \tfrac{n-1}{r} u_r$ em $\mathbb{R}^n$. Substituindo na equação da onda $u_{tt} - \Delta u = 0$, obtemos a equação de Euler-Poisson-Darboux:
 	$$ \boxed{u_{tt} - u_{rr} - \frac{n-1}{r} u_r = 0 \quad (\ast)} $$
 	
 	\textbf{(b)} Para $n=3$, a equação $(\ast)$ torna-se $u_{tt} - u_{rr} - \tfrac{2}{r} u_r = 0$. Definimos $v(r, t) = ru(r, t)$. Calculando as derivadas:
@@ -624,53 +640,53 @@
 }
 
 \analise{
-	\textbf{Análise do Enunciado:} O objetivo é analisar a evolução temporal da energia de uma corda infinita com dados iniciais de suporte compacto. A tese divide-se em três partes: a propagação do suporte da solução (causalidade), a conservação da energia total e a equipartição da energia no limite temporal.
+	\textbf{Análise do Enunciado:} O objetivo é analisar a evolução da energia de uma corda infinita com dados iniciais de suporte compacto. A tese principal é a \textbf{Equipartição da Energia}, que afirma que, para tempos suficientemente grandes, a energia cinética $K(t)$ e a potencial $P(t)$ tornam-se iguais.
 	
-	\par\textbf{Fundamentação Teórica:} Utilizamos a fórmula de d'Alembert para expressar $u$ e suas derivadas. A propriedade de suporte compacto é uma consequência direta da velocidade finita de propagação ($\text{velocidade} = 1$). Para a conservação da energia, aplicamos o método da energia, utilizando a linearidade da EDP e a integração por partes. Para a equipartição, utilizamos a decomposição da solução em ondas viajantes $\phi(x-t)$ e $\psi(x+t)$.
+	\par\textbf{Fundamentação Teórica:} A prova utiliza a decomposição de d'Alembert estudada na \textbf{Questão 75 item (g)}, onde a solução é escrita como a soma de duas ondas viajantes $u(x,t) = F(x+t) + G(x-t)$. A chave da prova reside na propriedade de suporte compacto: se os dados iniciais $g$ e $h$ têm suporte em $[-R, R]$, as funções $F'$ e $G'$ também terão suporte compacto. Quando $t$ é suficientemente grande, os suportes de $F'(x+t)$ e $G'(x-t)$ tornam-se disjuntos para qualquer $x$, anulando o termo de interferência no cálculo da energia.
 	
 	\par\textbf{Estratégias:} 
 	\begin{enumerate}
-		\item Utilizar a fórmula de d'Alembert para escrever $u_t$ e $u_x$. Identificar que a soma de funções com suporte compacto deslocadas linearmente em $t$ resulta em suporte compacto para qualquer $t$ fixo.
-		\item Definir $E(t) = K(t) + P(t)$ e calcular a derivada temporal $E'(t)$. Aplicar a integração por partes para transferir a derivada de $u_x$ para $u_t$, utilizando a EDP para anular o integrando.
-		\item Mostrar que, para $t$ grande, a solução se divide em duas ondas que não se sobrepõem. Para cada onda viajante, provar que a energia cinética é idêntica à potencial.
+		\item Utilizar a forma $u(x,t) = F(x+t) + G(x-t)$ para calcular as derivadas $u_t$ e $u_x$.
+		\item Calcular a diferença $u_t^2 - u_x^2$ e mostrar que ela resulta em um produto de $F'$ e $G'$.
+		\item Analisar a interseção dos suportes de $F'(x+t)$ e $G'(x-t)$ para $t > R$.
+		\item Provar que $u_t^2 - u_x^2 \equiv 0$ para $t > R$, implicando que a integral de $K(t)$ é igual à de $P(t)$.
 	\end{enumerate}
 }
 
 \solucao{
-	\textbf{(a)} Pela fórmula de d'Alembert, a solução é:
-	$$ u(x, t) = \frac{1}{2}[g(x-t) + g(x+t)] + \frac{1}{2}\int_{x-t}^{x+t} h(s) ds $$
-	Calculamos as derivadas parciais:
+	\textbf{(a)} Pela fórmula de d'Alembert, $u(x, t) = \frac{1}{2}[g(x-t) + g(x+t)] + \frac{1}{2}\int_{x-t}^{x+t} h(s) ds$. As derivadas são:
 	$$ u_t(x, t) = \frac{1}{2}[-g'(x-t) + g'(x+t)] + \frac{1}{2}[h(x+t) - h(x-t)] $$
 	$$ u_x(x, t) = \frac{1}{2}[g'(x-t) + g'(x+t)] + \frac{1}{2}[h(x+t) - h(x-t)] $$
-	Seja $\text{supp}(g), \text{supp}(g') \subset [-R, R]$ e $\text{supp}(h) \subset [-R, R]$. 
-	Para $u_t$, os termos não nulos ocorrem quando $x-t \in [-R, R]$ ou $x+t \in [-R, R]$. Isso implica que $x \in [t-R, t+R] \cup [-t-R, -t+R]$. Para qualquer $t$ fixo, este conjunto é a união de dois intervalos compactos. O mesmo raciocínio se aplica a $u_x$. Portanto, $u_t(\cdot, t)$ e $u_x(\cdot, t)$ possuem suportes compactos.
+	Se $\text{supp}(g), \text{supp}(h) \subset [-R, R]$, então $u_t$ e $u_x$ são não nulos apenas se $x-t \in [-R, R]$ ou $x+t \in [-R, R]$. Para $t$ fixo, isso define a união de dois intervalos compactos $[t-R, t+R] \cup [-t-R, -t+R]$, que é um compacto. Portanto, $u_t(\cdot, t)$ e $u_x(\cdot, t)$ possuem suportes compactos.
 	
-	\textbf{(b)} Definimos a energia total $E(t) = K(t) + P(t)$:
-	$$ E(t) = \frac{1}{2} \int_{-\infty}^{\infty} (u_t^2 + u_x^2) dx $$
-	Derivamos em relação a $t$ sob o sinal da integral:
-	$$ E'(t) = \int_{-\infty}^{\infty} (u_t u_{tt} + u_x u_{xt}) dx $$
-	Aplicamos a integração por partes no segundo termo:
-	$$ \int_{-\infty}^{\infty} u_x u_{xt} dx = [u_x u_t]_{-\infty}^{\infty} - \int_{-\infty}^{\infty} u_{xx} u_t dx $$
-	Visto que $u_x$ e $u_t$ possuem suportes compactos, o termo de fronteira é nulo. Substituindo de volta em $E'(t)$:
-	$$ E'(t) = \int_{-\infty}^{\infty} u_t (u_{tt} - u_{xx}) dx $$
-	Como $u$ satisfaz a equação da onda $u_{tt} - u_{xx} = 0$, temos:
-	$$ \boxed{E'(t) = 0 \quad (\ast)} $$
-	Concluímos que $E(t) = K(t) + P(t)$ é constante no tempo.
+	\textbf{(b)} Definimos $E(t) = K(t) + P(t) = \frac{1}{2} \int_{-\infty}^{\infty} (u_t^2 + u_x^2) dx$. Derivando em relação a $t$ e usando integração por partes, obtemos:
+	$$ E'(t) = \int_{-\infty}^{\infty} (u_t u_{tt} + u_x u_{xt}) dx = \int_{-\infty}^{\infty} u_t (u_{tt} - u_{xx}) dx + [u_x u_t]_{-\infty}^{\infty}.$$
+	Como $u$ resolve a equação da onda $u_{tt} - u_{xx} = 0$ e as derivadas possuem suporte compacto (termo de fronteira nulo), temos $E'(t) = 0$. Logo, a energia total é constante.
 	
-	\textbf{(c)} Para $t$ suficientemente grande, as ondas que viajam para a direita e para a esquerda se separam completamente. A solução pode ser escrita como $u(x, t) = \phi(x-t) + \psi(x+t)$.
-	As derivadas são:
-	$$ u_t = -\phi'(x-t) + \psi'(x+t) \quad \text{e} \quad u_x = \phi'(x-t) + \psi'(x+t) $$
-	Para $t \gg 0$, os suportes de $\phi'$ e $\psi'$ são disjuntos. Logo, no produto $u_t^2$ e $u_x^2$, o termo misto $\phi'\psi'$ desaparece:
-	$$ u_t^2 = (\phi')^2 + (\psi')^2 \quad \text{e} \quad u_x^2 = (\phi')^2 + (\psi')^2 $$
-	Integrando sobre $\mathbb{R}$:
-	$$ K(t) = \frac{1}{2} \int_{-\infty}^{\infty} [(\phi'(x-t))^2 + (\psi'(x+t))^2] dx = \frac{1}{2} \int_{-\infty}^{\infty} [(\phi')^2 + (\psi')^2] dx $$
-	$$ P(t) = \frac{1}{2} \int_{-\infty}^{\infty} [(\phi'(x-t))^2 + (\psi'(x+t))^2] dx = \frac{1}{2} \int_{-\infty}^{\infty} [(\phi')^2 + (\psi')^2] dx $$
-	Portanto, para $t$ suficientemente grande:
-	$$ \boxed{K(t) = P(t)} $$
+	\textbf{(c)} Utilizamos a representação da \textbf{Questão 75 item (g)}, escrevendo a solução como:
+	$$ u(x, t) = F(x+t) + G(x-t) $$
+	As derivadas parciais são:
+	$$ u_t(x, t) = F'(x+t) - G'(x-t) \quad \text{e} \quad u_x(x, t) = F'(x+t) + G'(x-t) $$
+	Calculando a diferença dos quadrados das derivadas, obtemos:
+	\begin{align*}
+		u_t^2 - u_x^2 &= (F'(x+t) - G'(x-t))^2 - (F'(x+t) + G'(x-t))^2 \\
+		&= [ (F')^2 - 2F'G' + (G')^2 ] - [ (F')^2 + 2F'G' + (G')^2 ] \\
+		&= -4 F'(x+t) G'(x-t)
+	\end{align*}
+	Como $g$ e $h$ possuem suporte em $[-R, R]$, as funções $F'$ e $G'$ também possuem suporte em $[-R, R]$. Analisamos a possibilidade de $F'(x+t) G'(x-t) \neq 0$ para um dado $x$:
+	\begin{itemize}
+		\item Para $F'(x+t) \neq 0$, devemos ter $-R \le x+t \le R$, o que implica $x \le R-t$.
+		\item Para $G'(x-t) \neq 0$, devemos ter $-R \le x-t \le R$, o que implica $x \ge -R+t$.
+	\end{itemize}
+	Para que ambos sejam não nulos simultaneamente, é necessário que $ -R+t \le x \le R-t $. Tal intervalo existe se, e somente se, $-R+t \le R-t$, o que implica $2t \le 2R$, ou seja, $t \le R$. Portanto, se $t > R$, os suportes de $F'(x+t)$ e $G'(x-t)$ são disjuntos para qualquer $x \in \mathbb{R}$, logo:
+	$$ u_t(x, t)^2 - u_x(x, t)^2 \equiv 0 \quad \forall x \in \mathbb{R}, \forall t > R $$
+	Integrando sobre todo o espaço:
+	$$ \int_{-\infty}^{\infty} u_t^2 dx - \int_{-\infty}^{\infty} u_x^2 dx = 0 \implies 2K(t) - 2P(t) = 0 \implies \boxed{K(t) = P(t)} $$
 }
 
 \sintese{
-	A prova estabelece que, embora a energia total de uma corda infinita seja conservada, a distribuição dessa energia entre os componentes cinético e potencial evolui para um estado de equilíbrio. A \textbf{Equipartição da Energia} é uma consequência direta da decomposição da solução em ondas viajantes com velocidade unitária. O fluxo lógico foi: $$\text{Suporte Compacto} \longrightarrow \text{Conservação de } E(t) \longrightarrow \text{Separação de Ondas} \longrightarrow \text{Equipartição } K=P.$$
+	A prova da equipartição da energia revela a natureza não dissipativa da equação da onda. A decomposição em ondas viajantes $F(x+t)$ e $G(x-t)$ mostra que a energia cinética e potencial são localmente idênticas para cada pulso individual. Quando os suportes dessas ondas se separam completamente ($t > R$), a interferência entre elas cessa, e a energia total do sistema divide-se equitativamente entre os dois componentes. O fluxo lógico foi: 
+	$$\text{Decomposição de d'Alembert} \longrightarrow \text{Diferença de Quadrados} \longrightarrow \text{Disjunção de Suportes} \longrightarrow \text{Equipartição } K=P.$$
 }
 
 %%%% QUESTÃO 83 %%%%
