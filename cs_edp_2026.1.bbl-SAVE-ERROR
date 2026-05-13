@@ -1,0 +1,122 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global/global}
+    \entry{brezis}{book}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=31e0c25a6fb0297f0536bede27a04cd4}{%
+           family={Brezis},
+           familyi={B\bibinitperiod},
+           given={Haim},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{31e0c25a6fb0297f0536bede27a04cd4}
+      \strng{fullhash}{31e0c25a6fb0297f0536bede27a04cd4}
+      \strng{fullhashraw}{31e0c25a6fb0297f0536bede27a04cd4}
+      \strng{bibnamehash}{31e0c25a6fb0297f0536bede27a04cd4}
+      \strng{authorbibnamehash}{31e0c25a6fb0297f0536bede27a04cd4}
+      \strng{authornamehash}{31e0c25a6fb0297f0536bede27a04cd4}
+      \strng{authorfullhash}{31e0c25a6fb0297f0536bede27a04cd4}
+      \strng{authorfullhashraw}{31e0c25a6fb0297f0536bede27a04cd4}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Functional Analysis, Sobolev Spaces and Partial Differential Equations}
+      \field{year}{2011}
+      \true{nocite}
+    \endentry
+    \entry{evans}{book}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=0d72932a7775f85a51622d3af75ae26e}{%
+           family={Evans},
+           familyi={E\bibinitperiod},
+           given={Lawrence\bibnamedelima C.},
+           giveni={L\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {American Mathematical Society}%
+      }
+      \strng{namehash}{0d72932a7775f85a51622d3af75ae26e}
+      \strng{fullhash}{0d72932a7775f85a51622d3af75ae26e}
+      \strng{fullhashraw}{0d72932a7775f85a51622d3af75ae26e}
+      \strng{bibnamehash}{0d72932a7775f85a51622d3af75ae26e}
+      \strng{authorbibnamehash}{0d72932a7775f85a51622d3af75ae26e}
+      \strng{authornamehash}{0d72932a7775f85a51622d3af75ae26e}
+      \strng{authorfullhash}{0d72932a7775f85a51622d3af75ae26e}
+      \strng{authorfullhashraw}{0d72932a7775f85a51622d3af75ae26e}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2nd}
+      \field{title}{Partial Differential Equations}
+      \field{year}{2010}
+      \true{nocite}
+    \endentry
+    \entry{gilbartrudinger}{book}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=d91d04ccf8e51f30c6f9eb4b6bc0ccc1}{%
+           family={Gilbarg},
+           familyi={G\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7d500e0b463a2ce688322509a10db6c5}{%
+           family={Trudinger},
+           familyi={T\bibinitperiod},
+           given={Neil\bibnamedelima S.},
+           giveni={N\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{7b31fa4bbbe430ec2608ecbe7894bf57}
+      \strng{fullhash}{7b31fa4bbbe430ec2608ecbe7894bf57}
+      \strng{fullhashraw}{7b31fa4bbbe430ec2608ecbe7894bf57}
+      \strng{bibnamehash}{7b31fa4bbbe430ec2608ecbe7894bf57}
+      \strng{authorbibnamehash}{7b31fa4bbbe430ec2608ecbe7894bf57}
+      \strng{authornamehash}{7b31fa4bbbe430ec2608ecbe7894bf57}
+      \strng{authorfullhash}{7b31fa4bbbe430ec2608ecbe7894bf57}
+      \strng{authorfullhashraw}{7b31fa4bbbe430ec2608ecbe7894bf57}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Elliptic Partial Differential Equations of Second Order}
+      \field{year}{2001}
+      \true{nocite}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

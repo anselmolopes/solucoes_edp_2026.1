@@ -93,14 +93,12 @@
 	
 	Suponhamos que existam duas funções $v_1, v_2 \in L_{loc}^1(U)$ que satisfaçam a condição de derivada fraca de $u$. Assim, para qualquer $\phi \in C_c^\infty(U)$, temos simultaneamente:
 	\begin{align*}
-		\int_U u \frac{\partial \phi}{\partial x_j} dx &= - \int_U v_1 \phi dx \quad (\ast_2) \\
-		\int_U u \frac{\partial \phi}{\partial x_j} dx &= - \int_U v_2 \phi dx \quad (\ast_3)
+		\int_U u \frac{\partial \phi}{\partial x_j} dx &= - \int_U v_1 \phi dx \quad (\ast_2) \ \ \text{e } \ \int_U u \frac{\partial \phi}{\partial x_j} dx &= - \int_U v_2 \phi dx \quad (\ast_3)
 	\end{align*}
 	
 	Subtraindo a equação $(\ast_3)$ da equação $(\ast_2)$, obtemos:
 	\begin{align*}
-		0 &= - \int_U v_1 \phi dx - \left( - \int_U v_2 \phi dx \right) \\
-		0 &= \int_U (v_2 - v_1) \phi dx
+		0 &= - \int_U v_1 \phi dx - \left( - \int_U v_2 \phi dx \right) = \int_U (v_2 - v_1) \phi dx
 	\end{align*}
 	
 	Portanto, a diferença $w = v_2 - v_1$ satisfaz a seguinte condição para todo $\phi \in C_c^\infty(U)$:
@@ -124,5 +122,68 @@
 	
 	Se $u$ possuísse derivadas fracas distintas, a noção de $\nabla u$ \textbf{fraco} estaria comprometida, tornando impossível a definição de normas em espaços de Sobolev como $W^{1,p}(U)$, onde a norma depende explicitamente da unicidade de $\tfrac{\partial u}{\partial x_j}$.
 }
+
+%%%% QUESTÃO 87 %%%%
+\questao{Seja $u_m \in W^{1,p}(U)$ uma sequência tal que $u_m \to u$ em $L^p(U)$ e $\tfrac{\partial u_m}{\partial x_j} \to g$ em $L^p(U)$. Mostre que existe a derivada fraca $\tfrac{\partial u}{\partial x_j}$ e que esta derivada fraca é igual a $g$.}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	A questão solicita a prova de que o limite de uma sequência de funções em $W^{1,p}(U)$, onde tanto as funções quanto suas derivadas convergem em $L^p(U)$, preserva a relação de derivação fraca no limite. A tese é a identificação de $g$ como a derivada fraca de $u$ em relação a $x_j$.
+	
+	\textbf{Fundamentação Teórica:}
+	A prova fundamenta-se na definição de \textbf{Derivada Fraca} e nas propriedades de convergência em espaços $L^p$. A ferramenta principal é a \textbf{Desigualdade de Hölder}, que garante que a convergência em norma $L^p$ implica a convergência das integrais contra funções de teste em $L^{p'}$, onde $\tfrac{1}{p} + \tfrac{1}{p'} = 1$. Consultamos Brezis (Capítulo 9) para a definição de convergência em espaços de Sobolev.
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Identidade de Integração:} Partir da definição de derivada fraca para cada elemento $u_m$ da sequência.
+		\item \textbf{Passagem ao Limite no Lado Esquerdo:} Demonstrar que $\int_U u_m \frac{\partial \phi}{\partial x_j} dx$ converge para $\int_U u \frac{\partial \phi}{\partial x_j} dx$ utilizando a convergência $u_m \to u$ em $L^p$.
+		\item \textbf{Passagem ao Limite no Lado Direito:} Demonstrar que $\int_U \frac{\partial u_m}{\partial x_j} \phi dx$ converge para $\int_U g \phi dx$ utilizando a convergência $\frac{\partial u_m}{\partial x_j} \to g$ em $L^p$.
+		\item \textbf{Identificação Final:} Mostrar que a identidade resultante no limite coincide exatamente com a definição de derivada fraca para $u$, identificando $g$ como tal.
+	\end{enumerate}
+}
+
+\solucao{
+	Como $u_m \in W^{1,p}(U)$, cada $u_m$ possui uma derivada fraca $\frac{\partial u_m}{\partial x_j} \in L^p(U)$. Portanto, por definição, para qualquer função de teste $\phi \in C_c^\infty(U)$, é válida a identidade:
+	$$\int_U u_m \frac{\partial \phi}{\partial x_j} dx = - \int_U \frac{\partial u_m}{\partial x_j} \phi dx \quad (\ast_1)$$
+	
+	Analisamos agora o comportamento do lado esquerdo da igualdade $(\ast_1)$ quando $m \to \infty$. Consideramos a diferença:
+	$$\left| \int_U u_m \frac{\partial \phi}{\partial x_j} dx - \int_U u \frac{\partial \phi}{\partial x_j} dx \right| = \left| \int_U (u_m - u) \frac{\partial \phi}{\partial x_j} dx \right|.$$
+	
+	Aplicando a \textbf{Desigualdade de Hölder}, onde $p$ é o expoente da sequência e $p'$ é o expoente conjugado $\left(\tfrac{1}{p} + \tfrac{1}{p'} = 1\right)$, temos:
+	$$\left| \int_U (u_m - u) \frac{\partial \phi}{\partial x_j} dx \right| \le \|u_m - u\|_{L^p(U)} \left\| \frac{\partial \phi}{\partial x_j} \right\|_{L^{p'}(U)}.$$
+		
+	Visto que $\phi \in C_c^\infty(U)$, a derivada $\tfrac{\partial \phi}{\partial x_j}$ é contínua com suporte compacto, logo pertence a $L^{p'}(U)$. Como $u_m \to u$ em $L^p(U)$, a norma $\|u_m - u\|_{L^p(U)} \to 0$. Portanto:
+	$$\lim_{m \to \infty} \int_U u_m \frac{\partial \phi}{\partial x_j} dx = \int_U u \frac{\partial \phi}{\partial x_j} dx \quad (\ast_2)$$
+	
+	Analogamente, analisamos o lado direito de $(\ast_1)$. Denotamos $v_m = \tfrac{\partial u_m}{\partial x_j}$ e sabemos que $v_m \to g$ em $L^p(U)$. Novamente, via \textbf{Desigualdade de Hölder}:
+	$$\left| \int_U v_m \phi dx - \int_U g \phi dx \right| = \left| \int_U (v_m - g) \phi dx \right| \le \|v_m - g\|_{L^p(U)} \|\phi\|_{L^{p'}(U)}.$$
+	
+	Como $v_m \to g$ em $L^p(U)$, a norma $\|v_m - g\|_{L^p(U)} \to 0$. Assim:
+	$$\lim_{m \to \infty} \left( - \int_U \frac{\partial u_m}{\partial x_j} \phi dx \right) = - \int_U g \phi dx \quad (\ast_3)$$
+	
+	Tendo convergência em ambos os membros da identidade $(\ast_1)$, podemos passar ao limite no sinal de igualdade:
+	$$\lim_{m \to \infty} \int_U u_m \frac{\partial \phi}{\partial x_j} dx = \lim_{m \to \infty} \left( - \int_U \frac{\partial u_m}{\partial x_j} \phi dx \right).$$
+	
+	Substituindo os resultados $(\ast_2)$ e $(\ast_3)$, obtemos a relação:
+	$$\boxed{\int_U u \frac{\partial \phi}{\partial x_j} dx = - \int_U g \phi dx \quad (\ast_4)}$$
+	
+	A identidade $(\ast_4)$ é precisamente a definição de derivada fraca para a função $u$ em relação à variável $x_j$, com $g$ atuando como a derivada. Como $g \in L^p(U) \subset L_{loc}^1(U)$, a condição de integrabilidade local está satisfeita.
+	
+	Concluímos que a derivada fraca $\tfrac{\partial u}{\partial x_j}$ existe e que:
+	$$\frac{\partial u}{\partial x_j} = g \quad \text{q.s. em } U.$$
+}
+	
+\sintese{
+	A prova demonstra a estabilidade do operador de derivação fraca sob a topologia de $L^p$. O raciocínio foi fundamentado pela linearidade da integral e pelo controle de erro via norma de Hölder, seguindo o fluxo:
+	$$\text{Identidade de } u_m \to \text{Convergência de } L^p \to \text{Limite de Integrais} \to \text{Definição de } \partial_j u.$$
+}
+
+\aprofundamento{
+	Este resultado prova que o espaço de Sobolev $W^{1,p}(U)$ é um \textbf{Espaço de Banach}. Se $u_m$ for uma sequência de Cauchy em $W^{1,p}$, então $u_m \to u$ em $L^p$ e $\nabla u_m \to g$ em $L^p$. A Questão 87 garante que $u$ possui derivadas fracas e que $\nabla u = g$, logo $u \in W^{1,p}(U)$, provando que o espaço é completo.
+	
+	Sob a ótica da \textbf{Teoria das Distribuições}, isso equivale a dizer que a operação de derivação $\partial_j : \mathcal{D}'(U) \to \mathcal{D}'(U)$ é contínua em relação à topologia de distribuições. Quando a distribuição $\partial_j u$ pode ser representada por uma função $L^p$, dizemos que a função possui regularidade de Sobolev.
+}
+
+%%%% QUESTÃO 88 %%%%
 
 \end{document}
