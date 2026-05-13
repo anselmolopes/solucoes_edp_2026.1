@@ -42,7 +42,7 @@
 	\textbf{(a)} Começamos com a equação $v_t + v_x = 0$. Definimos a curva característica por $\tfrac{dx}{dt} = 1$. Integrando, temos $x(t) = t + x_0$, ou $x_0 = x - t$. Ao longo dessa curva, a variação de $v$ é:
 	$$ \frac{d}{dt} v(x(t), t) = \frac{\partial v}{\partial x} \frac{dx}{dt} + \frac{\partial v}{\partial t} = v_x(1) + v_t = v_t + v_x $$
 	Como a equação nos diz que $v_t + v_x = 0$, temos $\frac{d}{dt} v(x(t), t) = 0$, o que significa que $v$ é constante ao longo da característica. Assim, $v(x, t) = v(x_0, 0)$. Substituindo $x_0$ e a condição inicial $v(x,0) = g(x)$, chegamos a:
-	$$ \boxed{v(x, t) = g(x - t) \quad (\ast)} $$
+	$$ \boxed{v(x, t) = g(x - t) \quad (\ast_1)} $$
 	
 	\textbf{(b)} Agora analisamos $w_t - w_x = f(x, t)$ com $w(x,0) = 0$. As características são $\tfrac{dx}{ds} = -1$, logo $x(s) = x + t - s$. Calculando a derivada de $w$ ao longo dessa curva:
 	$$ \frac{d}{ds} w(x + t - s, s) = -w_x + w_s = f(x + t - s, s) $$
@@ -50,9 +50,9 @@
 	$$ \int_0^t \frac{d}{ds} w(x + t - s, s) ds = \int_0^t f(x + t - s, s) ds $$
 	$$ w(x, t) - w(x+t, 0) = \int_0^t f(x + t - s, s) ds $$
 	Como $w(x,0) = 0$, a solução é:
-	$$ \boxed{w(x, t) = \int_0^t f(x + t - s, s) ds \quad (\ast\ast)} $$
+	$$ \boxed{w(x, t) = \int_0^t f(x + t - s, s) ds \quad (\ast_2)} $$
 	
-	\textbf{(c)} Usamos o resultado $(\ast\ast)$ com a fonte $f(x, t) = g(x - t)$:
+	\textbf{(c)} Usamos o resultado $(\ast_2)$ com a fonte $f(x, t) = g(x - t)$:
 	$$ w(x, t) = \int_0^t g((x + t - s) - s) ds = \int_0^t g(x + t - 2s) ds $$
 	Fazemos a mudança de variável $\sigma = x + t - 2s$, com $d\sigma = -2 ds$. Os limites mudam para $s=0 \to \sigma=x+t$ e $s=t \to \sigma=x-t$. A integral fica:
 	$$ w(x, t) = \int_{x+t}^{x-t} g(\sigma) \left( -\frac{1}{2} \right) d\sigma = \frac{1}{2} \int_{x-t}^{x+t} g(\sigma) d\sigma = \frac{1}{2} [G(x + t) - G(x - t)] $$
@@ -64,23 +64,23 @@
 	\textit{Nota: O PDF indica $g'(x)+h(x)$, mas a dedução rigorosa dá $h(x)-g'(x)$. Usaremos o sinal correto para a consistência de (f).}
 	
 	\vspace{0.2cm}
-	Observamos que a equação $v_t + v_x = 0$ com dado inicial $v(x,0) = h(x) - g'(x)$ é idêntica à estrutura resolvida no item (a). Portanto, aplicando a solução $(\ast)$, temos:
+	Observamos que a equação $v_t + v_x = 0$ com dado inicial $v(x,0) = h(x) - g'(x)$ é idêntica à estrutura resolvida no item (a). Portanto, aplicando a solução $(\ast_1)$, temos:
 	$$ v(x, t) = h(x - t) - g'(x - t) $$
 	
 	\textbf{(e)} Pela definição de $v$ no item (d), temos:
 	$$ u_t - u_x = v(x, t) = h(x - t) - g'(x - t) $$
-	com $u(x, 0) = g(x)$. Esta é a equação de transporte não homogênea do item (b), cuja solução geral é dada por $(\ast\ast)$.
+	com $u(x, 0) = g(x)$. Esta é a equação de transporte não homogênea do item (b), cuja solução geral é dada por $(\ast_2)$.
 	
 	\textbf{(f)} Para achar $u$, usamos o Princípio da Superposição, somando a solução homogênea $u_h$ e a particular $u_p$ ($u = u_h + u_p$).
 	Para $u_h$, resolvemos $u_t - u_x = 0$ com $u(x,0) = g(x)$. Pelas características $\tfrac{dx}{dt} = -1$, temos $u_h(x, t) = g(x + t)$.
-	Para $u_p$, resolvemos $u_t - u_x = f$ com $u(x,0) = 0$. Usando o resultado $(\ast\ast)$ com $f(x, s) = h(x - s) - g'(x - s)$:
+	Para $u_p$, resolvemos $u_t - u_x = f$ com $u(x,0) = 0$. Usando o resultado $(\ast_2)$ com $f(x, s) = h(x - s) - g'(x - s)$:
 	$$ u_p = \int_0^t [h(x + t - 2s) - g'(x + t - 2s)] ds $$
 	Fazendo $\sigma = x + t - 2s$ ($ds = -\tfrac{1}{2} d\sigma$), temos:
 	$$ u_p = \frac{1}{2} \int_{x-t}^{x+t} h(\sigma) d\sigma - \frac{1}{2} \int_{x-t}^{x+t} g'(\sigma) d\sigma = \tfrac{1}{2} \int_{x-t}^{x+t} h(\sigma) d\sigma - \tfrac{1}{2} [g(x + t) - g(x - t)] $$
 	Somando $u_h$ e $u_p$:
 	$$ u(x, t) = g(x + t) + \frac{1}{2} \int_{x-t}^{x+t} h(s) ds - \frac{1}{2} g(x + t) + \tfrac{1}{2} g(x - t) $$
 	Simplificando, chegamos à fórmula de d'Alembert:
-	$$ \boxed{u(x, t) = \frac{1}{2} [g(x + t) + g(x - t)] + \frac{1}{2} \int_{x-t}^{x+t} h(s) ds \quad (\ast\ast\ast)}.$$
+	$$ \boxed{u(x, t) = \frac{1}{2} [g(x + t) + g(x - t)] + \frac{1}{2} \int_{x-t}^{x+t} h(s) ds \quad (\ast_3)}.$$
 	
 	\textbf{(g)} De fato, da solução obtida no item (f) e do Teorema Fundamental do Cálculo, obtemos:
 	\begin{align*}
@@ -95,7 +95,7 @@
 	onde $H$ é uma primitiva de $h$, ou seja, $H'(x)=h(x)$. Definindo as funções conforme proposto:
 	$$ F(x) = \frac{1}{2}[g(x) + H(x)] \quad \text{e} \quad G(x) = \frac{1}{2}[g(x) - H(x)],$$
 	notamos que a expressão anterior é exatamente a soma de $F(x+t)$ e $G(x-t)$. Portanto:
-	$$\boxed{u(x, t) = F(x+t) + G(x-t)\quad (\ast\ast\ast\ast)}$$
+	$$\boxed{u(x, t) = F(x+t) + G(x-t)\quad (\ast_4)}$$
 }
 
 \sintese{
@@ -142,7 +142,7 @@
 	$$
 	u(r, t) = \frac{1}{r} \frac{\partial}{\partial r} (r^3 v) = \frac{1}{r} \left( 3r^2 v + r^3 v_r \right) = 3rv + r^2 v_r, 
 	$$ ou seja,
-	$$\boxed{u = 3rv + r^2 v_r \quad (\ast)}$$
+	$$\boxed{u = 3rv + r^2 v_r \quad (\ast_1)}$$
 	Calculamos a derivada temporal de segunda ordem $u_{tt}$. Dado que as derivadas parciais em $r$ e $t$ comutam para funções de classe $C^2$, temos:
 	$$
 	u_t = 3rv_t + r^2 v_{rt}, \quad \text{e} \quad u_{tt} = 3rv_{tt} + r^2 v_{rtt}=3rv_{tt} + r^2 v_{ttr}.
@@ -160,9 +160,9 @@
 	$$
 	Simplificando os termos, obtemos:
 	$$
-	\boxed{u_{tt} = r^2 v_{rrr} + 7r v_{rr} + 8 v_r \quad (\ast\ast)}
+	\boxed{u_{tt} = r^2 v_{rrr} + 7r v_{rr} + 8 v_r \quad (\ast_2)}
 	$$
-	Agora, calculamos a derivada espacial de segunda ordem $u_{rr}$. Partindo da expressão $(\ast)$, a primeira derivada é:
+	Agora, calculamos a derivada espacial de segunda ordem $u_{rr}$. Partindo da expressão $(\ast_1)$, a primeira derivada é:
 	$$
 	u_r = \frac{\partial}{\partial r} (3rv + r^2 v_r) = 3v + 3r v_r + 2r v_r + r^2 v_{rr} = 3v + 5r v_r + r^2 v_{rr}.
 	$$
@@ -171,9 +171,9 @@
 	u_{rr} = \frac{\partial}{\partial r} (3v + 5r v_r + r^2 v_{rr}) = 3 v_r + 5 v_r + 5r v_{rr} + 2r v_{rr} + r^2 v_{rrr}
 	$$
 	$$
-	\boxed{u_{rr} = 8 v_r + 7r v_{rr} + r^2 v_{rrr} \quad (\ast\ast\ast)}
+	\boxed{u_{rr} = 8 v_r + 7r v_{rr} + r^2 v_{rrr} \quad (\ast_3)}
 	$$
-	Comparando as expressões $(\ast\ast)$ e $(\ast\ast\ast)$, vemos que:
+	Comparando as expressões $(\ast_2)$ e $(\ast_3)$, vemos que:
 	$$
 	u_{tt} = r^2 v_{rrr} + 7r v_{rr} + 8 v_r = u_{rr}.
 	$$
@@ -233,7 +233,7 @@
 		&= r^k v_{rrr} + (\beta + n - 1)r^{k-1} v_{rr} + (n-1)(\beta - 1)r^{k-2} v_r
 	\end{align*}
 	Simplificando, obtemos a expressão para a aceleração temporal:
-	$$ \boxed{u_{tt} = r^k v_{rrr} + (\beta + n - 1)r^{k-1} v_{rr} + (n-1)(\beta - 1)r^{k-2} v_r \quad (\ast)} $$
+	$$ \boxed{u_{tt} = r^k v_{rrr} + (\beta + n - 1)r^{k-1} v_{rr} + (n-1)(\beta - 1)r^{k-2} v_r \quad (\ast_1)} $$
 	
 	Agora, calculamos a derivada espacial de segunda ordem $u_{rr}$. Partindo de $u = \beta r^{k-1}v + r^k v_r$, a primeira derivada é:
 	$$ u_r = \beta(k-1)r^{k-2}v + \beta r^{k-1}v_r + k r^{k-1}v_r + r^k v_{rr} = \beta(k-1)r^{k-2}v + (\beta + k)r^{k-1}v_r + r^k v_{rr} $$
@@ -243,20 +243,20 @@
 		&= r^k v_{rrr} + (2k + \beta)r^{k-1} v_{rr} + (k-1)(2\beta + k)r^{k-2}v_r + \beta(k-1)(k-2)r^{k-3}v
 	\end{align*}
 	Simplificando, obtemos:
-	$$ \boxed{u_{rr} = r^k v_{rrr} + (2k + \beta)r^{k-1} v_{rr} + (k-1)(2\beta + k)r^{k-2}v_r + \beta(k-1)(k-2)r^{k-3}v \quad (\ast\ast)} $$
+	$$ \boxed{u_{rr} = r^k v_{rrr} + (2k + \beta)r^{k-1} v_{rr} + (k-1)(2\beta + k)r^{k-2}v_r + \beta(k-1)(k-2)r^{k-3}v \quad (\ast_2)} $$
 	
-	Para que $u$ satisfaça a equação da onda $u_{tt} - u_{rr} = 0$, analisamos a diferença entre as expressões $(\ast)$ e $(\ast\ast)$:
+	Para que $u$ satisfaça a equação da onda $u_{tt} - u_{rr} = 0$, analisamos a diferença entre as expressões $(\ast_1)$ e $(\ast_2)$:
 	$$ u_{tt} - u_{rr} = \underbrace{[n - 1 - 2k]}_{\text{Termo 1}} r^{k-1}v_{rr} + \underbrace{[(n-1)(\beta-1) - (k-1)(2\beta+k)]}_{\text{Termo 2}} r^{k-2}v_r + \underbrace{[-\beta(k-1)(k-2)]}_{\text{Termo 3}} r^{k-3}v = 0 $$
 	
 	\subsection*{Análise do Termo 3}
 	O Termo 3 é o mais restritivo, pois envolve a função $v$ sem derivadas. Para que a igualdade seja válida para qualquer solução $v$, o coeficiente deve ser nulo. Devemos supor que $\beta \neq 0$, para que a transformação não seja trivial, ou seja, $u(r, t) = r^\alpha v_r$. Logo, temos as seguintes condições:
-	$$ \boxed{k = 1 \quad \text{ou} \quad k = 2 \quad (\ast\ast\ast)} $$
+	$$ \boxed{k = 1 \quad \text{ou} \quad k = 2 \quad (\ast_3)} $$
 	
 	\subsection*{Análise do Termo 1 e a Dimensão $n$}
 	O Termo 1 define a relação entre a dimensão do espaço $n$ e o expoente da transformação $k$. Para anular a contribuição de $v_{rr}$:
 	$$ n - 1 - 2k = 0 \implies n = 2k + 1, $$
 	donde já podemos observar que $n$ deve ser ímpar.
-	Substituindo os valores de $k$ obtidos em $(\ast\ast\ast)$, segue que:
+	Substituindo os valores de $k$ obtidos em $(\ast_3)$, segue que:
 	\begin{enumerate}
 		\item Se $k=1 \implies n = 2(1) + 1 = 3$.
 		\item Se $k=2 \implies n = 2(2) + 1 = 5$.
@@ -299,10 +299,10 @@
 	
 	\textbf{1. Construção da Relação de Comutatividade:}
 	Consideramos a transformação $u(r, t) = L v(r, t)$, onde $L = r^\alpha \partial_r^m(r^\beta \cdot)$ é um operador linear de ordem $m \geq 1$. Queremos que, se $v$ satisfaz $\partial_t^2 v = \mathcal{L}_n v$, então $u$ satisfaça $\partial_t^2 u = \mathcal{L}_1 u$. A dedução segue a sequência:
-	$$\boxed{\partial_t^2 u = L(\mathcal{L}_n v) \quad (\ast)} $$
+	$$\boxed{\partial_t^2 u = L(\mathcal{L}_n v) \quad (\ast_1)} $$
 	Por outro lado, a condição de que $u$ seja solução da onda plana exige:
-	$$\boxed{\partial_t^2 u = \mathcal{L}_1 u = \mathcal{L}_1 (L v) \quad (\ast\ast)} $$
-	Comparando $(\ast)$ e $(\ast\ast)$, a redução de dimensão é viável se, e somente se, a seguinte identidade de \textbf{intercalação de operadores} for satisfeita:
+	$$\boxed{\partial_t^2 u = \mathcal{L}_1 u = \mathcal{L}_1 (L v) \quad (\ast_2)} $$
+	Comparando $(\ast_1)$ e $(\ast_2)$, a redução de dimensão é viável se, e somente se, a seguinte identidade de \textbf{intercalação de operadores} for satisfeita:
 	$$ \boxed{L \mathcal{L}_n = \mathcal{L}_1 L} $$
 	
 	\textbf{2. Análise Espectral e Polinômios de $\lambda$:}
@@ -362,7 +362,7 @@
 	\textbf{(a)} Para construir o operador $A$, definimos o vetor de diferença $v = x - z$. Caso $x = z$, a identidade $A=I$ resolve o problema. Caso $x \neq z$, definimos a matriz de reflexão de Householder:
 	$$ A = I - 2\frac{v v^T}{|v|^2} $$
 	Verificamos que $A$ é ortogonal: $A^T A = (I - 2\frac{vv^T}{|v|^2})(I - 2\frac{vv^T}{|v|^2}) = I - 4\frac{vv^T}{|v|^2} + 4\frac{vv^T v v^T}{|v|^4}$. Como $v^T v = |v|^2$, temos $A^T A = I$. Assim, $A$ preserva o produto interno:
-	$$ \langle Ay, Aw \rangle = (Ay)^T (Aw) = y^T A^T A w = y^T I w = \langle y, w \rangle \implies\boxed{\langle Ay, Aw \rangle = \langle y, w \rangle \quad (\ast)} $$
+	$$ \langle Ay, Aw \rangle = (Ay)^T (Aw) = y^T A^T A w = y^T I w = \langle y, w \rangle \implies\boxed{\langle Ay, Aw \rangle = \langle y, w \rangle \quad (\ast_1)} $$
 	Finalmente, verificamos que $Az = x$:
 	$$ Az = z - 2\frac{\langle v, z \rangle}{|v|^2}v = z - 2\frac{\langle x-z, z \rangle}{|x-z|^2}(x-z) $$
 	Como $|x|=|z|$, temos $|x-z|^2 = |x|^2 + |z|^2 - 2\langle x, z \rangle = 2|z|^2 - 2\langle x, z \rangle = -2\langle x-z, z \rangle$. Substituindo:
@@ -379,8 +379,8 @@
 		
 		\item \textbf{Gradiente e Produto Interno:} Visto que $g$ é radialmente simétrica, $\nabla g(y) = g(|y|) \frac{y}{|y|}$. A continuidade de $\nabla g$ garante que esta expressão é bem definida e integrável. Temos:
 		$$ A(\nabla g(w)) = A \left(g'(|w|) \frac{w}{|w|} \right) = g'(|w|) \frac{Aw}{|w|} = g'(|y|) \frac{y}{|y|} = \nabla g(y). $$
-		Para o produto interno, usamos a propriedade $(\ast)$:
-		$$ \langle \nabla g(y), x - y \rangle = \langle A \nabla g(w), Az - Aw \rangle = \langle \nabla g(w), z - w \rangle\implies \boxed{\langle \nabla g(y), x - y \rangle = \langle \nabla g(w), z - w \rangle \quad (\ast\ast)} $$
+		Para o produto interno, usamos a propriedade $(\ast_1)$:
+		$$ \langle \nabla g(y), x - y \rangle = \langle A \nabla g(w), Az - Aw \rangle = \langle \nabla g(w), z - w \rangle\implies \boxed{\langle \nabla g(y), x - y \rangle = \langle \nabla g(w), z - w \rangle \quad (\ast_2)} $$
 	\end{enumerate}
 	
 	\textbf{(c)} Aplicamos a mudança de variáveis $y = Aw$ na integral de $f(x)$. O determinante do Jacobiano é $\det A$. Pelo teorema de mudança de variáveis:
@@ -436,9 +436,9 @@
 
 \solucao{
 	\textbf{(a)} Para uma função radialmente simétrica $u(x, t) = u(r, t)$ com $r = |x|$, sabemos que $\Delta u = u_{rr} + \tfrac{n-1}{r} u_r$ em $\mathbb{R}^n$. Substituindo na equação da onda $u_{tt} - \Delta u = 0$, obtemos a equação de Euler-Poisson-Darboux:
-	$$ \boxed{u_{tt} - u_{rr} - \frac{n-1}{r} u_r = 0 \quad (\ast)} $$
+	$$ \boxed{u_{tt} - u_{rr} - \frac{n-1}{r} u_r = 0 \quad (\ast_1)} $$
 	
-	\textbf{(b)} Para $n=3$, a equação $(\ast)$ torna-se $u_{tt} - u_{rr} - \tfrac{2}{r} u_r = 0$. Definimos $v(r, t) = ru(r, t)$. Calculando as derivadas:
+	\textbf{(b)} Para $n=3$, a equação $(\ast_1)$ torna-se $u_{tt} - u_{rr} - \tfrac{2}{r} u_r = 0$. Definimos $v(r, t) = ru(r, t)$. Calculando as derivadas:
 	$$ v_t = ru_t, \quad v_{tt} = ru_{tt} $$
 	$$ v_r = u + ru_r \implies v_{rr} = u_r + u_r + ru_{rr} = 2u_r + ru_{rr} $$
 	Analisando a diferença $v_{tt} - v_{rr}$:
@@ -501,7 +501,7 @@
 	$$ w = 0 \quad \text{e} \quad w_t = 0 \quad \text{sobre } \Gamma_T. $$
 	
 	Definimos o funcional de energia $E(t)$ para $t \in [0, T]$ como:
-	$$\boxed{E(t) = \frac{1}{2} \int_U (w_t^2 + |\nabla w|^2) dx \quad (\ast)} $$
+	$$\boxed{E(t) = \frac{1}{2} \int_U (w_t^2 + |\nabla w|^2) dx \quad (\ast_1)} $$
 	Para analisar a evolução da energia, calculamos a derivada temporal $E'(t)$:
 	$$ E'(t) = \frac{d}{dt} \frac{1}{2} \int_U (w_t^2 + \nabla w \cdot \nabla w) dx = \int_U (w_t w_{tt} + \nabla w \cdot \nabla w_t) dx $$
 	Utilizamos a Primeira Identidade de Green no segundo termo da integral:
@@ -515,7 +515,7 @@
 		\item Sobre $\partial U \times [0, T]$, temos $w = 0$, o que implica que a derivada temporal na fronteira também é nula: $w_t = 0$. Portanto, a integral de contorno desaparece.
 	\end{enumerate}
 	Concluímos que:
-	$$ \boxed{E'(t) = 0 \quad (\ast\ast)} $$
+	$$ \boxed{E'(t) = 0 \quad (\ast_2)} $$
 	Isso significa que a energia é constante no tempo, $E(t) = E(0)$. Avaliamos a energia no instante inicial $t=0$:
 	$$ E(0) = \frac{1}{2} \int_U (w_t(x, 0)^2 + |\nabla w(x, 0)|^2) dx $$
 	Visto que $w = 0$ e $w_t = 0$ em $U \times \{0\}$, temos $E(0) = 0$. Consequentemente, $E(t) = 0$ para todo $t \in [0, T]$. 
@@ -581,17 +581,17 @@
 	\textbf{(c)} Para calcular a derivada de $h(t) = \int_{|x-x_0| \le R-t} v(x, t) dx$, introduzimos a função auxiliar $H(t, s)$, que separa a dependência temporal da função da variação geométrica do domínio:
 	$$ H(t, s) = \int_{|x-x_0| \le R-s} v(x, t) dx $$
 	Observamos que $h(t)$ é a restrição de $H$ à reta $s=t$, ou seja, $h(t) = H(t, t)$. Pela regra da cadeia para funções de múltiplas variáveis, a derivada total de $h$ é:
-	$$ \boxed{h'(t) = \frac{\partial H}{\partial t}(t, t) + \frac{\partial H}{\partial s}(t, t) \quad (\ast)} $$
+	$$ \boxed{h'(t) = \frac{\partial H}{\partial t}(t, t) + \frac{\partial H}{\partial s}(t, t) \quad (\ast_1)} $$
 	
 	Calculamos agora cada derivada parcial separadamente:
 	
 	\textbf{1. Variação do Campo (Derivada em $t$):} Para um $s$ fixo, o domínio de integração $\{x \in \mathbb{R}^n : |x-x_0| \le R-s\}$ é constante. Assim, derivamos sob o sinal da integral:
-	$$\boxed{\frac{\partial H}{\partial t}(t, s) = \int_{|x-x_0| \le R-s} v_t(x, t) dx \quad (\ast\ast)}$$
+	$$\boxed{\frac{\partial H}{\partial t}(t, s) = \int_{|x-x_0| \le R-s} v_t(x, t) dx \quad (\ast_2)}$$
 	
 	\textbf{2. Variação do Domínio (Derivada em $s$):} Para um $t$ fixo, a função $v(x, t)$ comporta-se como uma função estática. Por analogia ao resultado obtido na \textbf{letra (b)}, obtemos que:
-	$$\boxed{\frac{\partial H}{\partial s}(t, s) = - \int_{|y-x_0|=R-s} v(y, t) d\sigma(y) \quad (\ast\ast\ast)}$$
+	$$\boxed{\frac{\partial H}{\partial s}(t, s) = - \int_{|y-x_0|=R-s} v(y, t) d\sigma(y) \quad (\ast_3)}$$
 	
-	Fazendo $s=t$ em $(\ast\ast)$ e $(\ast\ast\ast)$, e substituindo na expressão $(\ast)$, obtemos a derivada final:
+	Fazendo $s=t$ em $(\ast_2)$ e $(\ast_3)$, e substituindo na expressão $(\ast_1)$, obtemos a derivada final:
 	$$ \boxed{h'(t) = \int_{|x-x_0| \le R-t} v_t(x, t) dx - \int_{|y-x_0|=R-t} v(y, t) d\sigma(y)} $$
 }
 
@@ -809,11 +809,10 @@
 	$$ t |u(x, t)| \le \|h\|_\infty + \|g\|_\infty + \|\nabla g\|_\infty = c_2 .$$
 	
 	Definindo a constante global como $c = \max\{c_1, c_2\}$, provamos que para todo $x \in \mathbb{R}^3$ e $t > 0$:
-	$$ \boxed{t |u(x, t)| \le c \quad (\ast)} $$
+	$$ \boxed{t |u(x, t)| \le c \quad (\ast_1)} $$
 }
 
 \sintese{
-	A prova demonstra o decaime
-	nto temporal $\tfrac{1}{t}$ através da análise da medida de interseção $|\partial B_t(x) \cap B_R(0)|$. A essência do resultado é que, em $\mathbb{R}^3$, a solução depende estritamente de valores na casca da esfera (Princípio Forte de Huygens). Como o suporte dos dados iniciais é limitado, a \textbf{quantidade de sinal} capturada pela esfera não cresce com $t$, enquanto a amplitude da solução é inversamente proporcional ao raio da esfera. O fluxo lógico foi: $$\text{Fórmula de Kirchhoff} \longrightarrow \text{Decomposição de Termos} \longrightarrow \text{Limitação via Suporte Compacto} \longrightarrow \text{Cota Global } c.$$
+	A prova demonstra o decaimento temporal $\tfrac{1}{t}$ através da análise da medida de interseção $|\partial B_t(x) \cap B_R(0)|$. A essência do resultado é que, em $\mathbb{R}^3$, a solução depende estritamente de valores na casca da esfera (Princípio Forte de Huygens). Como o suporte dos dados iniciais é limitado, a \textbf{quantidade de sinal} capturada pela esfera não cresce com $t$, enquanto a amplitude da solução é inversamente proporcional ao raio da esfera. O fluxo lógico foi: $$\text{Fórmula de Kirchhoff} \longrightarrow \text{Decomposição de Termos} \longrightarrow \text{Limitação via Suporte Compacto} \longrightarrow \text{Cota Global } c.$$
 }
 \end{document}

@@ -57,12 +57,10 @@
 \binoppenalty=10000
 \everymath{\displaystyle}
 \pagestyle{empty}
-\setlength{\overfullrule}{5pt} % Desenha uma barra de 5pt no final de hboxes
-\newcommand{\linhaestilizada}{ % Comando para a linha estilizada
-	\begin{center}
-		\rule{0.3\textwidth}{0.4pt} $\diamond$ \rule{0.3\textwidth}{0.4pt}
-	\end{center}
+\newcommand{\linhaestilizada}{ % Linha centralizada verticalmente no diamante
+	\par\noindent\makebox[\textwidth]{\rule[0.5ex]{0.47\textwidth}{0.4pt}\hfill$\diamond$\hfill\rule[0.5ex]{0.47\textwidth}{0.4pt}\par}
 }
+\setlength{\overfullrule}{5pt} % Desenha uma barra de 5pt no final de hboxes para erros de estrapolação de linha horizontal
 
 % =============================================================================
 % SISTEMA DE CONTROLE DE VISIBILIDADE (INTERRUPTORES)
@@ -106,32 +104,32 @@
 % 2. Análise: Reflexão, Fundamentação e Estratégia
 \newcommand{\analise}[1]{%
 	\ifbool{showanalise}{%
-		\par\vspace{10pt}\textbf{\underline{Análise e Estratégia}}:\par 
-		#1\par\vspace{10pt}
+		\par\vspace{5pt}\textbf{\underline{Análise e Estratégia}}:\par 
+		#1\par
 	}{}%
 }
 
 % 3. Solução: Desenvolvimento Formal
 \newcommand{\solucao}[1]{%
-	\par\vspace{10pt}
+	\par
 	\textbf{\underline{Solução}}:\par
 	#1 \hfill$\blacksquare$
-	\par\vspace{10pt}
+	\par
 }
 
 % 4. Solução Alternativa: Outras abordagens
 \newcommand{\solucaoalt}[1]{%
-	\par\vspace{10pt}
+	\par
 	\textbf{\underline{Solução Alternativa}}:\par 
 	#1 \hfill$\blacksquare$
-	\par\vspace{10pt}
+	\par
 }
 
 % 5. Síntese: O mapa da construção e fatos matemáticos
 \newcommand{\sintese}[1]{%
 	\ifbool{showsintese}{%
-		\par\vspace{10pt}\textbf{\underline{Síntese da Construção}}:\par 
-		#1\par\vspace{10pt}
+		\par\textbf{\underline{Síntese da Construção}}:\par 
+		#1\par
 	}{}%
 }
 
@@ -139,10 +137,10 @@
 \newcommand{\aprofundamento}[1]{%
 	\ifbool{showaprofundamento}{%
 		\linhaestilizada
-		\nopagebreak % Tenta evitar quebra de página logo após a linha
-		\subsection*{\underline{Aprofundamento Teórico}}
+		%\nopagebreak 
+		\par\noindent\textbf{\underline{Aprofundamento Teórico}}\par
 		#1
-		\par\vspace{0.5em}
+		\par
 		\linhaestilizada
 	}{}%
 }

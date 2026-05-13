@@ -8,27 +8,121 @@
 	\section*{Espaços de Sobolev}
 }{}
 
-\questao{Mostre que $u(x) = |x|$ está em $W^{1,p}(U)$, para todo $1 \le p \le \infty$, quando $U = B_1(0) \subset \mathbb{R}^n$.}
+%%%% QUESTÃO 85 %%%%
+\questao{Seja $f : \mathbb{R} \to \mathbb{R}$ em $f \in C^{0,\alpha}(\mathbb{R})$, isto quer dizer que $f$ é limitado ($|f(t)| \le \|f\|_\infty$, para todo $t \in \mathbb{R}$) e
+	$$[f]_\alpha = \sup_{t \neq s} \frac{|f(t) - f(s)|}{|s - t|^\alpha} < \infty.$$
+	Suponha que $U$ é um aberto e $u \in C^{0,\beta}(\overline{U})$. Mostre que $f \circ u$ está em $C^{0,\alpha\beta}(\overline{U})$ e
+	$$\|f \circ u\|_{C^{0,\alpha\beta}(\overline{U})} \le \|f\|_\infty + [f]_\alpha [u]_{\beta, U}^\alpha.$$}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	A questão solicita a prova de que a composição de duas funções com regularidade de \textbf{Hölder} resulta em uma função cuja regularidade é dada pelo produto dos expoentes $\alpha$ e $\beta$. A tese central é a obtenção de uma estimativa a priori para a norma do espaço $C^{0, \alpha\beta}(\overline{U})$.
+	
+	\textbf{Fundamentação Teórica:}
+	A fundamentação baseia-se na definição de \textbf{Espaços de Hölder} e suas propriedades algébricas. Consultamos Gilbarg \& Trudinger (Capítulo 4), onde a norma de Hölder é definida como a soma da norma do supremo ($\|\cdot\|_\infty$) e a seminorma de Hölder ($[\cdot]_\gamma$).
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Estimativa da Norma do Supremo:} Demonstrar que a composição $f \circ u$ permanece limitada em $\overline{U}$, utilizando a hipótese de que $f$ é globalmente limitada em $\mathbb{R}$.
+		\item \textbf{Análise da Variação Incremental:} Aplicar a definição de continuidade de \textbf{Hölder} para $f$ sobre a imagem de $u$, e subsequentemente a continuidade de \textbf{Hölder} de $u$ sobre o domínio $\overline{U}$.
+		\item \textbf{Dedução do Expoente:} Mostrar que a combinação das desigualdades resulta no expoente $\alpha\beta$ para a distância $|x-y|$.
+		\item \textbf{Fechamento da Norma:} Somar a estimativa da norma do supremo com a seminorma obtida para validar a desigualdade final.
+	\end{enumerate}
+}
 
 \solucao{
-	\textbf{Análise do Enunciado:} 
-	Devemos verificar se a função $u(x) = |x|$, definida na bola unitária $B_1(0)$, pertence ao espaço de Sobolev $W^{1,p}$. Isso exige que $u \in L^p(U)$ e que sua derivada fraca $\nabla u$ também pertença a $L^p(U)$.
+	Iniciamos a análise controlando a norma do supremo da função composta $v = f \circ u$. Dado que $u(x) \in \mathbb{R}$ para todo $x \in \overline{U}$ e que a função $f$ é globalmente limitada em $\mathbb{R}$ por $\|f\|_\infty$, temos:
+	$$|v(x)| = |f(u(x))| \le \|f\|_\infty, \quad \forall x \in \overline{U}.$$
+	Dessa forma, estabelecemos a primeira estimativa a priori:
+	$$\|f \circ u\|_\infty \le \|f\|_\infty \quad (\ast_1)$$
 	
-	\textbf{Fundamentação Teórica:} 
-	Uma função $u$ pertence a $W^{1,p}(U)$ se $u \in L^p(U)$ e existe $v \in L^p(U, \mathbb{R}^n)$ tal que para todo $\phi \in C^\infty_c(U)$:
-	$$ \int_U u \frac{\partial \phi}{\partial x_i} dx = - \int_U v_i \phi dx, \quad i=1, \dots, n $$
-	(Referência: Brezis, Cap. 9).
+	Para a estimativa da seminorma de \textbf{Hölder}, fixamos $x, y \in \overline{U}$ com $x \neq y$. Como, por hipótese $f \in C^{0,\alpha}(\mathbb{R})$, então para variação de $f$, obtemos que:
+	$$|f(u(x)) - f(u(y))| \le [f]_\alpha |u(x) - u(y)|^\alpha \quad (\ast_2)$$
 	
-	\textbf{Desenvolvimento Formal:} 
-	1. \textbf{Integrabilidade de $u$}: Como $|x| \le 1$ em $B_1(0)$, temos $\int_{B_1(0)} |x|^p dx \le \text{vol}(B_1(0)) < \infty$ para todo $p \ge 1$. Logo, $u \in L^p(U)$.
+	Além disso, a regularidade de $u \in C^{0,\beta}(\overline{U})$ implica para a variação de $u$, que:
+	$$|u(x) - u(y)| \le [u]_{\beta, U} |x - y|^\beta \quad (\ast_3)$$
 	
-	2. \textbf{Derivada Fraca}: A função $u(x) = |x|$ é diferenciável em $U \setminus \{0\}$ com:
-	$$ \nabla u(x) = \frac{x}{|x|} $$
-	Notamos que $|\nabla u(x)| = 1$ quase em toda parte em $U$. Como a função é Lipschitziana com constante $L=1$, sua derivada fraca coincide com a derivada clássica q.t.p. Verificamos a integrabilidade de $\nabla u$:
-	$$ \int_{B_1(0)} |\nabla u|^p dx = \int_{B_1(0)} 1^p dx = \text{vol}(B_1(0)) < \infty $$
-	Para $p = \infty$, temos $\|u\|_{L^\infty} = 1$ e $\|\nabla u\|_{L^\infty} = 1$.
+	Substituindo a desigualdade $(\ast_3)$ em $(\ast_2)$, obtemos:
+	\begin{align*}
+		|f(u(x)) - f(u(y))| &\le [f]_\alpha \left( [u]_{\beta, U} |x - y|^\beta \right)^\alpha \le [f]_\alpha [u]_{\beta, U}^\alpha |x - y|^{\alpha\beta}.
+	\end{align*}
 	
-	Como tanto a função quanto sua derivada fraca possuem norma $L^p$ finita para todo $1 \le p \le \infty$, concluímos que $u \in W^{1,p}(B_1(0))$.
+	Dividindo ambos os lados por $|x - y|^{\alpha\beta}$ e tomando o supremo sobre $x, y \in \overline{U}$ com $x \neq y$, isolamos a seminorma de \textbf{Hölder} de ordem $\alpha\beta$:
+	$$\boxed{[f \circ u]_{\alpha\beta} \le [f]_\alpha [u]_{\beta, U}^\alpha \quad (\ast_4)}$$
+	
+	Finalmente, utilizando a definição da norma total no espaço $C^{0, \alpha\beta}(\overline{U})$, que é a soma da norma do supremo com a seminorma de \textbf{Hölder}, temos:
+	$$\|f \circ u\|_{C^{0,\alpha\beta}(\overline{U})} = \|f \circ u\|_\infty + [f \circ u]_{\alpha\beta}.$$
+	
+	Aplicando as estimativas $(\ast_1)$ e $(\ast_4)$ nesta soma, chegamos ao resultado final:
+	$$\boxed{\|f \circ u\|_{C^{0,\alpha\beta}(\overline{U})} \le \|f\|_\infty + [f]_\alpha [u]_{\beta, U}^\alpha.}$$
+}
+
+\sintese{
+	A prova demonstra que a regularidade de \textbf{Hölder} é preservada sob composição, embora ocorra uma \textbf{perda de regularidade} no sentido de que o expoente resultante é o produto dos expoentes originais ($\alpha\beta$), sendo este estritamente menor que qualquer um dos expoentes iniciais para $\alpha, \beta \in (0,1)$. Logicamente, o fluxo foi:
+	$$\text{Limitada} \to \text{Variação de } f \text{ em } u \to \text{Variação de } u \text{ em } x \to \text{Soma de Normas}.$$
+}
+
+\aprofundamento{
+	Esta propriedade é crucial para a teoria de \textbf{Regularidade Elíptica}. Quando lidamos com equações do tipo $-\Delta u = f(u)$, a regularidade de $u$ (frequentemente em $C^{1,\beta}$ ou $W^{2,p}$) implica que $f(u)$ herda a regularidade de $f$ composta com $u$. 
+	
+	Se $f$ fosse apenas localmente de \textbf{Hölder}, a limitação global $\|f\|_\infty$ não seria dada, mas a prova permaneceria válida desde que $u$ fosse limitada (o que é garantido por $\overline{U}$ ser compacto). Historicamente, a transição de $C^k$ para $C^{k, \alpha}$ permitiu a Schauder resolver a equação de Poisson com dados contínuos, superando a limitação de que $u \in C^2$ não é garantido apenas por $f \in C^0$.
+}
+
+%%%% QUESTÃO 86 %%%%
+\questao{Mostre que a derivada fraca $\frac{\partial u}{\partial x_j}$ de uma função $u \in L_{loc}^1(U)$ quando existe é única.}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	A questão exige a demonstração da unicidade do elemento $v \in L_{loc}^1(U)$ que satisfaz a definição de derivada fraca de uma função $u$ em relação à variável $x_j$. A tese é que, se dois elementos satisfazem a mesma condição integral para todas as funções de teste, eles devem coincidir quase sempre em $U$.
+	
+	\textbf{Fundamentação Teórica:}
+	A base teórica reside na definição de \textbf{Derivada Fraca} e no \textbf{Lema Fundamental do Cálculo de Variações}. Consultamos Brezis (Capítulo 9), onde a derivada fraca é introduzida via integração por partes formal, e Evans (Capítulo 5), que discute a densidade de $C_c^\infty(U)$ em espaços $L^p$.
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Definição de Hipóteses:} Supor a existência de duas funções $v_1, v_2 \in L_{loc}^1(U)$ que atuam como derivadas fracas de $u$ em relação a $x_j$.
+		\item \textbf{Construção da Diferença:} Subtrair as identidades integrais correspondentes a $v_1$ e $v_2$ para isolar a diferença $(v_1 - v_2)$.
+		\item \textbf{Aplicação do Lema Fundamental:} Utilizar o fato de que se a integral de uma função $L_{loc}^1$ contra qualquer função de teste $\phi \in C_c^\infty(U)$ é nula, então a função é nula quase sempre.
+		\item \textbf{Conclusão:} Estabelecer a igualdade $v_1 = v_2$ q.s. em $U$.
+	\end{enumerate}
+}
+
+\solucao{
+	Seja $U \subset \mathbb{R}^n$ um aberto e $u \in L_{loc}^1(U)$. Por definição, dizemos que $v \in L_{loc}^1(U)$ é a derivada fraca de $u$ em relação a $x_j$, denotada por $\tfrac{\partial u}{\partial x_j}$, se para toda função de teste $\phi \in C_c^\infty(U)$ for satisfeita a identidade:
+	$$\int_U u \frac{\partial \phi}{\partial x_j} dx = - \int_U v \phi dx \quad (\ast_1)$$
+	
+	Suponhamos que existam duas funções $v_1, v_2 \in L_{loc}^1(U)$ que satisfaçam a condição de derivada fraca de $u$. Assim, para qualquer $\phi \in C_c^\infty(U)$, temos simultaneamente:
+	\begin{align*}
+		\int_U u \frac{\partial \phi}{\partial x_j} dx &= - \int_U v_1 \phi dx \quad (\ast_2) \\
+		\int_U u \frac{\partial \phi}{\partial x_j} dx &= - \int_U v_2 \phi dx \quad (\ast_3)
+	\end{align*}
+	
+	Subtraindo a equação $(\ast_3)$ da equação $(\ast_2)$, obtemos:
+	\begin{align*}
+		0 &= - \int_U v_1 \phi dx - \left( - \int_U v_2 \phi dx \right) \\
+		0 &= \int_U (v_2 - v_1) \phi dx
+	\end{align*}
+	
+	Portanto, a diferença $w = v_2 - v_1$ satisfaz a seguinte condição para todo $\phi \in C_c^\infty(U)$:
+	$$\boxed{\int_U w \phi dx = 0}$$
+	
+	Sendo $w \in L_{loc}^1(U)$, aplicamos o \textbf{Lema Fundamental do Cálculo de Variações} (ou a propriedade de que $C_c^\infty(U)$ é denso em $L^p(K)$ para qualquer compacto $K \subset U$). Este lema estabelece que, se uma função localmente integrável anula a integral contra toda função de teste com suporte compacto, então essa função deve ser nula quase sempre em $U$. 
+	
+	Logo:
+	$$w(x) = 0 \quad \text{q.s. em } U \implies v_2(x) = v_1(x) \quad \text{q.s. em } U.$$
+	
+	Concluímos, portanto, que a derivada fraca, quando existe, é única a menos de um conjunto de medida nula.
+}
+
+\sintese{
+	A unicidade da derivada fraca é uma consequência direta da densidade das funções de teste $C_c^\infty(U)$ no espaço de funções integráveis. O fluxo lógico foi:
+	$$\text{Hipótese de Duplicidade} \to \text{Linearidade da Integral} \to \text{Ortogonalidade a } C_c^\infty \to \text{Nulidade q.s.}$$
+}
+
+\aprofundamento{
+	A unicidade da derivada fraca é o que permite a definição consistente de operadores diferenciais em espaços de funções menos regulares. Do ponto de vista da \textbf{Teoria das Distribuições}, a derivada fraca de $u$ é precisamente a distribuição $\partial_j u$. Como a aplicação de uma distribuição a uma função de teste é única, a representação dessa distribuição por uma função $v \in L_{loc}^1$ (quando possível) deve ser única. 
+	
+	Se $u$ possuísse derivadas fracas distintas, a noção de $\nabla u$ \textbf{fraco} estaria comprometida, tornando impossível a definição de normas em espaços de Sobolev como $W^{1,p}(U)$, onde a norma depende explicitamente da unicidade de $\tfrac{\partial u}{\partial x_j}$.
 }
 
 \end{document}
