@@ -185,5 +185,294 @@
 }
 
 %%%% QUESTÃO 88 %%%%
+\questao{Seja $U$ conexo e $u \in W^{1,p}(U)$ tal que $$\int_U u \frac{\partial \phi}{\partial x_j} dx = 0 \ \ \text{para todos } j = 1, 2, \dots, n \ \ \text{e } \phi \in C_c^\infty(U).$$ Mostre que $u$ é constante, q.s. em $U$. Se $|U| = \infty$ e $p < \infty$ devemos ter $u$ constante igual a $0$.}
 
+\analise{
+	\textbf{Análise do Enunciado:}
+	A hipótese dada é que a derivada fraca de $u$ em relação a cada variável $x_j$ é nula, ou seja, o \textbf{Gradiente Fraco} $\nabla u = 0$ quase sempre em $U$. A tese divide-se em duas partes: primeiro, provar que $u$ é constante quase sempre, dado que $U$ é conexo; segundo, provar que, sob a condição de medida infinita do domínio e pertinência a $L^p$ ($p < \infty$), a única constante possível é zero.
+	
+	\textbf{Fundamentação Teórica:}
+	A prova fundamenta-se na técnica de \textbf{Regularização por Convolução}, cujas propriedades de convergência e preservação de derivadas foram construídas e validadas nas \textbf{Questões 4 e 5}. O argumento central utiliza o fato de que funções suaves com gradiente nulo em domínios conexos são constantes. Referências principais: Brezis (Capítulo 9) e Evans (Capítulo 5.3).
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Regularização:} Definir a sequência de funções suavizadas $u_\varepsilon = u * \eta_\varepsilon$ e demonstrar que suas derivadas clássicas são nulas.
+		\item \textbf{Uso da Conexão:} Aplicar o resultado do cálculo clássico para concluir que $u_\varepsilon$ é constante em cada componente conexo.
+		\item \textbf{Passagem ao Limite:} Utilizar a convergência $u_\varepsilon \to u$ em $L^p_{loc}(U)$ para transferir a propriedade de ser constante para $u$.
+		\item \textbf{Análise de Medida:} Para o caso $|U| = \infty$, utilizar a norma de $L^p$ para forçar a constante a ser zero.
+	\end{enumerate}
+}
+
+\solucao{
+	A hipótese $\int_U u \tfrac{\partial \phi}{\partial x_j} dx = 0$ para todo $\phi \in C_c^\infty(U)$ implica, por definição, que a derivada fraca $\frac{\partial u}{\partial x_j} = 0$ quase sempre em $U$ para todo $j=1, \dots, n$. Portanto, $\nabla u = 0$ q.s. em $U$.
+	
+	Consideremos a função de regularização $\eta \in C_c^\infty(\mathbb{R}^n)$ com $\text{supp } \eta \subset B_1(0)$ e $\int \eta = 1$. Para $\varepsilon > 0$, definimos a função suave $u_\varepsilon = u * \eta_\varepsilon$ em $U_\varepsilon = \{x \in U : \dist(x, \partial U) > \varepsilon\}$. Pela propriedade da convolução, $u_\varepsilon \in C^\infty(U_\varepsilon)$ e a derivada clássica de $u_\varepsilon$ coincide com a convolução da derivada fraca de $u$ com $\eta_\varepsilon$:
+	$$\frac{\partial u_\varepsilon}{\partial x_j}(x) = \int_U \frac{\partial u}{\partial x_j}(y) \eta_\varepsilon(x-y) dy$$
+	
+	Como $\frac{\partial u}{\partial x_j} = 0$ q.s. em $U$, temos que $\frac{\partial u_\varepsilon}{\partial x_j} = 0$ para todo $x \in U_\varepsilon$ e todo $j=1, \dots, n$. Assim:
+	$$\boxed{\nabla u_\varepsilon = 0 \text{ em } U_\varepsilon \quad (\ast_1)}$$
+	
+	Visto que $U$ é conexo, $U_\varepsilon$ também é conexo para $\varepsilon$ suficientemente pequeno. Portanto:
+	$$u_\varepsilon(x) = C_\varepsilon \quad \text{para todo } x \in U_\varepsilon \quad (\ast_2)$$
+	
+	Além disso, $u_\varepsilon \to u$ em $L^p_{loc}(U)$ quando $\varepsilon \to 0$. Assim, para qualquer $V \subset \subset U$ limitado, temos:
+	$$\|u - C_\varepsilon\|_{L^p(V)} \to 0$$
+	
+	Isso implica que $u$ é igual a uma constante $C$ quase sempre em $U$, ou seja, 
+	$$\boxed{u(x) = C \quad \text{q.s. em } U}.$$
+	
+	Agora, consideremos a hipótese $|U| = \infty$ com $p < \infty$. Dado que $u \in W^{1,p}(U)$, obrigatoriamente $u \in L^p(U)$. Calculamos a norma de $u$:
+	$$\|u\|_{L^p(U)}^p = \int_U |u(x)|^p dx = \int_U |C|^p dx = |C|^p \int_U 1 dx = |C|^p |U|$$
+	
+	Se $C \neq 0$, então $\|u\|_{L^p(U)}^p = |C|^p \cdot \infty = \infty$, o que contradiz a hipótese de que $u \in L^p(U)$. Para que a integral seja finita com $|U| = \infty$, a única possibilidade é:
+	$$\boxed{C = 0 }.$$
+}
+
+\sintese{
+	A prova articula a transição entre a noção de derivada fraca e a derivada clássica via regularização. A conexão do domínio é a peça chave que permite a propagação da nulidade do gradiente para a constância da função. O fluxo lógico foi:
+	$$\nabla u = 0 \text{ (fraco)} \to \nabla u_\varepsilon = 0 \text{ (clássico)} \to u_\varepsilon = C_\varepsilon \to u = C \text{ q.s.} \to L^p \text{ com } |U|=\infty \implies C=0.$$
+}
+
+\aprofundamento{
+	Este resultado é a base para a definição de espaços de Sobolev com valores médios nulos e para a prova da \textbf{Desigualdade de Poincaré}. A exigência de que $U$ seja conexo é indispensável; se $U$ fosse a união de dois abertos disjuntos $U_1 \cup U_2$, $u$ poderia assumir constantes distintas $C_1$ e $C_2$ em cada componente, mantendo $\nabla u = 0$.
+	
+	Do ponto de vista da análise funcional, este teorema afirma que o núcleo ($\text{ker}$) do operador gradiente $$\nabla : W^{1,p}(U) \to L^p(U; \mathbb{R}^n),$$ consiste precisamente das funções constantes. Quando $|U| = \infty$ e $p < \infty$, a única constante que pertence ao espaço $L^p$ é a função nula, o que torna o operador $\nabla$ injetivo neste caso específico.
+}
+
+%%%% QUESTÃO 89 %%%%
+\questao{
+	\begin{enumerate}[label*=(\alph*)]
+		\item Sejam $u \in W^{1,p}(U), v \in W^{1,q}(U)$. Mostre que $uv \in W^{1,1}(U)$ e que $\nabla(uv) = u\nabla v + v\nabla u$;
+		\item Se $v \in W^{1,\infty}(U)$ então $uv \in W^{1,p}(U)$.
+	\end{enumerate}
+}	
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	O objetivo é estender a regra do produto do cálculo clássico para o contexto de derivadas fracas. No item (a), deve-se mostrar que o produto de duas funções de Sobolev pertence a $W^{1,1}(U)$, assumindo-se que os expoentes $p, q$ satisfaçam a condição de integrabilidade $\tfrac{1}{p} + \tfrac{1}{q} \le 1$. No item (b), a regularidade de $v$ é elevada para $L^\infty$, o que permite que o produto $uv$ permaneça no espaço $W^{1,p}(U)$.
+	
+	\textbf{Fundamentação Teórica:}
+	A prova baseia-se na técnica de \textbf{Regularização por Convolução}** (estudada nas Questões 4 e 5). A estratégia consiste em aplicar a regra do produto a funções suaves (onde a validade é trivial) e passar ao limite utilizando a \textbf{Desigualdade de Hölder}.
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Aproximação:} Definir sequências de regularização $u_\varepsilon = u * \eta_\varepsilon$ e $v_\varepsilon = v * \eta_\varepsilon$.
+		\item \textbf{Identidade Clássica:} Utilizar a regra do produto para as funções suaves $u_\varepsilon$ e $v_\varepsilon$.
+		\item \textbf{Passagem ao Limite:} Provar que os termos $u_\varepsilon \nabla v_\varepsilon$ e $v_\varepsilon \nabla u_\varepsilon$ convergem em $L^1(U)$ para $u \nabla v$ e $v \nabla u$, respectivamente.
+		\item \textbf{Fechamento em $W^{1,p}$:} Para o item (b), utilizar as normas de $L^\infty$ para mostrar que a resultante pertence a $L^p(U)$.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{(a):}
+	Sejam $u_\varepsilon$ e $v_\varepsilon$ as regularizações de $u$ e $v$ via convolução com $\eta_\varepsilon$. Como $u_\varepsilon, v_\varepsilon \in C^\infty(U_\varepsilon)$, a regra do produto clássica é válida:
+	$$\nabla(u_\varepsilon v_\varepsilon) = u_\varepsilon \nabla v_\varepsilon + v_\varepsilon \nabla u_\varepsilon \quad (\ast_1)$$
+	
+	Para qualquer função de teste $\phi \in C_c^\infty(U)$, temos a identidade:
+	$$\int_U (u_\varepsilon v_\varepsilon) \nabla \phi \, dx = - \int_U (u_\varepsilon \nabla v_\varepsilon + v_\varepsilon \nabla u_\varepsilon) \phi \, dx \quad (\ast_2)$$
+	
+	Analisamos a convergência de cada termo quando $\varepsilon \to 0$. Pela \textbf{Desigualdade de Hölder}, e assumindo $\tfrac{1}{p} + \tfrac{1}{q} \le 1$:
+	$$\int_U |u_\varepsilon \nabla v_\varepsilon - u \nabla v| \, dx \le \|u_\varepsilon - u\|_{L^p} \|\nabla v_\varepsilon\|_{L^q} + \|u\|_{L^p} \|\nabla v_\varepsilon - \nabla v\|_{L^q}$$
+	
+	Visto que $u_\varepsilon \to u$ em $L^p$ e $\nabla v_\varepsilon \to \nabla v$ em $L^q$, o lado direito converge a zero. Analogamente, $v_\varepsilon \nabla u_\varepsilon \to v \nabla u$ em $L^1(U)$. Passando ao limite na relação $(\ast_2)$, obtemos:
+	$$\int_U (uv) \nabla \phi \, dx = - \int_U (u \nabla v + v \nabla u) \phi \, dx \quad (\ast_3)$$
+	
+	A identidade $(\ast_3)$ prova que $uv$ possui derivada fraca e que:
+	$$\boxed{\nabla(uv) = u \nabla v + v \nabla u \quad (\ast_4)}$$
+	Como $u \nabla v \in L^1$ e $v \nabla u \in L^1$ (via Hölder), temos $uv \in W^{1,1}(U)$.
+	
+	\vspace{10pt}
+	\textbf{Item (b):}
+	Agora, suponha $v \in W^{1,\infty}(U)$. Isso implica que $v \in L^\infty(U)$ e $\nabla v \in L^\infty(U; \mathbb{R}^n)$.
+	Analisamos a norma $L^p$ do produto $uv$:
+	$$\|uv\|_{L^p(U)} \le \|v\|_{L^\infty(U)} \|u\|_{L^p(U)} < \infty \quad (\ast_5)$$
+	
+	Para o gradiente $\nabla(uv)$, utilizamos a regra do produto obtida em $(\ast_4)$:
+	$$\|\nabla(uv)\|_{L^p(U)} = \|u \nabla v + v \nabla u\|_{L^p(U)} \le \|u \nabla v\|_{L^p(U)} + \|v \nabla u\|_{L^p(U)}$$
+	
+	Aplicando a desigualdade $\|fg\|_{L^p} \le \|f\|_{L^p} \|g\|_{L^\infty}$:
+	$$\|\nabla(uv)\|_{L^p(U)} \le \|u\|_{L^p} \|\nabla v\|_{L^\infty} + \|v\|_{L^\infty} \|\nabla u\|_{L^p} < \infty \quad (\ast_6)$$
+	
+	As estimativas $(\ast_5)$ e $(\ast_6)$ garantem que $uv \in L^p(U)$ e $\nabla(uv) \in L^p(U)$, logo:
+	$$\boxed{uv \in W^{1,p}(U)}.$$
+}
+
+\sintese{
+	A prova estende a linearidade da derivada para produtos de funções de Sobolev. O ponto crítico é a utilização da regularização para justificar a regra do produto e a aplicação da desigualdade de Hölder para garantir que os termos resultantes permaneçam integráveis. O fluxo lógico foi:
+	$$\text{Regularização} \to \text{Regra Clássica} \to \text{Limite } L^p \to \text{Regra Fraca} \to \text{Estabilidade em } W^{1,p}.$$
+}
+
+\aprofundamento{
+	Este resultado demonstra que $W^{1, \infty}(U)$ atua como um \textbf{multiplicador} para o espaço $W^{1,p}(U)$. De forma mais geral, se $u \in W^{k,p}(U)$ e $v \in W^{k, \infty}(U)$, então $uv \in W^{k,p}(U)$. 
+	
+	É importante notar que, se $p < \infty$ e $q < \infty$ com $\tfrac{1}{p} + \tfrac{1}{q} > 1$, o produto $uv$ pode não pertencer a $L^1(U)$, e a derivada fraca não estaria bem definida no sentido de $L^1$. Por isso, a condição de $v \in W^{1, \infty}$ no item (b) é fundamental para \textbf{preservar} o expoente $p$ da função $u$. Esse comportamento é análogo ao fato de que $L^\infty$ é a única álgebra entre os espaços $L^p$ para $p < \infty$.
+}
+
+%%%% QUESTÃO 90 %%%%
+\questao{Seja $u \in W^{2,p}(U)$. Mostre que $\frac{\partial^2 u}{\partial x_i \partial x_j} = \frac{\partial^2 u}{\partial x_j \partial x_i}$.}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	A questão solicita a demonstração de que as derivadas fracas de segunda ordem comutam. A hipótese $u \in W^{2,p}(U)$ garante que $u$ e todas as suas derivadas fracas de até segunda ordem pertencem a $L^p(U)$. A tese é a igualdade quase sempre (q.s.) das funções que representam as derivadas mistas $\partial_{x_i}\partial_{x_j}u$ e $\partial_{x_j}\partial_{x_i}u$.
+	
+	\textbf{Fundamentação Teórica:}
+	A prova baseia-se na definição de \textbf{Derivada Fraca} aplicada sucessivamente. O ponto central é a utilização de funções de teste $\phi \in C_c^\infty(U)$, para as quais a comutatividade das derivadas clássicas é garantida pelo Teorema de Clairaut. Consultamos Brezis (Capítulo 9) para a definição de $W^{2,p}$.
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Aplicação da Definição:} Utilizar a definição de derivada fraca para a segunda derivada $\frac{\partial^2 u}{\partial x_i \partial x_j}$ contra uma função de teste $\phi$.
+		\item \textbf{Comutatividade Clássica:} Inverter a ordem de derivação na função de teste $\phi$, que é de classe $C^\infty$.
+		\item \textbf{Reversão da Definição:} Reconhecer que a integral resultante corresponde à definição de derivada fraca para a ordem $\frac{\partial^2 u}{\partial x_j \partial x_i}$.
+		\item \textbf{Unicidade:} Aplicar a unicidade da derivada fraca (provada na Questão 86) para concluir a igualdade q.s.
+	\end{enumerate}
+}
+
+\solucao{
+	Seja $u \in W^{2,p}(U)$. Por definição, a derivada fraca $\frac{\partial^2 u}{\partial x_i \partial x_j}$ é a única função $v_{ij} \in L^p(U)$ tal que, para toda função de teste $\phi \in C_c^\infty(U)$, temos:
+	$$\int_U v_{ij} \phi \, dx = \int_U u \frac{\partial^2 \phi}{\partial x_i \partial x_j} dx \quad (\ast_1)$$
+	
+	Analogamente, a derivada fraca $\frac{\partial^2 u}{\partial x_j \partial x_i}$ é a única função $v_{ji} \in L^p(U)$ tal que, para toda $\phi \in C_c^\infty(U)$:
+	$$\int_U v_{ji} \phi \, dx = \int_U u \frac{\partial^2 \phi}{\partial x_j \partial x_i} dx \quad (\ast_2).$$
+	
+	Como $\phi \in C_c^\infty(U)$, de $(\ast_1)$ $(\ast_2)$, obtemos:
+	\begin{align*}
+		\int_U (v_{ij} - v_{ji}) \phi \, dx &= \int_U v_{ij} \phi \, dx-\int_U v_{ji} \phi \, dx = \int_U u \frac{\partial^2 \phi}{\partial x_i \partial x_j}  dx - \int_U u \frac{\partial^2 \phi}{\partial x_j \partial x_i} dx \\
+		&= \int_U u \left(\frac{\partial^2 \phi}{\partial x_i \partial x_j}- \frac{\partial^2 \phi}{\partial x_j \partial x_i}\right) dx
+		= \int_U u \left(\frac{\partial^2 \phi}{\partial x_i \partial x_j}-\frac{\partial^2 \phi}{\partial x_i \partial x_j}\right) dx \\
+		&= \int_U u.0 dx=0,
+	\end{align*}
+	onde usamos o teorema de comutatividade das derivadas para funções de classe $C^\infty$.
+	
+	Isso implica que:
+	$$\int_U (v_{ij} - v_{ji}) \phi \, dx = 0, \quad \forall \phi \in C_c^\infty(U).$$
+	
+	Pelo \textbf{Lema Fundamental do Cálculo de Variações} (ou pela unicidade da derivada fraca provada anteriormente (\textbf{Questão 86})), temos que:
+	$$v_{ij} - v_{ji} = 0 \quad \text{q.s. em } U$$
+	
+	Portanto, provamos que:
+	$$\boxed{\frac{\partial^2 u}{\partial x_i \partial x_j} = \frac{\partial^2 u}{\partial x_j \partial x_i} \quad \text{q.s. em } U}.$$
+}
+
+\sintese{
+	A prova transfere a propriedade de comutatividade das derivadas clássicas para o regime fraco através da função de teste. A lógica foi linear:
+	$$\text{Definição de } \partial_{ij} u \ \text{e } \partial_{ji} u \to \text{Comutatividade de } \partial_{ij} \phi \to \text{Unicidade q.s.}$$
+}
+
+\aprofundamento{
+	Este resultado é fundamental para a definição do \textbf{Hessiano Fraco} de uma função em $W^{2,p}(U)$. A simetria do Hessiano é a propriedade que permite a aplicação de técnicas de integração por partes em problemas de minimização de energia, como nos funcionais de Dirichlet. 
+	
+	Note que esta propriedade não depende de $p$, desde que a função pertença a $W^{2,p}$. No entanto, a interpretação geométrica da simetria das derivadas mistas está intimamente ligada ao fato de que o operador Laplaciano $\Delta = \sum \partial_{ii}$ é a traço do Hessiano. A comutatividade garante que a estrutura de segunda ordem de Sobolev seja análoga à estrutura de funções $C^2$, permitindo a generalização de teoremas de regularidade elíptica.
+}
+
+%%%% QUESTÃO 91 %%%%
+% --- Bloco Introdutório: Teorema Auxiliar ---
+Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental da teoria de espaços de Sobolev, cuja base técnica de regularização foi construída no \textbf{Questão 4} desta lista.
+
+\begin{theorem*}[\textbf{Teorema da Coincidência}]
+	Seja $U \subset \mathbb{R}^n$ um aberto e $u \in W^{1,p}(U)$. Então, a derivada fraca $\tfrac{\partial u}{\partial x_j}$ \textit{coincide} quase sempre com a derivada clássica $\tfrac{\partial u}{\partial x_j}$ em todo ponto $x \in U$ onde esta última existe.
+\end{theorem*}
+
+\begin{proof}
+	Seja $\eta \in C_c^\infty(\mathbb{R}^n)$ uma \textbf{função regularizante} tal que $\supp \eta \subset B_1(0)$, $\eta \ge 0$ e $\int_{\mathbb{R}^n} \eta(x) dx = 1$. Para $\varepsilon > 0$, definimos a função regularizante $\eta_\varepsilon(x) = \varepsilon^{-n} \eta(x/\varepsilon)$, a qual possui suporte em $B_\varepsilon(0)$. Definimos então o domínio:
+	$$U_\varepsilon = \{ x \in U : \dist(x, \partial U) > \varepsilon \}$$
+	A função suavizada $u_\varepsilon = u * \eta_\varepsilon$ é definida por:
+	$$u_\varepsilon(x) = \int_{B_\varepsilon(0)} u(x-y) \eta_\varepsilon(y) dy, \quad x \in U_\varepsilon$$
+	Sabemos que $u_\varepsilon \in C^\infty(U_\varepsilon)$. Uma propriedade fundamental da convolução é que a derivada clássica de $u_\varepsilon$ coincide com a convolução da derivada fraca de $u$ com $\eta_\varepsilon$:
+	$$\frac{\partial u_\varepsilon}{\partial x_j}(x) = \left( \frac{\partial u}{\partial x_j} * \eta_\varepsilon \right)(x) = \int_{B_\varepsilon(0)} \frac{\partial u}{\partial x_j}(x-y) \eta_\varepsilon(y) dy$$
+	
+	Como $\frac{\partial u}{\partial x_j} \in L^p(U)$, analisamos a convergência de $\frac{\partial u_\varepsilon}{\partial x_j}$ para $\frac{\partial u}{\partial x_j}$ em $L^p(U_\varepsilon)$. Pela definição de convolução e utilizando o fato de que $\int_{B_\varepsilon(0)} \eta_\varepsilon(y) dy = 1$, temos:
+	\begin{align*}
+		\left\| \frac{\partial u_\varepsilon}{\partial x_j} - \frac{\partial u}{\partial x_j} \right\|_{L^p(U_\varepsilon)}^p &= \int_{U_\varepsilon} \left| \int_{B_\varepsilon(0)} \eta_\varepsilon(y) \left( \frac{\partial u}{\partial x_j}(x-y) - \frac{\partial u}{\partial x_j}(x) \right) dy \right|^p dx \\
+		&\le \int_{U_\varepsilon} \left( \int_{B_\varepsilon(0)} \eta_\varepsilon(y) \left| \frac{\partial u}{\partial x_j}(x-y) - \frac{\partial u}{\partial x_j}(x) \right|^p dy \right) dx
+	\end{align*}
+	Onde aplicamos a \textbf{Desigualdade de Jensen}, visto que $\eta_\varepsilon$ é uma função não-negativa com integral unitária. Trocando a ordem de integração via Teorema de Fubini, obtemos:
+	\begin{align*}
+		\left\| \frac{\partial u_\varepsilon}{\partial x_j} - \frac{\partial u}{\partial x_j} \right\|_{L^p(U_\varepsilon)}^p &\le \int_{B_\varepsilon(0)} \eta_\varepsilon(y) \left( \int_{U_\varepsilon} \left| \frac{\partial u}{\partial x_j}(x-y) - \frac{\partial u}{\partial x_j}(x) \right|^p dx \right) dy
+	\end{align*}
+	A integral interna representa a norma da translação da função $\frac{\partial u}{\partial x_j}$ em $L^p$. Pela propriedade de \textbf{continuidade da translação no $L^p$} ($\lim_{y \to 0} \| f(\cdot - y) - f(\cdot) \|_{L^p} = 0$), a integral interna converge para zero uniformemente para todo $y \in B_\varepsilon(0)$ quando $\varepsilon \to 0$. Logo:
+	$$\left\| \frac{\partial u_\varepsilon}{\partial x_j} - \frac{\partial u}{\partial x_j} \right\|_{L^p(U_\varepsilon)} \to 0, \quad \text{quando } \varepsilon \to 0.$$
+	
+	Como toda sequência convergente em $L^p(U)$ admite uma subsequência que converge quase sempre, existe $\varepsilon_k \to 0$ tal que:
+	$$\frac{\partial u_{\varepsilon_k}}{\partial x_j}(x) \to \frac{\partial u}{\partial x_j}(x) \quad \text{q.s. em } U.$$
+	
+	Por outro lado, suponha que $u$ seja diferenciável no sentido clássico em $x_0 \in U$. Utilizando a definição de $u_\varepsilon$ e a mudança de variável $z = x - \varepsilon y$, podemos escrever:
+	$$u_\varepsilon(x) = \int_{B_1(0)} u(x - \varepsilon y) \eta(y) dy$$
+	Como $u$ é diferenciável em $x_0$, podemos aplicar a regra de \textbf{derivação sob o sinal da integral} (conforme discutido na Questão 22) para obter:
+	$$\frac{\partial u_\varepsilon}{\partial x_j}(x_0) = \int_{B_1(0)} \frac{\partial}{\partial x_j} [u(x_0 - \varepsilon y)] \eta(y) dy = \int_{B_1(0)} \frac{\partial u}{\partial x_j}(x_0 - \varepsilon y) \eta(y) dy$$
+	Visto que $u$ é diferenciável em $x_0$, a função $\frac{\partial u}{\partial x_j}$ é contínua em $x_0$. Como $\eta$ é limitada e possui suporte compacto em $B_1(0)$, podemos passar ao limite $\varepsilon \to 0$ dentro da integral:
+	$$\lim_{\varepsilon \to 0} \frac{\partial u_\varepsilon}{\partial x_j}(x_0) = \int_{B_1(0)} \frac{\partial u}{\partial x_j}(x_0) \eta(y) dy = \frac{\partial u}{\partial x_j}_{\text{clássica}}(x_0) \int_{B_1(0)} \eta(y) dy$$
+	Como $\int \eta = 1$, temos que $\lim_{\varepsilon \to 0} \frac{\partial u_\varepsilon}{\partial x_j}(x_0) = \frac{\partial u}{\partial x_j}_{\text{clássica}}(x_0)$. 
+	
+	Como a sequência $\frac{\partial u_{\varepsilon_k}}{\partial x_j}$ converge simultaneamente para a derivada fraca (q.s.) e para a derivada clássica (pontualmente), concluímos que a derivada fraca e a clássica coincidem quase sempre em $U$.
+\end{proof}
+% --- Início da Questão 91 ---
+
+\questao{Seja $U = B_2(0)$ e:
+	\begin{enumerate}[label*=(\alph*)]
+		\item definindo
+		$$v(x) = \begin{cases} 2 - |x|, & \text{se } |x| \le 1 \\ 1, & \text{se } 1 < |x| \le 2 \end{cases}$$
+		mostre que $v \in W^{1,p}(U)$, para todo $1 \le p \le \infty$. Calcule $\nabla v$;
+		\item Mostre que $v \notin W^{2,p}(U)$
+\end{enumerate}}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	A questão exige a prova de que $v \in W^{1,p}(U)$ e $v \notin W^{2,p}(U)$. O ponto crítico acontece na \textbf{fronteira interna (hipersuperfície)} $\{x : |x|=1\}$. No item (a), devemos validar a derivada fraca lidando com a singularidade na origem. No item (b), provaremos que $v \notin W^{2,p}(U)$ utilizando o Teorema de Coincidência para identificar o único candidato a derivada fraca e demonstrando que ele falha na identidade integral para uma função de teste $\phi \equiv 1$ em $B_1(0)$.
+	
+	\textbf{Fundamentação Teórica:}
+	Utilizaremos a definição de \textbf{Derivada Fraca} e o \textbf{Teorema da Divergência}. Para a letra (a), aplicaremos a integração sobre domínios perfurados $\Omega_\varepsilon = B_1(0) \setminus \overline{B_\varepsilon(0)}$ para anular a contribuição da origem. Para a letra (b), usaremos o fato de que, se $v \in W^{2,p}$, sua derivada fraca deve coincidir com a clássica q.s. Referências: Brezis (Capítulo 9) e Evans (Capítulo 5.3).
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Validação do Gradiente:} Verificar a continuidade de $v$, definir $\nabla v$ via \textbf{cases} e validar a identidade fraca usando o Teorema da Divergência em $\Omega_\varepsilon$ para tratar a singularidade em $x=0$.
+		\item \textbf{Pertinência a $W^{1,p}$:} Justificar via limitação de $v$ e $\nabla v$ em domínio de medida finita.
+		\item \textbf{Contradição para $W^{2,p}$:} Identificar o único candidato $w_{ij}$, escolher $\phi \equiv 1$ em $B_1(0)$ e mostrar que a integral de volume do candidato não anula, enquanto o lado esquerdo da identidade fraca é zero.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{(a)} Notemos primeiramente que $v$  é contínua, já que em $\{x \in U : |x|=1\}$ calculando os limites laterais, obtemos:
+	$$\lim_{|x| \to 1^-} v(x) = \lim_{|x| \to 1^-} (2 - |x|) = 1 \quad \text{e} \quad \lim_{|x| \to 1^+} v(x) = \lim_{|x| \to 1^+} 1 = 1.$$
+	Como os limites coincidem, $v$ é contínua em $U$.
+	
+	A derivada clássica para $v$ é dada por:
+	$$\frac{\partial v}{\partial x_j} = \begin{cases} -\frac{x_j}{|x|}, & \text{se } |x| < 1 \\ 0, & \text{se } 1 < |x| < 2 \end{cases}$$
+	Assim, propomos que o gradiente fraco seja $\nabla v = -\frac{x}{|x|} \chi_{B_1(0)}$. Para validar, tomamos $\phi \in C_c^\infty(U)$. Dividimos a integral em $B_1(0)$ e no anel $\Omega = B_2(0) \setminus \overline{B_1(0)}$ e usando o \textbf{Teorema da Divergência}, obtemos:
+	\begin{align*}
+		\int_{B_2(0)} v \frac{\partial \phi}{\partial x_j} dx &= \int_{B_1(0)} v \frac{\partial \phi}{\partial x_j} dx + \int_{\Omega} v \frac{\partial \phi}{\partial x_j} dx \\
+		&= \left( \int_{\partial B_1(0)} v \phi \nu_j d\sigma - \int_{B_1(0)} \frac{\partial v}{\partial x_j} \phi dx \right) + \int_{\Omega} \frac{\partial \phi}{\partial x_j} dx \quad (\ast_1).
+	\end{align*}
+	Para a segunda integral, aplicamos o Teorema da Divergência em $\Omega$. A fronteira $\partial \Omega$ é $\partial B_2(0) \cup \partial B_1(0)$. A normal exterior ao domínio $\Omega$ em $\partial B_2(0)$ é a normal usual $\nu_{B_2}$, enquanto em $\partial B_1(0)$ a normal exterior ao anel aponta para o centro da bola, sendo, portanto, $-\nu$, onde $\nu$ é a normal exterior de $B_1(0)$. Como $\phi=0$ em $\partial B_2(0)$:
+	$$\int_{\Omega} \frac{\partial \phi}{\partial x_j} dx = \int_{\partial B_2(0)} \phi (\nu_{B_2})_j d\sigma + \int_{\partial B_1(0)} \phi (-\nu_j) d\sigma = 0 - \int_{\partial B_1(0)} \phi \nu_j d\sigma \quad (\ast_2).$$
+	Substituindo $(\ast_2)$ em $(\ast_1)$, obtemos:
+	$$\int_{B_2(0)} v \frac{\partial \phi}{\partial x_j} dx = \int_{\partial B_1(0)} \phi \nu_j d\sigma - \int_{B_1(0)} \left( -\frac{x_j}{|x|} \right) \phi dx - \int_{\partial B_1(0)} \phi \nu_j d\sigma = \int_{B_1(0)} \frac{x_j}{|x|} \phi dx.$$
+	Portanto, o gradiente fraco é:
+	$$\boxed{\nabla v = -\frac{x}{|x|} \chi_{B_1(0)}}.$$ 
+	Além disso, como $U$ é limitado, $|v| \le 2$ e $|\nabla v| \le 1$ q.s. implicam que $v, \nabla v \in L^\infty(U) \subset L^p(U)$ para todo $1 \le p \le \infty$. Logo, $$\boxed{v \in W^{1,p}(U), \ \ \text{para todo } 1\le p\le \infty}.$$
+	
+
+	
+	\textbf{(b)} Suponhamos, por absurdo, que $v \in W^{2,p}(U)$. Pelo teorema de coincidência entre derivadas fracas e clássicas, a derivada fraca $\frac{\partial^2 v}{\partial x_i \partial x_j}$ deve coincidir quase sempre com a derivada clássica. Assim, o único candidato a derivada fraca é:
+	$$w_{ij}(x) = \begin{cases} \frac{\partial}{\partial x_i} \left( -\frac{x_j}{|x|} \right) = \frac{\delta_{ij}|x|^2 - x_i x_j}{|x|^3}, & \text{se } |x| < 1 \\ 0, & \text{se } 1 < |x| < 2 \end{cases}$$
+	Para que $v \in W^{2,p}(U)$, a identidade $\int_U \frac{\partial v}{\partial x_j} \frac{\partial \phi}{\partial x_i} dx = - \int_U w_{ij} \phi dx$ deve valer para toda $\phi \in C_c^\infty(U)$. Escolhemos $\phi \in C_c^\infty(U)$ tal que $\phi \equiv 1$ em $B_1(0)$ e $\phi = 0$ em $\partial B_2(0)$. Para $i=j=1$:
+	\begin{align*}
+		\text{Lado Esquerdo} &= \int_{B_1(0)} \left( -\frac{x_1}{|x|} \right) \underbrace{\frac{\partial \phi}{\partial x_1}}_{=0} dx + \int_{B_2 \setminus B_1} \underbrace{\frac{\partial v}{\partial x_1}}_{=0} \frac{\partial \phi}{\partial x_1} dx = 0.
+	\end{align*}
+	No entanto, o lado direito, utilizando o candidato $w_{11}$ e a escolha de $\phi$, resulta em:
+	$$\text{Lado Direito} = - \int_U w_{11} \phi dx = - \int_{B_1(0)} \frac{x_1^2 - |x|^2}{|x|^3} \cdot 1 \, dx - \int_{B_2 \setminus B_1} 0 \cdot \phi dx$$
+	Calculando a integral em $B_1(0)$ via coordenadas esféricas:
+	$$\int_{B_1(0)} \frac{x_1^2 - |x|^2}{|x|^3} dx = \int_0^1 r^{n-1} \left( \int_{S^{n-1}} \frac{r^2 \xi_1^2 - r^2}{r^3} d\sigma(\xi) \right) dr = \left( \int_0^1 r^{n-3} dr \right) \left( \frac{1}{n}\omega_n - \omega_n \right) \neq 0$$
+	Temos, portanto, $0 = \text{Constante} \neq 0$, o que é um absurdo. Logo, $\boxed{v \notin W^{2,p}(U)}$.
+}
+
+\sintese{
+	A prova demonstra que a continuidade de $v$ anula os termos de fronteira na primeira derivada, enquanto a singularidade na origem é removível. Contudo, a descontinuidade do gradiente $\nabla v$ na \textbf{fronteira interna} $|x|=1$ gera uma contradição fundamental: o único candidato a derivada fraca de segunda ordem não satisfaz a identidade integral para funções de teste constantes no interior. O fluxo lógico foi:
+	$$\text{Limites Laterais} \to \text{Divergência em } \Omega_\varepsilon \to \nabla v \in L^p \to \text{Candidato } w_{ij} \to \text{Teste } \phi \equiv 1 \to \text{Contradição}.$$
+}
+
+\aprofundamento{
+	Este exemplo é a ilustração perfeita do conceito de \textbf{Traço} em Espaços de Sobolev. Para que uma função definida por partes pertença a $W^{2,p}(U)$, não basta que a função seja contínua ($\llbracket v \rrbracket = 0$), é necessário que o traço do gradiente também seja contínuo através da \textbf{fronteira interna} ($\llbracket \nabla v \rrbracket = 0$).
+	
+	No caso presente, o salto do gradiente $\llbracket \nabla v \rrbracket = 0 - (- \nu) = \nu$ sobre a esfera $\partial B_1(0)$, razão pela qual $v$ falha em pertencer a $W^{2,p}$, ressaltando que a regularidade de Sobolev exige a compatibilidade das derivadas nas junções de domínios.
+}
 \end{document}

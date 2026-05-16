@@ -10,7 +10,8 @@
 \newcommand{\m}{\textordmasculine\xspace} % Para usar º
 
 % --- Matemática e Símbolos ---
-\usepackage{amsmath,amsfonts,amssymb,mathtools,mathrsfs}
+\usepackage{amsmath,amsfonts,amssymb,mathtools,mathrsfs,amsthm}
+\usepackage{stmaryrd}
 \usepackage{latexsym}
 \usepackage{esint}
 
@@ -57,8 +58,8 @@
 \binoppenalty=10000
 \everymath{\displaystyle}
 \pagestyle{empty}
-\newcommand{\linhaestilizada}{ % Linha centralizada verticalmente no diamante
-	\par\noindent\makebox[\textwidth]{\rule[0.5ex]{0.4\textwidth}{0.4pt}\hfill$\diamond$\hfill\rule[0.5ex]{0.43\textwidth}{0.4pt}\par}
+\newcommand{\linhaestilizada}{ % Linha centralizada verticalmente com diamond
+	\par\noindent\makebox[\textwidth]{\rule[0.5ex]{0.47\textwidth}{0.4pt}\hfill$\diamond$\hfill\rule[0.5ex]{0.47\textwidth}{0.4pt}}\par
 }
 \setlength{\overfullrule}{5pt} % Desenha uma barra de 5pt no final de hboxes para erros de estrapolação de linha horizontal
 
@@ -68,22 +69,40 @@
 % Altere 'true' para 'false' para omitir o bloco no PDF final sem apagar o código.
 
 \newbool{showanalise}
-\setbool{showanalise}{true} % Controla a exibição da \analise
+\setbool{showanalise}{true}
 
 \newbool{showsintese}
-\setbool{showsintese}{true} % Controla a exibição da \sintese
+\setbool{showsintese}{true}
 
-\newbool{showaprofundamento} 
-\setbool{showaprofundamento}{true} % Controla a exibição da \aprofundamento
+\newbool{showaprofundamento} % Corrigido o erro de digitação aqui
+\setbool{showaprofundamento}{true}
 
 % =============================================================================
 % COMANDOS ESTRUTURAIS DO PROJETO
 % =============================================================================
 
-% VALOR PADRÃO PARA EVITAR ERROS NA COMPILAÇÃO INDIVIDUAL DO SUBFILE
+% Valor padrão seguro para compilação via pacote subfiles
 \providecommand{\listid}{L0}
 
-\newcounter{numquestao}
+% Define o ambiente theorem* como não numerado (Nome original restaurado)
+\theoremstyle{definition} 
+\newtheorem*{theorem*}{Teorema} 
+
+% Customização ROBUSTA do ambiente de prova (Proof)
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+	\pushQED{\qed}%
+	\normalfont \topsep6\p@\@plus6\p@\relax
+	\trivlist
+	\item[\hskip\labelsep
+	\textbf{\underline{#1}}:]\ignorespaces
+}{%
+	\popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+\addto\captionsbrazilian{\renewcommand{\proofname}{Demonstração}}
+
 
 % 1. Questão: Enunciado literal
 \newcommand{\questao}[1]{%
@@ -111,7 +130,7 @@
 
 % 3. Solução: Desenvolvimento Formal
 \newcommand{\solucao}[1]{%
-	\par
+	\par\vspace{5pt}
 	\textbf{\underline{Solução}}:\par
 	#1 \hfill$\blacksquare$
 	\par
@@ -119,7 +138,7 @@
 
 % 4. Solução Alternativa: Outras abordagens
 \newcommand{\solucaoalt}[1]{%
-	\par
+	\par\vspace{5pt}
 	\textbf{\underline{Solução Alternativa}}:\par 
 	#1 \hfill$\blacksquare$
 	\par
@@ -128,7 +147,7 @@
 % 5. Síntese: O mapa da construção e fatos matemáticos
 \newcommand{\sintese}[1]{%
 	\ifbool{showsintese}{%
-		\par\textbf{\underline{Síntese da Construção}}:\par 
+		\par\vspace{5pt}\textbf{\underline{Síntese da Construção}}:\par 
 		#1\par
 	}{}%
 }
@@ -137,13 +156,13 @@
 \newcommand{\aprofundamento}[1]{%
 	\ifbool{showaprofundamento}{%
 		\linhaestilizada
-		%\nopagebreak 
 		\par\noindent\textbf{\underline{Aprofundamento Teórico}}\par
 		#1
 		\par
 		\linhaestilizada
 	}{}%
 }
+
 % =============================================================================
 % OPERADORES E NOTAÇÃO DE ANÁLISE
 % =============================================================================
@@ -153,5 +172,7 @@
 \newcommand{\Sobolev}[2]{W^{#1, #2}}
 \newcommand{\Hspace}[1]{H^#1}
 \DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\dist}{dist}
+\newcounter{numquestao}
 \newcommand{\FF}{\mathcal{F}} 
 \newcommand{\invFF}{\mathcal{F}^{-1}}
