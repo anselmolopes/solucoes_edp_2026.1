@@ -366,14 +366,14 @@
 
 %%%% QUESTÃO 91 %%%%
 % --- Bloco Introdutório: Teorema Auxiliar ---
-Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental da teoria de espaços de Sobolev, cuja base técnica de regularização foi construída no \textbf{Questão 4} desta lista.
+Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental da teoria de espaços de Sobolev, cuja base técnica de regularização foi construída na \textbf{Questão 4} desta lista.
 
 \begin{theorem*}[\textbf{Teorema da Coincidência}]
 	Seja $U \subset \mathbb{R}^n$ um aberto e $u \in W^{1,p}(U)$. Então, a derivada fraca $\tfrac{\partial u}{\partial x_j}$ \textbf{coincide} quase sempre com a derivada clássica $\tfrac{\partial u}{\partial x_j}$ em todo ponto $x \in U$ onde esta última existe.
 \end{theorem*}
 
 \begin{proof}
-	Seja $\eta \in C_c^\infty(\mathbb{R}^n)$ uma \textbf{função regularizante} tal que $\supp \eta \subset B_1(0)$, $\eta \ge 0$ e $\int_{\mathbb{R}^n} \eta(x) dx = 1$. Para $\varepsilon > 0$, definimos a função regularizante $\eta_\varepsilon(x) = \varepsilon^{-n} \eta(x/\varepsilon)$, a qual possui suporte em $B_\varepsilon(0)$. Definimos então o domínio:
+	Seja $\eta \in C_c^\infty(\mathbb{R}^n)$ uma \textbf{função regularizante} tal que $\supp \eta \subset B_1(0)$, $\eta \ge 0$ e $\int_{B_1(0)} \eta(x) dx = 1$. Para $\varepsilon > 0$, definimos a função regularizante $\eta_\varepsilon(x) = \varepsilon^{-n} \eta(x/\varepsilon)$, a qual possui suporte em $B_\varepsilon(0)$ e satisfaz $\int_{B_\varepsilon(0)} \eta_\varepsilon(x) dx = 1$. Definimos então o domínio:
 	$$U_\varepsilon = \{ x \in U : \dist(x, \partial U) > \varepsilon \}$$
 	A função suavizada $u_\varepsilon = u * \eta_\varepsilon$ é definida por:
 	$$u_\varepsilon(x) = \int_{B_\varepsilon(0)} u(x-y) \eta_\varepsilon(y) dy, \quad x \in U_\varepsilon$$
@@ -395,15 +395,14 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 	Como toda sequência convergente em $L^p(U)$ admite uma subsequência que converge quase sempre, existe $\varepsilon_k \to 0$ tal que:
 	$$\frac{\partial u_{\varepsilon_k}}{\partial x_j}(x) \to \frac{\partial u}{\partial x_j}(x) \quad \text{q.s. em } U.$$
 	
-	Por outro lado, suponha que $u$ seja diferenciável no sentido clássico em $x_0 \in U$. Utilizando a definição de $u_\varepsilon$ e a mudança de variável $z = x - \varepsilon y$, podemos escrever:
-	$$u_\varepsilon(x) = \int_{B_1(0)} u(x - \varepsilon y) \eta(y) dy$$
-	Como $u$ é diferenciável em $x_0$, podemos aplicar a regra de \textbf{derivação sob o sinal da integral} (conforme discutido na Questão 22) para obter:
-	$$\frac{\partial u_\varepsilon}{\partial x_j}(x_0) = \int_{B_1(0)} \frac{\partial}{\partial x_j} [u(x_0 - \varepsilon y)] \eta(y) dy = \int_{B_1(0)} \frac{\partial u}{\partial x_j}(x_0 - \varepsilon y) \eta(y) dy$$
+	Por outro lado, suponha que $u$ seja diferenciável no sentido clássico em $x_0 \in U$. Utilizando a definição de $u_\varepsilon$ e a mudança de variável $y = \varepsilon z$, podemos escrever:
+	$$u_\varepsilon(x_0) = \int_{B_1(0)} u(x_0 - \varepsilon z) \eta(z) dz$$
+	Como $u$ é diferenciável em $x_0$, podemos aplicar a regra de \textbf{derivação sob o sinal da integral} (como discutido na Questão 22) para obter:
+	$$\frac{\partial u_\varepsilon}{\partial x_j}(x_0) = \int_{B_1(0)} \frac{\partial u}{\partial x_j}(x_0 - \varepsilon z) \eta(z) dz$$
 	Visto que $u$ é diferenciável em $x_0$, a função $\frac{\partial u}{\partial x_j}$ é contínua em $x_0$. Como $\eta$ é limitada e possui suporte compacto em $B_1(0)$, podemos passar ao limite $\varepsilon \to 0$ dentro da integral:
-	$$\lim_{\varepsilon \to 0} \frac{\partial u_\varepsilon}{\partial x_j}(x_0) = \int_{B_1(0)} \frac{\partial u}{\partial x_j}(x_0) \eta(y) dy = \frac{\partial u}{\partial x_j}_{\text{clássica}}(x_0) \int_{B_1(0)} \eta(y) dy$$
-	Como $\int \eta = 1$, temos que $\lim_{\varepsilon \to 0} \frac{\partial u_\varepsilon}{\partial x_j}(x_0) = \frac{\partial u}{\partial x_j}_{\text{clássica}}(x_0)$. 
+	$$\lim_{\varepsilon \to 0} \frac{\partial u_\varepsilon}{\partial x_j}(x_0) = \int_{B_1(0)} \frac{\partial u}{\partial x_j}(x_0) \eta(z) dz = \frac{\partial u}{\partial x_j}(x_0) \underbrace{\int_{B_1(0)} \eta(z) dz}_{=1}=\underbrace{\frac{\partial u}{\partial x_j}(x_0)}_{\text{clássica}}.$$
 	
-	Como a sequência $\frac{\partial u_{\varepsilon_k}}{\partial x_j}$ converge simultaneamente para a derivada fraca (q.s.) e para a derivada clássica (pontualmente), concluímos que a derivada fraca e a clássica coincidem quase sempre em $U$.
+	Como a sequência $\tfrac{\partial u_{\varepsilon_k}}{\partial x_j}$ converge simultaneamente para a derivada fraca (q.s.) e para a derivada clássica (pontualmente), concluímos que a derivada fraca e a clássica coincidem quase sempre em $U$.
 \end{proof}
 % --- Início da Questão 91 ---
 
@@ -420,7 +419,7 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 	A questão exige a prova de que $v \in W^{1,p}(U)$ e $v \notin W^{2,p}(U)$. O ponto crítico acontece na \textbf{fronteira interna (hipersuperfície)} $\{x : |x|=1\}$. No item (a), devemos validar a derivada fraca lidando com a singularidade na origem. No item (b), provaremos que $v \notin W^{2,p}(U)$ utilizando o Teorema de Coincidência para identificar o único candidato a derivada fraca e demonstrando que ele falha na identidade integral para uma função de teste $\phi \equiv 1$ em $B_1(0)$.
 	
 	\textbf{Fundamentação Teórica:}
-	Utilizaremos a definição de \textbf{Derivada Fraca} e o \textbf{Teorema da Divergência}. Para a letra (a), aplicaremos a integração sobre domínios perfurados $\Omega_\varepsilon = B_1(0) \setminus \overline{B_\varepsilon(0)}$ para anular a contribuição da origem. Para a letra (b), usaremos o fato de que, se $v \in W^{2,p}$, sua derivada fraca deve coincidir com a clássica q.s. Referências: Brezis (Capítulo 9) e Evans (Capítulo 5.3).
+	Utilizaremos a definição de \textbf{Derivada Fraca} e o \textbf{Teorema da Divergência}. Para a letra (a), aplicaremos a integração sobre domínios perfurados $\Omega_\varepsilon = B_1(0) \setminus \overline{B_\varepsilon(0)}$ para anular a contribuição da origem. Para a letra (b), usaremos o fato de que, se $v \in W^{2,p}$, sua derivada fraca deve coincidir com a clássica q.s.
 	
 	\textbf{Estratégias:}
 	\begin{enumerate}
@@ -431,43 +430,45 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 }
 
 \solucao{
-	\textbf{(a)} Notemos primeiramente que $v$  é contínua, já que em $\{x \in U : |x|=1\}$ calculando os limites laterais, obtemos:
+	\textbf{(a)} Notemos primeiramente que $v$ é contínua, já que em $\partial B_1(0)$ calculando os limites laterais, obtemos:
 	$$\lim_{|x| \to 1^-} v(x) = \lim_{|x| \to 1^-} (2 - |x|) = 1 \quad \text{e} \quad \lim_{|x| \to 1^+} v(x) = \lim_{|x| \to 1^+} 1 = 1.$$
-	Como os limites coincidem, $v$ é contínua em $U$.
+	Como os limites coincidem, $v$ é contínua em $B_2(0)$.
 	
 	A derivada clássica para $v$ é dada por:
 	$$\frac{\partial v}{\partial x_j} = \begin{cases} -\frac{x_j}{|x|}, & \text{se } |x| < 1 \\ 0, & \text{se } 1 < |x| < 2 \end{cases}$$
-	Assim, propomos que o gradiente fraco seja $\nabla v = -\frac{x}{|x|} \chi_{B_1(0)}$. Para validar, tomamos $\phi \in C_c^\infty(U)$. Dividimos a integral em $B_1(0)$ e no anel $\Omega = B_2(0) \setminus \overline{B_1(0)}$ e usando o \textbf{Teorema da Divergência}, obtemos:
+	Assim, propomos que o gradiente fraco seja $\nabla v = -\frac{x}{|x|} \chi_{B_1(0)}$. Para validar, tomamos $\phi \in C_c^\infty(B_2(0))$. Visto que $v$ não é diferenciável em $x=0$, definimos o domínio perfurado $\Omega_\varepsilon = B_1(0) \setminus \overline{B_\varepsilon(0)}$ para $\varepsilon > 0$. A fronteira $\partial \Omega_\varepsilon$ consiste em $\partial B_1(0)$ (normal $\nu$) e $\partial B_\varepsilon(0)$ (normal $-\nu$). Aplicamos o \textbf{Teorema da Divergência}:
 	\begin{align*}
-		\int_{B_2(0)} v \frac{\partial \phi}{\partial x_j} dx &= \int_{B_1(0)} v \frac{\partial \phi}{\partial x_j} dx + \int_{\Omega} v \frac{\partial \phi}{\partial x_j} dx \\
-		&= \left( \int_{\partial B_1(0)} v \phi \nu_j d\sigma - \int_{B_1(0)} \frac{\partial v}{\partial x_j} \phi dx \right) + \int_{\Omega} \frac{\partial \phi}{\partial x_j} dx \quad (\ast_1).
+		\int_{B_2(0)} v \frac{\partial \phi}{\partial x_j} dx &= \int_{\Omega_\varepsilon} v \frac{\partial \phi}{\partial x_j} dx + \int_{B_2(0) \setminus B_1(0)} v \frac{\partial \phi}{\partial x_j} dx + \int_{B_\varepsilon(0)} v \frac{\partial \phi}{\partial x_j} dx \\
+		&= \int_{\partial B_1(0)} v \phi \nu_j d\sigma + \int_{\partial B_\varepsilon(0)} v \phi (-\nu_j) d\sigma - \int_{\Omega_\varepsilon} \frac{\partial v}{\partial x_j} \phi dx + \int_{B_2(0) \setminus B_1(0)} \underbrace{v}_{=1} \frac{\partial \phi}{\partial x_j} dx
 	\end{align*}
-	Para a segunda integral, aplicamos o Teorema da Divergência em $\Omega$. A fronteira $\partial \Omega$ é $\partial B_2(0) \cup \partial B_1(0)$. A normal exterior ao domínio $\Omega$ em $\partial B_2(0)$ é a normal usual $\nu_{B_2}$, enquanto em $\partial B_1(0)$ a normal exterior ao anel aponta para o centro da bola, sendo, portanto, $-\nu$, onde $\nu$ é a normal exterior de $B_1(0)$. Como $\phi=0$ em $\partial B_2(0)$:
-	$$\int_{\Omega} \frac{\partial \phi}{\partial x_j} dx = \int_{\partial B_2(0)} \phi (\nu_{B_2})_j d\sigma + \int_{\partial B_1(0)} \phi (-\nu_j) d\sigma = 0 - \int_{\partial B_1(0)} \phi \nu_j d\sigma \quad (\ast_2).$$
-	Substituindo $(\ast_2)$ em $(\ast_1)$, obtemos:
-	$$\int_{B_2(0)} v \frac{\partial \phi}{\partial x_j} dx = \int_{\partial B_1(0)} \phi \nu_j d\sigma - \int_{B_1(0)} \left( -\frac{x_j}{|x|} \right) \phi dx - \int_{\partial B_1(0)} \phi \nu_j d\sigma = \int_{B_1(0)} \frac{x_j}{|x|} \phi dx.$$
-	Portanto, o gradiente fraco é:
-	$$\boxed{\nabla v = -\frac{x}{|x|} \chi_{B_1(0)}}.$$ 
-	Além disso, como $U$ é limitado, $|v| \le 2$ e $|\nabla v| \le 1$ q.s. implicam que $v, \nabla v \in L^\infty(U) \subset L^p(U)$ para todo $1 \le p \le \infty$. Logo, $$\boxed{v \in W^{1,p}(U), \ \ \text{para todo } 1\le p\le \infty}.$$
+	Sendo $\phi=0$ em $\partial B_2(0)$, a última integral é $-\int_{\partial B_1(0)} \phi \nu_j d\sigma$. Além disso, como $v$ e $\phi$ são limitados e $\text{Area}(\partial B_\varepsilon(0)) \to 0$ quando $\varepsilon \to 0$, o termo $\int_{\partial B_\varepsilon(0)} v \phi (-\nu_j) d\sigma$ tende a zero. Como $v=1$ em $\partial B_1(0)$, os termos de superfície se anulam:
+	$$\int_{B_2(0)} v \frac{\partial \phi}{\partial x_j} dx = \int_{\partial B_1(0)} \phi \nu_j d\sigma - \int_{B_1(0)} \left( -\frac{x_j}{|x|} \right) \phi dx - \int_{\partial B_1(0)} \phi \nu_j d\sigma = \int_{B_1(0)} \frac{x_j}{|x|} \phi dx$$
+	Isso prova que 
+	$$\boxed{\nabla v = -\frac{x}{|x|} \chi_{B_1(0)} \quad (\ast_1)}.$$ 
+	Além disso, como $U=B_2(0)$ é limitado, $|v| \le 2$ e $|\nabla v| \le 1$ q.s., então $v, \nabla v \in L^\infty(B_2(0)) \subset L^p(B_2(0))$. Logo, $$\boxed{v \in W^{1,p}(B_2(0))}.$$
 	
-
-	
-	\textbf{(b)} Suponhamos, por absurdo, que $v \in W^{2,p}(U)$. Pelo teorema de coincidência entre derivadas fracas e clássicas, a derivada fraca $\frac{\partial^2 v}{\partial x_i \partial x_j}$ deve coincidir quase sempre com a derivada clássica. Assim, o único candidato a derivada fraca é:
+	\textbf{(b)} Suponhamos, por absurdo, que $v \in W^{2,p}(B_2(0))$. Pelo \textbf{Teorema de Coincidência} demonstrado anteriormente, a derivada fraca $\tfrac{\partial^2 v}{\partial x_i \partial x_j}$ deve coincidir quase sempre com a derivada clássica. Assim, o único candidato a derivada fraca é:
 	$$w_{ij}(x) = \begin{cases} \frac{\partial}{\partial x_i} \left( -\frac{x_j}{|x|} \right) = \frac{\delta_{ij}|x|^2 - x_i x_j}{|x|^3}, & \text{se } |x| < 1 \\ 0, & \text{se } 1 < |x| < 2 \end{cases}$$
-	Para que $v \in W^{2,p}(U)$, a identidade $\int_U \frac{\partial v}{\partial x_j} \frac{\partial \phi}{\partial x_i} dx = - \int_U w_{ij} \phi dx$ deve valer para toda $\phi \in C_c^\infty(U)$. Escolhemos $\phi \in C_c^\infty(U)$ tal que $\phi \equiv 1$ em $B_1(0)$ e $\phi = 0$ em $\partial B_2(0)$. Para $i=j=1$:
+	Para que $v \in W^{2,p}(B_2(0))$, a identidade 
+	$$\int_{B_2(0)} \frac{\partial v}{\partial x_j} \frac{\partial \phi}{\partial x_i} dx = - \int_{B_2(0)} w_{ij} \phi dx,$$ 
+	deve valer para toda $\phi \in C_c^\infty(U)$. Consideremos, em particular, uma $\phi \in C_c^\infty(B_2(0))$ tal que $\phi \equiv 1$ em $B_1(0)$. Para $i=j=1$, por um lado, temos que:
 	\begin{align*}
-		\text{Lado Esquerdo} &= \int_{B_1(0)} \left( -\frac{x_1}{|x|} \right) \underbrace{\frac{\partial \phi}{\partial x_1}}_{=0} dx + \int_{B_2 \setminus B_1} \underbrace{\frac{\partial v}{\partial x_1}}_{=0} \frac{\partial \phi}{\partial x_1} dx = 0.
+		\int_{B_2(0)} \frac{\partial v}{\partial x_j} \frac{\partial \phi}{\partial x_i} dx &= \int_{B_1(0)} \left( -\frac{x_1}{|x|} \right) \underbrace{\frac{\partial \phi}{\partial x_1}}_{=0} dx + \int_{B_2 \setminus B_1} \underbrace{\frac{\partial v}{\partial x_1}}_{=0} \frac{\partial \phi}{\partial x_1} dx = 0.
 	\end{align*}
-	No entanto, o lado direito, utilizando o candidato $w_{11}$ e a escolha de $\phi$, resulta em:
-	$$\text{Lado Direito} = - \int_U w_{11} \phi dx = - \int_{B_1(0)} \frac{x_1^2 - |x|^2}{|x|^3} \cdot 1 \, dx - \int_{B_2 \setminus B_1} 0 \cdot \phi dx$$
-	Calculando a integral em $B_1(0)$ via coordenadas esféricas:
-	$$\int_{B_1(0)} \frac{x_1^2 - |x|^2}{|x|^3} dx = \int_0^1 r^{n-1} \left( \int_{S^{n-1}} \frac{r^2 \xi_1^2 - r^2}{r^3} d\sigma(\xi) \right) dr = \left( \int_0^1 r^{n-3} dr \right) \left( \frac{1}{n}\omega_n - \omega_n \right) \neq 0$$
-	Temos, portanto, $0 = \text{Constante} \neq 0$, o que é um absurdo. Logo, $\boxed{v \notin W^{2,p}(U)}$.
+	Por outro lado, utilizando o candidato $w_{11}$ e a escolha de $\phi$, obtemos:
+	$$- \int_U w_{11} \phi dx = - \int_{B_1(0)} \frac{x_1^2 - |x|^2}{|x|^3} \cdot 1 \, dx - \int_{B_2 \setminus B_1} 0 \cdot \phi dx.$$
+	Calculando a integral em $B_1(0)$ via coordenadas esféricas ($x = r\xi$ com $\xi \in \partial B_1(0)$) e supondo $n \ge 2$:
+	\begin{align*}
+		\int_{B_1(0)} \frac{x_1^2 - |x|^2}{|x|^3} dx &= \int_0^1 \int_{\partial B_1(0)} \frac{r^2 \xi_1^2 - r^2}{r^3} r^{n-1} d\sigma_\xi dr \\
+		&= \int_0^1 r^{n-2} \left( \int_{\partial B_1(0)} (\xi_1^2 - 1) d\sigma_\xi \right) dr = \left( \int_0^1 r^{n-2} dr \right) \left( \frac{1}{n}\omega_n - \omega_n \right) \\
+		&= \frac{1}{n-1} \omega_n \left( \frac{1-n}{n} \right) = -\frac{\omega_n}{n} \neq 0
+	\end{align*}
+	Temos, portanto, $0 = \frac{\omega_n}{n}$, o que é um absurdo. Logo, $\boxed{v \notin W^{2,p}(B_2(0))}$ para $n \ge 2$. (Para $n=1$, o argumento falharia pois a integral daria zero, mas a função falha em pertencer a $W^{2,p}$ de qualquer forma devido à singularidade da derivada na fronteira $|x|=1$).
 }
 
 \sintese{
 	A prova demonstra que a continuidade de $v$ anula os termos de fronteira na primeira derivada, enquanto a singularidade na origem é removível. Contudo, a descontinuidade do gradiente $\nabla v$ na \textbf{fronteira interna} $|x|=1$ gera uma contradição fundamental: o único candidato a derivada fraca de segunda ordem não satisfaz a identidade integral para funções de teste constantes no interior. O fluxo lógico foi:
-	$$\text{Limites Laterais} \to \text{Divergência em } \Omega_\varepsilon \to \nabla v \in L^p \to \text{Candidato } w_{ij} \to \text{Teste } \phi \equiv 1 \to \text{Contradição}.$$
+	$$\text{Limites Laterais} \to \text{Teorema da Divergência em } \Omega_\varepsilon \to \nabla v \in L^p \to \text{Candidato } w_{ij} \to \text{Teste } \phi \equiv 1 \to \text{Contradição}.$$
 }
 
 \aprofundamento{
