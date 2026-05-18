@@ -41,6 +41,7 @@
 % --- Elementos Visuais e Layout ---
 \usepackage[most]{tcolorbox}
 \usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt}
 \usepackage[normalem]{ulem}
 \usepackage[Smaller]{cancel}
 \usepackage{xcolor}
@@ -77,6 +78,12 @@
 \newbool{showaprofundamento} % Corrigido o erro de digitação aqui
 \setbool{showaprofundamento}{true}
 
+\newbool{showtheorem}
+\setbool{showtheorem}{true}
+
+\newbool{showproof}
+\setbool{showproof}{true}
+
 % =============================================================================
 % COMANDOS ESTRUTURAIS DO PROJETO
 % =============================================================================
@@ -84,25 +91,42 @@
 % Valor padrão seguro para compilação via pacote subfiles
 \providecommand{\listid}{L0}
 
-% Define o ambiente theorem* como não numerado (Nome original restaurado)
-\theoremstyle{definition} 
-\newtheorem*{theorem*}{Teorema} 
-
-% Customização ROBUSTA do ambiente de prova (Proof)
+% Define o ambiente theorem* como não numerado
+% --- Ambientes Condicionais de Teoremas e Provas ---
 \makeatletter
-\renewenvironment{proof}[1][\proofname]{\par
-	\pushQED{\qed}%
-	\normalfont \topsep6\p@\@plus6\p@\relax
-	\trivlist
-	\item[\hskip\labelsep
-	\textbf{\underline{#1}}:]\ignorespaces
-}{%
-	\popQED\endtrivlist\@endpefalse
-}
+\@ifundefined{theorem*}{%
+	\theoremstyle{definition} % <-- ADICIONE ESTA LINHA AQUI
+	\newtheorem*{theorem*}{Teorema}%
+}{}
 \makeatother
 
-\addto\captionsbrazilian{\renewcommand{\proofname}{Demonstração}}
+\newenvironment{teorema}{%
+	\ifbool{showtheorem}{%
+		\begin{theorem*}%
+		}{%
+			\setbox0=\vbox\bgroup
+		}%
+	}{%
+		\ifbool{showtheorem}{%
+		\end{theorem*}%
+	}{%
+		\egroup
+	}%
+}
 
+\newenvironment{prova}{%
+	\ifbool{showproof}{%
+		\begin{proof}[\normalfont\underline{Demonstração}:] % <-- Adicionados os dois pontos aqui dentro
+		}{%
+			\setbox0=\vbox\bgroup
+		}%
+	}{%
+		\ifbool{showproof}{%
+		\end{proof}%
+	}{%
+		\egroup
+	}%
+}
 
 % 1. Questão: Enunciado literal
 \newcommand{\questao}[1]{%

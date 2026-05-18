@@ -19,7 +19,7 @@
 			\vspace*{4cm}
 			
 			\rule{\linewidth}{0.5mm} \\[0.4cm]
-			{ \huge \bfseries Caminhos Analíticos e Construção de Soluções em EDP II \\[0.4cm] }
+			{ \LARGE \bfseries Caminhos Analíticos e Construção de Soluções em EDP II \\[0.4cm] }
 			\rule{\linewidth}{0.5mm} \\[2cm]
 			
 			\large
@@ -55,31 +55,35 @@
 	\end{itemize}
 	% --- DIAGRAMA TIKZ: A ESCADA DA CONSTRUÇÃO ANALÍTICA (LARGURA OTIMIZADA) ---
 	\begin{center}
-			\begin{tikzpicture}[
-				scale=0.7,
-				node distance=1.2cm,
-				arrow/.style={-Stealth, thick}
-				]
-				% Definição dos passos com xshift reduzido para diminuir a largura total
-				\node (enun) [passo, font=\bfseries, fill=blue!5] {Enunciado da Questão};
-				\node (anal) [passo, font=\bfseries, fill=blue!15, xshift=1.5cm, yshift=1.2cm] {Análise e Fundamentação Teórica};
-				\node (estr) [passo, font=\bfseries, fill=blue!25, xshift=3cm, yshift=2.4cm] {Estratégia para Solução};
-				\node (solu) [passo, font=\bfseries, fill=blue!35, xshift=4.5cm, yshift=3.6cm] {Solução};
-				\node (sint) [passo, font=\bfseries, fill=blue!45, xshift=6cm, yshift=4.8cm] {Síntese da Construção};
-				
-				% 1. SETA ROXA DE SUBIDA (Lado Esquerdo)
-				% Afastada 1cm para a esquerda para manter a harmonia com a nova largura
-				\draw [arrow, blue!45, line width=2pt] 
-				([xshift=-1.7cm]enun.west) -- ([xshift=-1.7cm]sint.west) 
-				node[midway, above left, font=\small\bfseries, blue!45] {Caminho da Construção};
-				
-				% 2. SETA DE RETORNO (Lado Direito)
-				% Reta, afastada 1cm para a direita
-				\draw [arrow, gray, line width=1pt] 
-				([xshift=1.7cm]sint.east) -- ([xshift=1.7cm]enun.east)
-				node[midway, below right, font=\small\bfseries, gray] {Reflexão Analítica};
-				
-			\end{tikzpicture}
+		\begin{tikzpicture}[
+			scale=0.7,
+			node distance=1.2cm,
+			arrow/.style={-Stealth, thick}
+			]
+			
+			% Definição dos passos com xshift reduzido para diminuir a largura total
+			\node (enun) [passo, font=\bfseries, fill=blue!5] {Enunciado da Questão};
+			\node (anal) [passo, font=\bfseries, fill=blue!15, xshift=1.5cm, yshift=1.2cm] {Análise e Fundamentação Teórica};
+			\node (estr) [passo, font=\bfseries, fill=blue!25, xshift=3cm, yshift=2.4cm] {Estratégia para Solução};
+			\node (solu) [passo, font=\bfseries, fill=blue!35, xshift=4.5cm, yshift=3.6cm] {Solução};
+			\node (sint) [passo, font=\bfseries, fill=blue!45, xshift=6cm, yshift=4.8cm] {Síntese da Construção};
+			
+			% Adição do Aprofundamento Teórico com "linhas abertas" (dashed)
+			\node (apro) [passo, font=\bfseries, fill=blue!55, dashed, xshift=7.5cm, yshift=6.0cm] {Aprofundamento Teórico};
+			
+			% 1. SETA DE SUBIDA (Lado Esquerdo)
+			% Afastada 1.7cm para a esquerda, agora subindo até o Aprofundamento Teórico
+			\draw [arrow, blue!45, line width=2pt] 
+			([xshift=-1.7cm]enun.west) -- ([xshift=-1.7cm]apro.west) 
+			node[midway, above left, font=\small\bfseries, blue!45] {Caminho da Construção};
+			
+			% 2. SETA DE RETORNO (Lado Direito)
+			% Reta, afastada 1.7cm para a direita, descendo do Aprofundamento Teórico
+			\draw [arrow, gray, line width=1pt] 
+			([xshift=1.7cm]apro.east) -- ([xshift=1.7cm]enun.east)
+			node[midway, below right, font=\small\bfseries, gray] {Reflexão Analítica};
+			
+		\end{tikzpicture}
 	\end{center}
 	A intenção é explicitar o método e a lógica empregada, transformando a resolução em um exercício de reflexão analítica. Este material não pretende esgotar o assunto nem estabelecer verdades definitivas, mas sim servir como um diário de bordo --- um caminho de pensamento para compreender a estrutura das EDPs e a beleza da sua construção lógica.
 	
@@ -118,6 +122,8 @@
 			\item \texttt{\textbackslash setbool\{showanalise\}\{false\}} $\longrightarrow$ Oculta a \textbf{Análise e Fundamentação Teórica}.
 			\item \texttt{\textbackslash setbool\{showsintese\}\{false\}} $\longrightarrow$ Oculta a \textbf{Síntese da Construção}.
 			\item \texttt{\textbackslash setbool\{showaprofundamento\}\{false\}} $\longrightarrow$ Oculta o \textbf{Aprofundamento Teórico}.
+			\item \texttt{\textbackslash setbool\{showtheorem\}\{false\}} $\longrightarrow$ Oculta o \textbf{Teorema Auxiliar}.
+			\item \texttt{\textbackslash setbool\{showproof\}\{false\}} $\longrightarrow$ Oculta a \textbf{Demonstração (prova) do Teorema}.
 		\end{itemize}
 		Isso permite alternar entre uma versão de estudo aprofundado e uma versão focada apenas nos resultados.
 	\end{tcolorbox}

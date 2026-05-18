@@ -368,11 +368,11 @@
 % --- Bloco Introdutório: Teorema Auxiliar ---
 Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental da teoria de espaços de Sobolev, cuja base técnica de regularização foi construída na \textbf{Questão 4} desta lista.
 
-\begin{theorem*}[\textbf{Teorema da Coincidência}]
+\begin{teorema}[\textbf{Teorema da Coincidência}]
 	Seja $U \subset \mathbb{R}^n$ um aberto e $u \in W^{1,p}(U)$. Então, a derivada fraca $\tfrac{\partial u}{\partial x_j}$ \textbf{coincide} quase sempre com a derivada clássica $\tfrac{\partial u}{\partial x_j}$ em todo ponto $x \in U$ onde esta última existe.
-\end{theorem*}
+\end{teorema}
 
-\begin{proof}
+\begin{prova}
 	Seja $\eta \in C_c^\infty(\mathbb{R}^n)$ uma \textbf{função regularizante} tal que $\supp \eta \subset B_1(0)$, $\eta \ge 0$ e $\int_{B_1(0)} \eta(x) dx = 1$. Para $\varepsilon > 0$, definimos a função regularizante $\eta_\varepsilon(x) = \varepsilon^{-n} \eta(x/\varepsilon)$, a qual possui suporte em $B_\varepsilon(0)$ e satisfaz $\int_{B_\varepsilon(0)} \eta_\varepsilon(x) dx = 1$. Definimos então o domínio:
 	$$U_\varepsilon = \{ x \in U : \dist(x, \partial U) > \varepsilon \}$$
 	A função suavizada $u_\varepsilon = u * \eta_\varepsilon$ é definida por:
@@ -403,7 +403,7 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 	$$\lim_{\varepsilon \to 0} \frac{\partial u_\varepsilon}{\partial x_j}(x_0) = \int_{B_1(0)} \frac{\partial u}{\partial x_j}(x_0) \eta(z) dz = \frac{\partial u}{\partial x_j}(x_0) \underbrace{\int_{B_1(0)} \eta(z) dz}_{=1}=\underbrace{\frac{\partial u}{\partial x_j}(x_0)}_{\text{clássica}}.$$
 	
 	Como a sequência $\tfrac{\partial u_{\varepsilon_k}}{\partial x_j}$ converge simultaneamente para a derivada fraca (q.s.) e para a derivada clássica (pontualmente), concluímos que a derivada fraca e a clássica coincidem quase sempre em $U$.
-\end{proof}
+\end{prova}
 % --- Início da Questão 91 ---
 
 \questao{Seja $U = B_2(0)$ e:
@@ -456,12 +456,12 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 		\int_{B_2(0)} \frac{\partial v}{\partial x_j} \frac{\partial \phi}{\partial x_i} dx &= \int_{B_1(0)} \left( -\frac{x_1}{|x|} \right) \underbrace{\frac{\partial \phi}{\partial x_1}}_{=0} dx + \int_{B_2 \setminus B_1} \underbrace{\frac{\partial v}{\partial x_1}}_{=0} \frac{\partial \phi}{\partial x_1} dx = 0.
 	\end{align*}
 	Por outro lado, utilizando o candidato $w_{11}$ e a escolha de $\phi$, obtemos:
-	$$- \int_U w_{11} \phi dx = - \int_{B_1(0)} \frac{x_1^2 - |x|^2}{|x|^3} \cdot 1 \, dx - \int_{B_2 \setminus B_1} 0 \cdot \phi dx.$$
+	$$- \int_U w_{11} \phi dx = - \int_{B_1(0)} \left(\frac{x_1^2 - |x|^2}{|x|^3}\right) \cdot 1 \, dx - \int_{B_2 \setminus B_1} 0 \cdot \phi dx.$$
 	Calculando a integral em $B_1(0)$ via coordenadas esféricas ($x = r\xi$ com $\xi \in \partial B_1(0)$) e supondo $n \ge 2$:
 	\begin{align*}
-		\int_{B_1(0)} \frac{x_1^2 - |x|^2}{|x|^3} dx &= \int_0^1 \int_{\partial B_1(0)} \frac{r^2 \xi_1^2 - r^2}{r^3} r^{n-1} d\sigma_\xi dr \\
-		&= \int_0^1 r^{n-2} \left( \int_{\partial B_1(0)} (\xi_1^2 - 1) d\sigma_\xi \right) dr = \left( \int_0^1 r^{n-2} dr \right) \left( \frac{1}{n}\omega_n - \omega_n \right) \\
-		&= \frac{1}{n-1} \omega_n \left( \frac{1-n}{n} \right) = -\frac{\omega_n}{n} \neq 0
+		\int_{B_1(0)} \frac{x_1^2 - |x|^2}{|x|^3} dx &= \int_0^1 \int_{\partial B_1(0)} \frac{r^2 \xi_1^2 - r^2}{r^3} r^{n-1} d\sigma_\xi dr 
+		= \int_0^1 r^{n-2} \left( \int_{\partial B_1(0)} (\xi_1^2 - 1) d\sigma_\xi \right) dr \\
+		&= \left( \int_0^1 r^{n-2} dr \right) \left( \frac{1}{n}\omega_n - \omega_n \right) = \frac{1}{n-1} \omega_n \left( \frac{1-n}{n} \right) = -\frac{\omega_n}{n} \neq 0
 	\end{align*}
 	Temos, portanto, $0 = \frac{\omega_n}{n}$, o que é um absurdo. Logo, $\boxed{v \notin W^{2,p}(B_2(0))}$ para $n \ge 2$. (Para $n=1$, o argumento falharia pois a integral daria zero, mas a função falha em pertencer a $W^{2,p}$ de qualquer forma devido à singularidade da derivada na fronteira $|x|=1$).
 }
@@ -475,5 +475,95 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 	Este exemplo é a ilustração perfeita do conceito de \textbf{Traço} em Espaços de Sobolev. Para que uma função definida por partes pertença a $W^{2,p}(U)$, não basta que a função seja contínua ($\llbracket v \rrbracket = 0$), é necessário que o traço do gradiente também seja contínuo através da \textbf{fronteira interna} ($\llbracket \nabla v \rrbracket = 0$).
 	
 	No caso presente, o salto do gradiente $\llbracket \nabla v \rrbracket = 0 - (- \nu) = \nu$ sobre a esfera $\partial B_1(0)$, razão pela qual $v$ falha em pertencer a $W^{2,p}$, ressaltando que a regularidade de Sobolev exige a compatibilidade das derivadas nas junções de domínios.
+}
+
+%%%% QUESTÃO 92 %%%%
+\questao{Seja $I = (a, b)$, $c \in I$, $v \in L^1(I)$. Defina
+	$$w(x) = \int_a^x v(t) dt.$$
+	Mostre que:
+	\begin{enumerate}[label=(\alph*)]
+		\item $w$ é contínua em $I$;
+		\item Se $\phi \in C_c^1(I)$ então
+		\begin{align*}
+			\int_a^b w(t)\phi(t)dt &= \int_a^b \int_a^b \chi_{[a,t]}(s)\phi(t)v(s)dtds \\
+			&= \int_a^b v(s) \left( \int_a^b \chi_{[a,t]}(s)\phi(t)dt \right) ds \\
+			&= \int_a^b v(s) \left( \int_a^b \chi_{[s,b]}(t)\phi(t)dt \right) ds \\
+			&= \int_a^b v(s) \left( \int_s^b \phi(t)dt \right) ds;
+		\end{align*}
+		\item $v$ é a derivada fraca da função contínua $w$.
+	\end{enumerate}
+	(Aqui $\chi_E$ é a função característica do conjunto $E$: $\chi_E(t) = 0$, se $t \notin E$ e $\chi_E(t) = 1$ se $t \in E$).}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	A questão traz a demonstração de um dos resultados fundamentais da teoria de Sobolev em dimensão $n=1$: a integral de uma função integrável resulta numa função contínua (na verdade, absolutamente contínua) cuja derivada fraca é a própria função integranda.
+	
+	\textbf{Fundamentação Teórica:}
+	Para justificar a passagem do limite para dentro da integral sem assumir que $v$ é contínua, usaremos o \textbf{Teorema da Convergência Dominada de Lebesgue}. Para trocar a ordem das integrais no item (b), aplicaremos o \textbf{Teorema de Fubini-Tonelli}. Por fim, a definição de derivada fraca exige verificar a identidade integral contra uma função de teste $\psi \in C_c^\infty(I)$.
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Continuidade:} Usar a definição sequencial de continuidade ($x_n \to x$), reescrever a integral no domínio $[a, b]$ via funções características e aplicar o Teorema da Convergência Dominada.
+		\item \textbf{Troca da ordem de integração:} Inserir a função característica, aplicar Fubini e observar a equivalência geométrica no domínio de integração: as condições $a \le s \le t$ e $t \le b$ significam que $t \in [s, b]$.
+		\item \textbf{Derivada Fraca:} Escolher a função de teste do item (b) como a derivada de uma função suave com suporte compacto ($\phi = \psi'$) e aplicar o Teorema Fundamental do Cálculo clássico na integral interna.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{(a) Continuidade de $w$ em $I$:}
+	
+	Seja $x \in I$ e considere uma sequência $(x_n)_{n \in \mathbb{N}} \subset I$ tal que $x_n \to x$. Podemos reescrever $w(x_n)$ integrando em todo o intervalo $[a, b]$ com o auxílio da função característica:
+	$$ w(x_n) = \int_a^{x_n} v(t) dt = \int_a^b \chi_{[a, x_n]}(t) v(t) dt $$
+	Definimos a sequência de funções $f_n(t) = \chi_{[a, x_n]}(t) v(t)$. Como $x_n \to x$, temos pontualmente que $\chi_{[a, x_n]}(t) \to \chi_{[a, x]}(t)$ para todo $t \neq x$. Como o ponto $\{x\}$ tem medida de Lebesgue nula, temos $f_n(t) \to \chi_{[a, x]}(t) v(t)$ quase sempre (q.s.) em $I$.
+	
+	Além disso, para todo $n \in \mathbb{N}$, vale a estimativa:
+	$$ |f_n(t)| = |\chi_{[a, x_n]}(t) v(t)| \le |v(t)| \quad \text{q.s. em } I $$
+	Como $v \in L^1(I)$, a função $|v|$ atua como uma limitante integrável. Pelo \textbf{Teorema da Convergência Dominada de Lebesgue}, podemos passar o limite para dentro da integral:
+	$$ \lim_{n \to \infty} w(x_n) = \int_a^b \left( \lim_{n \to \infty} \chi_{[a, x_n]}(t) v(t) \right) dt = \int_a^b \chi_{[a, x]}(t) v(t) dt = \int_a^x v(t) dt = w(x) $$
+	Como $x_n \to x$ implica $w(x_n) \to w(x)$, concluímos que $\boxed{w \in C(I)}$.
+	
+	\textbf{(b) Identidades Integrais via Fubini:}
+	
+	Seja $\phi \in C_c^1(I)$. Partimos do lado esquerdo da identidade e escrevemos a integral interna no intervalo $[a,b]$ usando a função característica:
+	$$ \int_a^b w(t) \phi(t) dt = \int_a^b \left( \int_a^t v(s) ds \right) \phi(t) dt = \int_a^b \left( \int_a^b \chi_{[a,t]}(s) v(s) ds \right) \phi(t) dt $$
+	Como $\phi(t)$ não depende de $s$, podemos colocá-la dentro da integral interna:
+	$$ = \int_a^b \left( \int_a^b \chi_{[a,t]}(s) \phi(t) v(s) ds \right) dt $$
+	A função integranda $(s,t) \mapsto \chi_{[a,t]}(s) \phi(t) v(s)$ é absolutamente integrável em $I \times I$, pois $\phi$ é limitada (tem suporte compacto) e $v \in L^1(I)$. Pelo \textbf{Teorema de Fubini}, podemos trocar a ordem de integração:
+	$$ \int_a^b \left( \int_a^b \chi_{[a,t]}(s) \phi(t) v(s) ds \right) dt = \int_a^b \left( \int_a^b \chi_{[a,t]}(s) \phi(t) v(s) dt \right) ds = \int_a^b v(s) \left( \int_a^b \chi_{[a,t]}(s) \phi(t) dt \right) ds $$
+	Agora, analisamos o suporte da função característica. Ter $\chi_{[a,t]}(s) = 1$ significa que $a \le s \le t \le b$. 
+	
+	Lendo essa mesma desigualdade com foco na variável $t$, vemos que a restrição sobre $t$ é $s \le t \le b$, ou seja, $t \in [s, b]$. Logo, $\chi_{[a,t]}(s) = \chi_{[s,b]}(t)$. Substituindo na integral, ficamos com:
+	$$ \int_a^b v(s) \left( \int_a^b \chi_{[a,t]}(s) \phi(t) dt \right) ds = \int_a^b v(s) \left( \int_a^b \chi_{[s,b]}(t) \phi(t) dt \right) ds $$
+	Como $\chi_{[s,b]}(t) = 1$ apenas no intervalo $[s, b]$ e $0$ no resto, a integral interna se reduz a:
+	$$ = \int_a^b v(s) \left( \int_s^b \phi(t) dt \right) ds $$
+	O que conclui as igualdades pedidas.
+	
+	\textbf{(c) Derivada Fraca:}
+	
+	Para mostrar que $v$ é a derivada fraca de $w$, precisamos verificar que para qualquer $\psi \in C_c^\infty(I)$, vale:
+	$$ \int_a^b w(t) \psi'(t) dt = - \int_a^b v(t) \psi(t) dt $$
+	
+	Tomemos uma $\psi \in C_c^\infty(I)$ arbitrária. Em particular, $\psi' \in C_c^\infty(I) \subset C_c^1(I)$. Podemos então aplicar o resultado do item (b), substituindo $\phi(t)$ por $\psi'(t)$:
+	$$ \int_a^b w(t) \psi'(t) dt = \int_a^b v(s) \left( \int_s^b \psi'(t) dt \right) ds $$
+	Como $\psi$ é de classe $C^\infty$, aplicamos o \textbf{Teorema Fundamental do Cálculo} na integral interna:
+	$$ \int_s^b \psi'(t) dt = \psi(b) - \psi(s) $$
+	Dado que o suporte de $\psi$ é compacto e contido no interior de $(a,b)$, temos obrigatoriamente $\psi(b) = 0$. Logo:
+	$$ \int_s^b \psi'(t) dt = 0 - \psi(s) = -\psi(s) $$
+	Substituindo de volta na integral iterada:
+	$$ \int_a^b w(t) \psi'(t) dt = \int_a^b v(s) \bigl( -\psi(s) \bigr) ds = - \int_a^b v(s) \psi(s) ds $$
+	Trocando a variável muda $s$ por $t$, obtemos:
+	$$ \boxed{ \int_I w(t) \psi'(t) dt = - \int_I v(t) \psi(t) dt, \quad \forall \psi \in C_c^\infty(I) } $$
+	Isto demonstra que a derivada fraca de $w$ é exatamente $v$.
+}
+
+\sintese{
+	A demonstração conecta de forma direta as noções clássicas e fracas do cálculo unidimensional. O raciocínio consistiu em transferir a derivada para a função de teste usando integrais iteradas, seguindo o esquema lógico:
+	$$ w(t) \xrightarrow{\text{Função Característica}} \chi_{[a,t]}(s) \xrightarrow{\text{Fubini}} \chi_{[s,b]}(t) \xrightarrow{\text{Teorema Fundamental do Cálculo}} \text{Derivada Fraca}. $$
+}
+
+\aprofundamento{
+	Este exercício estabelece um resultado central para o estudo de espaços de Sobolev em dimensão $n=1$: o espaço $W^{1,1}(I)$ coincide com o espaço das funções absolutamente contínuas (AC) cujas derivadas fracas pertencem a $L^1(I)$.
+	
+	Enquanto em dimensões superiores ($n > 1$) as funções de Sobolev podem ser descontínuas em pontos ou superfícies (dependendo do expoente $p$), em $n=1$, qualquer função com derivada fracamente integrável admite um representante contínuo. Este facto é a base matemática por trás da imersão contínua $W^{1,p}(I) \hookrightarrow C^{0, 1 - 1/p}(\bar{I})$ dada pelo Teorema de Morrey.
 }
 \end{document}
