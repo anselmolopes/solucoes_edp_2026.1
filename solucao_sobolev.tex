@@ -654,4 +654,96 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 	Portanto, $\lim_{h \to 0} \|\tau_h u - u\|_{L^\infty(\Omega)} = 1 \neq 0$, provando que o resultado não é válido para $p=\infty$.
 }
 
+%%%% QUESTÃO 94 %%%%
+\questao{
+	O operador $\tau_h : L^p(U) \to L^p(\Omega)$ definido no exercício (93), de fato está bem definido de $\tau_h : W^{1,p}(U) \to W^{1,p}(\Omega)$ e
+	$$ \frac{\partial(\tau_h u)}{\partial x_j} = \tau_h \left( \frac{\partial u}{\partial x_j} \right). $$
+	Conclua que $\lim_{h \to 0} \|\tau_h u - u\|_{W^{1,p}(\Omega)} = 0$.
+}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	O problema nos pede para elevar o operador de translação $\tau_h$ de espaços $L^p$ para os espaços de Sobolev $W^{1,p}$. Para isso, precisamos provar duas propriedades estruturais: a comutação entre a translação e o operador de derivação fraca, e a continuidade forte das translações na norma de Sobolev.
+	
+	\textbf{Fundamentação Teórica:}
+	A ferramenta para demonstrar a boa definição e a identidade operacional é a \textbf{definição de derivada fraca por dualidade} combinada com a mudança de variáveis. Como a condição geométrica $\Omega \subset\subset U$ garante que o suporte transladado das funções teste de $\Omega$ permanece confinado dentro do aberto maior $U$, podemos transferir a translação para as funções teste suaves. Para a segunda parte, utilizaremos a própria definição da norma de $W^{1,p}$, o que nos permitirá \textbf{reduzir o problema ao caso $L^p$} já demonstrado no item (c) da \textbf{Questão 93}.
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Identidade de Comutação:} Aplicar a definição de derivada fraca para a função transladada $\tau_h u$ usando uma função teste $\phi \in C_0^\infty(\Omega)$. Efetuar uma mudança de variáveis na integral para deslocar o argumento e identificar a derivada fraca de $u$ agindo em $U$.
+		\item \textbf{Convergência Forte:} Decompor a norma de Sobolev $\|\tau_h u - u\|_{W^{1,p}(\Omega)}$ na soma das normas $L^p$ da função e de suas respectivas derivadas fracas. Aplicar o limite $h \to 0$ componente a componente usando o resultado de continuidade forte obtido na questão anterior.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{(a) Boa definição e Comutação da Derivada Fraca:}
+	
+	Seja $u \in W^{1,p}(U)$. \textbf{Pelo item (a) da Questão 93}, já sabemos que $u \in L^p(U) \implies \tau_h u \in L^p(\Omega)$. Para mostrar que $\tau_h u \in W^{1,p}(\Omega)$, precisamos verificar a existência de suas derivadas fracas em $\Omega$.
+	
+	Seja $\phi \in C_0^\infty(\Omega)$ uma função teste arbitrária. Pela definição de translação, temos que:
+	$$ \int_\Omega \tau_h u(x) \frac{\partial \phi}{\partial x_j}(x) dx = \int_\Omega u(x+h) \frac{\partial \phi}{\partial x_j}(x) dx = \int_{\Omega+h} u(y) \frac{\partial \phi}{\partial x_j}(y-h) dy,$$
+	onde fizemos a mudança de variáveis linear $y = x+h$ ($dx = dy$), e com isso o domínio de integração passa a ser o conjunto transladado $\Omega+h$.
+	
+	Agora, definamos a função $\psi(y) = \phi(y-h)$. Como $\supp \phi \subset\subset \Omega$ e $|h| < \dist(\Omega, \partial U)$, o suporte de $\psi$ satisfaz 
+	$$\supp \psi = \supp \phi + h \subset\subset \Omega+h \subset U.$$ 
+	Portanto, $\psi \in C_0^\infty(U)$. Além disso, pela regra da cadeia clássica, $\tfrac{\partial \psi}{\partial y_j}(y) = \tfrac{\partial \phi}{\partial x_j}(y-h)$. Substituindo na integral e estendendo o domínio para todo o aberto $U$ (visto que $\psi \equiv 0$ fora de $\Omega+h$), obtemos:
+	$$ \int_{\Omega+h} u(y) \frac{\partial \phi}{\partial x_j}(y-h) dy = \int_U u(y) \frac{\partial \psi}{\partial y_j}(y) dy. $$
+	Como $u \in W^{1,p}(U)$, usamos a definição de sua derivada fraca $\tfrac{\partial u}{\partial y_j}$ em $U$:
+	$$ \int_U u(y) \frac{\partial \psi}{\partial y_j}(y) dy = - \int_U \frac{\partial u}{\partial y_j}(y) \psi(y) dy = - \int_{\Omega+h} \frac{\partial u}{\partial y_j}(y) \phi(y-h) dy. $$
+	Retornando a nossa mudança de variáveis ($y = x+h$, $dy = dx$), temos que:
+	$$ - \int_{\Omega+h} \frac{\partial u}{\partial y_j}(y) \phi(y-h) dy = - \int_\Omega \frac{\partial u}{\partial x_j}(x+h) \phi(x) dx = - \int_\Omega \tau_h\left(\frac{\partial u}{\partial x_j}\right)(x) \phi(x) dx. $$
+	Portanto:
+	$$ \int_\Omega \tau_h u(x) \frac{\partial \phi}{\partial x_j}(x) dx = - \int_\Omega \tau_h\left(\frac{\partial u}{\partial x_j}\right)(x) \phi(x) dx, \quad \forall \phi \in C_0^\infty(\Omega). $$
+	Isso prova exatamente que a derivada fraca de $\tau_h u$ em relação a $x_j$ existe em $\Omega$ e coincide com a translação da derivada fraca de $u$, ou seja:
+	$$ \boxed{\frac{\partial(\tau_h u)}{\partial x_j} = \tau_h \left( \frac{\partial u}{\partial x_j} \right)}. $$
+	Como $u \in W^{1,p}(U)$, temos $\tfrac{\partial u}{\partial x_j} \in L^p(U)$, o que garante pelo \textbf{item (a) da Questão 93} que $\tau_h \left( \tfrac{\partial u}{\partial x_j} \right) \in L^p(\Omega)$. Concluímos que $\tau_h : W^{1,p}(U) \to W^{1,p}(\Omega)$ está bem definido.
+	
+	\textbf{(b) Conclusão do Limite Forte:}
+	
+	Para $1 \le p < \infty$, sabemos que:
+	$$ \|\tau_h u - u\|_{W^{1,p}(\Omega)}^p = \|\tau_h u - u\|_{L^p(\Omega)}^p + \sum_{j=1}^n \left\| \frac{\partial(\tau_h u)}{\partial x_j} - \frac{\partial u}{\partial x_j} \right\|_{L^p(\Omega)}^p =\|\tau_h u - u\|_{L^p(\Omega)}^p + \sum_{j=1}^n \left\| \tau_h\left(\frac{\partial u}{\partial x_j}\right) - \frac{\partial u}{\partial x_j} \right\|_{L^p(\Omega)}^p\quad (\ast_1)$$
+	onde usamos o que provamos no item (a) acima.
+	
+	Por outro lado, como $u \in L^p(U)$ e cada $\tfrac{\partial u}{\partial x_j} \in L^p(U)$, pelo \textbf{item (c) da Questão 93}, temos que:
+	$$ \lim_{h \to 0} \|\tau_h u - u\|_{L^p(\Omega)} = 0 \quad \text{e} \quad \lim_{h \to 0} \left\| \tau_h\left(\frac{\partial u}{\partial x_j}\right) - \frac{\partial u}{\partial x_j} \right\|_{L^p(\Omega)} = 0, \quad \forall j=1, \dots, n. $$
+	Disto e da igualdade em $(\ast_1)$, segue que:
+	$$ \boxed{\lim_{h \to 0} \|\tau_h u - u\|_{W^{1,p}(\Omega)} = 0}. $$
+}
+
+\sintese{
+	A estrutura linear de diferenciação fraca comuta com isometrias geométricas como a translação. O fluxo lógico estabelecido foi:
+	$$ \text{Dualidade em } \Omega \implies \text{Suporte Compacto em } U \implies \text{Comutação } \partial_j \tau_h = \tau_h \partial_j \implies \text{Convergência via } L^p $$
+}
+
+\aprofundamento{
+	É de fundamental importância salientar que a convergência forte do limite da norma de Sobolev \textbf{falha categoricamente no caso $p = \infty$}. Enquanto a imersão de Morrey garante que $u \in W^{1,\infty}(U)$ é localmente Lipschitz contínua (o que força a convergência uniforme da função $\|\tau_h u - u\|_{L^\infty(\Omega)} \to 0$), as suas derivadas fracas $\frac{\partial u}{\partial x_j}$ são apenas elementos de $L^\infty(U)$ e podem apresentar descontinuidades de salto, onde a translação falha.
+	
+	Para demonstrar essa quebra de convergência de forma explícita, construímos o seguinte contra-exemplo unidimensional. Considere os abertos $U = (-2,2)$ e $\Omega = (-1,1)$, com $\Omega \subset\subset U$, e a função módulo:
+	$$ u(x) = |x|. $$
+	Como $u$ é globalmente Lipschitz em $U$, temos $u \in W^{1,\infty}(U)$. A sua derivada fraca é dada quase sempre pela função sinal:
+	$$ u'(x) = \text{sgn}(x) = \begin{cases} 1, & \text{se } x > 0 \\ -1, & \text{se } x < 0 \end{cases} $$
+	Fixemos um deslocamento positivo infinitesimal $0 < h < 1$. A derivada fraca da função transladada $\tau_h u$ avaliada em $\Omega$ é expressa por $\tau_h (u')(x) = \text{sgn}(x+h)$. Vamos computar pontualmente a diferença das derivadas, $\tau_h (u')(x) - u'(x)$, dividindo o domínio $\Omega = (-1,1)$ em três subintervalos disjuntos:
+	\begin{enumerate}
+		\item Para $x \in (-1, -h)$: Temos $x < 0$ e $x+h < 0$. Portanto:
+		$$ \tau_h (u')(x) - u'(x) = \text{sgn}(x+h) - \text{sgn}(x) = -1 - (-1) = 0. $$
+		
+		\item Para $x \in (-h, 0)$: Temos $x < 0$, mas $x+h > 0$. Portanto:
+		$$ \tau_h (u')(x) - u'(x) = \text{sgn}(x+h) - \text{sgn}(x) = 1 - (-1) = 2. $$
+		
+		\item Para $x \in (0, 1)$: Temos $x > 0$ e $x+h > 0$. Portanto:
+		$$ \tau_h (u')(x) - u'(x) = \text{sgn}(x+h) - \text{sgn}(x) = 1 - 1 = 0. $$
+	\end{enumerate}
+	
+	Reunindo os três casos, a função diferença das derivadas fracas em $\Omega$ assume o comportamento:
+	$$ \tau_h (u')(x) - u'(x) = 2 \cdot \chi_{(-h,0)}(x), \quad \text{q.s. em } \Omega. $$
+	Como o intervalo $(-h, 0)$ possui medida de Lebesgue estritamente positiva ($|\mu| = h > 0$), o supremo essencial desta diferença não é afetado pelo comportamento em conjuntos de medida nula. Calculando a norma em $L^\infty(\Omega)$, obtemos:
+	$$ \|\tau_h (u') - u'\|_{L^\infty(\Omega)} = \sup_{x \in (-1,1)} |\text{sgn}(x+h) - \text{sgn}(x)| = 2. $$
+	
+	Portanto, ao avaliarmos o limite da norma completa de Sobolev em $W^{1,\infty}(\Omega)$, a parcela correspondente ao gradiente impede o decaimento:
+	$$ \|\tau_h u - u\|_{W^{1,\infty}(\Omega)} = \|\tau_h u - u\|_{L^\infty(\Omega)} + \|\tau_h (u') - u'\|_{L^\infty(\Omega)} \to 0 + 2 = 2 \neq 0, \quad \text{quando } h \to 0^+. $$
+	Isso encerra a justificativa analítica de que a continuidade forte do operador translação fica estritamente restrita ao intervalo $1 \le p < \infty$.
+}
+
+%%%% QUESTÃO 95 %%%%
+
 \end{document}
