@@ -514,11 +514,11 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 	
 	Seja $x \in I$ e considere uma sequência $(x_n)_{n \in \mathbb{N}} \subset I$ tal que $x_n \to x$. Podemos reescrever $w(x_n)$ integrando em todo o intervalo $[a, b]$ com o auxílio da função característica:
 	$$ w(x_n) = \int_a^{x_n} v(t) dt = \int_a^b \chi_{[a, x_n]}(t) v(t) dt $$
-	Definimos a sequência de funções $f_n(t) = \chi_{[a, x_n]}(t) v(t)$. Como $x_n \to x$, temos pontualmente que $\chi_{[a, x_n]}(t) \to \chi_{[a, x]}(t)$ para todo $t \neq x$. Como o ponto $\{x\}$ tem medida de Lebesgue nula, temos $f_n(t) \to \chi_{[a, x]}(t) v(t)$ quase sempre (q.s.) em $I$.
+	Como $x_n \to x$, temos pontualmente que $\chi_{[a, x_n]}(t) \to \chi_{[a, x]}(t)$ para todo $t \neq x$. Por outro lado, o ponto $\{x\}$ tem medida de Lebesgue nula, e portanto, $\chi_{[a,x_n]}(t)v(t) \to \chi_{[a, x]}(t) v(t)$ quase sempre (q.s.) em $I$.
 	
 	Além disso, para todo $n \in \mathbb{N}$, vale a estimativa:
-	$$ |f_n(t)| = |\chi_{[a, x_n]}(t) v(t)| \le |v(t)| \quad \text{q.s. em } I $$
-	Como $v \in L^1(I)$, a função $|v|$ atua como uma limitante integrável. Pelo \textbf{Teorema da Convergência Dominada de Lebesgue}, podemos passar o limite para dentro da integral:
+	$$|\chi_{[a, x_n]}(t) v(t)| \le |v(t)| \quad \text{q.s. em } I $$
+	Por hipótese, sabemos que $v \in L^1(I)$, e então a função $|v|$ atua como um limitante integrável. Assim, usando o \textbf{Teorema da Convergência Dominada de Lebesgue}, podemos passar o limite para dentro da integral, e obtemos:
 	$$ \lim_{n \to \infty} w(x_n) = \int_a^b \left( \lim_{n \to \infty} \chi_{[a, x_n]}(t) v(t) \right) dt = \int_a^b \chi_{[a, x]}(t) v(t) dt = \int_a^x v(t) dt = w(x) $$
 	Como $x_n \to x$ implica $w(x_n) \to w(x)$, concluímos que $\boxed{w \in C(I)}$.
 	
@@ -532,7 +532,7 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 	$$ \int_a^b \left( \int_a^b \chi_{[a,t]}(s) \phi(t) v(s) ds \right) dt = \int_a^b \left( \int_a^b \chi_{[a,t]}(s) \phi(t) v(s) dt \right) ds = \int_a^b v(s) \left( \int_a^b \chi_{[a,t]}(s) \phi(t) dt \right) ds $$
 	Agora, analisamos o suporte da função característica. Ter $\chi_{[a,t]}(s) = 1$ significa que $a \le s \le t \le b$. 
 	
-	Lendo essa mesma desigualdade com foco na variável $t$, vemos que a restrição sobre $t$ é $s \le t \le b$, ou seja, $t \in [s, b]$. Logo, $\chi_{[a,t]}(s) = \chi_{[s,b]}(t)$. Substituindo na integral, ficamos com:
+	Olhando essa mesma desigualdade com foco na variável $t$, vemos que a restrição sobre $t$ é $s \le t \le b$, ou seja, $t \in [s, b]$. Logo, $\chi_{[a,t]}(s) = \chi_{[s,b]}(t)$. Substituindo na integral, ficamos com:
 	$$ \int_a^b v(s) \left( \int_a^b \chi_{[a,t]}(s) \phi(t) dt \right) ds = \int_a^b v(s) \left( \int_a^b \chi_{[s,b]}(t) \phi(t) dt \right) ds $$
 	Como $\chi_{[s,b]}(t) = 1$ apenas no intervalo $[s, b]$ e $0$ no resto, a integral interna se reduz a:
 	$$ = \int_a^b v(s) \left( \int_s^b \phi(t) dt \right) ds $$
@@ -547,13 +547,11 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 	$$ \int_a^b w(t) \psi'(t) dt = \int_a^b v(s) \left( \int_s^b \psi'(t) dt \right) ds $$
 	Como $\psi$ é de classe $C^\infty$, aplicamos o \textbf{Teorema Fundamental do Cálculo} na integral interna:
 	$$ \int_s^b \psi'(t) dt = \psi(b) - \psi(s) $$
-	Dado que o suporte de $\psi$ é compacto e contido no interior de $(a,b)$, temos obrigatoriamente $\psi(b) = 0$. Logo:
+	Como o suporte de $\psi$ é compacto e contido no interior de $(a,b)$, temos que $\psi(b) = 0$. Logo:
 	$$ \int_s^b \psi'(t) dt = 0 - \psi(s) = -\psi(s) $$
-	Substituindo de volta na integral iterada:
-	$$ \int_a^b w(t) \psi'(t) dt = \int_a^b v(s) \bigl( -\psi(s) \bigr) ds = - \int_a^b v(s) \psi(s) ds $$
-	Trocando a variável muda $s$ por $t$, obtemos:
-	$$ \boxed{ \int_I w(t) \psi'(t) dt = - \int_I v(t) \psi(t) dt, \quad \forall \psi \in C_c^\infty(I) } $$
-	Isto demonstra que a derivada fraca de $w$ é exatamente $v$.
+	Substituindo na integral iterada:
+	$$ \int_a^b w(t) \psi'(t) dt = \int_a^b v(s) \bigl( -\psi(s) \bigr) ds = - \int_a^b v(s) \psi(s) ds = - \int_I v(t) \psi(t) dt$$
+	Portanto, a derivada fraca de $w$ é exatamente $v$.
 }
 
 \sintese{
@@ -562,8 +560,98 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 }
 
 \aprofundamento{
-	Este exercício estabelece um resultado central para o estudo de espaços de Sobolev em dimensão $n=1$: o espaço $W^{1,1}(I)$ coincide com o espaço das funções absolutamente contínuas (AC) cujas derivadas fracas pertencem a $L^1(I)$.
+	Este exercício estabelece um resultado central para o estudo de espaços de Sobolev em dimensão $n=1$: o espaço $W^{1,1}(I)$ coincide com o espaço das funções absolutamente contínuas, cujas derivadas fracas pertencem a $L^1(I)$.
 	
-	Enquanto em dimensões superiores ($n > 1$) as funções de Sobolev podem ser descontínuas em pontos ou superfícies (dependendo do expoente $p$), em $n=1$, qualquer função com derivada fracamente integrável admite um representante contínuo. Este facto é a base matemática por trás da imersão contínua $W^{1,p}(I) \hookrightarrow C^{0, 1 - 1/p}(\bar{I})$ dada pelo Teorema de Morrey.
+	Enquanto em dimensões superiores ($n > 1$) as funções de Sobolev podem ser descontínuas em pontos ou superfícies (dependendo do expoente $p$), em $n=1$, qualquer função com derivada fracamente integrável admite um representante contínuo. Este fato é a base matemática por trás da imersão contínua $W^{1,p}(I) \hookrightarrow C^{0, 1 - 1/p}(\bar{I})$ dada pelo Teorema de Morrey.
 }
+
+%%%% QUESTÃO 93 %%%%
+\questao{
+	(Teoria da Medida e Integração - o operador translação) Sejam $\Omega, U$ abertos tais que $\Omega$ é limitado e $\overline{\Omega} \subset U$ ($\Omega \subset\subset U$). Para cada $h \in \mathbb{R}^n$, $|h| < \dist(\Omega, \partial U)$, defina o operador translação $\tau_h : L^p(U) \to L^p(\Omega)$ como a extensão única do operador $\tau_h : C_0^\infty(U) \subset L^p(U) \to L^p(\Omega)$ dado por $\tau_h u(x) = u(x + h)$ e mostre que
+	\begin{enumerate}[label=(\alph*)]
+		\item $\tau_h$ é linear, contínua e $\|\tau_h\| = 1$;
+		\item Se $u \in L^p(U)$, $v \in L^\infty(U)$ tal que $\supp v \subset\subset \Omega$, então
+		$$ \int_U u(\tau_h v - v)dx = \int_U v(\tau_{-h} u - u)dx. $$
+		\item Para cada $u \in L^p(U)$:
+		$$ \lim_{h \to 0} \|\tau_h u - u\|_{L^p(\Omega)} = 0, \, \forall \Omega \subset\subset U $$
+	\end{enumerate}
+}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	O problema pede para verificar as propriedades básicas do operador de translação $\tau_h$ em espaços $L^p$. A condição geométrica $\Omega \subset\subset U$ garante um \textbf{espaço seguro} para mover as funções sem sair do domínio maior $U$.
+	
+	\textbf{Fundamentação Teórica:}
+	Nos itens (a) e (b), a ferramenta principal é a \textbf{mudança de variáveis na integral}, que mostra que a medida de Lebesgue não muda quando deslocamos uma função. No item (b), usamos a \textbf{Desigualdade de Hölder} para garantir que as integrais existem; como $\Omega$ é limitado e $v \in L^\infty(U)$ tem suporte compacto, a função $v$ pertence a qualquer espaço $L^q$ necessário. No item (c), como não podemos usar a continuidade ponto a ponto diretamente em $L^p$, usamos o fato de que as funções suaves de $C_0^\infty(U)$ são \textbf{densas} em $L^p(U)$ (para $1 \le p < \infty$), junto com o fato de que funções com suporte compacto são uniformemente contínuas.
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Continuidade e Norma:} Aplicar a mudança $y = x+h$ na integral da norma. A condição do tamanho de $h$ garante que o domínio deslocado continua dentro de $U$, permitindo limitar a integral pela norma em $L^p(U)$.
+		\item \textbf{Identidade de Integração:} Fazer a mudança de variáveis na integral do produto. O suporte compacto de $v$ zera a função fora de $\Omega$, permitindo passar o deslocamento de $v$ para $u$ trocando o sinal de $h$.
+		\item \textbf{Continuidade Forte:} Construir um argumento padrão de $\varepsilon/3$. Aproximando $u$ por uma função suave $w$, controlamos a translação de $w$ pela continuidade uniforme e obtemos a estimativa usando o item (a).
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{(a) $\tau_h$ é linear, contínua e $\|\tau_h\| = 1$:}
+	
+	\textit{Linearidade:} Para quaisquer $u, w \in L^p(U)$ e constantes $\alpha, \beta$:
+	$$ \tau_h(\alpha u + \beta w)(x) = (\alpha u + \beta w)(x+h) = \alpha u(x+h) + \beta w(x+h) = \alpha \tau_h u(x) + \beta \tau_h w(x). $$
+	
+	\textit{Continuidade e Limitação:} Calculamos a norma em $L^p(\Omega)$:
+	$$ \|\tau_h u\|_{L^p(\Omega)}^p = \int_\Omega |u(x+h)|^p dx $$
+	Fazendo a mudança de variáveis $y = x+h$, temos que $dx = dy$. Como $x \in \Omega$ e $|h| < \dist(\Omega, \partial U)$, o conjunto deslocado continua no interior do domínio maior: $y \in \Omega+h \subset U$. Logo:
+	$$ \int_{\Omega+h} |u(y)|^p dy \le \int_U |u(y)|^p dy = \|u\|_{L^p(U)}^p $$
+	Portanto, $\|\tau_h u\|_{L^p(\Omega)} \le \|u\|_{L^p(U)}$. Isso mostra que o operador $\tau_h$ é contínuo e sua norma é menor ou igual a 1.
+	
+	Para provar que $\|\tau_h\| = 1$, precisamos encontrar uma situação onde a desigualdade anterior se torne uma igualdade. Para isso, consideremos $u\neq 0$ tal que $\supp u\subset\Omega+h$. Logo:
+	$$ \|u\|_{L^p(U)}^p = \int_U |u(y)|^p dy = \int_{\Omega+h} |u(y)|^p dy = \int_\Omega |u(x+h)|^p dx = \|\tau_h u\|_{L^p(\Omega)}^p $$
+	Portanto, 
+	$$ \|\tau_h\| = \sup_{u \neq 0} \frac{\|\tau_h u\|_{L^p(\Omega)}}{\|u\|_{L^p(U)}} = 1. $$
+	
+	\textbf{(b) Identidade Integral:}
+	
+	Fazendo a mudança de variáveis $y = x+h$ ($dx = dy$) e sabendo que o suporte de $v$ está contido em $\Omega$, a função $\tau_h v(x) = v(x+h)$ só é diferente de zero se $x+h \in \Omega$, ou seja, $x \in \Omega - h$. Pela restrição de $h$, sabemos que $\Omega - h \subset U$. Assim:
+	$$ \int_U u(x) \tau_h v(x) dx = \int_{\Omega-h} u(x) v(x+h) dx = \int_\Omega u(y-h) v(y) dy $$
+	Como $v\equiv 0$ em $\Omega^{c}$, podemos estender a integração para todo o conjunto $U$ sem alterar o valor, ou seja:
+	$$ \int_\Omega u(y-h) v(y) dy = \int_U u(y-h) v(y) dy = \int_U \tau_{-h} u(y) v(y) dy $$
+	Subtraindo o termo $\int_U u(x)v(x) dx$ dos dois lados da equação, chegamos ao resultado:
+	$$ \int_U u(\tau_h v - v) dx = \int_U v(\tau_{-h} u - u) dx. $$
+	
+	\textbf{(c) Continuidade forte das translações em $L^p$ ($1 \le p < \infty$):}
+	
+	Seja $\varepsilon > 0$. Como $\overline{C^{\infty}_0(U)} = L^{p}(U)$, existe uma função suave $w \in C^{\infty}_0(U)$ tal que $\|u - w\|_{L^p(U)} < \tfrac{\varepsilon}{3}$. Além disso, pela desigualdade triangular, temos que:
+	$$ \|\tau_h u - u\|_{L^p(\Omega)} \le \|\tau_h u - \tau_h w\|_{L^p(\Omega)} + \|\tau_h w - w\|_{L^p(\Omega)} + \|w - u\|_{L^p(\Omega)} $$
+	
+	Estudando cada parte:
+	\begin{enumerate}
+		\item Pela continuidade do item (a), $\|\tau_h(u-w)\|_{L^p(\Omega)} \le \|u-w\|_{L^p(U)} < \tfrac{\varepsilon}{3}$.
+		\item Pela escolha de $w$, temos $\|w-u\|_{L^p(\Omega)} \le \|w-u\|_{L^p(U)} < \tfrac{\varepsilon}{3}$.
+		\item Como $w$ é suave e tem suporte compacto, ela é uniformemente contínua em $U$ (\textbf{Teorema de Heine-Cantor}). Assim, existe um $\delta > 0$ tal que, se $|h| < \delta$, então $|w(x+h) - w(x)| < \tfrac{\varepsilon}{3|\Omega|^{1/p}}$ para todo $x$. Integrando no domínio limitado $\Omega$, temos:
+		$$ \|\tau_h w - w\|_{L^p(\Omega)}^p = \int_\Omega |w(x+h) - w(x)|^p dx < \int_\Omega \frac{\varepsilon^p}{3^p |\Omega|} dx = \frac{\varepsilon^p}{3^p} \implies \|\tau_h w - w\|_{L^p(\Omega)} < \frac{\varepsilon}{3}. $$
+	\end{enumerate}
+	
+	Somando as três partes, concluímos que:
+	$$ \boxed{|h|<\delta\implies \|\tau_h u - u\|_{L^p(\Omega)} < \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon},$$
+	ou seja,
+	$$\boxed{\lim_{h \to 0} \|\tau_h u - u\|_{L^p(\Omega)} = 0}.$$
+}
+
+\sintese{
+	As propriedades do operador translação vêm diretamente do fato de que a medida de Lebesgue não muda por deslocamentos. A demonstração passa por transferir esse deslocamento da função teste para a função principal (item b) e usar a densidade das funções suaves (item c), conectando a continuidade clássica com a estrutura dos espaços $L^p$. O fluxo lógico foi:
+	$$ \text{Invariância da Medida} \implies \text{Identidade Integral} \implies \text{Densidade Suave} \implies \text{Estrutura de } L^p $$
+}
+
+\aprofundamento{
+	Esta sequência de passos é a base para construir os Espaços de Sobolev e as funções regularizadoras. A identidade do item (b) funciona como uma \textbf{integração por partes discreta}, sendo a ferramenta principal para mostrar que o controle de translações em $L^p$ equivale à existência de derivadas fracas.
+	
+	Além disso, vale destacar um detalhe importante: a convergência do item (c) falha completamente se $p = \infty$. No espaço $L^\infty(U)$, as funções contínuas não são densas. Podemos mostrar isso de forma exata usando a função característica de um intervalo. 
+	
+	Por exemplo, considerando $U = (-2, 2)$, $\Omega = (-1, 1)$ e  $u \in L^\infty(U)$ dada por $u(x) = 1$ se $x > 0$ e $u(x) = 0$ se $x \le 0$, ao aplicarmos uma pequena translação $h > 0$, a diferença da função $\tau_h u(x) = u(x+h)$ por $u(x)$ é dada por:
+	$$ \tau_h u(x) - u(x) = \begin{cases} 1, & \text{se } -h < x \le 0 \\ 0, & \text{caso contrário} \end{cases} $$
+	Independentemente de quão pequeno seja $h$, temos que:
+	$$ \|\tau_h u - u\|_{L^\infty(\Omega)} = 1 $$
+	Portanto, $\lim_{h \to 0} \|\tau_h u - u\|_{L^\infty(\Omega)} = 1 \neq 0$, provando que o resultado não é válido para $p=\infty$.
+}
+
 \end{document}
