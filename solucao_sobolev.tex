@@ -1116,7 +1116,7 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 	Como $v_{R,\varepsilon} \in C_c^\infty(\mathbb{R}^n)$, provamos que $C_c^\infty(\mathbb{R}^n)$ é denso em $W^{1,p}(\mathbb{R}^n)$.
 	
 	\textit{Passo 4: Igualdade dos Espaços} \\
-	O espaço $W_0^{1,p}(\mathbb{R}^n)$ é definido como o fechamento de $C_c^\infty(\mathbb{R}^n)$ na norma de $W^{1,p}(\mathbb{R}^n)$. Como acabamos de mostrar que qualquer $u \in W^{1,p}(\mathbb{R}^n)$ é o limite de uma sequência em $C_c^\infty(\mathbb{R}^n)$, segue que:
+	O espaço $W_0^{1,p}(\mathbb{R}^n)$ é definido como o fecho de $C_c^\infty(\mathbb{R}^n)$ na norma de $W^{1,p}(\mathbb{R}^n)$. Como acabamos de mostrar que qualquer $u \in W^{1,p}(\mathbb{R}^n)$ é o limite de uma sequência em $C_c^\infty(\mathbb{R}^n)$, segue que:
 	$$\boxed{W^{1,p}(\mathbb{R}^n) = W_0^{1,p}(\mathbb{R}^n)}$$
 }
 
@@ -1144,69 +1144,182 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 
 \analise{
 	\textbf{Análise do Enunciado:}
-	A questão propõe a análise de uma função radial de truncação. O objetivo é verificar sua pertinência aos espaços de Sobolev e, principalmente, analisar como a norma do gradiente escala quando a função sofre uma contração homotética (mudança de escala por $\varepsilon$). A tese central é que, para $n > p$, a ``energia'' do gradiente tende a zero quando o suporte da função encolhe, apesar de a amplitude da função permanecer constante.
+	A questão propõe a análise de uma função de truncação radial. O objetivo é verificar sua pertinência aos espaços de Sobolev e analisar como a norma do gradiente escala sob contrações homotéticas. A tese central é que, para $n > p$, a energia do gradiente converge a zero mesmo que a amplitude da função permaneça constante, o que demonstra a falha da imersão de Sobolev em $L^\infty$ para $p \le n$.
 	
 	\textbf{Fundamentação Teórica:}
-	A prova utiliza a teoria de funções radialmente simétricas e a definição de derivada fraca para funções Lipschitz. Como $\sigma$ é Lipschitziana, $u(x) = \sigma(|x|)$ também é Lipschitziana e, portanto, derivável quase sempre (Teorema de Rademacher). A análise da norma $L^p$ em domínios radiais será feita via coordenadas esféricas, onde a medida do volume de uma casca esférica é fundamental.
+	A prova baseia-se na composição de funções Lipschitzianas. Utilizaremos o resultado da \textbf{Questão 98} para garantir que a regularidade de Lipschitz implica a existência de derivadas fracas em $L^\infty(\mathbb{R}^n)$. Para a forma do gradiente, utilizaremos a fundamentação da \textbf{Questão 91}, que provou que a derivada fraca da norma $|x|$ é $x/|x|$, tratando a singularidade na origem. Para as integrais, utilizaremos a notação $\alpha(n)$ denota o volume da bola unitária em $\mathbb{R}^n$.
 	
 	\textbf{Estratégias:}
 	\begin{enumerate}
-		\item \textbf{Cálculo do Gradiente}: Utilizar a regra da cadeia para funções compostas $u = \sigma \circ |\cdot|$. A derivada de $|x|$ é $x/|x|$, e a de $\sigma$ é calculada a partir da definição por partes.
-		\item \textbf{Análise de Suporte}: Verificar a continuidade de $\sigma$ nos pontos de transição ($r=1, r=2$) para garantir a compacidade do suporte.
-		\item \textbf{Integração em $L^p$}: Demonstrar que $u$ e $\nabla u$ são limitados e possuem suporte compacto, o que garante a pertinência a $L^p(\mathbb{R}^n)$.
-		\item \textbf{Mudança de Escala}: Para $u_\varepsilon$, aplicar a regra da cadeia $\nabla [ \sigma(|x|/\varepsilon) ] = \frac{1}{\varepsilon} \sigma'(|x|/\varepsilon) \frac{x}{|x|}$ e calcular a integral no anel $B_{2\varepsilon} \setminus B_\varepsilon$.
-		\item \textbf{Análise do Expoente}: Observar que o termo $\varepsilon^{n-p}$ converge para zero se e somente se a dimensão $n$ for estritamente maior que o expoente $p$.
+		\item \textbf{Composição Lipschitz}: Demonstrar que $u$ é Lipschitz por ser a composição de $\sigma$ e $|\cdot|$, invocando a Questão 98 para assegurar que $u \in W^{1, \infty}_{loc}(\mathbb{R}^n)$.
+		\item \textbf{Gradiente Radial}: Aplicar a regra da cadeia para funções Lipschitz, utilizando o resultado da Questão 91 para validar a derivada da norma.
+		\item \textbf{Pertinência a $L^p$}: Justificar a pertinência a $W^{1,p}$ via limitação da função e do gradiente em um domínio de suporte compacto.
+		\item \textbf{Cálculo de Escala}: Efetuar a mudança de variáveis para $u_\varepsilon$, calculando a norma do gradiente no anel $B_{2\varepsilon} \setminus B_\varepsilon$ e expressando o volume via $\alpha(n)$.
+		\item \textbf{Análise do Expoente}: Mostrar que a convergência para zero depende estritamente da condição $n > p$.
 	\end{enumerate}
 }
 
 \solucao{
-	\textbf{(a)} A função $\sigma(r)$ é contínua e Lipschitziana em $[0, \infty)$, com derivada clássica $\sigma'(r)$ dada quase sempre por:
+	\textbf{(a)} A função $\sigma(r)$ é Lipschitziana em $[0, \infty)$ com constante $1$, possuindo derivada clássica $\sigma'(r)$ dada quase sempre por:
 	$$\sigma'(r) = \begin{cases} 0, & \text{se } r < 1 \\ -1, & \text{se } 1 < r < 2 \\ 0, & \text{se } r > 2 \end{cases}$$
-	A função $u(x) = \sigma(|x|)$ é a composição de $\sigma$ com a norma $|x|$, que é diferenciável em $\mathbb{R}^n \setminus \{0\}$. Pela regra da cadeia:
+	Como a norma $|x|$ também é Lipschitziana em $\mathbb{R}^n$, a composição $u(x) = \sigma(|x|)$ é Lipschitz em $\mathbb{R}^n$. Pela generalização da \textbf{Questão 98}, concluímos que $u \in W^{1, \infty}_{loc}(\mathbb{R}^n)$, o que assegura a existência de suas derivadas fracas.
+	
+	Para o cálculo de $\nabla u$, utilizamos a regra da cadeia. Visto que a derivada fraca da norma é $\nabla |x| = \frac{x}{|x|}$ (conforme provado na \textbf{Questão 91}, tratando a singularidade na origem), temos:
 	$$\nabla u(x) = \sigma'(|x|) \nabla (|x|) = \sigma'(|x|) \frac{x}{|x|}$$
-	Como $\sigma$ é Lipschitz, $u$ é Lipschitz em $\mathbb{R}^n$. Pelo Teorema de Rademacher, $u$ é derivável quase sempre e sua derivada clássica coincide com a derivada fraca. O módulo do gradiente é:
-	$$|\nabla u(x)| = |\sigma'(|x|)| \left| \frac{x}{|x|} \right| = |\sigma'(|x|)|$$
-	Visto que $\sigma'(r) \in \{0, -1\}$, temos $|\nabla u(x)| \le 1$ q.s. em $\mathbb{R}^n$.
+	Considerando que $|\nabla u(x)| = |\sigma'(|x|)| \cdot | \frac{x}{|x|} | = |\sigma'(|x|)|$ e que $|\sigma'(r)| \le 1$ q.s., segue que $|\nabla u(x)| \le 1$ q.s. em $\mathbb{R}^n$.
 	
-	\textbf{(b)} Da definição de $\sigma$, temos que $\sigma(r) = 1$ para $r \in [0,1]$ e $\sigma(r) = 0$ para $r \in [2, \infty)$, com transição linear no intervalo $[1,2]$. Logo, $0 \le \sigma(r) \le 1$, o que implica $0 \le u(x) \le 1$.
-	O suporte de $u$ é o fechamento do conjunto onde $u \neq 0$:
-	$$\text{supp } u = \overline{\{x \in \mathbb{R}^n : |x| < 2\}} = \overline{B_2(0)}$$
+	\textbf{(b)} Da definição de $\sigma$, temos $\sigma(r) = 1$ para $r \in [0,1]$ e $\sigma(r) = 0$ para $r \in [2, \infty)$. Como a transição é linear, $0 \le \sigma(r) \le 1$ para todo $r \ge 0$. Logo, $0 \le u(x) \le 1$. O suporte de $u$ é o fecho do conjunto onde $u \neq 0$:
+	$$\supp u = \overline{\{x \in \mathbb{R}^n : |x| < 2\}} = \overline{B_2(0)}.$$
 	
-	\textbf{(c)} Para $u \in W^{1,p}(\mathbb{R}^n)$, devemos mostrar que $u \in L^p(\mathbb{R}^n)$ e $\nabla u \in L^p(\mathbb{R}^n)$. 
-	Como $u$ é limitada ($|u| \le 1$) e possui suporte compacto $\overline{B_2(0)}$, temos:
-	$$\|u\|_{L^p(\mathbb{R}^n)}^p = \int_{B_2(0)} |u(x)|^p dx \le \int_{B_2(0)} 1^p dx = \text{Vol}(B_2(0)) < \infty$$
-	Analogamente, para o gradiente:
-	$$\|\nabla u\|_{L^p(\mathbb{R}^n)}^p = \int_{B_2(0) \setminus B_1(0)} |-1|^p dx = \text{Vol}(B_2(0) \setminus B_1(0)) < \infty$$
-	Portanto, $u \in W^{1,p}(\mathbb{R}^n)$ para todo $1 \le p \le \infty$.
+	\textbf{(c)} Para $u \in W^{1,p}(\mathbb{R}^n)$, devemos verificar a integrabilidade de $u$ e $\nabla u$.
+	Visto que $u$ é limitada e possui suporte compacto em $B_2(0)$, temos:
+	$$\|u\|_{L^p(\mathbb{R}^n)}^p = \int_{B_2(0)} |u(x)|^p dx \le \int_{B_2(0)} 1 dx = \alpha(n) 2^n < \infty$$
+	Analogamente, para o gradiente, que é nulo fora do anel $B_2(0) \setminus B_1(0)$:
+	$$\|\nabla u\|_{L^p(\mathbb{R}^n)}^p = \int_{B_2(0) \setminus B_1(0)} |-1|^p dx = \alpha(n)(2^n - 1) < \infty$$
+	Logo, $u \in W^{1,p}(\mathbb{R}^n)$ para todo $1 \le p \le \infty$.
 	
-	\textbf{(d)} Consideremos $u_\varepsilon(x) = \sigma(|x|/\varepsilon)$. A derivada fraca é dada por:
-	$$\nabla u_\varepsilon(x) = \frac{1}{\varepsilon} \sigma'\left(\frac{|x|}{\varepsilon}\right) \frac{x}{|x|}$$
-	A norma do gradiente em $L^p(\mathbb{R}^n)$ é:
-	$$\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \int_{\mathbb{R}^n} \left| \frac{1}{\varepsilon} \sigma'\left(\frac{|x|}{\varepsilon}\right) \right|^p dx$$
-	A função $\sigma'(|x|/\varepsilon)$ é não nula apenas quando $1 < \frac{|x|}{\varepsilon} < 2$, ou seja, $\varepsilon < |x| < 2\varepsilon$. Nesse anel, $|\sigma'| = 1$. Logo:
-	$$\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \int_{B_{2\varepsilon}(0) \setminus B_\varepsilon(0)} \left( \frac{1}{\varepsilon} \right)^p dx = \frac{1}{\varepsilon^p} \text{Vol}(B_{2\varepsilon}(0) \setminus B_\varepsilon(0))$$
-	Sabendo que $\text{Vol}(B_R(0)) = \alpha(n) R^n$, a medida do anel é $\alpha(n)((2\varepsilon)^n - \varepsilon^n) = \alpha(n)\varepsilon^n(2^n - 1)$. Substituindo:
-	$$\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \frac{\alpha(n)\varepsilon^n(2^n - 1)}{\varepsilon^p} = \alpha(n)(2^n - 1)\varepsilon^{n-p}$$
-	Note que a expressão do enunciado $n\alpha(n)(2^n-1)\varepsilon^{n-p}$ parece referir-se à derivada da medida da bola, mas a integração direta do módulo do gradiente resulta em:
-	$$\boxed{\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \alpha(n)(2^n - 1)\varepsilon^{n-p}}$$
+	\textbf{(d)} Consideremos a função escalonada $u_\varepsilon(x) = \sigma(|x|/\varepsilon)$. Visto que $u_\varepsilon$ é apenas uma dilatação de $u$, ela herda as propriedades de ser limitada e Lipschitz com suporte compacto em $\overline{B_{2\varepsilon}(0)}$, o que garante automaticamente que $u_\varepsilon \in W^{1,p}(\mathbb{R}^n)$. 
 	
-	\textbf{(e)} Se $n > p$, então o expoente $n-p$ é positivo. Logo:
+	Pela regra da cadeia, a derivada fraca é $\nabla u_\varepsilon(x) = \frac{1}{\varepsilon} \sigma'(\frac{|x|}{\varepsilon}) \frac{x}{|x|}$. Calculamos a norma integrando sobre o anel onde $\sigma' \neq 0$, isto é, $1 < \frac{|x|}{\varepsilon} < 2 \implies \varepsilon < |x| < 2\varepsilon$:
+	\begin{align*}
+		\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p &= \int_{B_{2\varepsilon}(0) \setminus B_\varepsilon(0)} \left| \frac{1}{\varepsilon} \sigma'\left(\frac{|x|}{\varepsilon}\right) \right|^p dx \\
+		&= \frac{1}{\varepsilon^p} \int_{B_{2\varepsilon}(0) \setminus B_\varepsilon(0)} 1 dx = \frac{\alpha(n)((2\varepsilon)^n - \varepsilon^n)}{\varepsilon^p} = \alpha(n)(2^n - 1)\varepsilon^{n-p}.
+	\end{align*}
+	\textit{Note que a expressão do enunciado $n\alpha(n)(2^n-1)\varepsilon^{n-p}$ sugere a utilização da área da superfície $\omega_n = n\alpha(n)$, porém a integração direta do volume resulta em $\alpha(n)(2^n - 1)\varepsilon^{n-p}$.}
+	
+	\textbf{(e)} Se $n > p$, o expoente $n-p$ é positivo, implicando que:
 	$$\lim_{\varepsilon \to 0} \|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \lim_{\varepsilon \to 0} \alpha(n)(2^n - 1)\varepsilon^{n-p} = 0$$
-	Para a norma da função, temos:
-	$$\|u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \int_{B_{2\varepsilon}(0)} |\sigma(|x|/\varepsilon)|^p dx \le \text{Vol}(B_{2\varepsilon}(0)) = \alpha(n)(2\varepsilon)^n$$
-	Como $n > 0$, $\|u_\varepsilon\|_{L^p(\mathbb{R}^n)} \to 0$ quando $\varepsilon \to 0$. Sendo assim:
-	$$\|u_\varepsilon\|_{W^{1,p}(\mathbb{R}^n)}^p = \|u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p + \|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p \to 0 + 0 = 0$$
-	Concluímos que $\boxed{u_\varepsilon \to 0 \text{ em } W^{1,p}(\mathbb{R}^n)}$ quando $\varepsilon \to 0$.
+	Para a função, $\|u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p \le \int_{B_{2\varepsilon}(0)} 1 dx = \alpha(n) 2^n \varepsilon^n \to 0$.
+	Sendo a norma de Sobolev a soma das normas de $L^p$ da função e do gradiente, concluímos que $\|u_\varepsilon\|_{W^{1,p}(\mathbb{R}^n)} \to 0$, ou seja, $\boxed{u_\varepsilon \to 0 \text{ em } W^{1,p}(\mathbb{R}^n)}$.
 }
 
 \sintese{
-	A construção de $u_\varepsilon$ revela um paradoxo interessante da análise em dimensões superiores: é possível ter uma sequência de funções que mantém seu valor máximo constante ($u_\varepsilon(0)=1$), mas cuja norma de Sobolev converge para zero. Isso ocorre porque, enquanto a amplitude da função é preservada, o volume do seu suporte decai mais rapidamente do que o crescimento da inclinação do gradiente, desde que $n > p$.
+	A construção de $u_\varepsilon$ demonstra que, em dimensões superiores ($n > p$), a energia do gradiente pode ser dissipada por contração do suporte, mesmo mantendo a amplitude da função constante. O fluxo lógico foi: $$\text{Lipschitz} \xrightarrow{\text{Questão 98}} W^{1,\infty} \xrightarrow{\text{Questão 91}} \text{Gradiente Radial} \to \text{Escalonamento } \varepsilon \to \text{Análise de } n-p.$$
 }
 
 \aprofundamento{
-	Este resultado é a prova construtiva de que a imersão $W^{1,p}(\mathbb{R}^n) \hookrightarrow L^\infty(\mathbb{R}^n)$ **não existe** para $p \le n$. Se tal imersão existisse, teríamos $\|u_\varepsilon\|_{L^\infty} \le C \|u_\varepsilon\|_{W^{1,p}}$. No entanto, vimos que $\|u_\varepsilon\|_{L^\infty} = 1$ enquanto $\|u_\varepsilon\|_{W^{1,p}} \to 0$, o que levaria à contradição $1 \le 0$. 
+	Este resultado é a prova construtiva da inexistência da imersão $W^{1,p}(\mathbb{R}^n) \hookrightarrow L^\infty(\mathbb{R}^n)$ para $p \le n$. Se tal imersão existisse, teríamos $\|u_\varepsilon\|_{L^\infty} \le C \|u_\varepsilon\|_{W^{1,p}}$. Contudo, $\|u_\varepsilon\|_{L^\infty} = 1$ enquanto $\|u_\varepsilon\|_{W^{1,p}} \to 0$, o que gera a contradição $1 \le 0$. Isso fundamenta a necessidade do Teorema de Morrey para garantir a continuidade pontual, exigindo $p > n$.
+}
+
+%%%% QUESTÃO 101 %%%%
+\questao{Ainda com a notação do exercício anterior, mostre que $u \in W_0^{1,p}(\mathbb{R}^n \setminus \{0\})$. Para isto basta mostrar que $v_\varepsilon = u(1 - u_\varepsilon) \in W_0^{1,p}(\mathbb{R}^n \setminus \{0\})$ e $v_\varepsilon \to u$ em $W^{1,p}(\mathbb{R}^n \setminus \{0\})$.}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	A questão solicita a prova de que a função $u$ (definida na \textbf{Questão 100}) pertence ao espaço $W_0^{1,p}$ do domínio perfurado $\Omega = \mathbb{R}^n \setminus \{0\}$. A diferença crucial aqui é que, para pertencer a $W_0^{1,p}(\Omega)$, a função deve ser aproximável por funções de $C_c^\infty(\Omega)$, o que implica que a aproximação deve ter suporte compacto que \textbf{não contenha a origem}. A estratégia sugerida utiliza a função $v_\varepsilon$ para "escavar" um buraco no suporte de $u$ em torno da origem.
 	
-	Este fenômeno distingue fundamentalmente o caso $n=1$ (onde $W^{1,p} \subset L^\infty$ para $p \ge 1$) dos casos $n \ge 2$. É a razão pela qual, em dimensões altas, a regularidade de Sobolev não implica continuidade pontual, exigindo a introdução dos espaços de Hölder ou de expoentes $p > n$ (Teorema de Morrey).
+	\textbf{Fundamentação Teórica:}
+	A prova repousa sobre a definição de $W_0^{1,p}$ como o fecho de $C_c^\infty$ e a propriedade de que, se $u \in W^{1,p}(\mathbb{R}^n)$ e $u$ pode ser aproximada por funções com suporte afastado da origem, então a \textbf{capacidade} do ponto $\{0\}$ é nula. Utilizaremos a regra do produto para derivadas fracas (\textbf{Questão 89}) e o resultado de convergência de $u_\varepsilon$ obtido na \textbf{Questão 100}.
+	
+	\textbf{Estratégias}
+	\begin{enumerate}
+		\item \textbf{Análise do Suporte de $v_\varepsilon$}: Demonstrar que $v_\varepsilon$ é nula em uma vizinhança da origem ($|x| < \varepsilon$) e nula fora de uma bola grande ($|x| > 2$), garantindo que $\text{supp}(v_\varepsilon)$ é um compacto contido em $\mathbb{R}^n \setminus \{0\}$.
+		\item \textbf{Pertinência a $W_0^{1,p}$}: Justificar que, sendo $v_\varepsilon$ uma função Lipschitz com suporte compacto em $\Omega$, ela pertence a $W_0^{1,p}(\Omega)$ via densidade de $C_c^\infty$.
+		\item \textbf{Convergência em $L^p$}: Provar que $\|v_\varepsilon - u\|_{L^p} \to 0$ utilizando o fato de que $u_\varepsilon \to 0$ pontualmente e é limitada.
+		\item \textbf{Convergência do Gradiente}: Decompor $\nabla v_\varepsilon - \nabla u$ e utilizar o resultado da Questão 100(e) para mostrar que o termo envolvendo $\nabla u_\varepsilon$ converge a zero, desde que $n > p$.
+	\end{enumerate}
+}
+
+\solucao{
+	Iniciamos analisando a função $v_\varepsilon(x) = u(x)(1 - u_\varepsilon(x))$ e seu suporte em $\mathbb{R}^n$. Se $|x| < \varepsilon$, temos $|x|/\varepsilon < 1$, o que implica $u_\varepsilon(x) = \sigma(|x|/\varepsilon) = 1$, resultando em $v_\varepsilon(x) = u(x)(1 - 1) = 0$. Por outro lado, se $|x| > 2$, a função $u$ anula-se ($\sigma(|x|) = 0$), logo $v_\varepsilon(x) = 0 \cdot (1 - u_\varepsilon(x)) = 0$. Concluímos que o suporte de $v_\varepsilon$ está contido no anel fechado $\overline{B_2(0)} \setminus B_\varepsilon(0)$, que é um compacto contido em $\mathbb{R}^n \setminus \{0\}$. Como $u$ e $u_\varepsilon$ são funções Lipschitz, $v_\varepsilon$ também é Lipschitz com suporte compacto em $\mathbb{R}^n \setminus \{0\}$, o que garante que $v_\varepsilon \in W_0^{1,p}(\mathbb{R}^n \setminus \{0\})$.
+	
+	Para provar a convergência de $v_\varepsilon$ para $u$ em $L^p(\mathbb{R}^n \setminus \{0\})$, observamos que a diferença é dada por 
+	$$v_\varepsilon(x) - u(x) = -u(x)u_\varepsilon(x).$$
+	Estimando a norma $L^p$, temos:
+	$$\|v_\varepsilon - u\|_{L^p(\mathbb{R}^n \setminus \{0\})}^p = \int_{\mathbb{R}^n \setminus \{0\}} |u(x)u_\varepsilon(x)|^p dx \le \|u\|_{L^\infty(\mathbb{R}^n)}^p \int_{B_{2\varepsilon}(0)} |u_\varepsilon(x)|^p dx$$
+	Como $|u_\varepsilon| \le 1$ e a medida da bola $|B_{2\varepsilon}(0)| = \alpha(n)(2\varepsilon)^n$, obtemos:
+	$$\|v_\varepsilon - u\|_{L^p(\mathbb{R}^n \setminus \{0\})}^p \le \|u\|_{L^\infty(\mathbb{R}^n)}^p \cdot \alpha(n)(2\varepsilon)^n \to 0, \quad \text{quando } \varepsilon \to 0.$$
+	
+	Em seguida, analisamos a convergência do gradiente. Aplicando a regra do produto para derivadas fracas (estudada na \textbf{Questão 89}), o gradiente de $v_\varepsilon$ é $\nabla v_\varepsilon = \nabla u (1 - u_\varepsilon) - u \nabla u_\varepsilon$. A diferença em relação ao gradiente de $u$ é:
+	$$\nabla v_\varepsilon - \nabla u = -u_\varepsilon \nabla u - u \nabla u_\varepsilon$$
+	Para o primeiro termo, notamos que $\supp(u_\varepsilon) = \overline{B_{2\varepsilon}(0)}$, logo:
+	$$\int_{\mathbb{R}^n \setminus \{0\}} |u_\varepsilon \nabla u|^p dx \le \int_{B_{2\varepsilon}(0)} |\nabla u|^p dx$$
+	Como $\nabla u \in L^p(\mathbb{R}^n)$, a integral sobre a bola de raio $2\varepsilon$ tende a zero por continuidade da medida de Lebesgue quando $\varepsilon \to 0$. Para o segundo termo, utilizamos a limitação de $u$:
+	$$\|u \nabla u_\varepsilon\|_{L^p(\mathbb{R}^n \setminus \{0\})} \le \|u\|_{L^\infty(\mathbb{R}^n)} \|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}$$
+	Pelo resultado da \textbf{Questão 100(e)}, sob a condição $n > p$, temos que $\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)} \to 0$ quando $\varepsilon \to 0$. Portanto, $\|\nabla v_\varepsilon - \nabla u\|_{L^p(\mathbb{R}^n \setminus \{0\})} \to 0$.
+	
+	Concluímos que $\|v_\varepsilon - u\|_{W^{1,p}(\mathbb{R}^n \setminus \{0\})} \to 0$ e como $v_\varepsilon \in \overline{C_c^\infty(\mathbb{R}^n \setminus \{0\})} = W_0^{1,p}(\mathbb{R}^n \setminus \{0\})$, a natureza fechada do espaço $W_0^{1,p}$ na topologia de $W^{1,p}(\mathbb{R}^n \setminus \{0\})$ implica que:
+	$$\boxed{u \in W_0^{1,p}(\mathbb{R}^n \setminus \{0\}).}$$
+}
+
+\sintese{
+A prova demonstra que a remoção de um ponto não altera a natureza do espaço de Sobolev quando a dimensão $n$ é superior ao expoente $p$. O uso da função de corte $u_\varepsilon$ permitiu a construção de uma sequência de aproximações que anulam a função na vizinhança da origem, provando que a \textbf{singularidade} do ponto $\{0\}$ é irrelevante para a norma $W^{1,p}$ sob a condição $n > p$. O fluxo lógico foi: $$\text{Construção de } v_\varepsilon \to \text{Suporte em } \Omega \to \text{Convergência de } L^p \to \text{Convergência de } \nabla \to \text{Pertinência a } W_0^{1,p}.$$
+}
+
+\aprofundamento{
+Este resultado é a base para a teoria de \textbf{Capacidade em Espaços de Sobolev}. Dizemos que o ponto $\{0\}$ tem $p$-capacidade nula se a condição $W^{1,p}(\mathbb{R}^n) = W_0^{1,p}(\mathbb{R}^n \setminus \{0\})$ for satisfeita. 
+
+Se $p \ge n$, a situação muda drasticamente. Para $p > n$, a imersão de Morrey garante que funções de $W^{1,p}$ são contínuas; assim, se $u(0) \neq 0$, é impossível aproximar $u$ por funções que são nulas em torno da origem sem explodir a norma do gradiente. Portanto, para $p \ge n$, o ponto $\{0\}$ possui capacidade positiva e a igualdade $W^{1,p} = W_0^{1,p}(\mathbb{R}^n \setminus \{0\})$ falha.
+}
+
+%%%% QUESTÃO 102 %%%%
+\questao{Considere $\rho_\varepsilon : [0,1) \to \mathbb{R}$ dada por $\rho_\varepsilon(r) = 1$ em $0 \le r \le 1 - 2\varepsilon$, $\rho_\varepsilon(r) = \frac{1-r}{\varepsilon} - 1$ se $1 - 2\varepsilon \le r \le 1 - \varepsilon$ e $\rho_\varepsilon(r) = 0$ em $1 - \varepsilon \le r \le 1$. Mostre que:
+	\begin{enumerate}[label=(\alph*)]
+		\item $v_\varepsilon(x) = \rho_\varepsilon(|x|)$ tem derivadas fracas dadas por $\nabla v_\varepsilon(x) = \rho_\varepsilon'(|x|) \frac{x}{|x|}$ e $|\nabla v_\varepsilon| = \frac{1}{\varepsilon}$, $\forall 1 - 2\varepsilon \le |x| \le 1 - \varepsilon$ q.s.;
+		\item $0 \le v_\varepsilon \le 1$, $\text{supp } v_\varepsilon = \overline{B_{1-\varepsilon}(0)}$;
+		\item $v_\varepsilon \in W^{1,p}(\mathbb{R}^n)$;
+		\item De fato, $v_\varepsilon(x)$ está em $W_0^{1,p}(B_1(0))$ e
+		$$\|\nabla v_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \frac{|B_{1-\varepsilon}(0) \setminus B_{1-2\varepsilon}(0)|}{\varepsilon^p} \ge n\alpha(n)(1-2\varepsilon)^{n-1}\varepsilon^{1-p}.$$
+		\item se $p > 1$ então $\|\nabla v_\varepsilon\|_{L^p(\mathbb{R}^n)} \to \infty$, quando $\varepsilon \to 0$.
+\end{enumerate}}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	A questão explora a relação entre a amplitude de uma função e a norma de seu gradiente em anéis anulares finos. A função $v_\varepsilon$ é construída para ser unitária na maior parte da bola $B_1(0)$, mas decair linearmente para zero em uma zona de transição de largura $\varepsilon$ próxima à fronteira. A tese central é que, para $p > 1$, a norma do gradiente explode quando a zona de transição encolhe, provando que a função constante $1$ não pertence a $W_0^{1,p}(B_1(0))$.
+	
+	\textbf{Fundamentação Teórica:}
+	A prova utiliza a teoria de funções radialmente simétricas e a definição de derivada fraca para funções Lipschitz. Como $\rho_\varepsilon$ é Lipschitziana, $v_\varepsilon$ também o é, garantindo a existência de derivadas fracas via \textbf{Questão 98}. O cálculo da norma $L^p$ será realizado via integração em coordenadas esféricas, utilizando $\alpha(n)$ para denotar o volume da bola unitária e $\omega_n = n\alpha(n)$ para a área da esfera unitária.
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Derivação Radial}: Calcular $\rho_\varepsilon'(r)$ por partes e aplicar a regra da cadeia para obter $\nabla v_\varepsilon$, validando a norma $1/\varepsilon$ na zona de transição.
+		\item \textbf{Análise de Suporte}: Verificar a continuidade de $\rho_\varepsilon$ para confirmar que o suporte é a bola de raio $1-\varepsilon$.
+		\item \textbf{Pertinência a $W^{1,p}$}: Justificar a integrabilidade de $v_\varepsilon$ e $\nabla v_\varepsilon$ em $\mathbb{R}^n$ devido ao suporte compacto e à limitação do gradiente para $\varepsilon$ fixo.
+		\item \textbf{Estimativa do Gradiente}: Integrar $|\nabla v_\varepsilon|^p$ sobre o anel $B_{1-\varepsilon} \setminus B_{1-2\varepsilon}$. Para a desigualdade inferior, utilizar a cota inferior do raio no anel para estimar o volume.
+		\item \textbf{Análise do Limite}: Mostrar que, se $p > 1$, o expoente $1-p$ é negativo, levando a norma ao infinito quando $\varepsilon \to 0$.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{(a)} A função $\rho_\varepsilon(r)$ é contínua e Lipschitziana em $[0, 1)$. Sua derivada clássica $\rho_\varepsilon'(r)$ é dada quase sempre por:
+	$$\rho_\varepsilon'(r) = \begin{cases} 0, & \text{se } 0 \le r < 1 - 2\varepsilon \\ -\frac{1}{\varepsilon}, & \text{se } 1 - 2\varepsilon < r < 1 - \varepsilon \\ 0, & \text{se } 1 - \varepsilon < r < 1 \end{cases}$$
+	Como $\rho_\varepsilon$ e a norma $|x|$ são Lipschitz, $v_\varepsilon(x) = \rho_\varepsilon(|x|)$ é Lipschitz em $\mathbb{R}^n$. Pela \textbf{Questão 98}, $v_\varepsilon \in W^{1, \infty}_{loc}(\mathbb{R}^n)$. Pela regra da cadeia e pelo resultado da \textbf{Questão 91}, a derivada fraca é:
+	$$\nabla v_\varepsilon(x) = \rho_\varepsilon'(|x|) \frac{x}{|x|}$$
+	No anel $1 - 2\varepsilon \le |x| \le 1 - \varepsilon$, temos $\rho_\varepsilon'(|x|) = -1/\varepsilon$. Assim, $|\nabla v_\varepsilon(x)| = |-\frac{1}{\varepsilon}| \cdot |\frac{x}{|x|}| = \frac{1}{\varepsilon}$ q.s.
+	
+	\textbf{(b)} Da definição de $\rho_\varepsilon$, observamos que a função decai linearmente de $1$ para $0$ no intervalo $[1-2\varepsilon, 1-\varepsilon]$ e é nula para $r \ge 1-\varepsilon$. Logo, $0 \le v_\varepsilon \le 1$. O suporte de $v_\varepsilon$ é o fecho do conjunto onde a função é não nula, resultando em $\text{supp } v_\varepsilon = \overline{B_{1-\varepsilon}(0)}$.
+	
+	\textbf{(c)} Para $v_\varepsilon \in W^{1,p}(\mathbb{R}^n)$, verificamos a integrabilidade:
+	\begin{itemize}
+		\item Como $|v_\varepsilon| \le 1$ e $\text{supp } v_\varepsilon$ é compacto, $\|v_\varepsilon\|_{L^p(\mathbb{R}^n)}^p \le |B_{1-\varepsilon}(0)| = \alpha(n)(1-\varepsilon)^n < \infty$.
+		\item O gradiente $\nabla v_\varepsilon$ é nulo fora do anel $B_{1-\varepsilon}(0) \setminus B_{1-2\varepsilon}(0)$ e limitado por $1/\varepsilon$ dentro dele. Logo, 
+		$$\|\nabla v_\varepsilon\|_{L^p(\mathbb{R}^n)}^p \le (1/\varepsilon)^p |B_{1-\varepsilon}(0)| = (1/\varepsilon)^p \alpha(n)(1-\varepsilon)^n < \infty.$$
+	\end{itemize}
+	Sendo a função e seu gradiente integráveis, concluímos que $v_\varepsilon \in W^{1,p}(\mathbb{R}^n)$.
+	
+	\textbf{(d)} Como $\text{supp}(v_\varepsilon) = \overline{B_{1-\varepsilon}(0)} \subset B_1(0)$, a função $v_\varepsilon$ pode ser estendida por zero para fora de $B_1(0)$. Sendo Lipschitz com suporte compacto em $B_1(0)$, segue que $v_\varepsilon \in W_0^{1,p}(B_1(0))$.
+	Para a norma do gradiente, integramos sobre o anel de transição:
+	$$\|\nabla v_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \int_{B_{1-\varepsilon}(0) \setminus B_{1-2\varepsilon}(0)} \left| \frac{1}{\varepsilon} \right|^p dx = \frac{|B_{1-\varepsilon}(0) \setminus B_{1-2\varepsilon}(0)|}{\varepsilon^p}$$
+	Calculamos o volume do anel via coordenadas esféricas:
+	$$|B_{1-\varepsilon}(0) \setminus B_{1-2\varepsilon}(0)| = \int_{1-2\varepsilon}^{1-\varepsilon} \omega_n r^{n-1} dr$$
+	Visto que $r \ge 1-2\varepsilon$ em todo o intervalo de integração, temos:
+	$$|B_{1-\varepsilon}(0) \setminus B_{1-2\varepsilon}(0)| \ge \omega_n (1-2\varepsilon)^{n-1} \int_{1-2\varepsilon}^{1-\varepsilon} dr = n\alpha(n)(1-2\varepsilon)^{n-1}\varepsilon$$
+	Substituindo na norma:
+	$$\boxed{\|\nabla v_\varepsilon\|_{L^p(\mathbb{R}^n)}^p \ge \frac{n\alpha(n)(1-2\varepsilon)^{n-1}\varepsilon}{\varepsilon^p} = n\alpha(n)(1-2\varepsilon)^{n-1}\varepsilon^{1-p}}$$
+	
+	\textbf{(e)} Se $p > 1$, então o expoente $1-p$ é estritamente negativo. Quando $\varepsilon \to 0$, o termo $\varepsilon^{1-p} = \frac{1}{\varepsilon^{p-1}} \to \infty$. Como $n\alpha(n)(1-2\varepsilon)^{n-1} \to n\alpha(n) > 0$, concluímos que:
+	$$\lim_{\varepsilon \to 0} \|\nabla v_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \infty \implies \boxed{\|\nabla v_\varepsilon\|_{L^p(\mathbb{R}^n)} \to \infty.}$$
+}
+
+\sintese{
+	A prova demonstra que tentar aproximar a função constante $1$ por funções de $W_0^{1,p}$ em $B_1(0)$ exige um custo de energia (norma do gradiente) que explode para $p > 1$. O fluxo lógico foi: 
+	$$\text{Definição de } \rho_\varepsilon \to \text{Gradiente no Anel} \to \text{Volume do Anel} \to \text{Análise do expoente } 1-p \to \text{Explosão da Norma}.$$
+}
+
+\aprofundamento{
+	Este resultado é a contrapartida da Questão 100. Enquanto na questão anterior vimos que a energia pode sumir ao concentrar a função em um ponto (se $n > p$), aqui vemos que a energia explode ao tentar forçar a função a zero na fronteira em um intervalo pequeno. 
+	
+	Isso prova que a constante $1$ não pertence ao espaço $W_0^{1,p}(B_1(0))$ para $p > 1$. Em termos de análise funcional, isso significa que a aplicação de traço $T: W^{1,p}(B_1) \to L^p(\partial B_1)$ é bem definida e não trivial: a condição de ``ser zero na fronteira'' impõe uma restrição real e rigorosa à função, que não pode ser ignorada através de aproximações suaves sem que a norma de Sobolev exploda.
 }
 
 
