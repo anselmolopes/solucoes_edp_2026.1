@@ -745,5 +745,469 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 }
 
 %%%% QUESTÃO 95 %%%%
+\questao{(Teoria da Medida e Integração - ainda o operador translação) Sejam $$U_0 = \{x = (z, x_n) \in \mathbb{R}^n : z \in \mathbb{R}^{n-1}, |z| < r, x_n \in \mathbb{R}\},$$ um ``cilindro vertical'' em $\mathbb{R}^n$, uma aplicação $\gamma : B \to \mathbb{R}$ contínua, onde $B$ é a bola com centro na origem de $\mathbb{R}^{n-1}$ e raio $r$. Considere $U = \{x = (z, x_n) \in U_0 : z \in B \text{ e } x_n > \gamma(z)\}$. Mostre que:
+	\begin{enumerate}[label=(\alph*)]
+		\item $U_0 = B \times \mathbb{R}$;
+		\item Para cada $\lambda > 0$, $\tau_{\lambda e_n} : L^p(U) \to L^p(U)$ está bem definido, e como no exercício anterior, é linear, contínuo e tem norma 1;
+		\item Se $h$ não é múltiplo positivo de $e_n$, $\tau_h : L^p(U) \to L^p(U)$ não está bem definido;
+		\item Considere $V_\lambda = \{x = (z, x_n) \in U_0 : z \in B \text{ e } x_n > \gamma(z) - \lambda\}$. Observe que $U \subset V_\lambda$ e que $\tau_{\lambda e_n} : L^p(V_\lambda) \to L^p(U)$ e para cada $v \in L^p(V_\lambda)$: $\lim_{t \to 0} \|\tau_{t e_n} v - v\|_{L^p(U)} = 0$.
+\end{enumerate}}
+
+\analise{
+	\textbf{Análise do Enunciado:}	O problema requer a caracterização geométrica de um cilindro vertical $U_0$ e a análise de um operador de translação $\tau_{\lambda e_n}$ atuando sobre o espaço $L^p(U)$, onde $U$ é o domínio situado acima do gráfico de uma função contínua $\gamma$. A tese central é provar que a estabilidade do operador de translação $\tau_h$ é estritamente dependente da direção do vetor $h$: a translação na direção positiva do eixo $x_n$ preserva a pertinência ao domínio $U$, enquanto qualquer componente lateral ou vertical não-positiva invalida a boa definição do operador. Por fim, analisa-se a continuidade forte da translação utilizando um domínio expandido $V_\lambda$.
+		
+	\textbf{Fundamentação Teórica:} A fundamentação baseia-se na teoria de integração de Lebesgue e nas propriedades de espaços $L^p(\Omega)$. A referência fundamental é \textbf{Brezis (Capítulo 4)}, especificamente no que tange à continuidade da translação em $L^p$ e ao teorema de mudança de variáveis. O conceito de ``bem definido'' para $\tau_h: L^p(\Omega) \to L^p(\Omega)$ implica que a condição $\chi_\Omega(x) = 1 \implies \chi_\Omega(x+h) = 1$ deve valer quase sempre. Para o \textbf{item (d)}, utilizaremos a técnica de extensão por zero para reduzir o problema ao caso clássico de $L^p(\mathbb{R}^n)$.
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Identificação Geométrica}: No \textbf{item (a)}, correlacionar a condição $|z| < r$ em $\mathbb{R}^{n-1}$ com a definição da bola aberta $B$ para estabelecer a identidade de produto cartesiano.
+		\item \textbf{Operador de Translação Positiva}: No \textbf{item (b)}, provar que $\lambda > 0$ garante a inclusão $U + \lambda e_n \subset U$. A norma unitária será provada via mudança de variáveis e análise de funções com suporte afastado da fronteira.
+		\item \textbf{Análise de Instabilidade}: No \textbf{item (c)}, dividir a prova em dois casos (componente lateral $h' \neq 0$ e componente vertical $h_n \le 0$), demonstrando que, em ambos, a translação mapeia conjuntos de medida positiva para fora de $U$.
+		\item \textbf{Continuidade Forte via Extensão}: No \textbf{item (d)}, provar que $x \in U \implies x + \lambda e_n \in V_\lambda$ e, posteriormente, utilizar a extensão por zero de $v \in L^p(V_\lambda)$ para $\mathbb{R}^n$ a fim de aplicar o teorema de continuidade da translação em $L^p(\mathbb{R}^n)$.
+	\end{enumerate}
+}
+	
+\solucao{
+	\textbf{(a)} Seja $U_0 = \{x = (z, x_n) \in \mathbb{R}^n : z \in \mathbb{R}^{n-1}, |z| < r, x_n \in \mathbb{R}\}$. 
+	Por definição, a bola aberta $B$ em $\mathbb{R}^{n-1}$ com centro na origem e raio $r$ é o conjunto $B = \{z \in \mathbb{R}^{n-1} : |z| < r\}$.
+	O produto cartesiano $B \times \mathbb{R}$ é definido como:
+	$$B \times \mathbb{R} = \{(z, x_n) : z \in B, x_n \in \mathbb{R}\} = \{(z, x_n) : z \in \mathbb{R}^{n-1}, |z| < r, x_n \in \mathbb{R}\}$$
+	Comparando as duas expressões, observamos a identidade exata entre os conjuntos. Portanto,
+	$$\boxed{U_0 = B \times \mathbb{R} \quad (\ast)}$$
+	
+	\textbf{(b)} Seja $\lambda > 0$ e $e_n = (0, 0, \dots, 1)$ o vetor unitário na direção do último eixo. O operador translação é definido por $(\tau_{\lambda e_n} u)(x) = u(x + \lambda e_n)$.
+	
+	\textit{1. Bem definido}: \\
+	Para que $\tau_{\lambda e_n} u$ esteja bem definida em $U$, devemos garantir que para todo $x \in U$, o ponto $x + \lambda e_n$ também pertença a $U$. 
+	Se $x = (z, x_n) \in U$, então, pelas hipóteses:
+	\begin{align*}
+		z &\in B \ \text{e } x_n > \gamma(z)
+	\end{align*}
+	O ponto transladado é $x + \lambda e_n = (z, x_n + \lambda)$. Como $\lambda > 0$, temos que $x_n + \lambda > x_n > \gamma(z)$.
+	Já que $z$ permanece inalterado, então $z \in B$. Logo, $(z, x_n + \lambda) \in U$. O operador $\tau_{\lambda e_n}$ mapeia $U$ em $U$.
+	
+	\textit{2. Lineariedade}: \\
+	Para quaisquer $u, v \in L^p(U)$ e $\alpha, \beta \in \mathbb{R}$:
+	\begin{align*}
+		(\tau_{\lambda e_n}(\alpha u + \beta v))(x) = (\alpha u + \beta v)(x + \lambda e_n) = \alpha u(x + \lambda e_n) + \beta v(x + \lambda e_n) = \alpha (\tau_{\lambda e_n} u)(x) + \beta (\tau_{\lambda e_n} v)(x).
+	\end{align*}
+	Donde temos a linearidade.
+	
+	\textit{3. Continuidade e Norma}: \\
+	Calculamos a norma de $\tau_{\lambda e_n} u$ no espaço $L^p(U)$:
+	$$\|\tau_{\lambda e_n} u\|_{L^p(U)}^p = \int_U |u(x + \lambda e_n)|^p dx$$
+	Efetuamos a mudança de variáveis $y = x + \lambda e_n$. O determinante do Jacobiano desta transformação é $1$. O domínio de integração $U$ transforma-se em $U + \lambda e_n$:
+	$$\|\tau_{\lambda e_n} u\|_{L^p(U)}^p = \int_{U + \lambda e_n} |u(y)|^p dy$$
+	Observamos que $U + \lambda e_n = \{ (z, x_n + \lambda) : z \in B, x_n > \gamma(z) \} = \{ (z, \xi) : z \in B, \xi > \gamma(z) + \lambda \}$.
+	Como $\lambda > 0$, temos $\gamma(z) + \lambda > \gamma(z)$, o que implica a inclusão estrita:
+	$$\boxed{U + \lambda e_n \subsetneq U \quad (\ast\ast)}$$
+	Portanto, a integral sobre o subconjunto é menor ou igual à integral sobre o todo, ou seja:
+	\begin{align*}
+		\|\tau_{\lambda e_n} u\|_{L^p(U)}^p=\int_{U + \lambda e_n} |u(y)|^p dy \leq \int_U |u(y)|^p dy = \|u\|_{L^p(U)}^p \implies	\|\tau_{\lambda e_n} u\|_{L^p(U)} \leq \|u\|_{L^p(U)}
+	\end{align*}
+	Isso prova que o operador é contínuo e que $\|\tau_{\lambda e_n}\| \leq 1$.
+	
+	Para provar que $\|\tau_{\lambda e_n}\| = 1$, dado que já estabelecemos que $\|\tau_{\lambda e_n}\| \le 1$, resta demonstrar que o supremo não é estritamente menor que $1$. Tomemos funções $u \in C_c^\infty(U)$ cujo suporte satisfaça a inclusão $\text{supp}(u) \subset U + \lambda e_n$. Para tais funções, a translação preserva a norma integral, pois:
+	$$\int_{U + \lambda e_n} |u(y)|^p dy = \int_U |u(y)|^p dy$$
+	ou, equivalentemente, $\|\tau_{\lambda e_n} u\|_{L^p(U)} = \|u\|_{L^p(U)}$. Consequentemente, segue que 
+	$$\boxed{\|\tau_{\lambda e_n}\| = 1.}$$
+	
+	\textbf{(c)} Seja $h = (h', h_n) \in \mathbb{R}^n$ com $h' \in \mathbb{R}^{n-1}$. Se $h$ não é um múltiplo positivo de $e_n$, então ou $h' \neq 0$ ou $h_n \le 0$.
+	
+	\textit{Caso 1: $h' \neq 0$ (Componente lateral)} \\
+	Como $B$ é uma bola aberta, se $h' \neq 0$, existe um conjunto $A \subset B$ de medida positiva tal que $A + h' \not\subset B$. Para qualquer $z \in A$ tal que $z + h' \notin B$ e qualquer $x_n > \gamma(z)$, o ponto $x = (z, x_n) \in U$, mas $x + h = (z + h', x_n + h_n) \notin U_0$. Logo, $x+h \notin U$.
+	
+	\textit{Caso 2: $h' = 0$ e $h_n \le 0$ (Componente vertical não-positiva)} \\
+	Se $h' = 0$, temos $x+h = (z, x_n + h_n)$. 
+	\begin{itemize}
+		\item Se $h_n = 0$, $\tau_h$ é a identidade (excluída por hipótese).
+		\item Se $h_n < 0$, considere a faixa $\mathcal{F} = \{ (z, x_n) \in U : \gamma(z) < x_n < \gamma(z) - h_n \}$. Esta faixa possui medida positiva. Para qualquer $x \in \mathcal{F}$, temos $x_n + h_n < \gamma(z)$, logo $x+h \notin U$.
+	\end{itemize}
+	Em ambos os casos, a condição $x \in U \implies x+h \in U$ é violada em um conjunto de medida positiva. Portanto, $\tau_h$ não está bem definido em $L^p(U)$.
+	
+	\textbf{(d)} Seja $V_\lambda = \{ (z, x_n) \in U_0 : z \in B, x_n > \gamma(z) - \lambda \}$.
+	
+	\textit{1. Bem definido}: \\
+	Se $x = (z, x_n) \in U$, então $z \in B$ e $x_n > \gamma(z)$. Para $\lambda > 0$, o ponto transladado $x + \lambda e_n = (z, x_n + \lambda)$ satisfaz $x_n + \lambda > \gamma(z) > \gamma(z) - \lambda$. Logo, $x + \lambda e_n \in V_\lambda$, o que torna $\tau_{\lambda e_n} : L^p(V_\lambda) \to L^p(U)$ bem definido.
+	
+	\textit{2. Demonstração do limite}: \\
+	Seja $v \in L^p(V_\lambda)$. Definimos a extensão por zero $\tilde{v} \in L^p(\mathbb{R}^n)$ como $\tilde{v}(x) = v(x)$ se $x \in V_\lambda$ e $0$ caso contrário. Para $t > 0$ suficientemente pequeno ($t < \lambda$), temos $x \in U \implies x + t e_n \in V_\lambda$. Assim, para $x \in U$:
+	$$(\tau_{t e_n} v)(x) = v(x + t e_n) = \tilde{v}(x + t e_n) = (\tau_{t e_n} \tilde{v})(x)$$
+	A norma em $L^p(U)$ satisfaz:
+	$$\|\tau_{t e_n} v - v\|_{L^p(U)}^p = \int_U |\tilde{v}(x + t e_n) - \tilde{v}(x)|^p dx \le \int_{\mathbb{R}^n} |\tilde{v}(x + t e_n) - \tilde{v}(x)|^p dx$$
+	Pela continuidade da translação em $L^p(\mathbb{R}^n)$, $\lim_{h \to 0} \|\tau_h \tilde{v} - \tilde{v}\|_{L^p(\mathbb{R}^n)} = 0$. Aplicando para $h = t e_n$, obtemos:
+	$$\boxed{\lim_{t \to 0} \|\tau_{t e_n} v - v\|_{L^p(U)} = 0}.$$
+}
+
+\sintese{
+	A prova estabelece a dependência rigorosa entre a geometria do domínio e a estabilidade do operador de translação. A direção do vetor $h$ determina a boa definição do operador, enquanto a expansão do domínio para $V_\lambda$ permite recuperar a continuidade forte da translação, essencial para a regularização de funções de Sobolev.
+}
+
+\aprofundamento{
+	Este resultado é a base para a construção de \textbf{Extensões de Sobolev}. Ao transladar a função para ``dentro'' do domínio, criamos a margem necessária para aplicar a convolução sem sair de $U$. O domínio $V_\lambda$ atua como um colchão de segurança que garante que a função regularizada $u_\varepsilon$ seja bem definida em $U$. Este procedimento é análogo ao método de reflexão, mas utiliza a estrutura de cilindro para simplificar a geometria.
+}
+
+%%%% QUESTÃO 96 %%%%
+\questao{(Sequências regularizantes - Caso $U = \mathbb{R}^n_+$) Seja $\eta \in C_c^\infty(\mathbb{R}^n)$, $eta$ como \textbf{na questão 4}, ou seja, $\eta > 0$ em $B_1(0)$, $\text{supp } \eta = \overline{B_1(0)}$ e $\int_{\mathbb{R}^n} \eta(x) dx = 1$. Para cada $\varepsilon > 0$ defina $\eta_\varepsilon(x) = \varepsilon^{-n} \eta(\tfrac{x}{\varepsilon})$. Mostre que:
+	\begin{enumerate}[label=(\alph*)]
+		\item Se $\mathbb{R}^n_+ = \{x \in \mathbb{R}^n : \langle x, e_n \rangle > 0\}$ e $f \in L_{loc}^1(\mathbb{R}^n_+)$ então
+		$$f_\varepsilon(x) = \int_{\mathbb{R}^n_+} \eta_\varepsilon(x-y)(\tau_{2\varepsilon e_n} f)(y) dy$$
+		está bem definida em $\mathbb{R}^n_+$ e é de classe $C^\infty(\mathbb{R}^n_+)$, com $f_\varepsilon(x) = [\eta_\varepsilon * (\tau_{2\varepsilon e_n} f)](x)$;
+		\item Se $f$ é contínua, $f_\varepsilon$ converge uniformemente nas partes compactas de $\mathbb{R}^n_+$ para $f$;
+		\item Se $f \in C^m(\mathbb{R}^n_+)$ então
+		$$D^\alpha f_\varepsilon(x) = \int_{\mathbb{R}^n_+} \eta_\varepsilon(x-y)(\tau_{2\varepsilon e_n} D^\alpha f)(y) dy, \quad \forall |\alpha| \le m;$$
+		\item Se $f \in L^p(\mathbb{R}^n_+)$, então $f_\varepsilon \in L^p(\mathbb{R}^n_+)$ e $\|f_\varepsilon - f\|_{L^p(\mathbb{R}^n_+)} \to 0$ quando $\varepsilon \to 0$;
+		\item Se $u \in W^{1,p}(\mathbb{R}^n_+)$, então $u_\varepsilon \in W^{1,p}(\mathbb{R}^n_+)$ e $\|u_\varepsilon - u\|_{W^{1,p}(\mathbb{R}^n_+)} \to 0$.
+\end{enumerate}}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	O problema propõe a construção de uma sequência de aproximações suaves para funções definidas no semi-espaço $\mathbb{R}^n_+$. A particularidade reside na definição de $f_\varepsilon$, que não utiliza a convolução simples $f * \eta_\varepsilon$, mas sim a convolução da translação $\tau_{2\varepsilon e_n} f$ com o núcleo $\eta_\varepsilon$. O objetivo é provar que essa modificação geométrica permite a regularização no bordo sem a necessidade de extensões arbitrárias da função para fora do domínio.
+	
+	\textbf{Fundamentação Teórica:}
+	A prova fundamenta-se nas propriedades da convolução de funções $L_{loc}^1$ com núcleos $C_c^\infty$, resultando em funções $C^\infty$. A convergência em $L^p$ e a uniformidade em compactos decorrem da teoria de \textbf{Identidades Aproximadas}. Para o item (e), utilizaremos a linearidade do operador de derivação fraca e a estabilidade da norma de Sobolev sob regularização.
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Análise de Suporte}: No item (a), provaremos que para $x \in \mathbb{R}^n_+$, a integral de convolução $\eta_\varepsilon * (\tau_{2\varepsilon e_n} f)$ coincide com a integral sobre $\mathbb{R}^n_+$, pois o suporte de $\eta_\varepsilon(x-y)$ e a definição de $\tau_{2\varepsilon e_n}$ garantem que $y \in \mathbb{R}^n_+$.
+		\item \textbf{Convergência Uniforme}: No item (b), utilizaremos a continuidade uniforme de $f$ em compactos e a propriedade $\int \eta_\varepsilon = 1$ para estimar $|f_\varepsilon(x) - f(x)|$.
+		\item \textbf{Troca de Derivação}: No item (c), aplicaremos a propriedade de que a derivada da convolução é a convolução da derivada.
+		\item \textbf{Estimativas de $L^p$}: No item (d), utilizaremos a desigualdade de Young para convoluções $$\|f * g\|_p \le \|f\|_1 \|g\|_p$$ e a continuidade da translação em $L^p$.
+		\item \textbf{Soma de Normas}: No item (e), aplicaremos o resultado do item (d) tanto para a função $u$ quanto para suas derivadas fracas $\partial_j u$.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{(a)} Seja $x \in \mathbb{R}^n_+$, ou seja, $x_n > 0$. Definimos a função $\tilde{f} = \tau_{2\varepsilon e_n} f$ estendida por zero fora de $\mathbb{R}^n_+$. O núcleo $\eta_\varepsilon(x-y)$ é não nulo apenas se $|x-y| < \varepsilon$, o que implica $y_n > x_n - \varepsilon$. 
+	
+	Observemos que para qualquer $y$ tal que $\eta_\varepsilon(x-y) \neq 0$, temos $y + 2\varepsilon e_n$ com componente vertical 
+	$$(y_n + 2\varepsilon) > x_n - \varepsilon + 2\varepsilon = x_n + \varepsilon.$$
+	Como $x_n > 0$, segue que $y_n + 2\varepsilon > \varepsilon > 0$, logo $y + 2\varepsilon e_n \in \mathbb{R}^n_+$. Isso garante que $\tau_{2\varepsilon e_n} f(y) = f(y + 2\varepsilon e_n)$ está bem definida para todo $y$ no suporte de $\eta_\varepsilon(x-\cdot)$.
+	
+	Assim, a integral $f_\varepsilon(x) = \int_{\mathbb{R}^n_+} \eta_\varepsilon(x-y) \tilde{f}(y) dy$ é a convolução clássica $(\eta_\varepsilon * \tilde{f})(x)$. Visto que $\eta_\varepsilon \in C_c^\infty(\mathbb{R}^n)$ e $\tilde{f} \in L_{loc}^1(\mathbb{R}^n)$, a teoria de convolução garante que $f_\varepsilon \in C^\infty(\mathbb{R}^n_+)$.
+	
+	\textbf{(b)} Seja $K \subset \mathbb{R}^n_+$ um compacto. Existe $\delta > 0$ tal que $\dist(K, \partial \mathbb{R}^n_+) > \delta$. Para $\varepsilon < \delta$, e qualquer $x \in K$, a bola $B_\varepsilon(x)$ está contida em $\mathbb{R}^n_+$. Assim, a integral de $f_\varepsilon$ simplifica-se para:
+	$$f_\varepsilon(x) = \int_{B_\varepsilon(x)} \eta_\varepsilon(x-y) f(y + 2\varepsilon e_n) dy$$
+	Utilizando o fato de que $\int_{B_\varepsilon(x)} \eta_\varepsilon(x-y) dy = 1$, podemos escrever:
+	\begin{align*}
+		|f_\varepsilon(x) - f(x)| &= \left| \int_{B_\varepsilon(x)} \eta_\varepsilon(x-y) f(y + 2\varepsilon e_n) dy - f(x) \int_{B_\varepsilon(x)} \eta_\varepsilon(x-y) dy \right| \\
+		&\le \int_{B_\varepsilon(x)} \eta_\varepsilon(x-y) |f(y + 2\varepsilon e_n) - f(x)| dy \quad (\ast).
+	\end{align*}
+	Visto que $f$ é contínua, ela é uniformemente contínua em compactos.
+	
+	Para $\varepsilon$ suficientemente pequeno, $|f(y + 2\varepsilon e_n) - f(x)| < \varepsilon$ para todo $y \in B_\varepsilon(x)$. Esse comportamento de convergência uniforme em partes compactas para funções contínuas é análogo ao resultado demonstrado na \textbf{Questão 4}. De $(\ast)$, obtemos que: $$|f_\varepsilon(x) - f(x)| \le \int_{B_\varepsilon(x)} \eta_\varepsilon(x-y) |f(y + 2\varepsilon e_n) - f(x)| dy < \varepsilon \cdot \int_{B_\varepsilon(x)} \eta_\varepsilon(x-y) dy=\varepsilon\cdot 1=\varepsilon.$$
+	
+	Logo, $|f_\varepsilon(x) - f(x)| \to 0$ uniformemente em $K$.
+	
+	\textbf{(c)} Pela propriedade de derivação de convoluções, se $f \in C^m(\mathbb{R}^n_+)$, então $\tau_{2\varepsilon e_n} f \in C^m(\mathbb{R}^n_+)$. A derivada de ordem $\alpha$ de $f_\varepsilon = \eta_\varepsilon * \tilde{f}$ é dada por $D^\alpha f_\varepsilon = \eta_\varepsilon * (D^\alpha \tilde{f})$, resultado análogo ao obtido no item (d) da \textbf{Questão 4} para sequências regularizantes em $\mathbb{R}^n$. Substituindo a definição de $\tilde{f}$, obtemos:
+	$$\boxed{D^\alpha f_\varepsilon(x) = \int_{\mathbb{R}^n_+} \eta_\varepsilon(x-y) (\tau_{2\varepsilon e_n} D^\alpha f)(y) dy}$$
+	
+	\textbf{(d)} Para $f \in L^p(\mathbb{R}^n_+)$, analisamos primeiramente a norma de $f_\varepsilon$. Pela desigualdade de Young para convoluções, temos que:
+	$$\|f_\varepsilon\|_{L^p(\mathbb{R}^n_+)} = \|\eta_\varepsilon * (\tau_{2\varepsilon e_n} f)\|_{L^p} \le \|\eta_\varepsilon\|_{L^1} \|\tau_{2\varepsilon e_n} f\|_{L^p(\mathbb{R}^n_+)}$$
+	Visto que $\|\eta_\varepsilon\|_{L^1} = 1$, resta calcular a norma da função transladada. Definimos a integral:
+	$$\|\tau_{2\varepsilon e_n} f\|_{L^p(\mathbb{R}^n_+)}^p = \int_{\mathbb{R}^n_+} |f(x + 2\varepsilon e_n)|^p dx$$
+	Efetuamos a mudança de variáveis $y = x + 2\varepsilon e_n$, com $dy = dx$. Analisamos a transformação do domínio de integração: a condição $x \in \mathbb{R}^n_+$ implica $x_n > 0$. Substituindo $x_n = y_n - 2\varepsilon$, obtemos a condição $y_n - 2\varepsilon > 0$, ou seja, $y_n > 2\varepsilon$. Denotando por $\mathbb{R}^n_{2\varepsilon} = \{y \in \mathbb{R}^n : y_n > 2\varepsilon\}$, temos:
+	$$\|\tau_{2\varepsilon e_n} f\|_{L^p(\mathbb{R}^n_+)}^p = \int_{\mathbb{R}^n_{2\varepsilon}} |f(y)|^p dy$$
+	Visto que $\mathbb{R}^n_{2\varepsilon} \subsetneq \mathbb{R}^n_+$, a integral sobre o subconjunto é limitada pela integral sobre o domínio total:
+	\begin{align*}
+		\int_{\mathbb{R}^n_{2\varepsilon}} |f(y)|^p dy &\le \int_{\mathbb{R}^n_+} |f(y)|^p dy \\
+		\|\tau_{2\varepsilon e_n} f\|_{L^p(\mathbb{R}^n_+)}^p &\le \|f\|_{L^p(\mathbb{R}^n_+)}^p
+	\end{align*}
+	Portanto, $\|f_\varepsilon\|_{L^p(\mathbb{R}^n_+)} \le \|f\|_{L^p(\mathbb{R}^n_+)}$, o que prova que $f_\varepsilon \in L^p(\mathbb{R}^n_+)$.
+	
+	Para a convergência $\|f_\varepsilon - f\|_{L^p} \to 0$, utilizamos a desigualdade triangular:
+	$$\|f_\varepsilon - f\|_{L^p(\mathbb{R}^n_+)} \le \|\eta_\varepsilon * (\tau_{2\varepsilon e_n} f) - \tau_{2\varepsilon e_n} f\|_{L^p(\mathbb{R}^n_+)} + \|\tau_{2\varepsilon e_n} f - f\|_{L^p(\mathbb{R}^n_+)}$$
+	Analisamos os dois termos separadamente:
+	\begin{enumerate}
+		\item O primeiro termo $\lim_{\varepsilon \to 0} \|\eta_\varepsilon * (\tau_{2\varepsilon e_n} f) - \tau_{2\varepsilon e_n} f\|_{L^p} = 0$ decorre da propriedade de \textbf{identidades aproximadas}, visto que $\tau_{2\varepsilon e_n} f \in L^p(\mathbb{R}^n_+)$.
+		\item O segundo termo $\lim_{\varepsilon \to 0} \|\tau_{2\varepsilon e_n} f - f\|_{L^p(\mathbb{R}^n_+)} = 0$ é garantido pela \textbf{continuidade da translação em $L^p$}, provada anteriormente na Questão 93 e 95.
+	\end{enumerate}
+	Dessa forma, a soma dos limites é nula, e concluímos que:
+	$$\boxed{\|f_\varepsilon - f\|_{L^p(\mathbb{R}^n_+)} \to 0, \quad \text{quando } \varepsilon \to 0.}$$
+	
+	\textbf{(e)} Seja $u \in W^{1,p}(\mathbb{R}^n_+)$. Do item (d), sabemos que $u_\varepsilon \to u$ em $L^p(\mathbb{R}^n_+)$.
+	Para as derivadas, aplicamos o item (c) com $|\alpha|=1$:
+	$$\frac{\partial u_\varepsilon}{\partial x_j} = \eta_\varepsilon * \left( \tau_{2\varepsilon e_n} \frac{\partial u}{\partial x_j} \right)$$
+	Como $\frac{\partial u}{\partial x_j} \in L^p(\mathbb{R}^n_+)$, aplicamos novamente o resultado do item (d) para a função $g = \frac{\partial u}{\partial x_j}$:
+	$$\left\| \frac{\partial u_\varepsilon}{\partial x_j} - \frac{\partial u}{\partial x_j} \right\|_{L^p(\mathbb{R}^n_+)} \to 0, \quad \text{quando } \varepsilon \to 0$$
+	Somando as convergências da função e de suas derivadas, concluímos que:
+	$$\boxed{\|u_\varepsilon - u\|_{W^{1,p}(\mathbb{R}^n_+)} \to 0}.$$
+}
+
+\sintese{
+	A construção de $f_\varepsilon$ resolve o problema da ``perda de informação'' na borda do semi-espaço. Ao transladar a função $f$ para o interior via $\tau_{2\varepsilon e_n}$, garantimos que o núcleo de convolução $\eta_\varepsilon$ opere sempre sobre valores definidos de $f$. O fluxo lógico foi: 
+	$$\text{Translação} \to \text{Convolução} \to \text{Identidade Aproximada} \to \text{Convergência em } L^p \text{ e } W^{1,p}.$$
+}
+
+\aprofundamento{
+	Esta técnica é um caso particular do teorema de \textbf{Meyers-Serrin}, que afirma que $C^\infty(\Omega) \cap W^{k,p}(\Omega)$ é denso em $W^{k,p}(\Omega)$ para qualquer aberto $\Omega$. A translação controlada $\tau_{\lambda e_n}$ é a ferramenta fundamental para provar esse resultado em domínios com fronteira regular, pois permite a regularização local sem a necessidade de extensões globais complexas, preservando a norma de Sobolev através da continuidade da translação.
+}
+
+%%%% QUESTÃO 97 %%%%
+\questao{Mostre que cada função $u$ de $W^{1,\infty}(I)$ são de Lipschitz com constante $\|u'\|_{L^\infty(I)}$.}
+
+\analise{
+	\textbf{Análise do Enunciado}
+	A questão solicita a demonstração de que qualquer função pertencente ao espaço de Sobolev $W^{1,\infty}(I)$, onde $I \subset \mathbb{R}$ é um intervalo, admite um representante que é Lipschitz contínuo. A tese central é que a constante de Lipschitz $L$ é precisamente a norma $L^\infty$ da derivada fraca $u'$.
+	
+	\textbf{Fundamentação Teórica}
+	A prova fundamenta-se na relação entre a derivada fraca e a continuidade absoluta. De acordo com a teoria de espaços de Sobolev em dimensão 1, toda função $u \in W^{1,p}(I)$ possui um representante $\tilde{u}$ que é absolutamente contínua em $I$. Para tal representante, o Teorema Fundamental do Cálculo é válido, permitindo expressar a diferença $u(x) - u(y)$ como a integral de sua derivada fraca.
+	
+	\textbf{Estratégias}
+	\begin{enumerate}
+		\item \textbf{Representação Integral}: Utilizar a propriedade de que funções em $W^{1, \infty}(I)$ são absolutamente contínuas, escrevendo a variação da função como a integral da derivada fraca sobre o intervalo $[y, x]$.
+		\item \textbf{Estimativa de Norma}: Aplicar a definição de norma $L^\infty$ para limitar a função integranda por $\|u'\|_{L^\infty(I)}$.
+		\item \textbf{Dedução da Desigualdade}: Integrar a constante resultante para obter a forma clássica da condição de Lipschitz $|u(x) - u(y)| \le L|x-y|$.
+	\end{enumerate}
+}
+
+\solucao{
+	Seja $u \in W^{1,\infty}(I)$. Pela teoria de imersões de Sobolev em dimensão $n=1$, sabemos que $u$ possui um representante $\tilde{u}$ que é absolutamente contínua em $I$. Para qualquer par de pontos $x, y \in I$ com $y < x$, a representação integral da função é dada por:
+	$$u(x) - u(y) = \int_y^x u'(t) dt$$
+	onde $u'$ denota a derivada fraca de $u$. Tomando o módulo em ambos os lados da igualdade, obtemos:
+	$$|u(x) - u(y)| = \left| \int_y^x u'(t) dt \right|$$
+	Pela propriedade da integral de Lebesgue, o módulo da integral é menor ou igual à integral do módulo:
+	$$|u(x) - u(y)| \le \int_y^x |u'(t)| dt$$
+	Visto que $u' \in L^\infty(I)$, por definição, temos que $|u'(t)| \le \|u'\|_{L^\infty(I)}$ para quase todo $t \in I$. Substituindo esse limitante superior na integral, obtemos:
+	\begin{align*}
+		|u(x) - u(y)| &\le \int_y^x \|u'\|_{L^\infty(I)} dt \\
+		&= \|u'\|_{L^\infty(I)} \int_y^x 1 dt \\
+		&= \|u'\|_{L^\infty(I)} (x - y)
+	\end{align*}
+	Como assumimos $y < x$, temos $(x - y) = |x - y|$. Para o caso geral $x, y \in I$, a desigualdade assume a forma:
+	$$\boxed{|u(x) - u(y)| \le \|u'\|_{L^\infty(I)} |x - y|}$$
+	Esta é precisamente a definição de uma função de Lipschitz com constante $L = \|u'\|_{L^\infty(I)}$.
+}
+
+\sintese{
+	A demonstração revela que a norma $L^\infty$ da derivada fraca controla a taxa de variação máxima da função. O fluxo lógico foi:
+	$$\text{Pertinência a } W^{1,\infty} \to \text{Absoluta Continuidade} \to \text{Representação Integral} \to \text{Limitante } L^\infty \to \text{Condição de Lipschitz}.$$
+}
+
+\aprofundamento{
+	Este resultado estabelece a equivalência isométrica entre o espaço de Sobolev $W^{1,\infty}(I)$ e o espaço das funções Lipschitz $\text{Lip}(I)$. Inversamente, o \textbf{Teorema de Rademacher} garante que qualquer função de Lipschitz em um aberto de $\mathbb{R}^n$ é diferenciável quase sempre, e que sua derivada clássica coincide com a derivada fraca, pertencendo a $L^\infty$.
+	
+	A importância deste resultado reside no fato de que, enquanto em $W^{1,p}$ com $p < \infty$ a regularidade é medida por integrais de potência, no caso $p = \infty$ a regularidade torna-se geométrica (controle pontual da inclinação). Isso torna $W^{1,\infty}$ o espaço natural para estudar problemas de controle ótimo e equações diferenciais com coeficientes descontínuos, mas limitados.
+}
+
+%%%% QUESTÃO 98 %%%%
+\questao{Suponha que $u$ é limitada e também uma função de Lipschitz em $I = (a, b)$, ou seja, $|u(x) - u(y)| \le c|x - y|$, para todo $x, y \in I$. Suponha que $I$ é um intervalo limitado e mostre que:
+	\begin{enumerate}[label=(\alph*)]
+		\item Para cada $\phi \in C_c^\infty(I)$ e $|h| < \min\{b - b_1, a_1 - a\}$ com $\text{supp } \phi \subset [a_1, b_1] \subset I$, vale:
+		$$\left| \int_a^b u(t)[\phi(t+h) - \phi(t)] dt \right| \le c|h| \int_I |\phi|;$$
+		\item Consequentemente, para cada $1 < p < \infty$, $u \in L^p(I)$ e
+		$$\left| \int_I u \phi' \right| \le c |I|^{1/p} \|\phi\|_{L^{p'}(I)}, \quad \forall \phi \in C_c^\infty(I);$$
+		\item Conclua que $u \in W^{1,p}(I)$ e $\|u'\|_{L^p(I)} \le c|I|^{1/p}$;
+		\item Conclua que $u \in W^{1,\infty}(I)$ e $\|u'\|_{L^\infty(I)} \le c$.
+\end{enumerate}}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	O problema propõe a prova da recíproca da Questão 97: a demonstração de que a regularidade geométrica de Lipschitz implica a regularidade funcional de Sobolev $W^{1, \infty}$. O roteiro da questão é sequencial, onde cada item fornece a base para o seguinte. O ponto crítico é a transição de uma estimativa de diferenças finitas para a existência de um elemento no espaço dual $L^{p'}(I)$, o que garante a existência da derivada fraca.
+	
+	\textbf{Fundamentação Teórica:}
+	A prova utiliza a definição de \textbf{Derivada Fraca} e a teoria de dualidade de espaços $L^p$. A passagem do item (b) para o (c) fundamenta-se no \textbf{Teorema de Representação de Riesz}, que assegura que todo funcional linear limitado em $L^{p'}(I)$ é representado por um elemento de $L^p(I)$. Vale notar que a extensão deste funcional de $C_c^\infty(I)$ para $L^{p'}(I)$ é garantida pelo \textbf{Teorema de Hahn-Banach}, dada a densidade de $C_c^\infty$ em $L^{p'}$.
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Mudança de Variáveis}: No item (a), transferiremos a translação do argumento de $\phi$ para $u$, permitindo a aplicação direta da constante de Lipschitz $c$.
+		\item \textbf{Passagem ao Limite}: No item (b), recuperaremos a derivada $\phi'$ via limite de diferenças finitas, utilizando a Desigualdade de Hölder para introduzir a norma $L^{p'}$.
+		\item \textbf{Identificação do Dual}: No item (c), definiremos um funcional linear limitado e utilizaremos a representação de Riesz para identificar a derivada fraca $u' \in L^p(I)$.
+		\item \textbf{Limite de Normas}: No item (d), utilizaremos a propriedade de que a norma $L^\infty$ é o limite das normas $L^p$ quando $p \to \infty$.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{(a)} Seja $\phi \in C_c^\infty(I)$ com $\text{supp } \phi \subset [a_1, b_1] \subset I$. Consideramos a integral:
+	$$J = \int_a^b u(t)[\phi(t+h) - \phi(t)] dt = \int_a^b u(t) \phi(t+h) dt - \int_a^b u(t) \phi(t) dt$$
+	Na primeira integral, efetuamos a mudança de variáveis $s = t+h \implies t = s-h$. Como $\text{supp } \phi \subset [a_1, b_1]$ e $|h|$ é suficientemente pequeno, a função $\phi$ permanece nula fora de $I$, permitindo que a integral seja escrita como:
+	$$\int_a^b u(t) \phi(t+h) dt = \int_a^b u(s-h) \phi(s) ds$$
+	Substituindo de volta em $J$:
+	\begin{align*}
+		J &= \int_a^b [u(s-h) - u(s)] \phi(s) ds
+	\end{align*}
+	Aplicando a hipótese de que $u$ é Lipschitz com constante $c$, temos $|u(s-h) - u(s)| \le c|s-h-s| = c|h|$. Assim:
+	$$|J| \le \int_a^b |u(s-h) - u(s)| |\phi(s)| ds \le \int_a^b c|h| |\phi(s)| ds = c|h| \int_I |\phi|$$
+	Portanto, $\boxed{\left| \int_a^b u(t)[\phi(t+h) - \phi(t)] dt \right| \le c|h| \int_I |\phi|}$.
+	
+	\textbf{(b)} Dividindo a desigualdade do item (a) por $h$ e fazendo $h \to 0$, a diferença finita $\tfrac{\phi(t+h) - \phi(t)}{h}$ converge uniformemente para $\phi'(t)$ em $I$. Pelo Teorema da Convergência Dominada, temos:
+	$$\left| \int_I u \phi' dt \right| = \lim_{h \to 0} \left| \int_a^b u(t) \frac{\phi(t+h) - \phi(t)}{h} dt \right| \le c \int_I |\phi| dt$$
+	Visto que $u$ é limitada e $I$ possui medida finita, a inclusão $L^\infty(I) \subset L^p(I)$ é imediata, logo $u \in L^p(I)$. Para $\phi \in C_c^\infty(I)$, aplicamos a \textbf{Desigualdade de Hölder}:
+	$$\int_I |\phi| dt \le \|\phi\|_{L^{p'}(I)} \|1\|_{L^p(I)} = \|\phi\|_{L^{p'}(I)} |I|^{1/p}$$
+	onde $\tfrac{1}{p} + \tfrac{1}{p'} = 1$. Substituindo esta estimativa, obtemos:
+	$$\boxed{\left| \int_I u \phi' \right| \le c |I|^{1/p} \|\phi\|_{L^{p'}(I)}}$$
+	
+	\textbf{(c)} Definimos o funcional linear $L: C_c^\infty(I) \to \mathbb{R}$ por $L(\phi) = - \int_I u \phi' dt$. O resultado do item (b) mostra que $|L(\phi)| \le (c |I|^{1/p}) \|\phi\|_{L^{p'}(I)}$, logo $L$ é um funcional linear limitado no subespaço denso $C_c^\infty(I) \subset L^{p'}(I)$.
+	
+	Pelo \textbf{Teorema de Hahn-Banach}, $L$ estende-se unicamente a um funcional linear limitado em todo $L^{p'}(I)$. Pelo \textbf{Teorema de Representação de Riesz}, existe um único elemento $g \in L^p(I)$ tal que:
+	$$L(\phi) = \int_I g \phi dt \implies - \int_I u \phi' dt = \int_I g \phi dt, \quad \forall \phi \in C_c^\infty(I)$$
+	Esta é precisamente a definição de derivada fraca, identificando $g = u'$. Como $u \in L^p(I)$ e $u' = g \in L^p(I)$, concluímos que $u \in W^{1,p}(I)$. Além disso, a norma do elemento representativo coincide com a norma do funcional:
+	$$\boxed{\|u'\|_{L^p(I)} = \|L\| \le c |I|^{1/p}}$$
+	
+	\textbf{(d)} Para concluir a pertinência a $W^{1, \infty}(I)$, analisamos o comportamento da norma de $u'$ quando $p \to \infty$. Sabemos que, para qualquer $f \in L^\infty(I)$, $\|f\|_{L^\infty} = \lim_{p \to \infty} \|f\|_{L^p}$. Aplicando isso a $u'$:
+	$$\|u'\|_{L^\infty(I)} = \lim_{p \to \infty} \|u'\|_{L^p(I)} \le \lim_{p \to \infty} c |I|^{1/p}$$
+	Como $|I|^{1/p} \to 1$ quando $p \to \infty$, obtemos:
+	$$\|u'\|_{L^\infty(I)} \le c$$
+	Sendo $u$ limitada e possuindo derivada fraca em $L^\infty(I)$, concluímos que $\boxed{u \in W^{1,\infty}(I)}$ com $\|u'\|_{L^\infty(I)} \le c$.
+}
+
+\sintese{
+	A prova estabelece a equivalência entre a regularidade geométrica (Lipschitz) e a regularidade funcional (Sobolev $W^{1, \infty}$). O fluxo lógico foi:
+	$$\text{Lipschitz} \to \text{Funcional Limitado em } L^{p'} \to \text{Existência de } u' \in L^p \to \text{Limite } p \to \infty \to W^{1, \infty}.$$
+}
+
+\aprofundamento{
+	Este resultado é a implementação do \textbf{Teorema de Rademacher} em dimensão 1. A transição do item (b) para o (c) é o ponto mais profundo da prova, pois transforma uma estimativa de integral em uma afirmação sobre a existência de um objeto matemático (a derivada fraca).
+	
+	A utilização da norma de $L^p$ como ponte para chegar a $L^\infty$ demonstra que a constante de Lipschitz $c$ não é apenas um limite superior para a variação da função, mas é precisamente o supremo essencial da sua derivada fraca. Isso solidifica a ideia de que $W^{1, \infty}(I)$ é o espaço natural para funções cujas taxas de variação são globalmente limitadas.
+}
+
+%%%% QUESTÃO 99 %%%%
+\questao{Mostre que $C_c^\infty(\mathbb{R}^n)$ é denso em $W^{1,p}(\mathbb{R}^n)$. Conclua que $W^{1,p}(\mathbb{R}^n) = W_0^{1,p}(\mathbb{R}^n)$.}
+
+\analise{
+	\textbf{Análise do Enunciado}
+	A questão exige a prova de que qualquer função $u \in W^{1,p}(\mathbb{R}^n)$ pode ser aproximada, na norma de Sobolev, por uma sequência de funções suaves com suporte compacto. A tese final é a identidade entre o espaço $W^{1,p}(\mathbb{R}^n)$ e o seu subespaço $W_0^{1,p}(\mathbb{R}^n)$, que é definido como o fecho de $C_c^\infty(\mathbb{R}^n)$.
+	
+	\textbf{Fundamentação Teórica}
+	A prova utiliza a técnica de truncação via funções de corte (\textit{cutoff functions}) e a regularização por convolução. Para funções definidas em todo o espaço $\mathbb{R}^n$, a convolução simples $u * \eta_\varepsilon$ converge para $u$ na norma $W^{1,p}$, mas não preserva a compacidade do suporte. Para resolver isso, multiplicamos $u$ por uma função $\rho_R$ que anula a função fora de uma bola de raio $2R$, permitindo a subsequente suavização.
+	
+	\textbf{Estratégias}
+	\begin{enumerate}
+		\item \textbf{Aproximação por Suporte Compacto}: Definir $\rho \in C_c^\infty(\mathbb{R}^n)$ e a sequência $u_R = u \rho_R$. Provar que $u_R \to u$ em $W^{1,p}(\mathbb{R}^n)$ quando $R \to \infty$, detalhando a convergência da integral da cauda e o decaimento do termo do gradiente.
+		\item \textbf{Aproximação por Suavização}: Para cada $u_R$ fixo, aplicar a convolução $v_{R,\varepsilon} = u_R * \eta_\varepsilon$. Provar que $v_{R,\varepsilon} \to u_R$ em $W^{1,p}(\mathbb{R}^n)$ quando $\varepsilon \to 0$, utilizando as propriedades de identidades aproximadas.
+		\item \textbf{Argumento Diagonal}: Combinar os dois processos para mostrar que $\forall \varepsilon > 0$, existe $v \in C_c^\infty(\mathbb{R}^n)$ tal que $\|u - v\|_{W^{1,p}(\mathbb{R}^n)} < \varepsilon$.
+		\item \textbf{Identificação de Espaços}: Aplicar a definição de $W_0^{1,p}(\Omega)$ para concluir a igualdade dos espaços.
+	\end{enumerate}
+}
+
+\solucao{
+	Seja $u \in W^{1,p}(\mathbb{R}^n)$. Construiremos a aproximação em duas etapas: primeiro restringindo o suporte e, depois, suavizando a função.
+	
+	\textit{Passo 1: Truncação via função de corte} \\
+	Seja $\rho \in C_c^\infty(\mathbb{R}^n)$ uma função tal que $0 \le \rho \le 1$, $\rho(x) = 1$ para $|x| \le 1$ e $\rho(x) = 0$ para $|x| \ge 2$. Para $R > 0$, definimos a função de corte $\rho_R(x) = \rho(x/R)$. Note que $\rho_R \in C_c^\infty(\mathbb{R}^n)$ com $\text{supp}(\rho_R) \subset \overline{B_{2R}(0)}$. Definimos a sequência $u_R = u \rho_R$.
+	
+	Analisamos a convergência de $u_R$ para $u$ em $L^p(\mathbb{R}^n)$:
+	$$\|u - u_R\|_{L^p(\mathbb{R}^n)}^p = \int_{\mathbb{R}^n} |u(x)(1 - \rho_R(x))|^p dx = \int_{\mathbb{R}^n \setminus B_R(0)} |u(x)|^p |1 - \rho_R(x)|^p dx$$
+	Visto que $0 \le 1 - \rho_R \le 1$, temos:
+	$$\|u - u_R\|_{L^p(\mathbb{R}^n)}^p \le \int_{|x| > R} |u(x)|^p dx$$
+	Como $u \in L^p(\mathbb{R}^n)$, a integral $\int_{\mathbb{R}^n} |u|^p dx$ é finita. Pela propriedade de continuidade da medida de Lebesgue (ou pelo Teorema da Convergência Dominada), a integral sobre a região $|x| > R$ tende a zero quando $R \to \infty$. Logo, $\|u - u_R\|_{L^p(\mathbb{R}^n)} \to 0$.
+	
+	Para as derivadas, usamos a regra do produto: $\nabla u_R = \rho_R \nabla u + u \nabla \rho_R$. A diferença é:
+	$$\|\nabla u - \nabla u_R\|_{L^p(\mathbb{R}^n)} = \|\nabla u(1 - \rho_R) - u \nabla \rho_R\|_{L^p(\mathbb{R}^n)} \le \|\nabla u(1 - \rho_R)\|_{L^p(\mathbb{R}^n)} + \|u \nabla \rho_R\|_{L^p(\mathbb{R}^n)}$$
+	O primeiro termo $\int_{|x| > R} |\nabla u|^p dx$ tende a zero por razões análogas ao caso de $u$. Para o segundo termo, observe que por regra da cadeia:
+	$$\nabla \rho_R(x) = \frac{1}{R} \nabla \rho\left(\frac{x}{R}\right)$$
+	Definimos $C = \|\nabla \rho\|_{L^\infty(\mathbb{R}^n)}$, que é uma constante finita pois $\rho$ é suave com suporte compacto. Assim, $|\nabla \rho_R(x)| \le \frac{C}{R}$. Então:
+	$$\|u \nabla \rho_R\|_{L^p(\mathbb{R}^n)}^p = \int_{R < |x| < 2R} |u(x)|^p |\nabla \rho_R(x)|^p dx \le \frac{C^p}{R^p} \int_{R < |x| < 2R} |u(x)|^p dx \le \frac{C^p}{R^p} \|u\|_{L^p(\mathbb{R}^n)}^p$$
+	Como $p \ge 1$ e $R \to \infty$, o termo $\frac{C^p}{R^p} \to 0$. Concluímos que $u_R \to u$ na norma $\|\cdot\|_{W^{1,p}(\mathbb{R}^n)}$.
+	
+	\textit{Passo 2: Regularização por Convolução} \\
+	Para cada $R$ fixo, $u_R$ possui suporte compacto em $B_{2R}(0)$. Definimos $v_{R,\varepsilon} = u_R * \eta_\varepsilon$, onde $\eta_\varepsilon$ é a função regularizante da Questão 4. Visto que $u_R \in W^{1,p}(\mathbb{R}^n)$ com suporte compacto, a função $v_{R,\varepsilon}$ é de classe $C^\infty(\mathbb{R}^n)$ e possui suporte compacto em $B_{2R+\varepsilon}(0)$.
+	
+	Pelas propriedades de identidades aproximadas (Questão 4), sabemos que:
+	$$\|u_R - v_{R,\varepsilon}\|_{L^p(\mathbb{R}^n)} \to 0 \quad \text{e} \quad \|\nabla u_R - \nabla v_{R,\varepsilon}\|_{L^p(\mathbb{R}^n)} \to 0, \quad \text{quando } \varepsilon \to 0.$$
+	Portanto, $\|u_R - v_{R,\varepsilon}\|_{W^{1,p}(\mathbb{R}^n)} \to 0$.
+	
+	\textit{Passo 3: Conclusão da Densidade} \\
+	Dos passos 1 e 2, para qualquer $\delta > 0$, podemos escolher $R$ tal que $\|u - u_R\|_{W^{1,p}(\mathbb{R}^n)} < \delta/2$ e, para este $R$, escolhemos $\varepsilon$ tal que 
+	$$\|u_R - v_{R,\varepsilon}\|_{W^{1,p}(\mathbb{R}^n)} < \delta/2.$$
+	Pela desigualdade triangular:
+	$$\|u - v_{R,\varepsilon}\|_{W^{1,p}(\mathbb{R}^n)} \le \|u - u_R\|_{W^{1,p}(\mathbb{R}^n)} + \|u_R - v_{R,\varepsilon}\|_{W^{1,p}(\mathbb{R}^n)} < \delta$$
+	Como $v_{R,\varepsilon} \in C_c^\infty(\mathbb{R}^n)$, provamos que $C_c^\infty(\mathbb{R}^n)$ é denso em $W^{1,p}(\mathbb{R}^n)$.
+	
+	\textit{Passo 4: Igualdade dos Espaços} \\
+	O espaço $W_0^{1,p}(\mathbb{R}^n)$ é definido como o fechamento de $C_c^\infty(\mathbb{R}^n)$ na norma de $W^{1,p}(\mathbb{R}^n)$. Como acabamos de mostrar que qualquer $u \in W^{1,p}(\mathbb{R}^n)$ é o limite de uma sequência em $C_c^\infty(\mathbb{R}^n)$, segue que:
+	$$\boxed{W^{1,p}(\mathbb{R}^n) = W_0^{1,p}(\mathbb{R}^n)}$$
+}
+
+\sintese{
+	A prova demonstra que a ausência de uma fronteira finita em $\mathbb{R}^n$ remove a distinção entre funções que "desaparecem na borda" e funções geralmente integráveis. O fluxo lógico foi:
+	$$\text{Função em } W^{1,p} \xrightarrow{\text{Truncação } \rho_R} \text{Suporte Compacto} \xrightarrow{\text{Convolução } \eta_\varepsilon} \text{Suavidade} \to \text{Densidade} \to \text{Igualdade } W_0 = W.$$
+}
+
+\aprofundamento{
+	Este resultado evidencia a importância da geometria do domínio. Em um domínio limitado $\Omega$, $W_0^{1,p}(\Omega)$ é um subespaço estrito de $W^{1,p}(\Omega)$, pois as funções em $W_0^{1,p}$ devem possuir traço nulo em $\partial \Omega$. 
+	
+	No caso de $\mathbb{R}^n$, a \textbf{fronteira} situa-se no infinito. Como a pertinência a $L^p(\mathbb{R}^n)$ força a função a decair no infinito, a condição de traço nulo é satisfeita intrinsecamente. Este resultado justifica a utilização de funções de teste com suporte compacto para a definição de distribuições e a validade de integrações por partes em todo o espaço sem a necessidade de termos de borda.
+}
+
+%%%% QUESTÃO 100 %%%%
+\questao{Considere a função $\sigma : [0, \infty) \to \mathbb{R}$ dada por $\sigma(r) = 0$ em $r \ge 2$, $\sigma(r) = 1$ em $r \le 1$ e $\sigma(r) = 2 - r$ se $1 \le r \le 2$. Mostre que:
+	\begin{enumerate}[label=(\alph*)]
+		\item $u(x) = \sigma(|x|)$ tem derivadas fracas dadas por $\nabla u(x) = \sigma'(|x|) \frac{x}{|x|}$ e $|\nabla u| \le 1, \forall x \in \mathbb{R}^n$ q.s.;
+		\item $0 \le u \le 1$, $\text{supp } u = \overline{B_2(0)}$;
+		\item $u \in W^{1,p}(\mathbb{R}^n)$;
+		\item Para cada $\varepsilon > 0$, mostre que $u_\varepsilon(x) = \sigma(\frac{x}{\varepsilon})$ está em $W^{1,p}(\mathbb{R}^n)$ e
+		$$\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p \le \frac{|B_{2\varepsilon}(0) \setminus B_\varepsilon(0)|}{\varepsilon^p} = n\alpha(n)(2^n - 1)\varepsilon^{n-p}.$$
+		\item Se $n > p$, então $\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)} \to 0$, quando $\varepsilon \to 0$, e consequentemente, $u_\varepsilon \to 0$ em $W^{1,p}(\mathbb{R}^n)$.
+\end{enumerate}}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	A questão propõe a análise de uma função radial de truncação. O objetivo é verificar sua pertinência aos espaços de Sobolev e, principalmente, analisar como a norma do gradiente escala quando a função sofre uma contração homotética (mudança de escala por $\varepsilon$). A tese central é que, para $n > p$, a ``energia'' do gradiente tende a zero quando o suporte da função encolhe, apesar de a amplitude da função permanecer constante.
+	
+	\textbf{Fundamentação Teórica:}
+	A prova utiliza a teoria de funções radialmente simétricas e a definição de derivada fraca para funções Lipschitz. Como $\sigma$ é Lipschitziana, $u(x) = \sigma(|x|)$ também é Lipschitziana e, portanto, derivável quase sempre (Teorema de Rademacher). A análise da norma $L^p$ em domínios radiais será feita via coordenadas esféricas, onde a medida do volume de uma casca esférica é fundamental.
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Cálculo do Gradiente}: Utilizar a regra da cadeia para funções compostas $u = \sigma \circ |\cdot|$. A derivada de $|x|$ é $x/|x|$, e a de $\sigma$ é calculada a partir da definição por partes.
+		\item \textbf{Análise de Suporte}: Verificar a continuidade de $\sigma$ nos pontos de transição ($r=1, r=2$) para garantir a compacidade do suporte.
+		\item \textbf{Integração em $L^p$}: Demonstrar que $u$ e $\nabla u$ são limitados e possuem suporte compacto, o que garante a pertinência a $L^p(\mathbb{R}^n)$.
+		\item \textbf{Mudança de Escala}: Para $u_\varepsilon$, aplicar a regra da cadeia $\nabla [ \sigma(|x|/\varepsilon) ] = \frac{1}{\varepsilon} \sigma'(|x|/\varepsilon) \frac{x}{|x|}$ e calcular a integral no anel $B_{2\varepsilon} \setminus B_\varepsilon$.
+		\item \textbf{Análise do Expoente}: Observar que o termo $\varepsilon^{n-p}$ converge para zero se e somente se a dimensão $n$ for estritamente maior que o expoente $p$.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{(a)} A função $\sigma(r)$ é contínua e Lipschitziana em $[0, \infty)$, com derivada clássica $\sigma'(r)$ dada quase sempre por:
+	$$\sigma'(r) = \begin{cases} 0, & \text{se } r < 1 \\ -1, & \text{se } 1 < r < 2 \\ 0, & \text{se } r > 2 \end{cases}$$
+	A função $u(x) = \sigma(|x|)$ é a composição de $\sigma$ com a norma $|x|$, que é diferenciável em $\mathbb{R}^n \setminus \{0\}$. Pela regra da cadeia:
+	$$\nabla u(x) = \sigma'(|x|) \nabla (|x|) = \sigma'(|x|) \frac{x}{|x|}$$
+	Como $\sigma$ é Lipschitz, $u$ é Lipschitz em $\mathbb{R}^n$. Pelo Teorema de Rademacher, $u$ é derivável quase sempre e sua derivada clássica coincide com a derivada fraca. O módulo do gradiente é:
+	$$|\nabla u(x)| = |\sigma'(|x|)| \left| \frac{x}{|x|} \right| = |\sigma'(|x|)|$$
+	Visto que $\sigma'(r) \in \{0, -1\}$, temos $|\nabla u(x)| \le 1$ q.s. em $\mathbb{R}^n$.
+	
+	\textbf{(b)} Da definição de $\sigma$, temos que $\sigma(r) = 1$ para $r \in [0,1]$ e $\sigma(r) = 0$ para $r \in [2, \infty)$, com transição linear no intervalo $[1,2]$. Logo, $0 \le \sigma(r) \le 1$, o que implica $0 \le u(x) \le 1$.
+	O suporte de $u$ é o fechamento do conjunto onde $u \neq 0$:
+	$$\text{supp } u = \overline{\{x \in \mathbb{R}^n : |x| < 2\}} = \overline{B_2(0)}$$
+	
+	\textbf{(c)} Para $u \in W^{1,p}(\mathbb{R}^n)$, devemos mostrar que $u \in L^p(\mathbb{R}^n)$ e $\nabla u \in L^p(\mathbb{R}^n)$. 
+	Como $u$ é limitada ($|u| \le 1$) e possui suporte compacto $\overline{B_2(0)}$, temos:
+	$$\|u\|_{L^p(\mathbb{R}^n)}^p = \int_{B_2(0)} |u(x)|^p dx \le \int_{B_2(0)} 1^p dx = \text{Vol}(B_2(0)) < \infty$$
+	Analogamente, para o gradiente:
+	$$\|\nabla u\|_{L^p(\mathbb{R}^n)}^p = \int_{B_2(0) \setminus B_1(0)} |-1|^p dx = \text{Vol}(B_2(0) \setminus B_1(0)) < \infty$$
+	Portanto, $u \in W^{1,p}(\mathbb{R}^n)$ para todo $1 \le p \le \infty$.
+	
+	\textbf{(d)} Consideremos $u_\varepsilon(x) = \sigma(|x|/\varepsilon)$. A derivada fraca é dada por:
+	$$\nabla u_\varepsilon(x) = \frac{1}{\varepsilon} \sigma'\left(\frac{|x|}{\varepsilon}\right) \frac{x}{|x|}$$
+	A norma do gradiente em $L^p(\mathbb{R}^n)$ é:
+	$$\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \int_{\mathbb{R}^n} \left| \frac{1}{\varepsilon} \sigma'\left(\frac{|x|}{\varepsilon}\right) \right|^p dx$$
+	A função $\sigma'(|x|/\varepsilon)$ é não nula apenas quando $1 < \frac{|x|}{\varepsilon} < 2$, ou seja, $\varepsilon < |x| < 2\varepsilon$. Nesse anel, $|\sigma'| = 1$. Logo:
+	$$\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \int_{B_{2\varepsilon}(0) \setminus B_\varepsilon(0)} \left( \frac{1}{\varepsilon} \right)^p dx = \frac{1}{\varepsilon^p} \text{Vol}(B_{2\varepsilon}(0) \setminus B_\varepsilon(0))$$
+	Sabendo que $\text{Vol}(B_R(0)) = \alpha(n) R^n$, a medida do anel é $\alpha(n)((2\varepsilon)^n - \varepsilon^n) = \alpha(n)\varepsilon^n(2^n - 1)$. Substituindo:
+	$$\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \frac{\alpha(n)\varepsilon^n(2^n - 1)}{\varepsilon^p} = \alpha(n)(2^n - 1)\varepsilon^{n-p}$$
+	Note que a expressão do enunciado $n\alpha(n)(2^n-1)\varepsilon^{n-p}$ parece referir-se à derivada da medida da bola, mas a integração direta do módulo do gradiente resulta em:
+	$$\boxed{\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \alpha(n)(2^n - 1)\varepsilon^{n-p}}$$
+	
+	\textbf{(e)} Se $n > p$, então o expoente $n-p$ é positivo. Logo:
+	$$\lim_{\varepsilon \to 0} \|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \lim_{\varepsilon \to 0} \alpha(n)(2^n - 1)\varepsilon^{n-p} = 0$$
+	Para a norma da função, temos:
+	$$\|u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \int_{B_{2\varepsilon}(0)} |\sigma(|x|/\varepsilon)|^p dx \le \text{Vol}(B_{2\varepsilon}(0)) = \alpha(n)(2\varepsilon)^n$$
+	Como $n > 0$, $\|u_\varepsilon\|_{L^p(\mathbb{R}^n)} \to 0$ quando $\varepsilon \to 0$. Sendo assim:
+	$$\|u_\varepsilon\|_{W^{1,p}(\mathbb{R}^n)}^p = \|u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p + \|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p \to 0 + 0 = 0$$
+	Concluímos que $\boxed{u_\varepsilon \to 0 \text{ em } W^{1,p}(\mathbb{R}^n)}$ quando $\varepsilon \to 0$.
+}
+
+\sintese{
+	A construção de $u_\varepsilon$ revela um paradoxo interessante da análise em dimensões superiores: é possível ter uma sequência de funções que mantém seu valor máximo constante ($u_\varepsilon(0)=1$), mas cuja norma de Sobolev converge para zero. Isso ocorre porque, enquanto a amplitude da função é preservada, o volume do seu suporte decai mais rapidamente do que o crescimento da inclinação do gradiente, desde que $n > p$.
+}
+
+\aprofundamento{
+	Este resultado é a prova construtiva de que a imersão $W^{1,p}(\mathbb{R}^n) \hookrightarrow L^\infty(\mathbb{R}^n)$ **não existe** para $p \le n$. Se tal imersão existisse, teríamos $\|u_\varepsilon\|_{L^\infty} \le C \|u_\varepsilon\|_{W^{1,p}}$. No entanto, vimos que $\|u_\varepsilon\|_{L^\infty} = 1$ enquanto $\|u_\varepsilon\|_{W^{1,p}} \to 0$, o que levaria à contradição $1 \le 0$. 
+	
+	Este fenômeno distingue fundamentalmente o caso $n=1$ (onde $W^{1,p} \subset L^\infty$ para $p \ge 1$) dos casos $n \ge 2$. É a razão pela qual, em dimensões altas, a regularidade de Sobolev não implica continuidade pontual, exigindo a introdução dos espaços de Hölder ou de expoentes $p > n$ (Teorema de Morrey).
+}
+
 
 \end{document}
