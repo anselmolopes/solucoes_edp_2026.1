@@ -1520,4 +1520,113 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	Este procedimento é a base para a prova do \textbf{Teorema de Extensão de Sobolev}, que afirma que para domínios com fronteira Lipschitz, existe um operador de extensão $E: W^{1,p}(\Omega) \to W^{1,p}(\mathbb{R}^n)$. A reflexão através do grafo é a forma mais simples de construir tal operador localmente. A desigualdade de imersão no item (g) mostra que a extensão é um operador contínuo entre espaços de Sobolev, preservando a regularidade da função original.
 }
 
+%%%% QUESTÃO 105 %%%%
+\questao{Prove diretamente que se $u \in W^{1,p}(J)$, $J = (0, 1) \subset \mathbb{R}$, $1 < p < \infty$, então $u$ satisfaz
+	$$|u(x) - u(y)| \le \|u'\|_{L^p(J)} |x - y|^{1 - \frac{1}{p}}, \text{ para quase todos } x, y \in J.$$
+	Conclua que toda função de $W^{1,p}(J)$ é contínua.}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	A questão solicita a prova de que funções no espaço de Sobolev $W^{1,p}(J)$, com $p > 1$, possuem uma regularidade superior à integrabilidade, especificamente a continuidade de Hölder. A tese é que a diferença pontual de $u$ é controlada pela norma da sua derivada fraca e por uma potência da distância entre os pontos, onde o expoente é determinado pelo conjugado de $p$.
+	
+	\textbf{Fundamentação Teórica:}
+	A base da prova é a representação de funções de Sobolev em dimensão 1. Conforme demonstrado na \textbf{Questão 92}, qualquer $u \in W^{1,p}(J)$ admite um representante absolutamente contínuo, o que permite escrever $u(x) - u(y) = \int_y^x u'(t) dt$. Para estimar essa integral, utilizaremos a \textbf{Desigualdade de Hölder}, que relaciona a norma de um produto com as normas $L^p$ e $L^q$ de seus fatores.
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Representação Integral}: Partir da identidade fundamental do cálculo para funções absolutamente contínuas.
+		\item \textbf{Aplicação de Hölder}: Aplicar a desigualdade de Hölder à integral da derivada, utilizando a função constante $1$ como o segundo fator para extrair a medida do intervalo.
+		\item \textbf{Identificação do Expoente}: Relacionar o expoente do intervalo $|x-y|^{1/q}$ com a relação de conjugação $1/q = 1 - 1/p$.
+		\item \textbf{Conclusão de Continuidade}: Mostrar que a condição de Hölder implica a continuidade uniforme, e portanto, a continuidade em $J$.
+	\end{enumerate}
+}
+
+\solucao{
+	Seja $u \in W^{1,p}(J)$. Como discutido na \textbf{Questão 92}, $u$ possui um representante absolutamente contínuo em $J$. Portanto, para quaisquer $x, y \in J$ com $y < x$, podemos representar a diferença dos valores da função como a integral de sua derivada fraca $u' \in L^p(J)$:
+	$$u(x) - u(y) = \int_y^x u'(t) dt$$
+	Tomando o módulo em ambos os lados e aplicando a propriedade de que o módulo da integral é menor ou igual à integral do módulo, temos:
+	$$|u(x) - u(y)| = \left| \int_y^x u'(t) dt \right| \le \int_y^x |u'(t)| \cdot 1 \, dt$$
+	Agora, aplicamos a \textbf{Desigualdade de Hölder} para os espaços $L^p$ e $L^q$ sobre o intervalo $[y, x]$, onde $q$ é o expoente conjugado de $p$ $\left(\frac{1}{p} + \frac{1}{q} = 1\right)$:
+	$$\int_y^x |u'(t)| \cdot 1 \, dt \le \left( \int_y^x |u'(t)|^p dt \right)^{1/p} \left( \int_y^x 1^q dt \right)^{1/q}$$
+	Analisamos os dois termos da direita:
+	\begin{enumerate}
+		\item O primeiro termo é a norma de $u'$ em $L^p$ restrita ao intervalo $[y, x]$, que é obviamente limitada pela norma global:
+		$$\left( \int_y^x |u'(t)|^p dt \right)^{1/p} \le \left( \int_J |u'(t)|^p dt \right)^{1/p} = \|u'\|_{L^p(J)}$$
+		\item O segundo termo é a medida do intervalo $[y, x]$ elevada a $1/q$:
+		$$\left( \int_y^x 1 \, dt \right)^{1/q} = (x - y)^{1/q} = |x - y|^{1 - \frac{1}{p}}$$
+	\end{enumerate}
+	Substituindo estas estimativas na desigualdade original, obtemos:
+	$$\boxed{|u(x) - u(y)| \le \|u'\|_{L^p(J)} |x - y|^{1 - \frac{1}{p}}}$$
+	
+	Para a conclusão sobre a continuidade, observemos que para qualquer $\varepsilon > 0$, podemos escolher $\delta = \left( \tfrac{\varepsilon}{\|u'\|_{L^p(J)}} \right)^{\frac{1}{1-1/p}}$. Sempre que $|x - y| < \delta$, teremos $|u(x) - u(y)| < \varepsilon$. Isso prova que $u$ é uniformemente contínua em $J$, e consequentemente, $u$ é contínua.
+}
+
+\sintese{
+	A prova demonstra que a integrabilidade da derivada em $L^p$ com $p > 1$ força a função a ter uma variação controlada, impedindo descontinuidades. O fluxo lógico foi: $$\text{Representação Integral} \to \text{Desigualdade de Hölder} \to \text{Condição de Hölder} \to \text{Continuidade}.$$
+}
+
+\aprofundamento{
+	Este resultado é a versão unidimensional da \textbf{Imersão de Morrey}. Em dimensões $n > 1$, a imersão $W^{1,p}(\Omega) \hookrightarrow C^{0, \alpha}(\overline{\Omega})$ só ocorre se $p > n$. No caso $n=1$, a condição $p > 1$ é precisamente $p > n$.
+	
+	Note que se $p = 1$, a desigualdade de Hölder não nos fornece um expoente positivo para $|x-y|$, pois $1 - 1/1 = 0$. De fato, funções em $W^{1,1}(J)$ são absolutamente contínuas, mas não são necessariamente Hölder contínuas para qualquer $\alpha > 0$. Isso ressalta a importância do requisito $p > 1$ para garantir a regularidade de Hölder.
+}
+
+%%%% QUESTÃO 106 %%%%
+\questao{Suponha que $u \in L^p(U)$, $1 < p < \infty$, e que existe $C > 0$ tal que: para todo $\Omega \subset\subset U$ e $|h| < \text{dist}(\Omega, \partial U)$, então
+	$$\|\tau_h u - u\|_{L^p(\Omega)} \le C|h|.$$
+	Mostre que: $u \in W^{1,p}(U)$ e que $\|\nabla u\|_{L^p(U)}$ é a menor constante $C$ na desigualdade acima.}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	A questão solicita a prova de que a limitação do quociente de diferença em $L^p$ é uma condição suficiente para a existência da derivada fraca. A tese divide-se em duas partes: primeiro, provar que a função $u$ pertence ao espaço de Sobolev $W^{1,p}(U)$; segundo, demonstrar que a norma do gradiente fraco é a constante ótima (o ínfimo dos $C$ possíveis) para a desigualdade de translação.
+	
+	\textbf{Fundamentação Teórica:}
+	O núcleo da prova reside na \textbf{Reflexividade dos Espaços $L^p$} para $1 < p < \infty$. De acordo com o Teorema de Banach-Alaoglu, qualquer sequência limitada em um espaço reflexivo admite uma subsequência fracamente convergente. Utilizaremos a definição de derivada fraca via dualidade com funções de teste $\phi \in C_c^\infty(U)$ e a propriedade de que o limite fraco preserva a linearidade da integral.
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Construção do Quociente de Diferença}: Definir a sequência $v_{h,j} = \frac{\tau_{he_j} u - u}{h}$ e utilizar a hipótese para mostrar que esta sequência é limitada em $L^p(\Omega)$.
+		\item \textbf{Extração do Limite Fraco}: Invocar a reflexividade de $L^p(\Omega)$ para encontrar um limite fraco $g_j \in L^p(\Omega)$ para a sequência $v_{h,j}$ quando $h \to 0$.
+		\item \textbf{Identificação da Derivada Fraca}: Utilizar a definição de $\tau_h$ e integração por partes para mostrar que $\int u \partial_j \phi = - \int g_j \phi$, identificando $g_j$ como $\partial_j u$.
+		\item \textbf{Minimality da Constante}: Mostrar que, por propriedades do limite fraco (norma inferiormente semicontínua), $\|\partial_j u\|_{L^p} \le \liminf \|v_{h,j}\|_{L^p} \le C$.
+	\end{enumerate}
+}
+
+\solucao{
+	Seja $\Omega \subset\subset U$ um aberto limitado e $e_j$ o vetor da base canônica. Definimos o quociente de diferença na direção $j$:
+	$$v_{h,j}(x) = \frac{u(x + h e_j) - u(x)}{h} = \frac{(\tau_{h e_j} u)(x) - u(x)}{h}$$
+	Pela hipótese do enunciado, para $|h| < \text{dist}(\Omega, \partial U)$, temos:
+	$$\|v_{h,j}\|_{L^p(\Omega)} = \frac{1}{|h|} \|\tau_{h e_j} u - u\|_{L^p(\Omega)} \le \frac{1}{|h|} C|h| = C$$
+	Assim, para cada $j \in \{1, \dots, n\}$, a sequência $\{v_{h,j}\}_{h \neq 0}$ é limitada na norma de $L^p(\Omega)$. Como $1 < p < \infty$, o espaço $L^p(\Omega)$ é reflexivo. Pelo Teorema de Banach-Alaoglu, existe uma subsequência $h_k \to 0$ e um elemento $g_j \in L^p(\Omega)$ tal que:
+	$$v_{h_k,j} \rightharpoonup g_j \text{ fracamente em } L^p(\Omega), \quad \text{quando } k \to \infty.$$
+	
+	Para provar que $g_j$ é a derivada fraca de $u$, tomemos consideremos qualquer função teste $\phi \in C_c^\infty(\Omega)$. Pela definição de $v_{h,j}$ e mudando a variável de integração ($x \to x - h e_j$):
+	\begin{align*}
+		\int_\Omega v_{h,j}(x) \phi(x) dx &= \int_\Omega \frac{u(x + h e_j) - u(x)}{h} \phi(x) dx \\
+		&= \int_\Omega \frac{u(x) - u(x - h e_j)}{h} \phi(x + h e_j) dx
+	\end{align*}
+	Quando $h \to 0$, o termo $\frac{u(x) - u(x - h e_j)}{h}$ converge fracamente para $g_j$ e $\phi(x + h e_j) \to \phi(x)$ uniformemente. Assim:
+	$$\lim_{h \to 0} \int_\Omega v_{h,j} \phi \, dx = \int_\Omega g_j \phi \, dx$$
+	Por outro lado, utilizando a integração por partes para a função suave $\phi$:
+	$$\int_\Omega u(x) \frac{\partial \phi}{\partial x_j}(x) dx = \lim_{h \to 0} \int_\Omega u(x) \frac{\phi(x + h e_j) - \phi(x)}{h} dx = \lim_{h \to 0} \int_\Omega v_{h,j}(x) \phi(x) dx$$
+	Comparando os dois limites, obtemos:
+	$$\int_\Omega u \frac{\partial \phi}{\partial x_j} dx = \int_\Omega g_j \phi dx \implies \boxed{\int_\Omega u \frac{\partial \phi}{\partial x_j} dx = - \int_\Omega (-g_j) \phi dx}$$
+	Isso prova que a derivada fraca $\frac{\partial u}{\partial x_j}$ existe e é igual a $g_j$ (com o sinal ajustado conforme a definição de derivada fraca). Como isso vale para qualquer $\Omega \subset\subset U$ e $g_j \in L^p(\Omega)$, concluímos que $u \in W^{1,p}(U)$.
+	
+	Para mostrar que $C_{min} = \|\nabla u\|_{L^p(U)}$, utilizamos a propriedade de que a norma é semicontínua inferiormente em relação à convergência fraca:
+	$$\|\partial_j u\|_{L^p(\Omega)} = \|g_j\|_{L^p(\Omega)} \le \liminf_{h \to 0} \|v_{h,j}\|_{L^p(\Omega)} \le C$$
+	Como isso vale para todo $\Omega \subset\subset U$, tomando o supremo sobre $\Omega$, temos $\|\partial_j u\|_{L^p(U)} \le C$ para cada $j$. A menor constante $C$ que satisfaz a desigualdade original para todas as direções e todos os $\Omega$ é precisamente a norma do gradiente fraco:
+	$$\boxed{C_{min} = \|\nabla u\|_{L^p(U)}}$$
+}
+
+\sintese{
+	A prova demonstra a equivalência entre a existência de derivadas fracas e a estabilidade de $L^p$ sob translações. O fluxo lógico foi: $$\text{Limitada em } L^p \to \text{Reflexividade/Limite Fraco} \to \text{Identidade da Derivada Fraca} \to \text{Semicontinuidade da Norma}.$$
+}
+
+\aprofundamento{
+	Este resultado é a base para a definição de espaços de Sobolev via diferenças finitas. Ele mostra que a regularidade de Sobolev não é apenas uma propriedade de "integração por partes", mas sim uma propriedade de \textbf{continuidade modular} da função no espaço $L^p$. 
+	
+	É importante notar que a condição $1 < p < \infty$ é essencial. Se $p = 1$, o espaço $L^1$ não é reflexivo, e uma sequência limitada de quocientes de diferença pode convergir para uma medida (como a Delta de Dirac) em vez de uma função $L^1$. Nesses casos, a função $u$ pertenceria ao espaço de variação limitada $BV(U)$, mas não necessariamente a $W^{1,1}(U)$.
+}
+
 \end{document}
