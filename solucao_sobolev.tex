@@ -777,7 +777,7 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 	
 	\textbf{(b)} Seja $\lambda > 0$ e $e_n = (0, 0, \dots, 1)$ o vetor unitário na direção do último eixo. O operador translação é definido por $(\tau_{\lambda e_n} u)(x) = u(x + \lambda e_n)$.
 	
-	\textit{1. Bem definido}: \\
+	\textit{1. Bem definido}:\par
 	Para que $\tau_{\lambda e_n} u$ esteja bem definida em $U$, devemos garantir que para todo $x \in U$, o ponto $x + \lambda e_n$ também pertença a $U$. 
 	Se $x = (z, x_n) \in U$, então, pelas hipóteses:
 	\begin{align*}
@@ -786,14 +786,14 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 	O ponto transladado é $x + \lambda e_n = (z, x_n + \lambda)$. Como $\lambda > 0$, temos que $x_n + \lambda > x_n > \gamma(z)$.
 	Já que $z$ permanece inalterado, então $z \in B$. Logo, $(z, x_n + \lambda) \in U$. O operador $\tau_{\lambda e_n}$ mapeia $U$ em $U$.
 	
-	\textit{2. Lineariedade}: \\
+	\textit{2. Lineariedade}:\par
 	Para quaisquer $u, v \in L^p(U)$ e $\alpha, \beta \in \mathbb{R}$:
 	\begin{align*}
 		(\tau_{\lambda e_n}(\alpha u + \beta v))(x) = (\alpha u + \beta v)(x + \lambda e_n) = \alpha u(x + \lambda e_n) + \beta v(x + \lambda e_n) = \alpha (\tau_{\lambda e_n} u)(x) + \beta (\tau_{\lambda e_n} v)(x).
 	\end{align*}
 	Donde temos a linearidade.
 	
-	\textit{3. Continuidade e Norma}: \\
+	\textit{3. Continuidade e Norma}:\par
 	Calculamos a norma de $\tau_{\lambda e_n} u$ no espaço $L^p(U)$:
 	$$\|\tau_{\lambda e_n} u\|_{L^p(U)}^p = \int_U |u(x + \lambda e_n)|^p dx$$
 	Efetuamos a mudança de variáveis $y = x + \lambda e_n$. O determinante do Jacobiano desta transformação é $1$. O domínio de integração $U$ transforma-se em $U + \lambda e_n$:
@@ -814,10 +814,10 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 	
 	\textbf{(c)} Seja $h = (h', h_n) \in \mathbb{R}^n$ com $h' \in \mathbb{R}^{n-1}$. Se $h$ não é um múltiplo positivo de $e_n$, então ou $h' \neq 0$ ou $h_n \le 0$.
 	
-	\textit{Caso 1: $h' \neq 0$ (Componente lateral)} \\
+	\textit{Caso 1: $h' \neq 0$ (Componente lateral)}\par
 	Como $B$ é uma bola aberta, se $h' \neq 0$, existe um conjunto $A \subset B$ de medida positiva tal que $A + h' \not\subset B$. Para qualquer $z \in A$ tal que $z + h' \notin B$ e qualquer $x_n > \gamma(z)$, o ponto $x = (z, x_n) \in U$, mas $x + h = (z + h', x_n + h_n) \notin U_0$. Logo, $x+h \notin U$.
 	
-	\textit{Caso 2: $h' = 0$ e $h_n \le 0$ (Componente vertical não-positiva)} \\
+	\textit{Caso 2: $h' = 0$ e $h_n \le 0$ (Componente vertical não-positiva)}\par
 	Se $h' = 0$, temos $x+h = (z, x_n + h_n)$. 
 	\begin{itemize}
 		\item Se $h_n = 0$, $\tau_h$ é a identidade (excluída por hipótese).
@@ -827,10 +827,10 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 	
 	\textbf{(d)} Seja $V_\lambda = \{ (z, x_n) \in U_0 : z \in B, x_n > \gamma(z) - \lambda \}$.
 	
-	\textit{1. Bem definido}: \\
+	\textit{1. Bem definido}:\par
 	Se $x = (z, x_n) \in U$, então $z \in B$ e $x_n > \gamma(z)$. Para $\lambda > 0$, o ponto transladado $x + \lambda e_n = (z, x_n + \lambda)$ satisfaz $x_n + \lambda > \gamma(z) > \gamma(z) - \lambda$. Logo, $x + \lambda e_n \in V_\lambda$, o que torna $\tau_{\lambda e_n} : L^p(V_\lambda) \to L^p(U)$ bem definido.
 	
-	\textit{2. Demonstração do limite}: \\
+	\textit{2. Demonstração do limite}:\par
 	Seja $v \in L^p(V_\lambda)$. Definimos a extensão por zero $\tilde{v} \in L^p(\mathbb{R}^n)$ como $\tilde{v}(x) = v(x)$ se $x \in V_\lambda$ e $0$ caso contrário. Para $t > 0$ suficientemente pequeno ($t < \lambda$), temos $x \in U \implies x + t e_n \in V_\lambda$. Assim, para $x \in U$:
 	$$(\tau_{t e_n} v)(x) = v(x + t e_n) = \tilde{v}(x + t e_n) = (\tau_{t e_n} \tilde{v})(x)$$
 	A norma em $L^p(U)$ satisfaz:
@@ -947,13 +947,13 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 \questao{Mostre que cada função $u$ de $W^{1,\infty}(I)$ são de Lipschitz com constante $\|u'\|_{L^\infty(I)}$.}
 
 \analise{
-	\textbf{Análise do Enunciado}
+	\textbf{Análise do Enunciado:}
 	A questão solicita a demonstração de que qualquer função pertencente ao espaço de Sobolev $W^{1,\infty}(I)$, onde $I \subset \mathbb{R}$ é um intervalo, admite um representante que é Lipschitz contínuo. A tese central é que a constante de Lipschitz $L$ é precisamente a norma $L^\infty$ da derivada fraca $u'$.
 	
-	\textbf{Fundamentação Teórica}
+	\textbf{Fundamentação Teórica:}
 	A prova fundamenta-se na relação entre a derivada fraca e a continuidade absoluta. De acordo com a teoria de espaços de Sobolev em dimensão 1, toda função $u \in W^{1,p}(I)$ possui um representante $\tilde{u}$ que é absolutamente contínua em $I$. Para tal representante, o Teorema Fundamental do Cálculo é válido, permitindo expressar a diferença $u(x) - u(y)$ como a integral de sua derivada fraca.
 	
-	\textbf{Estratégias}
+	\textbf{Estratégias:}
 	\begin{enumerate}
 		\item \textbf{Representação Integral}: Utilizar a propriedade de que funções em $W^{1, \infty}(I)$ são absolutamente contínuas, escrevendo a variação da função como a integral da derivada fraca sobre o intervalo $[y, x]$.
 		\item \textbf{Estimativa de Norma}: Aplicar a definição de norma $L^\infty$ para limitar a função integranda por $\|u'\|_{L^\infty(I)}$.
@@ -993,13 +993,13 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 %%%% QUESTÃO 98 %%%%
 \questao{Suponha que $u$ é limitada e também uma função de Lipschitz em $I = (a, b)$, ou seja, $|u(x) - u(y)| \le c|x - y|$, para todo $x, y \in I$. Suponha que $I$ é um intervalo limitado e mostre que:
 	\begin{enumerate}[label=(\alph*)]
-		\item Para cada $\phi \in C_c^\infty(I)$ e $|h| < \min\{b - b_1, a_1 - a\}$ com $\text{supp } \phi \subset [a_1, b_1] \subset I$, vale:
+		\item Para cada $\phi \in C_c^\infty(I)$ e $|h| < \min\{b - b_1, a_1 - a\}$ com $\supp \phi \subset [a_1, b_1] \subset I$, vale:
 		$$\left| \int_a^b u(t)[\phi(t+h) - \phi(t)] dt \right| \le c|h| \int_I |\phi|;$$
 		\item Consequentemente, para cada $1 < p < \infty$, $u \in L^p(I)$ e
 		$$\left| \int_I u \phi' \right| \le c |I|^{1/p} \|\phi\|_{L^{p'}(I)}, \quad \forall \phi \in C_c^\infty(I);$$
 		\item Conclua que $u \in W^{1,p}(I)$ e $\|u'\|_{L^p(I)} \le c|I|^{1/p}$;
 		\item Conclua que $u \in W^{1,\infty}(I)$ e $\|u'\|_{L^\infty(I)} \le c$.
-\end{enumerate}}
+	\end{enumerate}}
 
 \analise{
 	\textbf{Análise do Enunciado:}
@@ -1066,13 +1066,13 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 \questao{Mostre que $C_c^\infty(\mathbb{R}^n)$ é denso em $W^{1,p}(\mathbb{R}^n)$. Conclua que $W^{1,p}(\mathbb{R}^n) = W_0^{1,p}(\mathbb{R}^n)$.}
 
 \analise{
-	\textbf{Análise do Enunciado}
+	\textbf{Análise do Enunciado:}
 	A questão exige a prova de que qualquer função $u \in W^{1,p}(\mathbb{R}^n)$ pode ser aproximada, na norma de Sobolev, por uma sequência de funções suaves com suporte compacto. A tese final é a identidade entre o espaço $W^{1,p}(\mathbb{R}^n)$ e o seu subespaço $W_0^{1,p}(\mathbb{R}^n)$, que é definido como o fecho de $C_c^\infty(\mathbb{R}^n)$.
 	
-	\textbf{Fundamentação Teórica}
+	\textbf{Fundamentação Teórica:}
 	A prova utiliza a técnica de truncação via funções de corte (\textit{cutoff functions}) e a regularização por convolução. Para funções definidas em todo o espaço $\mathbb{R}^n$, a convolução simples $u * \eta_\varepsilon$ converge para $u$ na norma $W^{1,p}$, mas não preserva a compacidade do suporte. Para resolver isso, multiplicamos $u$ por uma função $\rho_R$ que anula a função fora de uma bola de raio $2R$, permitindo a subsequente suavização.
 	
-	\textbf{Estratégias}
+	\textbf{Estratégias:}
 	\begin{enumerate}
 		\item \textbf{Aproximação por Suporte Compacto}: Definir $\rho \in C_c^\infty(\mathbb{R}^n)$ e a sequência $u_R = u \rho_R$. Provar que $u_R \to u$ em $W^{1,p}(\mathbb{R}^n)$ quando $R \to \infty$, detalhando a convergência da integral da cauda e o decaimento do termo do gradiente.
 		\item \textbf{Aproximação por Suavização}: Para cada $u_R$ fixo, aplicar a convolução $v_{R,\varepsilon} = u_R * \eta_\varepsilon$. Provar que $v_{R,\varepsilon} \to u_R$ em $W^{1,p}(\mathbb{R}^n)$ quando $\varepsilon \to 0$, utilizando as propriedades de identidades aproximadas.
@@ -1084,7 +1084,7 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 \solucao{
 	Seja $u \in W^{1,p}(\mathbb{R}^n)$. Construiremos a aproximação em duas etapas: primeiro restringindo o suporte e, depois, suavizando a função.
 	
-	\textit{Passo 1: Truncação via função de corte} \\
+	\textit{Passo 1: Truncação via função de corte}\par
 	Seja $\rho \in C_c^\infty(\mathbb{R}^n)$ uma função tal que $0 \le \rho \le 1$, $\rho(x) = 1$ para $|x| \le 1$ e $\rho(x) = 0$ para $|x| \ge 2$. Para $R > 0$, definimos a função de corte $\rho_R(x) = \rho(x/R)$. Note que $\rho_R \in C_c^\infty(\mathbb{R}^n)$ com $\text{supp}(\rho_R) \subset \overline{B_{2R}(0)}$. Definimos a sequência $u_R = u \rho_R$.
 	
 	Analisamos a convergência de $u_R$ para $u$ em $L^p(\mathbb{R}^n)$:
@@ -1101,21 +1101,21 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 	$$\|u \nabla \rho_R\|_{L^p(\mathbb{R}^n)}^p = \int_{R < |x| < 2R} |u(x)|^p |\nabla \rho_R(x)|^p dx \le \frac{C^p}{R^p} \int_{R < |x| < 2R} |u(x)|^p dx \le \frac{C^p}{R^p} \|u\|_{L^p(\mathbb{R}^n)}^p$$
 	Como $p \ge 1$ e $R \to \infty$, o termo $\frac{C^p}{R^p} \to 0$. Concluímos que $u_R \to u$ na norma $\|\cdot\|_{W^{1,p}(\mathbb{R}^n)}$.
 	
-	\textit{Passo 2: Regularização por Convolução} \\
+	\textit{Passo 2: Regularização por Convolução}\par
 	Para cada $R$ fixo, $u_R$ possui suporte compacto em $B_{2R}(0)$. Definimos $v_{R,\varepsilon} = u_R * \eta_\varepsilon$, onde $\eta_\varepsilon$ é a função regularizante da Questão 4. Visto que $u_R \in W^{1,p}(\mathbb{R}^n)$ com suporte compacto, a função $v_{R,\varepsilon}$ é de classe $C^\infty(\mathbb{R}^n)$ e possui suporte compacto em $B_{2R+\varepsilon}(0)$.
 	
 	Pelas propriedades de identidades aproximadas (Questão 4), sabemos que:
 	$$\|u_R - v_{R,\varepsilon}\|_{L^p(\mathbb{R}^n)} \to 0 \quad \text{e} \quad \|\nabla u_R - \nabla v_{R,\varepsilon}\|_{L^p(\mathbb{R}^n)} \to 0, \quad \text{quando } \varepsilon \to 0.$$
 	Portanto, $\|u_R - v_{R,\varepsilon}\|_{W^{1,p}(\mathbb{R}^n)} \to 0$.
 	
-	\textit{Passo 3: Conclusão da Densidade} \\
+	\textit{Passo 3: Conclusão da Densidade}\par
 	Dos passos 1 e 2, para qualquer $\delta > 0$, podemos escolher $R$ tal que $\|u - u_R\|_{W^{1,p}(\mathbb{R}^n)} < \delta/2$ e, para este $R$, escolhemos $\varepsilon$ tal que 
 	$$\|u_R - v_{R,\varepsilon}\|_{W^{1,p}(\mathbb{R}^n)} < \delta/2.$$
 	Pela desigualdade triangular:
 	$$\|u - v_{R,\varepsilon}\|_{W^{1,p}(\mathbb{R}^n)} \le \|u - u_R\|_{W^{1,p}(\mathbb{R}^n)} + \|u_R - v_{R,\varepsilon}\|_{W^{1,p}(\mathbb{R}^n)} < \delta$$
 	Como $v_{R,\varepsilon} \in C_c^\infty(\mathbb{R}^n)$, provamos que $C_c^\infty(\mathbb{R}^n)$ é denso em $W^{1,p}(\mathbb{R}^n)$.
 	
-	\textit{Passo 4: Igualdade dos Espaços} \\
+	\textit{Passo 4: Igualdade dos Espaços}\par
 	O espaço $W_0^{1,p}(\mathbb{R}^n)$ é definido como o fecho de $C_c^\infty(\mathbb{R}^n)$ na norma de $W^{1,p}(\mathbb{R}^n)$. Como acabamos de mostrar que qualquer $u \in W^{1,p}(\mathbb{R}^n)$ é o limite de uma sequência em $C_c^\infty(\mathbb{R}^n)$, segue que:
 	$$\boxed{W^{1,p}(\mathbb{R}^n) = W_0^{1,p}(\mathbb{R}^n)}$$
 }
@@ -1322,5 +1322,202 @@ Se $p \ge n$, a situação muda drasticamente. Para $p > n$, a imersão de Morre
 	Isso prova que a constante $1$ não pertence ao espaço $W_0^{1,p}(B_1(0))$ para $p > 1$. Em termos de análise funcional, isso significa que a aplicação de traço $T: W^{1,p}(B_1) \to L^p(\partial B_1)$ é bem definida e não trivial: a condição de ``ser zero na fronteira'' impõe uma restrição real e rigorosa à função, que não pode ser ignorada através de aproximações suaves sem que a norma de Sobolev exploda.
 }
 
+%%%% QUESTÃO 103 %%%%
+\questao{Seja $u \in W^{1,p}(U)$. Mostre que para toda $\phi \in C^1(\overline{U}) \cap W^{1,q}(U)$ (aqui $U$ pode ser não limitado), $\frac{1}{p} + \frac{1}{q} = 1$, tal que $\phi = 0$ sobre $\partial U$:
+	$$\int_U u \frac{\partial \phi}{\partial x_j} dx = - \int_U \phi \frac{\partial u}{\partial x_j} dx.$$
+}
+	
+\analise{
+\textbf{Análise do Enunciado:} 
+A questão solicita a extensão da fórmula de integração por partes (definidora da derivada fraca) para funções de teste que não possuem, necessariamente, suporte compacto, mas que pertencem ao espaço $W^{1,q}(U)$ e anulam-se na fronteira. O desafio principal reside no fato de que, se $U$ for não limitado, a integral pode divergir ou apresentar termos de borda no infinito. A tese é que a integrabilidade de $u$ em $L^p$ e de $\phi$ em $W^{1,q}$ é suficiente para garantir que a identidade de integração por partes permaneça válida.
+
+\textbf{Fundamentação Teórica:}
+A prova baseia-se na densidade de $C_c^\infty(U)$ em $W_0^{1,q}(U)$ e na técnica de truncação via funções de corte ($\rho_R$), já explorada na \textbf{Questão 99}. Utilizaremos a \textbf{Desigualdade de Hölder} para controlar os produtos $u \partial_j \phi$ e $\phi \partial_j u$, visto que a soma dos inversos dos expoentes é unitária, $1/p + 1/q = 1$.
+
+\textbf{Estratégias:}
+\begin{enumerate}
+	\item \textbf{Construção da Função de Corte}: Definir uma sequência $\rho_R \in C_c^\infty(\mathbb{R}^n)$ tal que $\rho_R = 1$ em $B_R(0)$ e $\rho_R = 0$ fora de $B_{2R}(0)$.
+	\item \textbf{Regularização do Teste}: Definir $\phi_R = \phi \rho_R$. Visto que $\phi = 0$ em $\partial U$, a função $\phi_R$ terá suporte compacto em $U$, permitindo o uso da definição de derivada fraca de $u$.
+	\item \textbf{Expansão da Derivada}: Aplicar a regra do produto $\partial_j \phi_R = \rho_R \partial_j \phi + \phi \partial_j \rho_R$ e analisar a integral resultante.
+	\item \textbf{Passagem ao Limite}: Demonstrar que, quando $R \to \infty$, o termo envolvendo $\partial_j \rho_R$ tende a zero e o termo com $\rho_R \partial_j \phi$ converge para a integral original via Teorema da Convergência Dominada.
+\end{enumerate}
+}
+
+\solucao{
+Seja $\rho \in C_c^\infty(\mathbb{R}^n)$ tal que $0 \le \rho \le 1$, $\rho(x) = 1$ para $|x| \le 1$ e $\rho(x) = 0$ para $|x| \ge 2$. Para cada $R > 0$, definimos $\rho_R(x) = \rho(x/R)$. 
+
+Consideremos a função $\phi_R(x) = \phi(x) \rho_R(x)$. Como $\phi = 0$ em $\partial U$ e $\rho_R$ tem suporte compacto em $B_{2R}(0)$, a função $\phi_R$ possui suporte compacto contido em $U$. Portanto, $\phi_R$ é uma função de teste válida para a definição de derivada fraca de $u \in W^{1,p}(U)$. Assim, temos:
+$$\int_U u \frac{\partial \phi_R}{\partial x_j} dx = - \int_U \phi_R \frac{\partial u}{\partial x_j} dx \quad (\ast_1)$$
+
+Expandindo a derivada $\frac{\partial \phi_R}{\partial x_j}$ pela regra do produto, obtemos:
+$$\int_U u \left( \rho_R \frac{\partial \phi}{\partial x_j} + \phi \frac{\partial \rho_R}{\partial x_j} \right) dx = - \int_U \phi \rho_R \frac{\partial u}{\partial x_j} dx$$
+$$\int_U \rho_R u \frac{\partial \phi}{\partial x_j} dx + \int_U u \phi \frac{\partial \rho_R}{\partial x_j} dx = - \int_U \phi \rho_R \frac{\partial u}{\partial x_j} dx \quad (\ast_2)$$
+
+Analisamos agora o comportamento de cada termo quando $R \to \infty$:
+
+\textit{1. O termo $\int_U \rho_R u \frac{\partial \phi}{\partial x_j} dx$}: Como $u \in L^p(U)$ e $\frac{\partial \phi}{\partial x_j} \in L^q(U)$, o produto $u \frac{\partial \phi}{\partial x_j}$ pertence a $L^1(U)$ por Hölder. Visto que $\rho_R(x) \to 1$ pontualmente quando $R \to \infty$ e $|\rho_R| \le 1$, o Teorema da Convergência Dominada garante que:
+$$\lim_{R \to \infty} \int_U \rho_R u \frac{\partial \phi}{\partial x_j} dx = \int_U u \frac{\partial \phi}{\partial x_j} dx$$
+
+\textit{2. O termo $\int_U \phi \rho_R \frac{\partial u}{\partial x_j} dx$}:
+De forma análoga, como $\phi \in L^q(U)$ e $\frac{\partial u}{\partial x_j} \in L^p(U)$, o produto $\phi \frac{\partial u}{\partial x_j}$ é integrável. Assim:
+$$\lim_{R \to \infty} - \int_U \phi \rho_R \frac{\partial u}{\partial x_j} dx = - \int_U \phi \frac{\partial u}{\partial x_j} dx$$
+
+\textit{3. O termo de erro $\int_U u \phi \frac{\partial \rho_R}{\partial x_j} dx$}:
+Lembremos que $\nabla \rho_R(x) = \frac{1}{R} \nabla \rho(x/R)$. Logo, $|\frac{\partial \rho_R}{\partial x_j}| \le \frac{C}{R}$ para alguma constante $C$. Temos:
+$$\left| \int_U u \phi \frac{\partial \rho_R}{\partial x_j} dx \right| \le \int_{R < |x| < 2R} |u \phi| \frac{C}{R} dx \le \frac{C}{R} \int_{R < |x| < 2R} |u \phi| dx$$
+Como $u \in L^p(U)$ e $\phi \in L^q(U)$, a integral $\int_U |u \phi| dx$ é finita (Hölder). Portanto, a integral sobre a casca anular tende a zero quando $R \to \infty$. Além disso, o fator $1/R$ acelera essa convergência:
+$$\lim_{R \to \infty} \int_U u \phi \frac{\partial \rho_R}{\partial x_j} dx = 0$$
+
+Substituindo esses limites na identidade $(\ast_2)$, obtemos finalmente:
+$$\boxed{\int_U u \frac{\partial \phi}{\partial x_j} dx = - \int_U \phi \frac{\partial u}{\partial x_j} dx}$$
+}
+
+\sintese{
+A prova demonstra que a integrabilidade global de $u$ e $\phi$ em espaços conjugados ($L^p$ e $L^q$) é suficiente para anular a contribuição da fronteira no infinito. O fluxo lógico foi: 
+$$\text{Construção de } \phi_R \in C_c^\infty \to \text{Controle do termo de erro via } \nabla \rho_R \to \text{Limite por Convergência Dominada}.$$
+}
+
+\aprofundamento{
+Este resultado é fundamental para a definição de operadores diferenciais em domínios não limitados. Ele prova que a integração por partes não requer suporte compacto, desde que a função e sua derivada \textbf{decaiam} suficientemente rápido no infinito para pertencerem a $L^p$ e $L^q$. 
+
+Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espaço de Sobolev $W^{1,p}(\mathbb{R}^n)$ comporta-se como se a função fosse nula lá. Esse princípio é a base para a aplicação de transformadas de Fourier e para a prova de que $W^{1,p}(\mathbb{R}^n) = W_0^{1,p}(\mathbb{R}^n)$, como visto na Questão 99.
+}
+
+%%%% QUESTÃO 104 %%%%
+\questao{Considere $r > 0$, $B = B_r(x_0) \subset \mathbb{R}^{n-1}$, $x_0 \in \mathbb{R}^{n-1}$, e uma função $\psi : B \to \mathbb{R}$ de classe $C^1(\overline{B})$. Defina
+	\begin{align*}
+		Q_+ &= \{z = (x, x_n) : \psi(x) < x_n < \psi(x) + r\}, \\
+		Q_- &= \{w = (x, y_n) : \psi(x) - r < y_n < \psi(x)\}, \\
+		G &= \{z = (x, x_n) : x_n = \psi(x)\}, \\
+		H &: B \times \mathbb{R} \to B \times \mathbb{R} \text{ dado por } H(x, x_n) = (x, 2\psi(x) - x_n) \\
+		\text{e } Q &= \{z = (x, x_n) : \psi(x) - r < x_n < \psi(x) + r\}.
+	\end{align*}
+	Mostre que:
+	\begin{enumerate}[label=(\alph*)]
+		\item $Q = Q_- \cup G \cup Q_+$;
+		\item $H(Q_+) = Q_-$, $H(Q_-) = Q_+$ e $H \circ H = I$, ou seja, $H(H(x, x_n)) = (x, x_n)$;
+		\item $\det H'(z) = -1$ e para $f \in L^p(Q_+)$
+		$$\int_{Q_-} f(H(w))g(w) dw = \int_{Q_+} f(z)g(H(z)) dz;$$
+		\item Se $u \in W^{1,p}(Q_+)$ é tal que $\supp u \subset Q_+ \cup G$, mostre que
+		$$u^*(z) = \begin{cases} u(z), & z \in Q_+ \\ u(H(z)), & z = (x, x_n) \in Q_- \end{cases}$$
+		está em $W^{1,p}(Q)$;
+		\item Para $j = 1, 2, \dots, n-1$:
+		$$\frac{\partial u^*}{\partial x_j}(z) = \begin{cases} \tfrac{\partial u}{\partial x_j}(z), & z \in Q_+ \\ \tfrac{\partial u}{\partial x_j}(H(z)) + 2 \tfrac{\partial u}{\partial x_n}(H(z)) \tfrac{\partial \psi}{\partial x_j}(x), & z = (x, x_n) \in Q_- \end{cases}$$
+		\item Quando $j = n$:
+		$$\frac{\partial u^*}{\partial x_n}(z) = \begin{cases} \tfrac{\partial u}{\partial x_n}(z), & z \in Q_+ \\ 	
+		- \tfrac{\partial u}{\partial x_n}(H(z)), & z = (x, x_n) \in Q_- \end{cases}$$
+		\item Mostre uma desigualdade de imersão assim: Existe uma constante $C = C(\|\psi\|_\infty, \|\nabla \psi\|_\infty)$ tal que:
+		$$\|u^*\|_{W^{1,p}(Q)} \le C \|u\|_{W^{1,p}(Q_+)}$$
+\end{enumerate}}
+
+\analise{
+	\textbf{Análise do Enunciado:}
+	O problema propõe a construção de uma extensão por reflexão de uma função de Sobolev definida em um domínio limitado superiormente por um grafo. O ponto central é a definição do mapa $H$, que reflete pontos de $Q_+$ em $Q_-$ em relação à superfície $G$. A principal dificuldade técnica reside no fato de que $H$ não é uma isometria linear, mas uma transformação dependente da geometria de $\psi$, o que altera a expressão das derivadas via regra da cadeia e requer o uso do determinante do Jacobiano para a mudança de variáveis em $L^p$.
+	
+	\textbf{Fundamentação Teórica:}
+	A prova baseia-se na definição de derivada fraca e no teorema de mudança de variáveis para integrais múltiplas. Para provar que $u^* \in W^{1,p}(Q)$, utilizaremos a propriedade de que a função $u$ anula-se no traço sobre $G$ ($\supp u \subset Q_+ \cup G$), eliminando a contribuição de saltos na interface durante a integração por partes.
+	
+	\textbf{Estratégias:}
+	\begin{enumerate}
+		\item \textbf{Verificação Geométrica}: Provar a partição de $Q$ e as propriedades do mapa $H$ via substituição direta nas definições de $Q_+$ e $Q_-$.
+		\item \textbf{Cálculo do Jacobiano}: Calcular a matriz derivada $H'$ e seu determinante para validar a mudança de variáveis em $L^p$.
+		\item \textbf{Validação do Espaço de Sobolev}: Usar a definição de derivada fraca e a hipótese de suporte para mostrar que a junção de $u$ e $u \circ H$ não gera distribuições singulares (como a Delta de Dirac) na superfície $G$.
+		\item \textbf{Regra da Cadeia}: Aplicar a diferenciação de funções compostas para derivar $u^*(z) = u(H(z))$, considerando a dependência de $H$ em relação a $x$ e $x_n$.
+		\item \textbf{Estimativa de Norma}: Utilizar a limitação de $\nabla \psi$ e a mudança de variáveis para cotar a norma de $u^*$ em termos da norma de $u$.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{(a)} O conjunto $Q$ é definido como $Q = \{ (x, x_n) \in B \times \mathbb{R} : \psi(x) - r < x_n < \psi(x) + r \}$.
+	Para qualquer ponto $z = (x, x_n) \in Q$, a componente $x_n$ deve satisfazer a desigualdade $\psi(x) - r < x_n < \psi(x) + r$. Pela lei da ordem em $\mathbb{R}$, existem três possibilidades para $x_n$ em relação a $\psi(x)$:
+	\begin{enumerate}
+		\item $x_n > \psi(x)$: Neste caso, combinando com a definição de $Q$, temos $\psi(x) < x_n < \psi(x) + r$, o que implica $z \in Q_+$.
+		\item $x_n < \psi(x)$: Neste caso, temos $\psi(x) - r < x_n < \psi(x)$, o que implica $z \in Q_-$.
+		\item $x_n = \psi(x)$: Neste caso, o ponto satisfaz a condição de igualdade, logo $z \in G$.
+	\end{enumerate}
+	Como cada ponto de $Q$ cai necessariamente em um desses três casos, segue que $\boxed{Q = Q_- \cup G \cup Q_+}$.
+	
+	\textbf{(b)} Seja $z = (x, x_n)$. O mapa de reflexão é $H(z) = (x, 2\psi(x) - x_n)$.
+	\begin{itemize}
+		\item Se $z \in Q_+$, então $\psi(x) < x_n < \psi(x) + r$. Multiplicando por $-1$, temos $-\psi(x) - r < -x_n < -\psi(x)$. Somando $2\psi(x)$ em todos os termos:
+		$$\psi(x) - r < 2\psi(x) - x_n < \psi(x)$$
+		Isso prova que $H(z) \in Q_-$.
+		\item Se $z \in Q_-$, então $\psi(x) - r < x_n < \psi(x)$. Multiplicando por $-1$, temos $-\psi(x) < -x_n < -\psi(x) + r$. Somando $2\psi(x)$:
+		$$\psi(x) < 2\psi(x) - x_n < \psi(x) + r$$
+		Isso prova que $H(z) \in Q_+$.
+	\end{itemize}
+	Finalmente, para a involução $H \circ H$:
+	$$H(H(x, x_n)) = H(x, 2\psi(x) - x_n) = (x, 2\psi(x) - (2\psi(x) - x_n)) = (x, x_n)$$
+	Logo, $\boxed{H \circ H = I}$.
+	
+	\textbf{(c)} A matriz Jacobiana de $H$ é obtida derivando $H_k$ em relação a $z_j$. Para $k < n$, $H_k(x, x_n) = x_k$, logo $\partial_j H_k = \delta_{jk}$. Para $k = n$, $H_n(x, x_n) = 2\psi(x) - x_n$, logo $\partial_j H_n = 2\partial_j \psi(x)$ para $j < n$ e $\partial_n H_n = -1$. A matriz é:
+	$$H'(z) = \begin{pmatrix} 
+		1 & \dots & 0 & 0 \\ 
+		\vdots & \ddots & \vdots & \vdots \\ 
+		0 & \dots & 1 & 0 \\ 
+		2\partial_1 \psi(x) & \dots & 2\partial_{n-1} \psi(x) & -1 
+	\end{pmatrix}$$
+	O determinante de uma matriz triangular inferior é o produto dos elementos da diagonal: $\det H' = (1)^{n-1} \cdot (-1) = -1$.
+	Para a integral, usamos a mudança de variáveis $z = H(w)$. O Jacobiano é $|\det H'| = 1$. Como $H(Q_-) = Q_+$, temos:
+	$$\int_{Q_-} f(H(w))g(w) dw = \int_{Q_+} f(z)g(H(z)) \frac{1}{|\det H'|} dz = \int_{Q_+} f(z)g(H(z)) dz$$
+	
+	\textbf{(d)} Para provar que $u^* \in W^{1,p}(Q)$, devemos mostrar que existe um vetor $\mathbf{g} \in L^p(Q; \mathbb{R}^n)$ tal que, para toda função de teste $\phi \in C_c^\infty(Q)$, a identidade $\int_Q u^* \partial_j \phi \, dx = - \int_Q g_j \phi \, dx$ seja satisfeita para cada $j=1, \dots, n$.
+	
+	Definimos o candidato a derivada fraca $g_j$ como a função que coincide com $\partial_j u$ em $Q_+$ e com as expressões deduzidas nos itens \textbf{(e)} e \textbf{(f)} em $Q_-$. Consideremos a integral:
+	$$\int_Q u^* \partial_j \phi \, dx = \int_{Q_+} u \partial_j \phi \, dx + \int_{Q_-} u(H(z)) \partial_j \phi(z) dz \quad (\ast_1)$$
+	No primeiro termo, aplicamos a fórmula de integração por partes para funções de Sobolev. Como $u \in W^{1,p}(Q_+)$, temos:
+	$$\int_{Q_+} u \partial_j \phi \, dx = - \int_{Q_+} \partial_j u \phi \, dx + \int_{\partial Q_+} u \phi \nu_j d\sigma$$
+	Onde $\nu$ é a normal exterior a $Q_+$. A fronteira $\partial Q_+$ contém a superfície $G$. A hipótese $\text{supp } u \subset Q_+ \cup G$ implica que $u$ anula-se no traço sobre a fronteira $\partial Q_+ \setminus G$ (pois $\phi$ tem suporte compacto em $Q$) e, crucialmente, que o traço de $u$ sobre $G$ é nulo ($u|_G = 0$). Portanto, a integral de superfície $\int_{\partial Q_+} u \phi \nu_j d\sigma$ é nula.
+	
+	Para o segundo termo em $(\ast_1)$, efetuamos a mudança de variáveis $z = H(w)$. Como $\det H' = -1$, temos $dz = dw$ e $H(Q_-) = Q_+$. A integral torna-se:
+	$$\int_{Q_-} u(H(z)) \partial_j \phi(z) dz = \int_{Q_+} u(w) \partial_j \phi(H(w)) dw$$
+	Agora, aplicamos novamente a integração por partes em $Q_+$ para a função $u(w)$:
+	$$\int_{Q_+} u(w) \partial_j (\phi \circ H)(w) dw = - \int_{Q_+} \partial_j u(w) \phi(H(w)) dw + \int_{\partial Q_+} u(w) \phi(H(w)) \nu_j d\sigma$$
+	Novamente, a integral de superfície anula-se pois $u|_G = 0$. Retornando para a variável $z$ via $w = H(z)$, obtemos:
+	$$\int_{Q_-} u(H(z)) \partial_j \phi(z) dz = - \int_{Q_-} \left[ \nabla u(H(z)) \cdot \partial_j H(z) \right] \phi(z) dz$$
+	Somando as duas contribuições, a integral total sobre $Q$ é:
+	$$\int_Q u^* \partial_j \phi \, dx = - \left( \int_{Q_+} \partial_j u \phi \, dx + \int_{Q_-} \left[ \nabla u(H(z)) \cdot \partial_j H(z) \right] \phi(z) dz \right)$$
+	Esta expressão coincide exatamente com a definição de derivada fraca $\int_Q u^* \partial_j \phi \, dx = - \int_Q \partial_j u^* \phi \, dx$, onde $\partial_j u^*$ é a função definida por partes nos itens seguintes. Como $u \in W^{1,p}(Q_+)$ e $|\det H'|=1$, a função resultante pertence a $L^p(Q)$. Logo, $\boxed{u^* \in W^{1,p}(Q)}$.
+	
+	\textbf{(e)} Para $z \in Q_-$, temos a definição $u^*(z) = u(H(z))$. Para calcular a derivada fraca em relação a $x_j$ ($j < n$), aplicamos a regra da cadeia para funções em espaços de Sobolev:
+	$$\frac{\partial u^*}{\partial x_j}(z) = \sum_{k=1}^{n} \frac{\partial u}{\partial x_k}(H(z)) \frac{\partial H_k}{\partial x_j}(z) \quad (\ast_2)$$
+	Analisamos as derivadas parciais do mapa de reflexão $H(x, x_n) = (x_1, \dots, x_{n-1}, 2\psi(x) - x_n)$:
+	\begin{itemize}
+		\item Para $k < n$, $H_k = x_k$, logo $\frac{\partial H_k}{\partial x_j} = \delta_{kj}$.
+		\item Para $k = n$, $H_n = 2\psi(x) - x_n$, logo $\frac{\partial H_n}{\partial x_j} = 2\partial_j \psi(x)$.
+	\end{itemize}
+	Substituindo esses valores em $(\ast_2)$, obtemos:
+	$$\frac{\partial u^*}{\partial x_j}(z) = \frac{\partial u}{\partial x_j}(H(z)) \cdot 1 + \frac{\partial u}{\partial x_n}(H(z)) \cdot 2\partial_j \psi(x)$$
+	$$\boxed{\frac{\partial u^*}{\partial x_j}(z) = \frac{\partial u}{\partial x_j}(H(z)) + 2 \frac{\partial u}{\partial x_n}(H(z)) \frac{\partial \psi}{\partial x_j}(x), \quad z \in Q_-}$$
+	
+	\textbf{(f)} Para $j = n$, aplicamos a mesma regra da cadeia $(\ast_2)$. Observamos que:
+	\begin{itemize}
+		\item Para $k < n$, $\frac{\partial H_k}{\partial x_n} = \frac{\partial x_k}{\partial x_n} = 0$.
+		\item Para $k = n$, $\frac{\partial H_n}{\partial x_n} = \frac{\partial}{\partial x_n}(2\psi(x) - x_n) = -1$.
+	\end{itemize}
+	Substituindo na soma:
+	$$\frac{\partial u^*}{\partial x_n}(z) = \sum_{k=1}^{n-1} \frac{\partial u}{\partial x_k}(H(z)) \cdot 0 + \frac{\partial u}{\partial x_n}(H(z)) \cdot (-1)$$
+	$$\boxed{\frac{\partial u^*}{\partial x_n}(z) = -\frac{\partial u}{\partial x_n}(H(z)), \quad z \in Q_-}$$
+	
+	\textbf{(g)} Estimamos a norma $\|u^*\|_{W^{1,p}(Q)}^p = \|u^*\|_{L^p(Q)}^p + \|\nabla u^*\|_{L^p(Q)}^p$.
+	Para a norma $L^p$, utilizamos a mudança de variáveis $z = H(w)$ em $Q_-$, com $|\det H'| = 1$:
+	$$\|u^*\|_{L^p(Q)}^p = \int_{Q_+} |u(z)|^p dz + \int_{Q_-} |u(H(z))|^p dz = 2 \int_{Q_+} |u(z)|^p dz = 2 \|u\|_{L^p(Q_+)}^p \quad (\ast_3)$$
+	Para o gradiente em $Q_-$, utilizamos as fórmulas dos itens **(e)** e **(f)**. Pela desigualdade triangular:
+	$$|\nabla u^*(z)| \le |\nabla u(H(z))| + 2 |\nabla u(H(z))| |\nabla \psi(x)| = |\nabla u(H(z))| (1 + 2\|\nabla \psi\|_\infty)$$
+	Elevando à potência $p$ e integrando em $Q_-$:
+	$$\int_{Q_-} |\nabla u^*(z)|^p dz \le (1 + 2\|\nabla \psi\|_\infty)^p \int_{Q_-} |\nabla u(H(z))|^p dz$$
+	Novamente, via mudança de variáveis $z = H(w)$, a integral da direita é precisamente $\|\nabla u\|_{L^p(Q_+)}^p$. Somando as contribuições de $Q_+$ e $Q_-$, temos:
+	$$\|\nabla u^*\|_{L^p(Q)}^p \le \|\nabla u\|_{L^p(Q_+)}^p + (1 + 2\|\nabla \psi\|_\infty)^p \|\nabla u\|_{L^p(Q_+)}^p = [1 + (1 + 2\|\nabla \psi\|_\infty)^p] \|\nabla u\|_{L^p(Q_+)}^p$$
+	Combinando a estimativa de $(\ast_3)$ e a do gradiente, existe uma constante $C$ dependendo exclusivamente de $\|\psi\|_\infty$ e $\|\nabla \psi\|_\infty$ tal que:
+	$$\boxed{\|u^*\|_{W^{1,p}(Q)} \le C \|u\|_{W^{1,p}(Q_+)}}$$
+}
+
+\sintese{
+	A reflexão através de um grafo generaliza a reflexão especular. A chave da prova é que a transformação $H$ preserva a medida (determinante $-1$), mas distorce a direção do gradiente dependendo da inclinação da superfície $\psi$. A condição de suporte $\supp u \subset Q_+ \cup G$ é o que garante que a função estendida não possua uma \textbf{quebra} (descontinuidade) na interface $G$, permitindo que ela pertença ao espaço de Sobolev.
+}
+
+\aprofundamento{
+	Este procedimento é a base para a prova do \textbf{Teorema de Extensão de Sobolev}, que afirma que para domínios com fronteira Lipschitz, existe um operador de extensão $E: W^{1,p}(\Omega) \to W^{1,p}(\mathbb{R}^n)$. A reflexão através do grafo é a forma mais simples de construir tal operador localmente. A desigualdade de imersão no item (g) mostra que a extensão é um operador contínuo entre espaços de Sobolev, preservando a regularidade da função original.
+}
 
 \end{document}
