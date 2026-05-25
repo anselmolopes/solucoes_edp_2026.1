@@ -1521,112 +1521,550 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 }
 
 %%%% QUESTÃO 105 %%%%
-\questao{Prove diretamente que se $u \in W^{1,p}(J)$, $J = (0, 1) \subset \mathbb{R}$, $1 < p < \infty$, então $u$ satisfaz
-	$$|u(x) - u(y)| \le \|u'\|_{L^p(J)} |x - y|^{1 - \frac{1}{p}}, \text{ para quase todos } x, y \in J.$$
-	Conclua que toda função de $W^{1,p}(J)$ é contínua.}
+\questao{
+	Prove diretamente que se $u \in W^{1,p}(J), J = (0, 1) \subset \mathbb{R}, 1 < p < \infty$, então $u$ satisfaz
+	$$|u(x) - u(y)| \le \|u'\|_{L^p(J)} |x - y|^{1 - \frac{1}{p}},$$
+	para quase todos $x, y \in J$. Conclua que toda função de $W^{1,p}(J)$ é contínua.
+}
 
 \analise{
-	\textbf{Análise do Enunciado:}
-	A questão solicita a prova de que funções no espaço de Sobolev $W^{1,p}(J)$, com $p > 1$, possuem uma regularidade superior à integrabilidade, especificamente a continuidade de Hölder. A tese é que a diferença pontual de $u$ é controlada pela norma da sua derivada fraca e por uma potência da distância entre os pontos, onde o expoente é determinado pelo conjugado de $p$.
+	\textbf{Análise do Enunciado}: A questão solicita a demonstração direta de que funções em $W^{1,p}$ em dimensão um possuem um representante Hölder contínuo. A tese é a obtenção de uma estimativa a priori que controle a variação pontual de $u$ através da norma $L^p$ de sua derivada fraca.
 	
-	\textbf{Fundamentação Teórica:}
-	A base da prova é a representação de funções de Sobolev em dimensão 1. Conforme demonstrado na \textbf{Questão 92}, qualquer $u \in W^{1,p}(J)$ admite um representante absolutamente contínuo, o que permite escrever $u(x) - u(y) = \int_y^x u'(t) dt$. Para estimar essa integral, utilizaremos a \textbf{Desigualdade de Hölder}, que relaciona a norma de um produto com as normas $L^p$ e $L^q$ de seus fatores.
+	\textbf{Fundamentação Teórica}: A prova baseia-se no Teorema Fundamental do Cálculo para funções de Sobolev e na \textbf{Desigualdade de Hölder}. De acordo com \textbf{Brezis} (Capítulo 8), toda função em $W^{1,p}(J)$ com $p > 1$ admite um representante contínuo em $\overline{J}$.
 	
-	\textbf{Estratégias:}
+	\textbf{Estratégias}:
 	\begin{enumerate}
-		\item \textbf{Representação Integral}: Partir da identidade fundamental do cálculo para funções absolutamente contínuas.
-		\item \textbf{Aplicação de Hölder}: Aplicar a desigualdade de Hölder à integral da derivada, utilizando a função constante $1$ como o segundo fator para extrair a medida do intervalo.
-		\item \textbf{Identificação do Expoente}: Relacionar o expoente do intervalo $|x-y|^{1/q}$ com a relação de conjugação $1/q = 1 - 1/p$.
-		\item \textbf{Conclusão de Continuidade}: Mostrar que a condição de Hölder implica a continuidade uniforme, e portanto, a continuidade em $J$.
+		\item Utilizar a representação integral $u(x) - u(y) = \int_y^x u'(t) \, dt$ para funções em $W^{1,p}(J)$.
+		\item Aplicar a Desigualdade de Hölder para isolar a norma da derivada $\|u'\|_{L^p}$ e a medida do intervalo $|x-y|$.
+		\item Formalizar a passagem do \textbf{quase todo} para a continuidade uniforme, definindo explicitamente a dependência de $\delta$ em função de $\varepsilon$ e da norma de Sobolev.
 	\end{enumerate}
 }
 
 \solucao{
-	Seja $u \in W^{1,p}(J)$. Como discutido na \textbf{Questão 92}, $u$ possui um representante absolutamente contínuo em $J$. Portanto, para quaisquer $x, y \in J$ com $y < x$, podemos representar a diferença dos valores da função como a integral de sua derivada fraca $u' \in L^p(J)$:
-	$$u(x) - u(y) = \int_y^x u'(t) dt$$
-	Tomando o módulo em ambos os lados e aplicando a propriedade de que o módulo da integral é menor ou igual à integral do módulo, temos:
-	$$|u(x) - u(y)| = \left| \int_y^x u'(t) dt \right| \le \int_y^x |u'(t)| \cdot 1 \, dt$$
-	Agora, aplicamos a \textbf{Desigualdade de Hölder} para os espaços $L^p$ e $L^q$ sobre o intervalo $[y, x]$, onde $q$ é o expoente conjugado de $p$ $\left(\frac{1}{p} + \frac{1}{q} = 1\right)$:
-	$$\int_y^x |u'(t)| \cdot 1 \, dt \le \left( \int_y^x |u'(t)|^p dt \right)^{1/p} \left( \int_y^x 1^q dt \right)^{1/q}$$
-	Analisamos os dois termos da direita:
-	\begin{enumerate}
-		\item O primeiro termo é a norma de $u'$ em $L^p$ restrita ao intervalo $[y, x]$, que é obviamente limitada pela norma global:
-		$$\left( \int_y^x |u'(t)|^p dt \right)^{1/p} \le \left( \int_J |u'(t)|^p dt \right)^{1/p} = \|u'\|_{L^p(J)}$$
-		\item O segundo termo é a medida do intervalo $[y, x]$ elevada a $1/q$:
-		$$\left( \int_y^x 1 \, dt \right)^{1/q} = (x - y)^{1/q} = |x - y|^{1 - \frac{1}{p}}$$
-	\end{enumerate}
-	Substituindo estas estimativas na desigualdade original, obtemos:
-	$$\boxed{|u(x) - u(y)| \le \|u'\|_{L^p(J)} |x - y|^{1 - \frac{1}{p}}}$$
+	Seja $u \in W^{1,p}(J)$. Sabemos que $u$ possui um representante contínuo em $\overline{J}$ tal que, para quase todos $x, y \in J$, a seguinte representação integral é válida:
+	$$u(x) - u(y) = \int_y^x u'(t) \, dt$$
+	Assumindo, sem perda de generalidade, que $y < x$, aplicamos a \textbf{Desigualdade de Hölder} para o par de expoentes conjugados $p$ e $q$, onde $\tfrac{1}{p} + \tfrac{1}{q} = 1$:
+	\begin{align*}
+		|u(x) - u(y)| &= \left| \int_y^x u'(t) \cdot 1 \, dt \right| \\
+		&\le \left( \int_y^x |u'(t)|^p \, dt \right)^{\frac{1}{p}} \left( \int_y^x 1^q \, dt \right)^{\frac{1}{q}} \\
+		&\le \left( \int_J |u'(t)|^p \, dt \right)^{\frac{1}{p}} (x - y)^{\frac{1}{q}}
+	\end{align*}
 	
-	Para a conclusão sobre a continuidade, observemos que para qualquer $\varepsilon > 0$, podemos escolher $\delta = \left( \tfrac{\varepsilon}{\|u'\|_{L^p(J)}} \right)^{\frac{1}{1-1/p}}$. Sempre que $|x - y| < \delta$, teremos $|u(x) - u(y)| < \varepsilon$. Isso prova que $u$ é uniformemente contínua em $J$, e consequentemente, $u$ é contínua.
+	Como $\tfrac{1}{q} = 1 - \tfrac{1}{p}$ e reconhecendo a norma $\|u'\|_{L^p(J)}$, obtemos a estimativa a priori:
+	$$\boxed{|u(x) - u(y)| \le \|u'\|_{L^p(J)} |x - y|^{1 - \frac{1}{p}}\quad (\ast)}$$
+	
+	Para provar que $u$ é contínua, devemos mostrar que satisfaz a definição de continuidade uniforme em $\overline{J}$. Seja $\varepsilon > 0$ um valor arbitrário. Precisamos encontrar um $\delta > 0$ tal que, para quaisquer $x, y \in \overline{J}$, a condição $|x - y| < \delta$ implique $|u(x) - u(y)| < \varepsilon$.
+	
+	Denotemos a constante $M = \|u'\|_{L^p(J)}$ e o expoente $\gamma = 1 - \frac{1}{p}$. Pela desigualdade $(\ast)$, temos:
+	$$|u(x) - u(y)| \le M |x - y|^\gamma$$
+	Para que $|u(x) - u(y)| < \varepsilon$, basta que:
+	$$M |x - y|^\gamma < \varepsilon \implies |x - y|^\gamma < \frac{\varepsilon}{M} \implies |x - y| < \left( \frac{\varepsilon}{M} \right)^{\frac{1}{\gamma}}$$
+	Portanto, definindo $\delta = \left( \frac{\varepsilon}{\|u'\|_{L^p(J)}} \right)^{\frac{1}{1 - 1/p}}$, verificamos que:
+	$$|x - y| < \delta \implies |u(x) - u(y)| \le M \left( \left( \frac{\varepsilon}{M} \right)^{\frac{1}{\gamma}} \right)^\gamma = M \left( \frac{\varepsilon}{M} \right) = \varepsilon$$
+	Como $\delta$ depende exclusivamente de $\varepsilon$ e da norma de $u$ no espaço de Sobolev (e não da escolha de $x$ ou $y$), a função $u$ é \textbf{uniformemente contínua} em $\overline{J}$. Consequentemente, toda função de $W^{1,p}(J)$ possui um representante contínuo.
 }
 
 \sintese{
-	A prova demonstra que a integrabilidade da derivada em $L^p$ com $p > 1$ força a função a ter uma variação controlada, impedindo descontinuidades. O fluxo lógico foi: $$\text{Representação Integral} \to \text{Desigualdade de Hölder} \to \text{Condição de Hölder} \to \text{Continuidade}.$$
+	A prova demonstra que a integrabilidade da derivada em $L^p$ com $p > 1$ é forte o suficiente para impedir saltos ou oscilações infinitas. A transição da norma global para a regularidade pontual é feita através da desigualdade de Hölder, que fornece a "taxa" de variação da função.
+	
+	O fluxo lógico foi:
+	$$\boxed{\text{Repres. Integral} \to \text{Desig. de Hölder} \to \text{Estimativa de Hölder} \to \text{Definição de } \delta(\varepsilon) \to \text{Cont. Uniforme}}$$
 }
 
 \aprofundamento{
-	Este resultado é a versão unidimensional da \textbf{Imersão de Morrey}. Em dimensões $n > 1$, a imersão $W^{1,p}(\Omega) \hookrightarrow C^{0, \alpha}(\overline{\Omega})$ só ocorre se $p > n$. No caso $n=1$, a condição $p > 1$ é precisamente $p > n$.
-	
-	Note que se $p = 1$, a desigualdade de Hölder não nos fornece um expoente positivo para $|x-y|$, pois $1 - 1/1 = 0$. De fato, funções em $W^{1,1}(J)$ são absolutamente contínuas, mas não são necessariamente Hölder contínuas para qualquer $\alpha > 0$. Isso ressalta a importância do requisito $p > 1$ para garantir a regularidade de Hölder.
+	Este resultado é a base da imersão de Sobolev $W^{1,p}(J) \hookrightarrow C^{0, \gamma}(\overline{J})$ com $\gamma = 1 - 1/p$. Note que se $p=1$, a estimativa resultaria em $|u(x)-u(y)| \le \|u'\|_{L^1} \cdot 1$, o que garante apenas que a função é de variação limitada ($\text{BV}$), mas não necessariamente contínua. A condição $p > 1$ é, portanto, a fronteira analítica que garante a existência de um representante contínuo.
 }
 
 %%%% QUESTÃO 106 %%%%
-\questao{Suponha que $u \in L^p(U)$, $1 < p < \infty$, e que existe $C > 0$ tal que: para todo $\Omega \subset\subset U$ e $|h| < \text{dist}(\Omega, \partial U)$, então
+\questao{
+	Suponha que $u \in L^p(U)$, $1 < p < \infty$, e que existe $C > 0$ tal que: para todo $\Omega \subset\subset U$ e $|h| < \text{dist}(\Omega, \partial U)$, então
 	$$\|\tau_h u - u\|_{L^p(\Omega)} \le C|h|.$$
-	Mostre que: $u \in W^{1,p}(U)$ e que $\|\nabla u\|_{L^p(U)}$ é a menor constante $C$ na desigualdade acima.}
-
+	Mostre que: $u \in W^{1,p}(U)$ e que $\|\nabla u\|_{L^p(U)}$ é a menor constante $C$ na desigualdade acima.
+}
 \analise{
-	\textbf{Análise do Enunciado:}
-	A questão solicita a prova de que a limitação do quociente de diferença em $L^p$ é uma condição suficiente para a existência da derivada fraca. A tese divide-se em duas partes: primeiro, provar que a função $u$ pertence ao espaço de Sobolev $W^{1,p}(U)$; segundo, demonstrar que a norma do gradiente fraco é a constante ótima (o ínfimo dos $C$ possíveis) para a desigualdade de translação.
+	\textbf{Análise do Enunciado}: A questão propõe a equivalência entre a regularidade de Sobolev $W^{1,p}$ e a estabilidade da função sob translações no espaço $L^p$. O objetivo é provar que a limitação do quociente de diferença implica a existência de derivadas fracas e que a norma do gradiente é a constante ótima.
 	
-	\textbf{Fundamentação Teórica:}
-	O núcleo da prova reside na \textbf{Reflexividade dos Espaços $L^p$} para $1 < p < \infty$. De acordo com o Teorema de Banach-Alaoglu, qualquer sequência limitada em um espaço reflexivo admite uma subsequência fracamente convergente. Utilizaremos a definição de derivada fraca via dualidade com funções de teste $\phi \in C_c^\infty(U)$ e a propriedade de que o limite fraco preserva a linearidade da integral.
+	\textbf{Fundamentação Teórica}: A demonstração baseia-se na \textbf{Proposição 9.3 de Haim Brezis}. O pilar central é a representação de funcionais lineares via dualidade: o dual do espaço $L^{p'}(\Omega)$ é isomorfo ao espaço $L^p(\Omega)$, onde $p'$ é o expoente conjugado $\left(\frac{1}{p} + \frac{1}{p'} = 1\right)$. Se um funcional linear é limitado em $L^{p'}$, ele é representado por uma função em $L^p$.
 	
-	\textbf{Estratégias:}
+	\textbf{Estratégias}:
 	\begin{enumerate}
-		\item \textbf{Construção do Quociente de Diferença}: Definir a sequência $v_{h,j} = \frac{\tau_{he_j} u - u}{h}$ e utilizar a hipótese para mostrar que esta sequência é limitada em $L^p(\Omega)$.
-		\item \textbf{Extração do Limite Fraco}: Invocar a reflexividade de $L^p(\Omega)$ para encontrar um limite fraco $g_j \in L^p(\Omega)$ para a sequência $v_{h,j}$ quando $h \to 0$.
-		\item \textbf{Identificação da Derivada Fraca}: Utilizar a definição de $\tau_h$ e integração por partes para mostrar que $\int u \partial_j \phi = - \int g_j \phi$, identificando $g_j$ como $\partial_j u$.
-		\item \textbf{Minimality da Constante}: Mostrar que, por propriedades do limite fraco (norma inferiormente semicontínua), $\|\partial_j u\|_{L^p} \le \liminf \|v_{h,j}\|_{L^p} \le C$.
+		\item \textbf{Construção do Funcional}: Definir o funcional linear $L(\phi) = - \int u \partial_j \phi$ e provar que ele é limitado em $L^{p'}$ usando a hipótese de translação e a desigualdade de Hölder.
+		\item \textbf{Aplicação da Dualidade}: Usar o Teorema de Representação de Riesz para garantir que $L$ é representado por uma função $g_j \in L^p(\Omega)$, identificando-a como a derivada fraca.
+		\item \textbf{Prova da Minimalidade}: Utilizar a representação integral da translação e a Desigualdade de Minkowski para integrais para provar que $\|\nabla u\|_{L^p}$ é a constante ótima.
 	\end{enumerate}
 }
 
 \solucao{
-	Seja $\Omega \subset\subset U$ um aberto limitado e $e_j$ o vetor da base canônica. Definimos o quociente de diferença na direção $j$:
+	Seja $\Omega \subset\subset U$ e $\phi \in C_c^\infty(\Omega)$. Para qualquer $h \neq 0$ tal que $|h| < \text{dist}(\Omega, \partial U)$, observamos que:
+	$$\int_\Omega u(x) \frac{\partial \phi}{\partial x_j}(x) \, dx = \lim_{h \to 0} \int_\Omega u(x) \frac{\phi(x + h e_j) - \phi(x)}{h} \, dx$$
+	Efetuando a mudança de variável $y = x + h e_j$ no primeiro termo da direita, temos:
+	\begin{align*}
+		\int_\Omega u(x) \frac{\partial \phi}{\partial x_j}(x) \, dx &= \lim_{h \to 0} \frac{1}{h} \left( \int_{\Omega + h e_j} u(y - h e_j) \phi(y) \, dy - \int_\Omega u(x) \phi(x) \, dx \right) \\
+		&= \lim_{h \to 0} \int_\Omega \frac{(\tau_{-h e_j} u)(x) - u(x)}{h} \phi(x) \, dx
+	\end{align*}
+	
+	Definimos agora o funcional linear $L : C_c^\infty(\Omega) \to \mathbb{R}$ por:
+	$$L(\phi) = - \int_\Omega u \frac{\partial \phi}{\partial x_j} \, dx = \lim_{h \to 0} \int_\Omega \frac{u(x) - (\tau_{-h e_j} u)(x)}{h} \phi(x) \, dx$$
+	Aplicando a \textbf{Desigualdade de Hölder} para o par $(p, p')$:
+	\begin{align*}
+		|L(\phi)| &= \lim_{h \to 0} \left| \int_\Omega \frac{u - \tau_{-h e_j} u}{h} \phi \, dx \right| \\
+		&\le \lim_{h \to 0} \left\| \frac{u - \tau_{-h e_j} u}{h} \right\|_{L^p(\Omega)} \|\phi\|_{L^{p'}(\Omega)} \\
+		&\le \lim_{h \to 0} \frac{1}{|h|} (C|h|) \|\phi\|_{L^{p'}(\Omega)} = C \|\phi\|_{L^{p'}(\Omega)}
+	\end{align*}
+	A desigualdade $|L(\phi)| \le C \|\phi\|_{L^{p'}(\Omega)}$ prova que $L$ é um funcional linear limitado sobre $C_c^\infty(\Omega)$, que é denso em $L^{p'}(\Omega)$. Pela teoria de espaços duais, como o dual de $L^{p'}$ é $L^p$, existe um único elemento $g_j \in L^p(\Omega)$ tal que:
+	$$L(\phi) = \int_\Omega g_j(x) \phi(x) \, dx \implies - \int_\Omega u \frac{\partial \phi}{\partial x_j} \, dx = \int_\Omega g_j \phi \, dx$$
+	Isso é precisamente a definição de que $g_j$ é a derivada fraca $\partial_j u$. Como isso vale para todo $j=1, \dots, n$ e todo $\Omega \subset\subset U$, concluímos que $u \in W^{1,p}(U)$.
+	
+	Para provar que $\|\nabla u\|_{L^p(U)}$ é a \textbf{menor} constante $C$, consideremos a representação integral da translação para $u \in W^{1,p}(U)$:
+	$$(\tau_{he_j} u)(x) - u(x) = \int_0^h \partial_j u(x + s e_j) \, ds$$
+	Aplicando a \textbf{Desigualdade de Minkowski para integrais}:
+	\begin{align*}
+		\|\tau_{he_j} u - u\|_{L^p(\Omega)} &= \left\| \int_0^h \partial_j u(\cdot + s e_j) \, ds \right\|_{L^p(\Omega)} \\
+		&\le \int_0^h \|\partial_j u(\cdot + s e_j)\|_{L^p(\Omega)} \, ds \\
+		&\le \int_0^h \|\partial_j u\|_{L^p(U)} \, ds = |h| \cdot \|\partial_j u\|_{L^p(U)}
+	\end{align*}
+	Como vimos que qualquer constante $C$ deve satisfazer $C \ge \|g_j\|_{L^p} = \|\partial_j u\|_{L^p}$ para que o funcional seja limitado, e provamos que $C = \|\partial_j u\|_{L^p}$ é suficiente para a desigualdade, concluímos que:
+	$$\boxed{C_{min} = \|\nabla u\|_{L^p(U)}}$$
+}
+
+\solucaoalt{
+	Seja $\Omega \subset\subset U$ um aberto limitado e $e_j$ o vetor da base canônica. Definimos o quociente de diferença na direção $j$ para $h \in \mathbb{R} \setminus \{0\}$:
 	$$v_{h,j}(x) = \frac{u(x + h e_j) - u(x)}{h} = \frac{(\tau_{h e_j} u)(x) - u(x)}{h}$$
 	Pela hipótese do enunciado, para $|h| < \text{dist}(\Omega, \partial U)$, temos:
 	$$\|v_{h,j}\|_{L^p(\Omega)} = \frac{1}{|h|} \|\tau_{h e_j} u - u\|_{L^p(\Omega)} \le \frac{1}{|h|} C|h| = C$$
 	Assim, para cada $j \in \{1, \dots, n\}$, a sequência $\{v_{h,j}\}_{h \neq 0}$ é limitada na norma de $L^p(\Omega)$. Como $1 < p < \infty$, o espaço $L^p(\Omega)$ é reflexivo. Pelo Teorema de Banach-Alaoglu, existe uma subsequência $h_k \to 0$ e um elemento $g_j \in L^p(\Omega)$ tal que:
-	$$v_{h_k,j} \rightharpoonup g_j \text{ fracamente em } L^p(\Omega), \quad \text{quando } k \to \infty.$$
+	$$v_{h_k,j} \rightharpoonup g_j \quad \text{fracamente em } L^p(\Omega), \quad \text{quando } k \to \infty.$$
 	
-	Para provar que $g_j$ é a derivada fraca de $u$, tomemos consideremos qualquer função teste $\phi \in C_c^\infty(\Omega)$. Pela definição de $v_{h,j}$ e mudando a variável de integração ($x \to x - h e_j$):
+	Para provar que $g_j$ é a derivada fraca de $u$, tomemos qualquer função teste $\phi \in C_c^\infty(\Omega)$. Pela definição de $v_{h,j}$:
+	$$\int_\Omega v_{h,j}(x) \phi(x) dx = \int_\Omega \frac{u(x + h e_j) - u(x)}{h} \phi(x) dx$$
+	Abrindo a integral e efetuando a mudança de variável $y = x + h e_j$ no primeiro termo:
 	\begin{align*}
-		\int_\Omega v_{h,j}(x) \phi(x) dx &= \int_\Omega \frac{u(x + h e_j) - u(x)}{h} \phi(x) dx \\
-		&= \int_\Omega \frac{u(x) - u(x - h e_j)}{h} \phi(x + h e_j) dx
+		\int_\Omega v_{h,j}(x) \phi(x) dx &= \frac{1}{h} \int_{\Omega + h e_j} u(y) \phi(y - h e_j) dy - \frac{1}{h} \int_\Omega u(x) \phi(x) dx \\
+		&= \int_\Omega u(x) \left[ \frac{\phi(x - h e_j) - \phi(x)}{h} \right] dx
 	\end{align*}
-	Quando $h \to 0$, o termo $\frac{u(x) - u(x - h e_j)}{h}$ converge fracamente para $g_j$ e $\phi(x + h e_j) \to \phi(x)$ uniformemente. Assim:
-	$$\lim_{h \to 0} \int_\Omega v_{h,j} \phi \, dx = \int_\Omega g_j \phi \, dx$$
-	Por outro lado, utilizando a integração por partes para a função suave $\phi$:
-	$$\int_\Omega u(x) \frac{\partial \phi}{\partial x_j}(x) dx = \lim_{h \to 0} \int_\Omega u(x) \frac{\phi(x + h e_j) - \phi(x)}{h} dx = \lim_{h \to 0} \int_\Omega v_{h,j}(x) \phi(x) dx$$
-	Comparando os dois limites, obtemos:
-	$$\int_\Omega u \frac{\partial \phi}{\partial x_j} dx = \int_\Omega g_j \phi dx \implies \boxed{\int_\Omega u \frac{\partial \phi}{\partial x_j} dx = - \int_\Omega (-g_j) \phi dx}$$
-	Isso prova que a derivada fraca $\frac{\partial u}{\partial x_j}$ existe e é igual a $g_j$ (com o sinal ajustado conforme a definição de derivada fraca). Como isso vale para qualquer $\Omega \subset\subset U$ e $g_j \in L^p(\Omega)$, concluímos que $u \in W^{1,p}(U)$.
+	Quando $h \to 0$, a diferença finita $\frac{\phi(x - h e_j) - \phi(x)}{h}$ converge uniformemente para $-\frac{\partial \phi}{\partial x_j}(x)$ no suporte de $\phi$. Assim:
+	$$\lim_{h \to 0} \int_\Omega v_{h,j}(x) \phi(x) dx = \int_\Omega u(x) \left( -\frac{\partial \phi}{\partial x_j}(x) \right) dx$$
+	Por outro lado, pela convergência fraca $v_{h_k,j} \rightharpoonup g_j$:
+	$$\lim_{k \to \infty} \int_\Omega v_{h_k,j}(x) \phi(x) dx = \int_\Omega g_j(x) \phi(x) dx$$
+	Igualando os dois resultados, obtemos a identidade fundamental:
+	$$\boxed{\int_\Omega u \frac{\partial \phi}{\partial x_j} dx = - \int_\Omega g_j \phi dx}$$
+	Isso prova que $\partial_j u = g_j$. 
+	Visto que a identidade fundamental é válida para qualquer $\Omega \subset\subset U$, definimos a derivada fraca global $\partial_j u = g_j$. Para analisar a norma global, consideramos uma exaustão de abertos $\{\Omega_k\}_{k\in\mathbb{N}}$ tal que $\Omega_1 \subset\subset \Omega_2 \subset\subset \dots \subset U$ com $\bigcup_{k=1}^\infty \Omega_k = U$. Pela semicontinuidade inferior da norma sob convergência fraca, temos para cada $j$ e para cada $k$:
+	$$\|\partial_j u\|_{L^p(\Omega_k)} = \|g_j\|_{L^p(\Omega_k)} \le \liminf_{m \to \infty} \|v_{h_m,j}\|_{L^p(\Omega_k)} \le C$$
+	Tomando o limite $k \to \infty$, a continuidade da norma $L^p$ para sequências crescentes de conjuntos garante que:
+	$$\|\partial_j u\|_{L^p(U)} = \lim_{k \to \infty} \|\partial_j u\|_{L^p(\Omega_k)} \le C$$
+	Isso prova que as derivadas fracas pertencem a $L^p(U)$, logo, $u \in W^{1,p}(U)$.
 	
-	Para mostrar que $C_{min} = \|\nabla u\|_{L^p(U)}$, utilizamos a propriedade de que a norma é semicontínua inferiormente em relação à convergência fraca:
-	$$\|\partial_j u\|_{L^p(\Omega)} = \|g_j\|_{L^p(\Omega)} \le \liminf_{h \to 0} \|v_{h,j}\|_{L^p(\Omega)} \le C$$
-	Como isso vale para todo $\Omega \subset\subset U$, tomando o supremo sobre $\Omega$, temos $\|\partial_j u\|_{L^p(U)} \le C$ para cada $j$. A menor constante $C$ que satisfaz a desigualdade original para todas as direções e todos os $\Omega$ é precisamente a norma do gradiente fraco:
+	Para provar que $\|\nabla u\|_{L^p(U)}$ é a \textbf{menor} constante $C$, devemos mostrar que a desigualdade original é satisfeita quando escolhemos $C = \|\partial_j u\|_{L^p(U)}$. Para $u \in W^{1,p}(U)$, a diferença de translação pode ser representada pela integral de sua derivada fraca:
+	$$(\tau_{he_j} u)(x) - u(x) = \int_0^h \partial_j u(x + s e_j) \, ds$$
+	Aplicando a \textbf{Desigualdade de Minkowski para integrais}, obtemos:
+	\begin{align*}
+		\|\tau_{he_j} u - u\|_{L^p(\Omega)} &= \left\| \int_0^h \partial_j u(\cdot + s e_j) \, ds \right\|_{L^p(\Omega)} \\
+		&\le \int_0^h \|\partial_j u(\cdot + s e_j)\|_{L^p(\Omega)} \, ds \\
+		&\le \int_0^h \|\partial_j u\|_{L^p(U)} \, ds = |h| \cdot \|\partial_j u\|_{L^p(U)}
+	\end{align*}
+	Esta dedução prova que a norma da derivada fraca é uma constante válida para a desigualdade e, combinada com a semicontinuidade inferior vista anteriormente, conclui-se que ela é a menor possível:
 	$$\boxed{C_{min} = \|\nabla u\|_{L^p(U)}}$$
 }
 
 \sintese{
-	A prova demonstra a equivalência entre a existência de derivadas fracas e a estabilidade de $L^p$ sob translações. O fluxo lógico foi: $$\text{Limitada em } L^p \to \text{Reflexividade/Limite Fraco} \to \text{Identidade da Derivada Fraca} \to \text{Semicontinuidade da Norma}.$$
+	A prova substitui a busca direta por um limite de quocientes pela análise da norma de um funcional linear. Ao provar que o funcional $\phi \mapsto - \int u \partial_j \phi$ é limitado em $L^{p'}$, a estrutura geométrica do espaço $L^p$ (reflexividade e dualidade) garante a existência da derivada fraca.
+	
+	O fluxo lógico foi:
+	$$\text{Translação} \to \text{Funcional Limitado em } L^{p'} \to \text{Representação de Riesz } (L^{p'})^{'} \cong L^p \to \text{Derivada Fraca} \to \text{Minkowski}$$
 }
 
 \aprofundamento{
-	Este resultado é a base para a definição de espaços de Sobolev via diferenças finitas. Ele mostra que a regularidade de Sobolev não é apenas uma propriedade de "integração por partes", mas sim uma propriedade de \textbf{continuidade modular} da função no espaço $L^p$. 
-	
-	É importante notar que a condição $1 < p < \infty$ é essencial. Se $p = 1$, o espaço $L^1$ não é reflexivo, e uma sequência limitada de quocientes de diferença pode convergir para uma medida (como a Delta de Dirac) em vez de uma função $L^1$. Nesses casos, a função $u$ pertenceria ao espaço de variação limitada $BV(U)$, mas não necessariamente a $W^{1,1}(U)$.
+	A elegância desta prova reside no fato de que não precisamos de regulizadores para "adivinhar" a derivada; a própria estrutura do espaço $L^p$ a fornece. A restrição $1 < p < \infty$ é vital: se $p=1$, o dual de $L^\infty$ não é $L^1$ (contém medidas singulares), o que explica por que a regularidade de Sobolev falha em $p=1$ e somos forçados a usar o espaço $BV(\Omega)$.
 }
+
+%%%% QUESTÃO 107 %%%%
+\questao{
+	Prove que $W^{1,p}(J), J = (0, 1) \subset \mathbb{R}, 1 < p < \infty$, está imerso compactamente em $C(\overline{J})$ (use o teorema de Arzelá-Àscoli).
+}
+
+\analise{
+	\textbf{Análise do Enunciado}: A tese é a prova de que a imersão $W^{1,p}(J) \hookrightarrow C(\overline{J})$ é compacta. Isso exige mostrar que qualquer conjunto limitado em $W^{1,p}(J)$ é relativamente compacto em $C(\overline{J})$, ou seja, que qualquer sequência $\{u_n\}$ tal que $\|u_n\|_{W^{1,p}} \le M$ admite uma subsequência que converge uniformemente para algum $u \in C(\overline{J})$.
+	
+	\textbf{Fundamentação Teórica}: O pilar desta prova é o \textbf{Teorema de Arzelá-Ascoli}, que estabelece que um subconjunto de $C(\overline{J})$ é relativamente compacto se, e somente se, for uniformemente limitado e equicontínuo. Utilizaremos a estimativa de Hölder rigorosamente deduzida na \textbf{Questão 105} para garantir a equicontinuidade e a técnica de ancoragem via média integral para a limitação uniforme.
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item Considerar um conjunto $\mathcal{B}$ limitado em $W^{1,p}(J)$, tal que $\sup_{u \in \mathcal{B}} \|u\|_{W^{1,p}} \le M$.
+		\item Demonstrar a \textbf{Limitação Uniforme}: Definir a média $\overline{u}$, utilizar o Teorema do Valor Intermediário para encontrar um ponto de ancoragem $c$ e estimar $\|u\|_\infty$ através da norma de Sobolev.
+		\item Demonstrar a \textbf{Equicontinuidade}: Aplicar a estimativa $|u(x) - u(y)| \le \|u'\|_{L^p} |x - y|^{1 - \frac{1}{p}}$ e definir explicitamente o $\delta(\varepsilon)$ dependente apenas de $M$ e $\varepsilon$.
+		\item Aplicar o Teorema de Arzelá-Ascoli para concluir a compacidade da imersão.
+	\end{enumerate}
+}
+
+\solucao{
+	Seja $\mathcal{B}$ um conjunto limitado em $W^{1,p}(J)$. Existe $M > 0$ tal que $\|u\|_{W^{1,p}} \le M$ para todo $u \in \mathcal{B}$. Lembremos que $\|u\|_{W^{1,p}}^p = \|u\|_{L^p}^p + \|u'\|_{L^p}^p$, o que implica que tanto $\|u\|_{L^p} \le M$ quanto $\|u'\|_{L^p} \le M$.
+	
+	\textbf{1. Prova da Limitação Uniforme}:
+	Seja $\overline{u} = \frac{1}{|J|} \int_J u(s) \, ds$ a média dos valores de $u$ em $\overline{J}$. Pela desigualdade de Hölder:
+	$$|\overline{u}| \le \frac{1}{|J|} \int_J |u(s)| \cdot 1 \, ds \le \frac{1}{|J|} \|u\|_{L^p(J)} \|1\|_{L^{p'}(J)} = \|u\|_{L^p(J)} \le M$$
+	Como $u$ é contínua em $\overline{J}$, pelo \textbf{Teorema do Valor Intermediário}, existe um ponto $c \in \overline{J}$ tal que $u(c) = \overline{u}$. Para qualquer $x \in \overline{J}$, utilizamos a representação integral e a estimativa de Hölder da \textbf{Questão 105}:
+	\begin{align*}
+		|u(x)| &= |u(c) + \int_c^x u'(t) \, dt| \\
+		&\le |u(c)| + \|u'\|_{L^p(J)} |x - c|^{1 - \frac{1}{p}} \\
+		&\le M + M \cdot (1)^{1 - \frac{1}{p}} = 2M
+	\end{align*}
+	Logo, $\sup_{u \in \mathcal{B}} \|u\|_\infty \le 2M$, provando que o conjunto é \textbf{uniformemente limitado}.
+	
+	\textbf{2. Prova da Equicontinuidade}:
+	Dada a Questão 105, sabemos que para quaisquer $x, y \in J$ e para todo $u \in \mathcal{B}$:
+	$$|u(x) - u(y)| \le \|u'\|_{L^p(J)} |x - y|^{1 - \frac{1}{p}} \le M |x - y|^{1 - \frac{1}{p}}$$
+	Seja $\varepsilon > 0$. Definimos $\delta = \left( \frac{\varepsilon}{M} \right)^{\frac{1}{1 - 1/p}}$. Assim, para todo $u \in \mathcal{B}$, se $|x - y| < \delta$, segue que:
+	$$|u(x) - u(y)| \le M \left( \left( \frac{\varepsilon}{M} \right)^{\frac{1}{1 - 1/p}} \right)^{1 - \frac{1}{p}} = M \left( \frac{\varepsilon}{M} \right) = \varepsilon$$
+	Visto que $\delta$ depende exclusivamente de $\varepsilon$ e $M$, o conjunto $\mathcal{B}$ é \textbf{equicontínuo}.
+	
+	\textbf{3. Conclusão}:
+	O conjunto $\mathcal{B}$ é um subconjunto de $C(\overline{J})$ que é uniformemente limitado e equicontínuo. Pelo \textbf{Teorema de Arzelá-Ascoli}, $\mathcal{B}$ é relativamente compacto em $C(\overline{J})$. Isso implica que qualquer sequência $\{u_n\} \subset \mathcal{B}$ admite uma subsequência que converge uniformemente para alguma função $u \in C(\overline{J})$. Logo, a imersão $W^{1,p}(J) \hookrightarrow C(\overline{J})$ é compacta.
+}
+
+\sintese{
+	A prova revela a \textbf{troca} de regularidade: a integrabilidade da derivada ($\|u'\|_{L^p}$) é convertida em controle pontual da variação da função e em limitação da amplitude. A compacidade surge porque a norma de Sobolev impede oscilações violentas e a fuga para o infinito.
+	
+	O fluxo lógico foi:
+	$$\boxed{\text{Média } \overline{u} \to \text{TVI (Ponto } c\text{)} \to \text{Lim. Uniforme} \to \text{Eqüicontinuidade} \to \text{Arzelá-Ascoli}}$$
+}
+
+\aprofundamento{
+	Este resultado é um caso particular do \textbf{Teorema de Rellich-Kondrachov}. Em dimensões maiores ($n > 1$), a imersão $W^{1,p} \hookrightarrow L^q$ é compacta para $q < p^* = \tfrac{np}{n-p}$. No caso $n=1$, como $p > 1$, temos $p^* = \infty$, o que explica por que a imersão ocorre no espaço de funções contínuas $C(\overline{J})$. A compacidade é a ferramenta fundamental para a existência de soluções em EDPs, pois permite extrair limites de sequências de aproximações.
+}
+
+%%%% QUESTÃO 108 %%%%
+\questao{
+	Seja $G : \mathbb{R} \to \mathbb{R}$ uma função de classe $C^1$ tal que $G(0) = 0, \ |G'(t)| \le M$, para todo $t \in \mathbb{R}$. Prove que $v(x) = G \circ u(x)$ é uma função em $W^{1,p}(U)$, sempre que $u \in W^{1,p}(U)$. Mais ainda
+	$$\frac{\partial v}{\partial x_j} = G'(u) \frac{\partial u}{\partial x_j}.$$
+}
+
+\analise{
+	\textbf{Análise do Enunciado}: A questão solicita a prova de que a composição de uma função de Sobolev $u$ com uma função $C^1$ com derivada limitada preserva a pertinência ao espaço $W^{1,p}$. A tese divide-se em duas partes: a prova de que $v \in L^p(U)$ e a prova de que a derivada fraca de $v$ existe e é dada pela regra da cadeia clássica.
+	
+	\textbf{Fundamentação Teórica}: A prova baseia-se na teoria de composição em espaços de Sobolev. O fato de $G$ possuir derivada limitada implica que $G$ é uma função \textbf{Lipschitziana}. Funções Lipschitz preservam a regularidade de Sobolev. Utilizaremos a técnica de regularização via regularização para justificar a passagem ao limite.
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Integrabilidade de $v$}: Utilizar a condição $G(0)=0$ e $|G'| \le M$ para provar que $|G(t)| \le M|t|$, garantindo que $v \in L^p(U)$.
+		\item \textbf{Regularização}: Introduzir uma sequência de funções suaves $u_k = u * \eta_k$ que converge para $u$ em $W^{1,p}(U)$.
+		\item \textbf{Regra da Cadeia Clássica}: Definir $v_k = G(u_k)$, que por ser a composição de funções $C^\infty$ e $C^1$, é derivável no sentido clássico, satisfazendo $\partial_j v_k = G'(u_k) \partial_j u_k$.
+		\item \textbf{Convergência em $L^p$}: Provar que $v_k \to v$ e $\nabla v_k \to G'(u) \nabla u$ em $L^p(U)$, utilizando a continuidade de $G'$ e a convergência de $u_k$.
+		\item \textbf{Identificação da Derivada Fraca}: Passar ao limite na definição de derivada fraca para concluir que $v \in W^{1,p}(U)$.
+	\end{enumerate}
+}
+
+\solucao{
+	Primeiramente, provamos que $v \in L^p(U)$. Como $G$ é de classe $C^1$ e $G(0)=0$, pelo Teorema do Valor Médio, para qualquer $t \in \mathbb{R}$, existe $\xi$ entre $0$ e $t$ tal que $G(t) - G(0) = G'(\xi)(t - 0)$. Logo:
+	$$|G(t)| = |G'(\xi)| |t| \le M|t|$$
+	Aplicando isso a $v(x) = G(u(x))$, temos:
+	$$\int_U |v(x)|^p \, dx = \int_U |G(u(x))|^p \, dx \le \int_U (M|u(x)|)^p \, dx = M^p \|u\|_{L^p(U)}^p < \infty$$
+	Portanto, $v \in L^p(U)$.
+	
+	Para a derivada, seja $u_k = u * \eta_k$ a regularizante de $u$ em $U$. Sabemos que $u_k \in C^\infty(U)$ e $u_k \to u$ em $W^{1,p}(U)$. Definimos $v_k = G(u_k)$. Como $u_k$ é suave e $G \in C^1$, $v_k$ é derivável no sentido clássico e:
+	$$\frac{\partial v_k}{\partial x_j}(x) = G'(u_k(x)) \frac{\partial u_k}{\partial x_j}(x)$$
+	Analisamos a convergência de $v_k$ para $v$ em $L^p(U)$. Pela propriedade Lipschitz de $G$:
+	$$\|v_k - v\|_{L^p(U)} = \|G(u_k) - G(u)\|_{L^p(U)} \le M \|u_k - u\|_{L^p(U)} \to 0$$
+	Agora, analisamos a convergência de $\nabla v_k$. Consideremos o termo:
+	$$\| \nabla v_k - G'(u) \nabla u \|_{L^p(U)} = \| G'(u_k) \nabla u_k - G'(u) \nabla u \|_{L^p(U)}$$
+	Adicionamos e subtraímos o termo $G'(u_k) \nabla u$:
+	\begin{align*}
+		\| \nabla v_k - G'(u) \nabla u \|_{L^p(U)} &\le \| G'(u_k) \nabla u_k - G'(u_k) \nabla u \|_{L^p(U)} + \| G'(u_k) \nabla u - G'(u) \nabla u \|_{L^p(U)} \\
+		&\le \| G'(u_k) \|_{L^\infty} \| \nabla u_k - \nabla u \|_{L^p(U)} + \| G'(u_k) - G'(u) \|_{L^p(U, |\nabla u|^p)}
+	\end{align*}
+	No primeiro termo, $\|G'(u_k)\|_{L^\infty} \le M$. No segundo termo, como $G'$ é contínua e $u_k \to u$ em $L^p$, segue que $G'(u_k) \to G'(u)$ em medida e, por estar limitado por $M$, converge também em $L^p$ (Teorema da Convergência Dominada). Assim:
+	$$\| \nabla v_k - G'(u) \nabla u \|_{L^p(U)} \to 0 \quad \text{quando } k \to \infty$$
+	
+	Finalmente, tomemos qualquer $\phi \in C_c^\infty(U)$. Como $v_k$ é suave, temos:
+	$$\int_U v_k \frac{\partial \phi}{\partial x_j} \, dx = - \int_U \frac{\partial v_k}{\partial x_j} \phi \, dx = - \int_U G'(u_k) \frac{\partial u_k}{\partial x_j} \phi \, dx$$
+	Passando ao limite $k \to \infty$, e utilizando a convergência forte de $v_k$ e $\nabla v_k$ em $L^p$:
+	$$\int_U v \frac{\partial \phi}{\partial x_j} \, dx = - \int_U G'(u) \frac{\partial u}{\partial x_j} \phi \, dx$$
+	Esta identidade prova que $v \in W^{1,p}(U)$ e que sua derivada fraca é:
+	$$\boxed{\frac{\partial v}{\partial x_j} = G'(u) \frac{\partial u}{\partial x_j}}$$
+}
+
+\sintese{
+	A prova demonstra que a regularidade de Sobolev é preservada sob composições com funções Lipschitz. O contorno analítico ocorre na regularização: transformamos a função de Sobolev em uma sequência de funções suaves onde a regra da cadeia é trivial, e provamos que a estrutura da derivada é preservada no limite $L^p$.
+	
+	O fluxo lógico foi:
+	$$\boxed{\text{Lipschitz de } G \to \text{Regularização} \to \text{ Regra da Cadeia Clássica} \to \text{TCDL em } L^p \to \text{Derivada Fraca}}$$
+}
+
+\aprofundamento{
+	Um resultado mais geral é o \textbf{Teorema de Stampacchia}, que afirma que se $u \in W^{1,p}(U)$ e $G$ é Lipschitz, então $G \circ u \in W^{1,p}(U)$. No caso onde $G$ não é $C^1$, mas apenas Lipschitz, a derivada $G'$ existe quase em toda parte (\textbf{Teorema de Rademacher}), e a fórmula da regra da cadeia ainda é válida quase em toda parte. Isso é fundamental para tratar funções como $u^+ = \max(u, 0)$, onde $G(t) = \max(t, 0)$ é Lipschitz mas não $C^1$.
+}
+
+%%%% QUESTÃO 109 %%%%
+\questao{
+	Sejam $c \in \mathbb{R}$ e $G: \mathbb{R} \to \mathbb{R}$ uma função Lipschitziana, derivável em $\mathbb{R} \setminus \{c\}$ tal que $G(0) = 0$. Prove que $v(x) = G \circ u(x)$ é uma função em $W^{1,p}(U)$, sempre que $u \in W^{1,p}(U)$. Mais ainda,
+	$$ \frac{\partial v}{\partial x_j} = G'(u)\frac{\partial u}{\partial x_j} \text{ quando } u(x) \neq c \quad \text{e} \quad \frac{\partial v}{\partial x_j} = 0 \text{ em } u(x) = c $$
+	Para isto basta verificar que:
+	\begin{enumerate}[label=(\alph*)]
+		\item $|G(t)| \le M|t|$ e $|G'(t)| \le M$, para todo $t \in \mathbb{R} \setminus \{c\}$, onde $M$ é a constante de Lipschitz para a função $G$;
+		\item Existe uma família $G_m: \mathbb{R} \to \mathbb{R}$ de funções deriváveis tais que $|G_m(t)| \le 2M|t|$ e $|G'_m(t)| \le 2M$, para todo $t \in \mathbb{R}$, com $G_m(0) = 0$, $G_m(t) \to G(t)$, para todo $t \in \mathbb{R}$ e $G'_m(t) \to G'(t)$, para todo $t \in \mathbb{R} \setminus \{c\}$;
+		\item $\nabla u = 0$ quase sempre sobre o conjunto $U_c = \{x \in U : u(x) = c\}$;
+		\item Use o teorema da convergência dominada para concluir;
+		\item Para construir a família $G_m$, sem perda de generalidade suponha que $c = 0$ e $G(0) = 0$. Defina em $\left[0, \tfrac{1}{m}\right]$: $g_m(t) = a_m t^2 + b_m t^3$, com $a_m$ e $b_m$ tais que: $g_m\left(\tfrac{1}{m}\right) = G\left(\tfrac{1}{m}\right)$ e $g'_m\left(\tfrac{1}{m}\right) = G'\left(\tfrac{1}{m}\right)$. Mostre que $g_m(0) = g'_m(0) = 0$, $|g_m(t)| \le \tfrac{7M}{m}$ e $|g'_m(t)| \le 17M$. Em $\left[-\tfrac{1}{m}, 0\right]$: $h_m(t) = \tilde{a}_m t^2 + \tilde{b}_m t^3$, com $\tilde{a}_m$ e $\tilde{b}_m$ tais que: $h_m\left(-\tfrac{1}{m}\right) = G\left(-\tfrac{1}{m}\right)$ e $h'_m\left(-\tfrac{1}{m}\right) = G'\left(-\tfrac{1}{m}\right)$. Finalmente, defina
+		$$ G_m(t) = \begin{cases} 
+			G(t), & \text{em } |t| \ge \tfrac{1}{m} \\ 
+			h_m(t), & \text{em } \left[-\tfrac{1}{m}, 0\right] \\ 
+			g_m(t), & \text{em } \left[0, \tfrac{1}{m}\right] \end{cases} $$
+		mostre que $|G_m(t) - G(t)| \le \tfrac{8M}{m}$ e $|G'_m(t)| \le 2M$, para todo $t \in \mathbb{R}$ para $m$ grande. Veja que as desigualdades do item (b) seguem naturalmente.
+\end{enumerate}}
+
+\analise{
+	\textbf{Análise do Enunciado}: A questão propõe a extensão da regra da cadeia para funções de Sobolev quando a função externa $G$ é apenas Lipschitz. O ponto crítico é a possível não-derivabilidade de $G$ no ponto $c$. A tese exige provar que a função composta $v$ permanece no espaço $W^{1,p}(U)$ e que sua derivada fraca é nula onde $u$ assume o valor crítico $c$.
+	
+	\textbf{Fundamentação Teórica}: A demonstração mobiliza a teoria de funções Lipschitz e a propriedade de anulação do gradiente em conjuntos de nível, fundamental nos espaços de Sobolev. A convergência final é estabelecida via Teorema da Convergência Dominada de Lebesgue, utilizando a sequência de aproximações suaves $G_m$ para evitar a singularidade em $c$.
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Análise de Cotas}: Estabelecer as limitações de $G$ e $G'$ a partir da constante de Lipschitz $M$.
+		\item \textbf{Construção Algébrica de $G_m$}: Resolver o sistema linear para determinar os coeficientes dos polinômios de colagem e provar que as derivadas permanecem limitadas.
+		\item \textbf{Análise de Medida}: Justificar por que $\nabla u = 0$ q.s. em $U_c$.
+		\item \textbf{Passagem ao Limite}: Aplicar a regra da cadeia para $v_m = G_m \circ u$ e usar o TCD para recuperar a derivada de $v$.
+	\end{enumerate}
+}
+
+\solucao{
+	Procedemos à demonstração seguindo o roteiro proposto, iniciando pela base algébrica da suavização:
+	
+	\textbf{(e) Construção e Cotas de $G_m$}:
+	Sem perda de generalidade, assumimos $c = 0$ e $G(0) = 0$. Para $t \in \left[ 0, \frac{1}{m} \right]$, definimos $g_m(t) = a_m t^2 + b_m t^3$. As condições de colagem em $t = \frac{1}{m}$ impõem o sistema:
+	\begin{align*}
+		g_m\left(\frac{1}{m}\right) &= \frac{a_m}{m^2} + \frac{b_m}{m^3} = G\left(\frac{1}{m}\right) \\
+		g_m'\left(\frac{1}{m}\right) &= \frac{2a_m}{m} + \frac{3b_m}{m^2} = G'\left(\frac{1}{m}\right)
+	\end{align*}
+	Multiplicando a primeira equação por $3m$, obtemos $\frac{3a_m}{m} + \frac{3b_m}{m^2} = 3mG\left(\frac{1}{m}\right)$. Subtraindo a segunda equação, isolamos o coeficiente quadrático:
+	$$ \frac{a_m}{m} = 3mG\left(\frac{1}{m}\right) - G'\left(\frac{1}{m}\right) \implies a_m = 3m^2G\left(\frac{1}{m}\right) - mG'\left(\frac{1}{m}\right) $$
+	Substituindo $a_m$ na equação de continuidade:
+	$$ \frac{b_m}{m^3} = G\left(\frac{1}{m}\right) - \left( \frac{3m^2G\left(\frac{1}{m}\right) - mG'\left(\frac{1}{m}\right)}{m^2} \right) = -2G\left(\frac{1}{m}\right) + \frac{1}{m}G'\left(\frac{1}{m}\right) $$
+	Portanto, $b_m = -2m^3G\left(\frac{1}{m}\right) + m^2G'\left(\frac{1}{m}\right)$. Notamos que $g_m(0) = 0$ e $g_m'(0) = 0$. Usando $|G\left(\frac{1}{m}\right)| \le \frac{M}{m}$ e $|G'\left(\frac{1}{m}\right)| \le M$, estimamos os coeficientes:
+	$$ |a_m| \le 3m^2\left(\frac{M}{m}\right) + m(M) = 4mM \quad \text{e} \quad |b_m| \le 2m^3\left(\frac{M}{m}\right) + m^2(M) = 3m^2M $$
+	Para $t \in \left[ 0, \frac{1}{m} \right]$, temos:
+	$$ |g_m(t)| \le |a_m|t^2 + |b_m|t^3 \le (4mM)\left(\frac{1}{m^2}\right) + (3m^2M)\left(\frac{1}{m^3}\right) = \frac{7M}{m} $$
+	A derivada é $g_m'(t) = 2a_m t + 3b_m t^2$. Assim:
+	$$ |g_m'(t)| \le 2(4mM)\left(\frac{1}{m}\right) + 3(3m^2M)\left(\frac{1}{m^2}\right) = 8M + 9M = 17M $$
+	A construção de $h_m$ em $\left[ -\frac{1}{m}, 0 \right]$ é análoga. Para $|t| < \frac{1}{m}$:
+	$$ |G_m(t) - G(t)| \le |g_m(t)| + |G(t)| \le \frac{7M}{m} + \frac{M}{m} = \frac{8M}{m} $$
+	Para $m$ suficientemente grande, as cotas $|G_m(t)| \le 2M|t|$ e $|G_m'(t)| \le 2M$ são satisfeitas.
+	
+	\textbf{(a) Estimativas de $G$}:
+	Como $G$ é Lipschitziana com constante $M$, temos $|G(t) - G(s)| \le M|t - s|$. Fixando $s=0$ e $G(0)=0$, obtemos $|G(t)| \le M|t|$. Nos pontos onde $G$ é derivável, a magnitude da derivada é limitada por $M$ pois:
+	$$ |G'(t)| = \lim_{h \to 0} \frac{|G(t+h) - G(t)|}{|h|} \le \lim_{h \to 0} \frac{M|h|}{|h|} = M $$
+	
+	\textbf{(b) Convergência de $G_m$}:
+	A construção anterior garante que $G_m \to G$ uniformemente em $\mathbb{R}$ e $G_m' \to G'$ pontualmente em $\mathbb{R} \setminus \{c\}$, validando as premissas do item (b).
+	
+	\textbf{(c) Gradiente no Conjunto de Nível}:
+	Seja $U_c = \{x \in U : u(x) = c\}$. Por propriedade fundamental dos espaços de Sobolev, se uma função $u \in W^{1,p}(U)$ é constante em um conjunto mensurável, sua derivada fraca anula-se quase sempre nesse conjunto. Portanto:
+	$$ \nabla u = 0 \quad \text{quase sempre em } U_c $$
+	
+	\textbf{(d) Conclusão via TCD}:
+	Definimos $v_m(x) = G_m(u(x))$. Como $G_m \in C^1$, temos $\frac{\partial v_m}{\partial x_j} = G_m'(u) \frac{\partial u}{\partial x_j}$. Analisamos o limite $m \to \infty$:
+	\begin{itemize}
+		\item Se $u(x) \neq c$, então $G_m'(u(x)) \to G'(u(x))$.
+		\item Se $u(x) = c$, então $G_m'(u(x)) \frac{\partial u}{\partial x_j} \to G_m'(c) \cdot 0 = 0$.
+	\end{itemize}
+	Logo, $\frac{\partial v_m}{\partial x_j} \to G'(u) \frac{\partial u}{\partial x_j} \chi_{\{u \neq c\}}$ quase sempre. Como $|G_m'(u) \frac{\partial u}{\partial x_j}| \le 17M |\frac{\partial u}{\partial x_j}| \in L^p(U)$, o \textbf{Teorema da Convergência Dominada} garante a convergência forte em $L^p(U)$. Concluímos que $v \in W^{1,p}(U)$ e:
+	$$\boxed{\frac{\partial v}{\partial x_j} = \begin{cases} G'(u) \frac{\partial u}{\partial x_j}, & \text{se } u(x) \neq c \\ 0, & \text{se } u(x) = c \end{cases}}$$
+}
+
+\sintese{
+	A demonstração consolida o princípio de que transformações Lipschitzianas preservam a regularidade em espaços de Sobolev, estendendo a validade da diferenciação fraca através do anulamento geométrico do gradiente em patamares de descontinuidade da derivada.
+	
+	O fluxo lógico foi:
+	$$\boxed{\text{Interpolação de } G_m \implies \text{Estimativas Uniformes de } G_m' \implies \text{Anulamento de } \nabla u \text{ em } U_c \implies \text{TCD } L^p(U).}$$
+}
+
+\aprofundamento{
+	Este resultado provê a infraestrutura teórica necessária para o emprego de métodos variacionais em Equações Diferenciais Parciais não lineares. A possibilidade de compor funções de Sobolev com mapeamentos Lipschitzianos cujas derivadas possuem descontinuidades isoladas fundamenta a aplicação de operadores de truncamento, como a função parte positiva $u^+ = \max\{u, 0\}$. A propriedade $\nabla u = 0$ q.s. em $\{u=c\}$ é a razão pela qual a derivada de $u^+$ é simplesmente $\nabla u \cdot \chi_{\{u > 0\}}$, permitindo a análise de subsoluções elípticas.
+}
+
+%%%% QUESTÃO 110 %%%%
+\questao{
+	Seja $u \in W^{1,p}(\mathbb{R}^n)$. Defina
+	$$w(x) = \begin{cases} u^3, & \text{se } |u| \le 1 \\ u, & \text{se } |u| > 1. \end{cases}$$
+	Mostre que $w \in W^{1,p}(\mathbb{R}^n)$, e calcule $\int_{\mathbb{R}^n} \nabla w \cdot \nabla u \, dx$.
+}
+
+\analise{
+	\textbf{Análise do Enunciado}: A questão solicita a prova de que a função $w$, definida por uma colagem de potências de $u$, pertence ao espaço de Sobolev $W^{1,p}(\mathbb{R}^n)$. Em seguida, pede-se o cálculo de uma integral que representa o produto interno dos gradientes de $w$ e $u$. A tese repousa na identificação de $w$ como a composição $G \circ u$, onde $G$ é uma função definida por partes.
+	
+	\textbf{Fundamentação Teórica}: Utilizaremos o resultado da Questão 109, que estabelece que se $u \in W^{1,p}(U)$ e $G: \mathbb{R} \to \mathbb{R}$ é uma função Lipschitziana com $G(0)=0$, então $G \circ u \in W^{1,p}(U)$. Para isso, devemos provar que a função $G$ definida no problema é globalmente Lipschitziana.
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Definição da Função Externa}: Isolar a função $G(t)$ tal que $w = G(u)$.
+		\item \textbf{Prova de Lipschitz}: Verificar a continuidade de $G$ nos pontos de colagem e a limitação de sua derivada em cada ramo para determinar a constante de Lipschitz $M$.
+		\item \textbf{Aplicação da Regra da Cadeia}: Utilizar a fórmula da derivada fraca para composições Lipschitzianas para expressar $\nabla w$.
+		\item \textbf{Decomposição da Integral}: Particionar o domínio $\mathbb{R}^n$ nos conjuntos $\{|u| \le 1\}$ e $\{|u| > 1\}$ para calcular a integral solicitada.
+	\end{enumerate}
+}
+
+\solucao{
+	Definimos a função externa $G: \mathbb{R} \to \mathbb{R}$ por
+	$$G(t) = \begin{cases} t^3, & \text{se } |t| \le 1 \\ t, & \text{se } |t| > 1 \end{cases}$$
+	de modo que $w(x) = (G \circ u)(x)$. Para provar que $w \in W^{1,p}(\mathbb{R}^n)$, devemos primeiro garantir que $G$ seja globalmente Lipschitziana. 
+	
+	\textbf{1. Prova da Continuidade de $G$}:
+	A função $G$ é claramente contínua nos intervalos abertos $(-1, 1)$ e $\mathbb{R} \setminus [-1, 1]$. Analisamos a continuidade nos pontos de transição (colagem) $t = 1$ e $t = -1$:
+	\begin{itemize}
+		\item Para $t = 1$:
+		$$\lim_{t \to 1^-} G(t) = \lim_{t \to 1^-} (t^3) = 1^3 = 1 \quad \text{e} \quad \lim_{t \to 1^+} G(t) = \lim_{t \to 1^+} (t) = 1$$
+		\item Para $t = -1$:
+		$$\lim_{t \to -1^-} G(t) = \lim_{t \to -1^-} (t) = -1 \quad \text{e} \quad \lim_{t \to -1^+} G(t) = \lim_{t \to -1^+} (t^3) = (-1)^3 = -1$$
+	\end{itemize}
+	Visto que os limites laterais coincidem com os valores da função em ambos os pontos, $G$ é contínua em todo $\mathbb{R}$.
+	
+	\textbf{2. Propriedade Lipschitziana}:
+	A função $G$ é derivável em $\mathbb{R} \setminus \{-1, 1\}$, com a seguinte derivada:
+	$$G'(t) = \begin{cases} 3t^2, & \text{se } |t| < 1 \\ 1, & \text{se } |t| > 1 \end{cases}$$
+	Analisamos a magnitude de $G'(t)$:
+	\begin{itemize}
+		\item Se $|t| < 1$, então $0 \le 3t^2 < 3$.
+		\item Se $|t| > 1$, então $|G'(t)| = 1$.
+	\end{itemize}
+	Assim, $|G'(t)| \le 3$ para quase todo $t \in \mathbb{R}$. Pelo teorema que relaciona a limitação da derivada com a constante de Lipschitz para funções contínuas, $G$ é \textbf{Lipschitziana} com constante $M = 3$. Além disso, nota-se que $G(0) = 0$.
+	
+	\textbf{3. Pertencimento ao Espaço de Sobolev}:
+	Pelo resultado estabelecido na Questão 109, como $u \in W^{1,p}(\mathbb{R}^n)$ e $G$ é uma função Lipschitziana com $G(0)=0$, a composição $w = G \circ u$ pertence necessariamente ao espaço $W^{1,p}(\mathbb{R}^n)$. A derivada fraca de $w$ é dada pela regra da cadeia para funções Lipschitz:
+	$$\nabla w(x) = G'(u(x)) \nabla u(x)$$
+	Substituindo a expressão de $G'(u)$, obtemos a caracterização do gradiente:
+	$$\nabla w(x) = \begin{cases} 3u^2(x) \nabla u(x), & \text{se } |u(x)| \le 1 \\ \nabla u(x), & \text{se } |u(x)| > 1 \end{cases}$$
+	
+	\textbf{4. Cálculo da Integral de Energia}:
+	Para calcular a integral $\int_{\mathbb{R}^n} \nabla w \cdot \nabla u \, dx$, decompomos o domínio $\mathbb{R}^n$ nos conjuntos mensuráveis $A = \{x \in \mathbb{R}^n : |u(x)| \le 1\}$ e $B = \{x \in \mathbb{R}^n : |u(x)| > 1\}$. Temos:
+	\begin{align*}
+		\int_{\mathbb{R}^n} \nabla w \cdot \nabla u \, dx &= \int_A \nabla w \cdot \nabla u \, dx + \int_B \nabla w \cdot \nabla u \, dx \\
+		&= \int_A \left( 3u^2 \nabla u \right) \cdot \nabla u \, dx + \int_B (\nabla u) \cdot \nabla u \, dx \\
+		&= \int_{\{|u| \le 1\}} 3u^2 |\nabla u|^2 \, dx + \int_{\{|u| > 1\}} |\nabla u|^2 \, dx
+	\end{align*}
+	Utilizando a função característica $\chi$, podemos expressar o resultado de forma compacta e rigorosa:
+	$$\boxed{\int_{\mathbb{R}^n} \nabla w \cdot \nabla u \, dx = \int_{\mathbb{R}^n} \left( 3u^2 \chi_{\{|u| \le 1\}} + \chi_{\{|u| > 1\}} \right) |\nabla u|^2 \, dx}$$
+}
+
+\sintese{
+	A prova demonstra que a regularidade de Sobolev é robusta sob a composição com funções Lipschitzianas, mesmo que estas apresentem descontinuidades na derivada. O cálculo da integral revela que a "energia" do gradiente de $w$ é uma versão ponderada da energia de $u$, onde o peso é determinado pela magnitude de $u$.
+	
+	O fluxo lógico foi:
+	$$\boxed{\text{Definição de } G \to \text{Prova de Lipschitz} \to \text{Regra da Cadeia Sobolev} \to \text{Decomposição de Domínio}}$$
+}
+
+\aprofundamento{
+	A função $G(t)$ utilizada nesta questão é um exemplo de função de "truncamento" ou "saturação". Em problemas de EDPs não lineares, como na equação de p-Laplaciano ou em modelos de plasticidade, é comum encontrar operadores que alteram a difusividade da função dependendo de sua amplitude. O fato de $w \in W^{1,p}$ garante que podemos aplicar métodos variacionais a este novo funcional, assegurando que a \textbf{quebra} de regularidade de $G'$ em $t=\pm 1$ não prejudique a integrabilidade global do gradiente.
+}
+
+%%%% QUESTÃO 111 %%%%
+\questao{
+	Seja $u \in W^{1,p}(U)$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Prove que $v(x) = \frac{u(x)^3}{u(x)^2 + 1}$ é uma função em $W^{1,p}(U)$. Quem é a derivada fraca $\frac{\partial v}{\partial x_j}$?
+		\item Faça o mesmo para a função $w(x) = 1 - \cos u(x)$. Mostre que é uma função em $W^{1,p}(U)$ e determine a derivada fraca $\frac{\partial w}{\partial x_j}$.
+	\end{enumerate}
+}
+
+\analise{
+	\textbf{Análise do Enunciado}: A questão solicita a prova de que duas funções compostas, $v = G(u)$ e $w = H(u)$, pertencem ao espaço de Sobolev $W^{1,p}(U)$, onde $u$ já é conhecido pertencer a esse espaço. A tese exige a identificação explícita das derivadas fracas de cada composição.
+	
+	\textbf{Fundamentação Teórica}: Utilizaremos o resultado estabelecido na Questão 108, que afirma: se $u \in W^{1,p}(U)$ e $G: \mathbb{R} \to \mathbb{R}$ é uma função de classe $C^1$ com derivada limitada ($|G'| \le M$) e $G(0)=0$, então $G \circ u \in W^{1,p}(U)$ e $\partial_j (G \circ u) = G'(u) \partial_j u$. A verificação de que $G(0)=0$ é essencial para garantir que a função resultante pertença a $L^p(U)$, especialmente se o domínio $U$ for ilimitado.
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Análise de $G(t)$}: Para o item (a), definir $G(t) = \frac{t^3}{t^2+1}$, provar que $G(0)=0$ e demonstrar que $G'$ é limitada em $\mathbb{R}$.
+		\item \textbf{Cálculo da Derivada Fraca de $v$}: Aplicar a regra da cadeia para funções de Sobolev utilizando o $G'(t)$ calculado.
+		\item \textbf{Análise de $H(t)$}: Para o item (b), definir $H(t) = 1 - \cos t$, provar que $H(0)=0$ e que $|H'| \le 1$.
+		\item \textbf{Cálculo da Derivada Fraca de $w$}: Aplicar a regra da cadeia para funções de Sobolev utilizando o $H'(t)$ calculado.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{(a) Análise da função $v(x)$}:
+	Definimos a função externa $G: \mathbb{R} \to \mathbb{R}$ por $G(t) = \frac{t^3}{t^2 + 1}$. Note que $G(0) = \frac{0}{1} = 0$. Como $G$ é a razão de dois polinômios onde o denominador nunca se anula ($\forall t \in \mathbb{R}, t^2+1 \ge 1$), $G$ é de classe $C^\infty$. Calculamos sua derivada via regra do quociente:
+	\begin{align*}
+		G'(t) &= \frac{(3t^2)(t^2 + 1) - (t^3)(2t)}{(t^2 + 1)^2} \\
+		&= \frac{3t^4 + 3t^2 - 2t^4}{(t^2 + 1)^2} = \frac{t^4 + 3t^2}{(t^2 + 1)^2}
+	\end{align*}
+	Para provar que $G$ é Lipschitziana, devemos mostrar que $G'(t)$ é limitada. Analisamos o comportamento de $G'(t)$:
+	\begin{itemize}
+		\item Para $t \to \pm \infty$, temos $\lim_{t \to \pm \infty} \frac{t^4 + 3t^2}{t^4 + 2t^2 + 1} = 1$.
+		\item Como $G'$ é contínua em $\mathbb{R}$ e possui limites finitos no infinito, ela é necessariamente limitada. 
+	\end{itemize}
+	De acordo com o resultado da Questão 108, como $u \in W^{1,p}(U)$, $G(0)=0$ e $|G'| \le M$, a composição $v = G \circ u$ pertence a $W^{1,p}(U)$. A derivada fraca é dada por:
+	$$\boxed{\frac{\partial v}{\partial x_j} = \frac{u^2(u^2 + 3)}{(u^2 + 1)^2} \frac{\partial u}{\partial x_j}}$$
+	
+	\textbf{(b) Análise da função $w(x)$}:
+	Definimos a função externa $H: \mathbb{R} \to \mathbb{R}$ por $H(t) = 1 - \cos t$. Verificamos que $H(0) = 1 - \cos(0) = 1 - 1 = 0$. A função $H$ é de classe $C^\infty$ e sua derivada é:
+	$$H'(t) = \sin t$$
+	Observamos que $|H'(t)| = |\sin t| \le 1$ para todo $t \in \mathbb{R}$. Portanto, $H$ é uma função Lipschitziana com constante $M=1$. Novamente, aplicando o resultado da Questão 108, como $u \in W^{1,p}(U)$, $H(0)=0$ e $H'$ é limitada, a composição $w = H \circ u$ pertence a $W^{1,p}(U)$. A derivada fraca é dada por:
+	$$\boxed{\frac{\partial w}{\partial x_j} = \sin(u) \frac{\partial u}{\partial x_j}}$$
+}
+
+\sintese{
+	A resolução de ambos os itens baseou-se na verificação das hipóteses do teorema de composição em espaços de Sobolev. O ponto central foi a demonstração de que as funções externas $G$ e $H$ possuem derivadas limitadas, o que as torna globalmente Lipschitzianas. Uma vez estabelecida essa propriedade e a anulação na origem, a pertinência ao espaço $W^{1,p}$ e a forma da derivada fraca seguem automaticamente da regra da cadeia para funções de Sobolev.
+	
+	O fluxo lógico foi:
+	$$\boxed{\text{Definição de } G, H \to \text{Cálculo de } G', H' \to \text{Prova de Limitação} \to \text{Aplicação de } W^{1,p} \text{ Comp.}}$$
+}
+
+\aprofundamento{
+	A exigência $G(0)=0$ é fundamental para garantir que $v \in L^p(U)$. Se $G(0) \neq 0$, a função constante $G(0)$ teria que pertencer a $L^p(U)$, o que só ocorreria se o domínio $U$ fosse de medida finita. No caso de domínios ilimitados, a condição $G(0)=0$ assegura a integrabilidade de $v$ através da estimativa $|G(u)| \le M|u|$. Este resultado é um exemplo de como a regularidade de funções em espaços de Sobolev é preservada por transformações não lineares, desde que estas não \textbf{estiquem} a função de forma a romper a integrabilidade da derivada.
+}
+
+%%%% QUESTÃO 112 %%%%
+\questao{
+	Suponha que $u \in W^{1,1}(\mathbb{R}^n)$ e $c > 0$ são tais que $|\nabla u(x)| \le c|u(x)|$, quase todo ponto em $\mathbb{R}^n$. Mostre que $u \in W^{1,q}(\mathbb{R}^n)$, para todo $q > 1$.
+}
+
+\analise{
+	\textbf{Análise do Enunciado}: A questão solicita a prova de que a condição $|\nabla u| \le c|u|$ força a função $u$ a pertencer a todos os espaços de Sobolev $W^{1,q}(\mathbb{R}^n)$ para $q > 1$, partindo da hipótese mínima de que $u \in W^{1,1}(\mathbb{R}^n)$. Trata-se de um problema de ganho de integrabilidade iterativo.
+	
+	\textbf{Fundamentação Teórica}: A base da prova é a \textbf{Desigualdade de Sobolev} (Gagliardo-Nirenberg-Sobolev). Para $1 \le p < n$, se $u \in W^{1,p}(\mathbb{R}^n)$, então $u \in L^{p^*}(\mathbb{R}^n)$ com $p^* = \frac{np}{n-p}$. A estratégia consiste em utilizar a hipótese de controle do gradiente para elevar o índice de integrabilidade $p$ em passos sucessivos. 
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Passo Inicial}: Utilizar a imersão $W^{1,1}(\mathbb{R}^n) \hookrightarrow L^{p_1}(\mathbb{R}^n)$ para encontrar o primeiro expoente de integrabilidade $p_1 = \frac{n}{n-1}$.
+		\item \textbf{Iteração (Bootstrapping)}: Mostrar que se $u \in L^p(\mathbb{R}^n)$, então a condição $|\nabla u| \le c|u|$ implica que $\nabla u \in L^p(\mathbb{R}^n)$, logo $u \in W^{1,p}(\mathbb{R}^n)$.
+		\item \textbf{Progressão do Expoente}: Aplicar a desigualdade de Sobolev novamente para mostrar que $u \in L^{p^*}$, onde $p^* > p$.
+		\item \textbf{Convergência para $q$}: Demonstrar que a sequência de expoentes $p_k$ cresce indefinidamente, cobrindo qualquer $q \in (1, \infty)$.
+	\end{enumerate}
+}
+
+\solucao{
+	Iniciamos a análise partindo da hipótese $u \in W^{1,1}(\mathbb{R}^n)$. Pela \textbf{Desigualdade de Gagliardo-Nirenberg-Sobolev} para $p=1$ e $n > 1$, sabemos que existe uma constante $C_S$ tal que:
+	$$\|u\|_{L^{p_1}(\mathbb{R}^n)} \le C_S \|\nabla u\|_{L^1(\mathbb{R}^n)}, \quad \text{onde } p_1 = \frac{n}{n-1}$$
+	Como $u \in W^{1,1}(\mathbb{R}^n)$, temos que $u \in L^{p_1}(\mathbb{R}^n)$.
+	
+	Agora, utilizamos a hipótese fundamental $|\nabla u(x)| \le c|u(x)|$. Elevando ambos os lados à potência $p_1$, obtemos:
+	$$|\nabla u(x)|^{p_1} \le c^{p_1} |u(x)|^{p_1}$$
+	Integrando sobre $\mathbb{R}^n$:
+	$$\int_{\mathbb{R}^n} |\nabla u|^{p_1} \, dx \le c^{p_1} \int_{\mathbb{R}^n} |u|^{p_1} \, dx \implies \|\nabla u\|_{L^{p_1}(\mathbb{R}^n)} \le c \|u\|_{L^{p_1}(\mathbb{R}^n)}$$
+	Visto que $u \in L^{p_1}(\mathbb{R}^n)$ e $\nabla u \in L^{p_1}(\mathbb{R}^n)$, concluímos que $u \in W^{1,p_1}(\mathbb{R}^n)$.
+	
+	Podemos agora definir um processo iterativo para a sequência de expoentes $\{p_k\}$. Seja $p_k$ o expoente de integrabilidade alcançado no passo $k$, com $p_1 = \frac{n}{n-1}$. Se $p_k < n$, a imersão de Sobolev garante que:
+	$$u \in W^{1,p_k}(\mathbb{R}^n) \implies u \in L^{p_{k+1}}(\mathbb{R}^n), \quad \text{com } p_{k+1} = \frac{np_k}{n-p_k}$$
+	Novamente, a condição $|\nabla u| \le c|u|$ implica que:
+	$$\|\nabla u\|_{L^{p_{k+1}}(\mathbb{R}^n)} \le c \|u\|_{L^{p_{k+1}}(\mathbb{R}^n)} < \infty$$
+	Logo, $u \in W^{1, p_{k+1}}(\mathbb{R}^n)$. Analisando a sequência de expoentes:
+	$$p_{k+1} = \frac{n p_k}{n - p_k} = \frac{p_k}{1 - \frac{p_k}{n}}$$
+	Como $p_k < n$, temos $1 - \frac{p_k}{n} < 1$, o que implica $p_{k+1} > p_k$. A sequência $\{p_k\}$ é estritamente crescente. Se $p_k$ convergisse para um limite $L$, teríamos $L = \frac{nL}{n-L}$, o que implicaria $n-L = n \implies L=0$ (impossível, pois $p_1 > 1$) ou $L = \infty$. Portanto, $p_k \to \infty$ quando $k \to \infty$.
+	
+	Se em algum passo $p_k \ge n$, a imersão de Sobolev garante que $u \in L^q(\mathbb{R}^n)$ para todo $q \in [p_k, \infty)$. Independentemente do caso, para qualquer $q > 1$ dado, existe um $k$ tal que $p_k \ge q$. Como $u \in W^{1,p_k}(\mathbb{R}^n)$, segue que $u \in L^q(\mathbb{R}^n)$ e, pela condição do gradiente, $\nabla u \in L^q(\mathbb{R}^n)$.
+	
+	Concluímos, portanto, que:
+	$$\boxed{u \in W^{1,q}(\mathbb{R}^n), \quad \forall q \in (1, \infty)}$$
+}
+
+\sintese{
+	A prova demonstra o fenômeno de \textbf{bootstrapping}: a integrabilidade da função e da sua derivada estão acopladas. A imersão de Sobolev eleva a integrabilidade da função, e a condição $|\nabla u| \le c|u|$ \textbf{arrasta} a derivada para esse novo espaço, criando um ciclo de ganho de regularidade que converge para qualquer $q < \infty$.
+	
+	O fluxo lógico foi:
+	$$\boxed{u \in W^{1,1} \to L^{p_1} \to W^{1,p_1} \to L^{p_2} \to \dots \to W^{1,q} \text{ para todo } q > 1}$$
+}
+
+\aprofundamento{
+	Este resultado é intimamente ligado às estimativas de decaimento exponencial de funções em $L^p$. Na verdade, a condição $|\nabla u| \le c|u|$ sugere que $u$ se comporta, no máximo, como uma exponencial $e^{cx}$. Em domínios limitados, isso é trivial, mas em $\mathbb{R}^n$, a exigência de que $u \in L^1$ inicialmente força a função a decair rapidamente no infinito, permitindo que o processo de bootstrapping funcione. Se $u$ não estivesse em $L^1$, a função $u(x) = e^{cx}$ satisfaria a condição do gradiente, mas não pertenceria a nenhum $L^q(\mathbb{R}^n)$.
+}
+
 
 \end{document}
