@@ -2571,14 +2571,14 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 		&\quad + 4 \left[ \nabla_z u(z, \tfrac{3}{2}\gamma - \tfrac{x_n}{2}) + \partial_{x_n} u(z, \tfrac{3}{2}\gamma - \tfrac{x_n}{2}) \cdot \tfrac{3}{2}\nabla \gamma(z) \right]
 	\end{align*}
 	
-	Aplicando a \textbf{Desigualdade de Minkowski} (no sentido de que a norma de uma soma é menor ou igual à soma das normas) e a cota $\|\nabla \gamma\|_\infty$, estimamos a magnitude do gradiente $|\nabla v| = \sqrt{|\nabla_z v|^2 + |\partial_{x_n} v|^2} \le |\nabla_z v| + |\partial_{x_n} v|$:
+	Aplicando a \textbf{Desigualdade de Minkowski} e a cota $\|\nabla \gamma\|_\infty$, estimamos o gradiente $|\nabla v| = \sqrt{|\nabla_z v|^2 + |\partial_{x_n} v|^2} \le |\nabla_z v| + |\partial_{x_n} v|$, obtemos:
 	\begin{align*}
 		|\nabla v(z, x_n)| &\le 3|\nabla u(z, 2\gamma - x_n)| + 6\|\nabla \gamma\|_\infty |\partial_{x_n} u(z, 2\gamma - x_n)| \\
 		&\quad + 2|\partial_{x_n} u(z, \tfrac{3}{2}\gamma - \tfrac{x_n}{2})| + 4|\nabla u(z, \tfrac{3}{2}\gamma - \tfrac{x_n}{2})| + 6\|\nabla \gamma\|_\infty |\partial_{x_n} u(z, \tfrac{3}{2}\gamma - \tfrac{x_n}{2})|
 	\end{align*}
 	Agrupando os termos em função dos pontos refletidos $P_1 = (z, 2\gamma - x_n)$ e $P_2 = (z, \tfrac{3}{2}\gamma - \tfrac{x_n}{2})$:
 	$$|\nabla v(z, x_n)| \le (3 + 6\|\nabla \gamma\|_\infty) |\nabla u(P_1)| + (6 + 6\|\nabla \gamma\|_\infty) |\nabla u(P_2)|$$
-	Elevando à potência $p$ e utilizando novamente a desigualdade de convexidade $|a+b|^p \le 2^{p-1}(|a|^p + |b|^p)$:
+	Elevando à potência $p$ e utilizando novamente a desigualdade de convexidade $|a+b|^p \le 2^{p-1}(|a|^p + |b|^p)$, segue que:
 	$$|\nabla v(z, x_n)|^p \le 2^{p-1} \left[ (3 + 6\|\nabla \gamma\|_\infty)^p |\nabla u(P_1)|^p + (6 + 6\|\nabla \gamma\|_\infty)^p |\nabla u(P_2)|^p \right]$$
 	Integrando sobre $U_-$ e aplicando as mudanças de variáveis $(i)$ e $(ii)$ detalhadas anteriormente:
 	\begin{align*}
@@ -2609,7 +2609,7 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 
 %%%% QUESTÃO 119 %%%%
 \questao{
-	Seja $U$ um aberto e ${V_k}_{k \in \mathbb{N}}$ uma cobertura de $U$ localmente finita, ou seja, $U = \bigcup_{k=1}^\infty V_k$, $V_k \subset U$, e para cada compacto $K \subset U$, devemos ter $K \cap V_k = \emptyset$, para todo $k$, exceto em uma quantidade finita de $k$.
+	Seja $U$ um aberto e ${V}_{k \in \mathbb{N}}$ uma cobertura de $U$ localmente finita, ou seja, $U = \bigcup_{k=1}^\infty V_k$, $V_k \subset U$, e para cada compacto $K \subset U$, devemos ter $K \cap V_k = \emptyset$, para todo $k$, exceto em uma quantidade finita de $k$.
 	Considere $\{\sigma_k\}_{k \in \mathbb{N}}$ uma partição da unidade subordinada à $\{V_k\}_{k \in \mathbb{N}}$, isto é, $\sigma_k \in C^\infty(V_k)$ e $\sum_{k=1}^\infty \sigma_k(x) = 1$, para cada $x \in U$. Fixe $u \in W^{1,p}(U)$ e suponha que a família $\{u_k\}_{k \in \mathbb{N}}$ é tal que $u_k \in C_0^\infty(V_k)$ e $\|u_k - (\sigma_k u)\|_{W^{1,p}(U)} \le \frac{\varepsilon}{2^k}$ para cada $k$. Observe que:
 	\begin{enumerate}[label=(\alph*)]
 		\item A série $\sum_{k=1}^\infty \sigma_k(x)$ é finita em partes compactas de $U$;
@@ -3150,78 +3150,73 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 }
 
 \analise{
-	\textbf{Análise do Enunciado}: A primeira parte exige a generalização da Primeira Identidade de Green para funções em espaços de Sobolev com expoentes conjugados $p$ e $q$. A segunda parte solicita a prova de uma desigualdade de energia para funções que se anulam na fronteira ($H_0^1$), relacionando a norma do gradiente com a norma da função e do seu Laplaciano.
+	\textbf{Análise do Enunciado}: A primeira parte da questão propõe a extensão da Primeira Identidade de Green para funções pertencentes a espaços de Sobolev com expoentes integráveis conjugados $p$ e $q$. A segunda parte requer a demonstração de uma desigualdade a priori para funções com traço nulo ($H_0^1$), estabelecendo um controle geométrico da norma do gradiente por meio da norma $L^2$ da função e de seu Laplaciano.
 	
-	\textbf{Fundamentação Teórica}: A prova do item (a) baseia-se na densidade de $C^\infty(\overline{U})$ em $W^{1,p}(U)$ e $W^{2,q}(U)$. Para funções suaves, a identidade é trivial via Teorema de Gauss; a extensão para Sobolev ocorre por limite. O operador de traço $T$ garante que as integrais na fronteira sejam bem definidas. Utilizaremos a continuidade do operador traço $T: W^{1,p}(U) \to L^p(\partial U)$.
+	\textbf{Fundamentação Teórica}: O argumento principal para o item (a) fundamenta-se no teorema de densidade de $C^\infty(\overline{U})$ nos espaços $W^{1,p}(U)$ e $W^{2,q}(U)$. Uma vez válida a identidade clássica para funções suaves via Teorema de Gauss, a extensão para o cenário de Sobolev baseia-se na continuidade do operador de traço $T_p: W^{1,p}(U) \to L^p(\partial U)$ e na dualidade dos espaços de Lebesgue via Desigualdade de Hölder. Para o item (b), a hipótese de anulamento na fronteira simplifica a integral de superfície, permitindo o uso direto da Desigualdade de Cauchy-Schwarz.
 	
 	\textbf{Estratégias}:
 	\begin{enumerate}
-		\item \textbf{Aproximação por Funções Suaves}: Estabelecer a identidade para $u_k, v_k \in C^\infty(\overline{U})$.
-		\item \textbf{Análise de Convergência no Domínio}: Decompor a diferença das integrais de volume e aplicar Hölder para provar que os termos convergem para as integrais de $u$ e $v$.
-		\item \textbf{Análise de Convergência na Fronteira}: Utilizar a continuidade do operador de traço e a desigualdade de Hölder no espaço $L^p(\partial U) \times L^q(\partial U)$ para provar a convergência do termo de superfície.
-		\item \textbf{Aplicação de Cauchy-Schwarz}: No item (b), anular o traço por $u \in H_0^1$ e aplicar a desigualdade de Cauchy-Schwarz.
+		\item \textbf{Aproximação por Densidade}: Validar a estrutura algébrica da identidade para sequências de funções suaves $u_k, v_k \in C^\infty(\overline{U})$.
+		\item \textbf{Estimativa de Convergência no Domínio}: Empregar a desigualdade triangular e a desigualdade de Hölder para garantir a convergência das integrais de volume sob a passagem ao limite.
+		\item \textbf{Estimativa de Convergência na Fronteira}: Utilizar a limitação uniforme induzida pela continuidade do operador de traço para assegurar a convergência da integral de superfície sobre $\partial U$.
+		\item \textbf{Anulamento de Traço e Dualidade $L^2$}: No item (b), explorar a estrutura de $H_0^1(U)$ para eliminar o termo de fronteira e aplicar a desigualdade de Cauchy-Schwarz.
 	\end{enumerate}
 }
 
 \solucao{
 	\textbf{(a) Demonstração da Identidade de Green}:
-	Sejam $u \in W^{1,p}(U)$ e $v \in W^{2,q}(U)$. Pela densidade de $C^\infty(\overline{U})$ em $W^{1,p}(U)$ e $W^{2,q}(U)$, existem sequências $\{u_k\} \subset C^\infty(\overline{U})$ e $\{v_k\} \subset C^\infty(\overline{U})$ tais que $u_k \to u$ em $W^{1,p}(U)$ e $v_k \to v$ em $W^{2,q}(U)$. Para cada $k$, a identidade de Green clássica é válida:
+	Sejam $u \in W^{1,p}(U)$ e $v \in W^{2,q}(U)$. Pela densidade de $C^\infty(\overline{U})$ em $W^{1,p}(U)$ e $W^{2,q}(U)$, existem sequências $\{u_k\}, \{v_k\} \subset C^\infty(\overline{U})$ tais que $u_k \to u$ em $W^{1,p}(U)$ e $v_k \to v$ em $W^{2,q}(U)$. Para cada índice $k$, a identidade de Green clássica é válida:
 	$$\int_U u_k \Delta v_k \, dx + \int_U \nabla u_k \cdot \nabla v_k \, dx = \int_{\partial U} T u_k \left( \sum_{j=1}^n \nu_j T \frac{\partial v_k}{\partial x_j} \right) d\sigma$$
 	
-	Provamos agora que cada termo converge para a sua respectiva contraparte em $W^{1,p}$ e $W^{2,q}$.
+	A seguir, verificamos a passagem ao limite em cada um dos termos que compõem a igualdade.
 	
-	\textbf{1. Convergência do termo $\int_U u \Delta v$}:
-	Analisamos a diferença:
+	\textbf{1. Convergência do termo $\int_U u \Delta v \, dx$}:
+	Avaliando o módulo da diferença e aplicando a desigualdade triangular, obtemos:
 	\begin{align*}
 		\left| \int_U u_k \Delta v_k \, dx - \int_U u \Delta v \, dx \right| &= \left| \int_U (u_k - u) \Delta v_k \, dx + \int_U u (\Delta v_k - \Delta v) \, dx \right| \\
 		&\le \int_U |u_k - u| |\Delta v_k| \, dx + \int_U |u| |\Delta v_k - \Delta v| \, dx
 	\end{align*}
-	Aplicando a \textbf{Desigualdade de Hölder} para $(p, q)$:
-	\begin{align*}
-		\text{Erro}_1 &\le \|u_k - u\|_{L^p(U)} \|\Delta v_k\|_{L^q(U)} + \|u\|_{L^p(U)} \|\Delta v_k - \Delta v\|_{L^q(U)}
-	\end{align*}
-	Como $\Delta v_k \to \Delta v$ em $L^q(U)$, a sequência $\|\Delta v_k\|_{L^q}$ é limitada por uma constante $C$.
+	Aplicando a \textbf{Desigualdade de Hölder} para os expoentes conjugados $p$ e $q$, essa diferença é limitada superiormente por:
+	$$ \|u_k - u\|_{L^p(U)} \|\Delta v_k\|_{L^q(U)} + \|u\|_{L^p(U)} \|\Delta v_k - \Delta v\|_{L^q(U)} $$
+	Sendo a sequência $\{\Delta v_k\}$ convergente em $L^q(U)$, ela é uniformemente limitada; logo, existe uma constante $C > 0$ tal que $\|\Delta v_k\|_{L^q(U)} \le C$. Assim, a expressão é majorada por $C \|u_k - u\|_{L^p(U)} + \|u\|_{L^p(U)} \|\Delta v_k - \Delta v\|_{L^q(U)}$, que tende a zero quando $k \to \infty$.
 	
-	Assim, $\text{Erro}_1 \le \|u_k - u\|_{L^p} \cdot C + \|u\|_{L^p} \|\Delta v_k - \Delta v\|_{L^q}$, o que tende a zero quando $k \to \infty$.
-	
-	\textbf{2. Convergência do termo $\int_U \nabla u \cdot \nabla v$}:
-	De forma análoga, temos:
+	\textbf{2. Convergência do termo $\int_U \nabla u \cdot \nabla v \, dx$}:
+	Com raciocínio análogo para o termo de gradiente, estimamos:
 	\begin{align*}
 		\left| \int_U \nabla u_k \cdot \nabla v_k \, dx - \int_U \nabla u \cdot \nabla v \, dx \right| &\le \int_U |\nabla u_k - \nabla u| |\nabla v_k| \, dx + \int_U |\nabla u| |\nabla v_k - \nabla v| \, dx \\
 		&\le \|\nabla u_k - \nabla u\|_{L^p(U)} \|\nabla v_k\|_{L^q(U)} + \|\nabla u\|_{L^p(U)} \|\nabla v_k - \nabla v\|_{L^q(U)}
 	\end{align*}
-	Como $\nabla v_k \to \nabla v$ em $L^q(U)$, a norma $\|\nabla v_k\|_{L^q}$ é limitada, e o erro tende a zero.
+	Como a convergência $\nabla v_k \to \nabla v$ em $L^q(U)$ implica a limitação da sequência de normas $\|\nabla v_k\|_{L^q(U)}$, concluímos de forma idêntica que essa diferença se anula no limite.
 	
 	\textbf{3. Convergência do termo de fronteira}:
-	Seja $g_k = \sum_{j=1}^n \nu_j T \frac{\partial v_k}{\partial x_j}$ e $g = \sum_{j=1}^n \nu_j T \frac{\partial v}{\partial x_j}$. Como $v_k \to v$ em $W^{2,q}(U)$, a continuidade do operador traço $T: W^{1,q}(U) \to L^q(\partial U)$ aplicado às derivadas $\partial_j v$ garante que $g_k \to g$ em $L^q(\partial U)$. Analisamos a diferença:
+	Definamos $g_k = \sum_{j=1}^n \nu_j T \frac{\partial v_k}{\partial x_j}$ e $g = \sum_{j=1}^n \nu_j T \frac{\partial v}{\partial x_j}$. Como $v_k \to v$ em $W^{2,q}(U)$, a continuidade do operador traço $T: W^{1,q}(U) \to L^q(\partial U)$ aplicado às derivadas $\partial_j v$ garante que $g_k \to g$ em $L^q(\partial U)$. Analisando a diferença:
 	\begin{align*}
 		\left| \int_{\partial U} T u_k g_k \, d\sigma - \int_{\partial U} T u g \, d\sigma \right| &= \left| \int_{\partial U} (T u_k - T u) g_k \, d\sigma + \int_{\partial U} T u (g_k - g) \, d\sigma \right| \\
 		&\le \int_{\partial U} |T u_k - T u| |g_k| \, d\sigma + \int_{\partial U} |T u| |g_k - g| \, d\sigma
 	\end{align*}
-	Aplicando a \textbf{Desigualdade de Hölder} em $\partial U$:
-	\begin{align*}
-		\text{Erro}_{\text{fronteira}} &\le \|T u_k - T u\|_{L^p(\partial U)} \|g_k\|_{L^q(\partial U)} + \|T u\|_{L^p(\partial U)} \|g_k - g\|_{L^q(\partial U)}
-	\end{align*}
-	Pela continuidade do operador de traço $T_p$, temos $\|T u_k - T u\|_{L^p(\partial U)} \le C \|u_k - u\|_{W^{1,p}(U)} \to 0$. Como $\|g_k\|_{L^q(\partial U)}$ é limitada e $\|g_k - g\|_{L^q(\partial U)} \to 0$, o erro de fronteira tende a zero.
+	Aplicando a \textbf{Desigualdade de Hölder} no espaço de fronteira $L^p(\partial U) \times L^q(\partial U)$, a diferença é majorada por:
+	$$ \|T u_k - T u\|_{L^p(\partial U)} \|g_k\|_{L^q(\partial U)} + \|T u\|_{L^p(\partial U)} \|g_k - g\|_{L^q(\partial U)} $$
+	Pela continuidade do operador traço $T_p$, sabemos que $\|T u_k - T u\|_{L^p(\partial U)} \le C \|u_k - u\|_{W^{1,p}(U)} \to 0$. Como $\|g_k\|_{L^q(\partial U)}$ é limitada e $\|g_k - g\|_{L^q(\partial U)} \to 0$, toda a expressão converge a zero.
 	
-	Unificando todos os limites, a identidade é validada para $u \in W^{1,p}(U)$ e $v \in W^{2,q}(U)$.
+	Visto que a convergência é garantida para todos os termos, a passagem ao limite preserva a igualdade, estendendo a identidade de Green para $u \in W^{1,p}(U)$ e $v \in W^{2,q}(U)$.
 	
 	\textbf{(b) Prova da Desigualdade de Energia}:
-	Seja $u \in H^2(U) \cap H_0^1(U)$. Aplicamos a identidade do item (a) com $p=q=2$ e $v=u$. Como $u \in H_0^1(U)$, o traço $T u = 0$ quase sempre em $\partial U$. A integral de superfície anula-se:
+	Seja $u \in H^2(U) \cap H_0^1(U)$. Aplicando a identidade do item (a) com $p=q=2$ e $v=u$, e lembrando que para $u \in H_0^1(U)$ o traço satisfaz $T u = 0$ quase sempre em $\partial U$, a integral de superfície anula-se:
 	$$\int_U u \Delta u \, dx + \int_U |\nabla u|^2 \, dx = 0 \implies \int_U |\nabla u|^2 \, dx = - \int_U u \Delta u \, dx$$
-	Tomando o módulo e aplicando a \textbf{Desigualdade de Cauchy-Schwarz} em $L^2(U)$:
+	Aplicando o módulo em ambos os lados e utilizando a \textbf{Desigualdade de Cauchy-Schwarz} em $L^2(U)$, deduzimos:
 	\begin{align*}
-		\int_U |\nabla u|^2 \, dx = \left| \int_U u \Delta u \, dx \right| \le \int_U |u \Delta u| \, dx \le \left( \int_U u^2 \, dx \right)^{\frac{1}{2}} \left( \int_U (\Delta u)^2 \, dx \right)^{\frac{1}{2}}
+		\int_U |\nabla u|^2 \, dx &= \left| \int_U u \Delta u \, dx \right| \le \int_U |u \Delta u| \, dx \\
+		&\le \left( \int_U u^2 \, dx \right)^{\frac{1}{2}} \left( \int_U (\Delta u)^2 \, dx \right)^{\frac{1}{2}}
 	\end{align*}
-	Obtemos, portanto, a desigualdade desejada:
+	Obtemos, portanto, a desigualdade procurada:
 	$$\boxed{\int_U |\nabla u|^2 \, dx \le \|u\|_{L^2(U)} \|\Delta u\|_{L^2(U)}}$$
 }
 
 \sintese{
-	A prova demonstra que as identidades de Green são robustas sob a topologia de Sobolev. A chave foi a decomposição da convergência em três partes (volume, gradiente e fronteira), utilizando a continuidade do operador de traço e a dualidade $L^p \times L^q$ para controlar os erros.
+	A demonstração ratifica a estabilidade das identidades de Green sob a topologia dos espaços de Sobolev. A fundamentação lógica dependeu crucialmente do controle topológico individual das integrais através da Desigualdade Triangular, seguido da aplicação de estimativas duais via Hölder e do confinamento contínuo das funções na fronteira gerado pelo operador de traço.
 	
 	O fluxo lógico foi:
-	$$\boxed{\text{Identidade Suave} \to \text{Decomposição do Erro} \to \text{Hölder } (L^p, L^q) \to \text{Traço Contínuo} \to \text{Limite Sobolev}}$$
+	$$\boxed{\text{Identidade Suave} \to \text{Desigualdade Triangular} \to \text{Hölder} \to \text{Continuicade de Traço} \to \text{Limite em Sobolev}}$$
 }
 
 \aprofundamento{
@@ -3384,9 +3379,9 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 }
 
 \analise{
-	\textbf{Análise do Enunciado}: O objetivo é provar que a "colagem" de duas funções de Sobolev, cujos traços coincidem na interface comum $\Gamma$, resulta em uma função que mantém a regularidade $W^{1,p}$ no domínio unificado. A tese central é que a igualdade dos traços anula o "salto" potencial na interface, permitindo que a derivada fraca seja a união das derivadas locais.
+	\textbf{Análise do Enunciado}: O objetivo é provar que a \textbf{colagem} de duas funções de Sobolev, cujos traços coincidem na interface comum $\Gamma$, resulta em uma função que mantém a regularidade $W^{1,p}$ no domínio unificado. A tese central é que a igualdade dos traços anula o \textbf{salto} potencial na interface, permitindo que a derivada fraca seja a união das derivadas locais.
 	
-	\textbf{Fundamentação Teórica}: A prova baseia-se na definição de derivada fraca via integração por partes. Se a função fosse descontínua em $\Gamma$, a integração por partes produziria um termo de superfície (uma medida concentrada na interface). A hipótese $T_p v = T_p w$ garante que esse termo se anule. Referência: \textbf{Brezis}, Capítulo 8.
+	\textbf{Fundamentação Teórica}: A prova baseia-se na definição de derivada fraca via integração por partes. Se a função fosse descontínua em $\Gamma$, a integração por partes produziria um termo de superfície (uma medida concentrada na interface). A hipótese $T_p v = T_p w$ garante que esse termo se anule.
 	
 	\textbf{Estratégias}:
 	\begin{enumerate}
@@ -3420,8 +3415,7 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	\end{align*}
 	Pela hipótese fundamental do enunciado, $T_p v = T_p w$ quase sempre em $\Gamma$, logo a integral de superfície é identicamente nula.
 	
-	\textbf{3. Conclusão}:
-	Restou provado que $\int_U u \partial_j \phi \, dx = - \int_U g_j \phi \, dx$ para toda $\phi \in C_c^\infty(U)$. Assim, a derivada fraca de $u$ existe e é dada por $\nabla u = \nabla v$ em $U_1$ e $\nabla u = \nabla w$ em $U_2$. Como $\nabla v \in L^p(U_1)$ e $\nabla w \in L^p(U_2)$, temos $\nabla u \in L^p(U)$. Portanto, $u \in W^{1,p}(U)$.
+	Logo, $\int_U u \partial_j \phi \, dx = - \int_U g_j \phi \, dx$ para toda $\phi \in C_c^\infty(U)$. Assim, a derivada fraca de $u$ existe e é dada por $\nabla u = \nabla v$ em $U_1$ e $\nabla u = \nabla w$ em $U_2$. Como $\nabla v \in L^p(U_1)$ e $\nabla w \in L^p(U_2)$, temos $\nabla u \in L^p(U)$. Portanto, $u \in W^{1,p}(U)$.
 }
 
 \sintese{
@@ -3435,9 +3429,207 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	Este resultado é a base para a técnica de \textbf{domínios decompostos}, amplamente utilizada em simulações numéricas e no método de elementos finitos. Ele garante que podemos resolver problemas em subdomínios menores e "colar" as soluções, desde que as condições de transmissão (igualdade de traços) sejam satisfeitas. Em termos de distribuições, isso significa que a derivada de $u$ não contém uma componente de medida concentrada na interface $\Gamma$ (uma "camada de salto"), o que a diferencia de funções que apenas pertencem a $L^p$ mas não a $W^{1,p}$.
 }
 
-\setcounter{numquestao}{131} % Define o valor atual como 131
+%%%% QUESTÃO 131 %%%%
+\questao{
+	(Núcleo do operador traço - e lá vem os ``cilindros verticais'' novamente) Seja $U_0 = \{x = (z, x_n) \in \mathbb{R}^n : z \in \mathbb{R}^{n-1}, |z| < r, x_n \in \mathbb{R}\}$, um ``cone vertical'' em $\mathbb{R}^n$, uma aplicação $\gamma : B \to \mathbb{R}$ de classe $C^1(B)$, onde $B$ é a bola com centro na origem de $\mathbb{R}^{n-1}$ e raio $r$. Considere $U = \{x = (z, x_n) \in U_0 : z \in B \text{ e } x_n > \gamma(z)\}$. Considere $u \in W^{1,p}(U)$ tal que $Tu = 0$. Seja $u_m \in C^1(\overline{U})$ tal que $u_m \to u$ em $W^{1,p}(U)$. Mostre que:
+	\begin{enumerate}[label=(\alph*)]
+		\item Para cada $t > 0$,
+		$$|u_m(z, \gamma(z) + t)| \le |u_m(z, \gamma(z))| + t^{\frac{p-1}{p}} \left[ \int_{\gamma(z)}^{\gamma(z)+t} \left| \frac{\partial u_m}{\partial x_n}(z, x_n) \right|^p dx_n \right]^{\frac{1}{p}}.$$
+		\item Se $V_t = \{x = (z, x_n) \in U_0 : z \in B \text{ e } \gamma(z) < x_n < \gamma(z) + t\}$, mostre as fórmulas para calcular a integral sobre a faixa $V_t$:
+		$$\int_{V_t} f(x) dx = \int_B \left( \int_{\gamma(z)}^{\gamma(z)+t} f(z, x_n) dx_n \right) dz \quad \text{e} \quad \int_{V_t} f(x) dx = \int_0^t \left( \int_B f(z, \gamma(z) + s) dz \right) ds.$$
+		\item Use as fórmulas para obter
+		$$\int_B |u_m(z, \gamma(z) + t)|^p dz \le 2^p \int_B |u_m(z, \gamma(z))|^p dz + t^{p-1} 2^p \int_{V_t} |\nabla u_m(x)|^p dx.$$
+		\item Para a faixa $V_t$,
+		$$\int_{V_t} |u_m|^p dx \le 2^p t \int_B |u_m(z, \gamma(z))|^p dz + \frac{2^p t^p}{p} \int_{V_t} |\nabla u_m(x)|^p dx.$$
+		\item Para a faixa $V_t$, passando ao limite $m \to \infty$:
+		$$\int_{V_t} |u|^p dx \le \frac{2^p t^p}{p} \int_{V_t} |\nabla u(x)|^p dx.$$
+	\end{enumerate}
+}
+
+\begin{figure}[htbp!]
+	\begin{center}
+		\begin{tikzpicture}[scale=1.3, >=stealth]
+			
+			% --- CONFIGURAÇÕES DE CORES ---
+			\colorlet{cylindercolor}{gray!30}
+			\colorlet{vtcolor}{cyan!25}
+			\colorlet{ucolor}{yellow!60!orange!12}
+			
+			% --- CAMADA 1: FUNDO DO CILINDRO E DA FAIXA V_t ---
+			% Preenchimento da região U (topo do cilindro acima de \gamma + t)
+			\fill[ucolor] (-2.5, 3.6) .. controls (-1, 4.4) and (1, 4.6) .. (2.5, 4.0) -- (2.5, 5.2) -- (-2.5, 5.2) -- cycle;
+			\fill[ucolor] (-2.5, 2.2) .. controls (-1, 1.4) and (1, 1.8) .. (2.5, 2.6) -- 
+			(2.5, 4.0) .. controls (1, 3.2) and (-1, 2.8) .. (-2.5, 3.6) -- cycle;
+			
+			% Preenchimento do fundo da faixa V_t (entre as curvas traseiras de \gamma e \gamma + t)
+			\fill[vtcolor!80] (-2.5, 2.2) .. controls (-1, 3.0) and (1, 3.2) .. (2.5, 2.6) -- 
+			(2.5, 4.0) .. controls (1, 4.6) and (-1, 4.4) .. (-2.5, 3.6) -- cycle;
+			
+			% --- CAMADA 2: LINHAS TRASEIRAS (Escondidas) ---
+			% Base da Bola B (Traseira)
+			\draw[dashed, thick, gray] (2.5,0) arc (0:180:2.5 and 0.6);
+			% Fronteira \gamma(z) (Traseira)
+			\draw[dashed, thick, black!70] (-2.5, 2.2) .. controls (-1, 3.0) and (1, 3.2) .. (2.5, 2.6);
+			% Fronteira \gamma(z) + t (Traseira)
+			\draw[dashed, thick, black!70] (-2.5, 3.6) .. controls (-1, 4.4) and (1, 4.6) .. (2.5, 4.0);
+			
+			% --- CAMADA 3: FRENTE DA FAIXA V_t E DA BASE ---
+			% Preenchimento da frente da faixa V_t (entre as curvas frontais)
+			\fill[vtcolor, opacity=0.7] (-2.5, 2.2) .. controls (-1, 1.4) and (1, 1.8) .. (2.5, 2.6) -- 
+			(2.5, 4.0) .. controls (1, 3.2) and (-1, 2.8) .. (-2.5, 3.6) -- cycle;
+			
+			% Preenchimento da base (Bola B)
+			\fill[gray!15, opacity=0.6] (0,0) circle [x radius=2.5, y radius=0.6];
+			
+			% --- CAMADA 4: LINHAS FRONTAIS E CONTORNOS DO CILINDRO ---
+			% Paredes verticais do cilindro U_0
+			\draw[thick, gray] (-2.5, 0) -- (-2.5, 5.2);
+			\draw[thick, gray] (2.5, 0) -- (2.5, 5.2);
+			
+			% Base da Bola B (Frontal)
+			\draw[thick, gray] (-2.5,0) arc (180:360:2.5 and 0.6);
+			\node at (-1.6, -0.2) {$B$};
+			
+			% Fronteira \gamma(z) (Frontal)
+			\draw[thick, black] (-2.5, 2.2) .. controls (-1, 1.4) and (1, 1.8) .. (2.5, 2.6);
+			% Fronteira \gamma(z) + t (Frontal)
+			\draw[thick, black] (-2.5, 3.6) .. controls (-1, 2.8) and (1, 3.2) .. (2.5, 4.0);
+			
+			% --- CAMADA 5: EIXOS COORDENADOS CENTRALIZADOS ---
+			% Eixo Horizontal R^{n-1} passando exatamente pelo centro da bola B
+			\draw[->, thick, black] (-3.5, 0) -- (3.5, 0) node[right] {$\mathbb{R}^{n-1}$};
+			
+			% Eixo Vertical x_n cortando o cilindro exatamente ao meio
+			\draw[->, thick, black] (0, -0.6) -- (0, 5.6) node[above] {$x_n$};
+			
+			% Nós de referência para a Origem (0) e para o Raio (r) da bola B
+			\node[below left, scale=0.8] at (0,0) {$0$};
+			\node[below right, scale=0.8] at (2.5,0) {$r$};
+			\node[below left, scale=0.8] at (-2.5,0) {$-r$};
+			
+			% --- CAMADA 6: RÓTULOS, CHAVES E ADORNOS ---
+			% Rótulo da Faixa V_t
+			\node[cyan!60!black, font=\bfseries] at (-1.8, 3.1) {$V_t$};
+			
+			% Rótulo do Domínio U
+			\node[brown!80!black, font=\bfseries] at (1.5, 4.5) {$U$};
+			
+			% Indicação da superfície \gamma(z)
+			\draw[<-] (-0.5, 1.65) -- (-1.2, 1.2) node[left, scale=0.9] {$x_n = \gamma(z)$};
+			
+			% Chave da espessura 't' na parede direita
+			\draw[decorate, decoration={brace, amplitude=5pt}, thick] (2.6, 4.0) -- (2.6, 2.6) 
+			node[midway, right=6pt, scale=0.9] {$t$};
+			
+			% NOVA CHAVE PARA IDENTIFICAR O CILINDRO TOTAL U_0 (Ponta para fora)
+			\draw[decorate, decoration={brace, amplitude=6pt}, thick, gray!70!black] (-2.7, 0) -- (-2.7, 5.2) 
+			node[midway, left=8pt, black, align=center, scale=0.9] {$U_0$ (Cilindro Total)};
+			
+			% --- CAMADA 7 (TOPO): SEGMENTO VERTICAL DE INTEGRAÇÃO EXPOSTO NA FRENTE ---
+			% Ponto z na base B até a fronteira \gamma
+			\draw[dashed, gray, thick] (1.1, 0.15) -- (1.1, 2.3);
+			% Segmento dentro de V_t (tamanho t)
+			\draw[red!90!black, ultra thick] (1.1, 2.3) -- (1.1, 3.7);
+			% Continuação do segmento para dentro de U
+			\draw[dashed, gray, thick] (1.1, 3.7) -- (1.1, 4.8);
+			
+			% Nós e pontos sobrepostos no topo de todas as camadas (sem bg=white)
+			\fill[black] (1.1, 0.15) circle (1.6pt) node[above right, scale=0.8] {$z \in B$};
+			\fill[red!90!black] (1.1, 2.3) circle (1.8pt) node[left=3pt, black, scale=0.8] {$(z, \gamma(z))$};
+			\fill[red!90!black] (1.1, 3.7) circle (1.8pt) node[left, black, scale=0.7] {$(z, \gamma(z)+t)$};
+			
+		\end{tikzpicture}
+	\end{center}
+	\caption*{\footnotesize{Representação geométrica do cilindro vertical $U_0$ centrado na origem com base esférica $B \subset \mathbb{R}^{n-1}$ de raio $r$. O domínio aberto $U$ (região superior sombreada) é limitado inferiormente pelo gráfico da função de classe $C^1$, $x_n = \gamma(z)$. A faixa destacada em azul representa o corte de controle $V_t$, cuja espessura vertical uniforme é dada por $t > 0$. O segmento retilíneo em destaque (vermelho) ilustra a direção unidimensional de integração na variável $x_n$ para um ponto fixado $z \in B$.}}
+	\label{fig:nucleo_traco}
+\end{figure}
+
+\analise{
+	\textbf{Análise do Enunciado}: O problema visa estabelecer uma estimativa de controle da norma de $u$ em uma região estreita próxima à fronteira ($V_t$) em função da norma do gradiente. O uso de funções $u_m \in C^1$ permite a aplicação direta do Teorema Fundamental do Cálculo, enquanto o limite $m \to \infty$ estende o resultado para $W^{1,p}$. A condição de traço nulo ($Tu=0$) será a chave para a anulação de termos no limite final.
+	
+	\textbf{Fundamentação Teórica}: 
+	\begin{itemize}
+		\item \textbf{Teorema Fundamental do Cálculo (TFC)}: Permite expressar a diferença de valores de $u$ em dois pontos de uma mesma vertical como a integral de sua derivada.
+		\item \textbf{Desigualdade de Hölder}: Essencial para estimar a integral da derivada $\int |\partial_{x_n} u|$ em termos da norma $L^p$ do gradiente.
+		\item \textbf{Desigualdade de Convexidade}: Utilizaremos $|a+b|^p \le 2^{p-1}(|a|^p + |b|^p)$ para lidar com as somas resultantes do TFC.
+		\item \textbf{Teorema de Fubini}: Justifica a decomposição de integrais em $V_t$ como integrais iteradas sobre a base $B$ e a altura $x_n$.
+	\end{itemize}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item No item (a), aplicaremos o TFC ao longo da vertical e usaremos Hölder com expoentes $p$ e $q = p/(p-1)$.
+		\item No item (b), utilizaremos a mudança de variáveis $x_n = \gamma(z) + s$ para transformar a integral sobre $V_t$ em uma integral sobre $B \times (0,t)$.
+		\item No item (c), elevaremos a desigualdade de (a) à potência $p$, integraremos sobre $B$ e usaremos a convexidade.
+		\item No item (d), integraremos a desigualdade de (c) em relação a $t$.
+		\item No item (e), utilizaremos a convergência $u_m \to u$ em $W^{1,p}$ e o fato de que $u_m(z, \gamma(z)) \to Tu = 0$.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{(a) Estimativa Pontual via TFC e Hölder}:
+	Fixamos $z \in B$ e $t > 0$. Pelo Teorema Fundamental do Cálculo aplicado à função $s \mapsto u_m(z, s)$ no intervalo $[\gamma(z), \gamma(z)+t]$, temos:
+	$$u_m(z, \gamma(z) + t) - u_m(z, \gamma(z)) = \int_{\gamma(z)}^{\gamma(z)+t} \frac{\partial u_m}{\partial x_n}(z, x_n) \, dx_n$$
+	Tomando o módulo e aplicando a desigualdade triangular, temos que:
+	$$|u_m(z, \gamma(z) + t)| \le |u_m(z, \gamma(z))| + \int_{\gamma(z)}^{\gamma(z)+t} \left| \frac{\partial u_m}{\partial x_n}(z, x_n) \right| \, dx_n$$
+	Usando a \textbf{Desigualdade de Hölder} à integral da direita com os expoentes conjugados $p$ e $q = \tfrac{p}{p-1}$, segue que:
+	$$\int_{\gamma(z)}^{\gamma(z)+t} 1 \cdot \left| \frac{\partial u_m}{\partial x_n} \right| \, dx_n \le \left( \int_{\gamma(z)}^{\gamma(z)+t} 1^q \, dx_n \right)^{1/q} \left( \int_{\gamma(z)}^{\gamma(z)+t} \left| \frac{\partial u_m}{\partial x_n} \right|^p dx_n \right)^{1/p}$$
+	A primeira integral resulta em $t^{1/q} = t^{\frac{p-1}{p}}$. Logo:
+	$$\boxed{|u_m(z, \gamma(z) + t)| \le |u_m(z, \gamma(z))| + t^{\frac{p-1}{p}} \left[ \int_{\gamma(z)}^{\gamma(z)+t} \left| \frac{\partial u_m}{\partial x_n}(z, x_n) \right|^p dx_n \right]^{\frac{1}{p}}}$$
+	
+	\textbf{(b) Fórmulas de Integração em $V_t$}:
+	O domínio $V_t$ é definido por $z \in B$ e $\gamma(z) < x_n < \gamma(z) + t$. Pelo Teorema de Fubini, a integral de volume é:
+	$$\int_{V_t} f(x) dx = \int_B \left( \int_{\gamma(z)}^{\gamma(z)+t} f(z, x_n) dx_n \right) dz$$
+	Fazendo a mudança de variável $x_n = \gamma(z) + s$, onde $s \in (0, t)$. O Jacobiano é $dx_n = ds$. Substituindo:
+	$$\int_{V_t} f(x) dx = \int_B \left( \int_0^t f(z, \gamma(z) + s) \, ds \right) dz$$
+	Trocando a ordem de integração (Fubini novamente):
+	$$\boxed{\int_{V_t} f(x) dx = \int_0^t \left( \int_B f(z, \gamma(z) + s) \, dz \right) ds}$$
+	
+	\textbf{(c) Estimativa da Norma em $\partial B_t$}:
+	Elevando a desigualdade de (a) à potência $p$ e aplicando a \textbf{Desigualdade de Convexidade} $|a+b|^p \le 2^{p-1}(|a|^p + |b|^p)$, temos:
+	$$|u_m(z, \gamma(z) + t)|^p \le 2^{p-1} \left( |u_m(z, \gamma(z))|^p + \left( t^{\frac{p-1}{p}} \left[ \int_{\gamma(z)}^{\gamma(z)+t} \left| \frac{\partial u_m}{\partial x_n} \right|^p dx_n \right]^{\frac{1}{p}} \right)^p \right)$$
+	$$|u_m(z, \gamma(z) + t)|^p \le 2^{p-1} |u_m(z, \gamma(z))|^p + 2^{p-1} t^{p-1} \int_{\gamma(z)}^{\gamma(z)+t} \left| \frac{\partial u_m}{\partial x_n} \right|^p dx_n$$
+	Integrando ambos os lados em relação a $z$ sobre $B$, segue que:
+	$$\int_B |u_m(z, \gamma(z) + t)|^p dz \le 2^{p-1} \int_B |u_m(z, \gamma(z))|^p dz + 2^{p-1} t^{p-1} \int_B \int_{\gamma(z)}^{\gamma(z)+t} \left| \frac{\partial u_m}{\partial x_n} \right|^p dx_n dz$$
+	Notemos que a integral dupla à direita é a integral de volume sobre $V_t$ e que $|\partial_{x_n} u_m| \le |\nabla u_m|$. Além disso, $2^{p-1} \le 2^p$. Assim:
+	$$\boxed{\int_B |u_m(z, \gamma(z) + t)|^p dz \le 2^p \int_B |u_m(z, \gamma(z))|^p dz + 2^p t^{p-1} \int_{V_t} |\nabla u_m(x)|^p dx}$$
+	
+	\textbf{(d) Estimativa da Norma em $V_t$}:
+	Utilizando a segunda fórmula de integração de (b) para $f(x) = |u_m(x)|^p$:
+	$$\int_{V_t} |u_m|^p dx = \int_0^t \left( \int_B |u_m(z, \gamma(z) + s)|^p dz \right) ds$$
+	Substituindo a desigualdade de (c) trocando $t$ por $s$:
+	\begin{align*}
+		\int_{V_t} |u_m|^p dx &\le \int_0^t \left( 2^p \int_B |u_m(z, \gamma(z))|^p dz + 2^p s^{p-1} \int_{V_s} |\nabla u_m|^p dx \right) ds \\
+		&= 2^p t \int_B |u_m(z, \gamma(z))|^p dz + 2^p \int_0^t s^{p-1} \left( \int_{V_s} |\nabla u_m|^p dx \right) ds
+	\end{align*}
+	Como $V_s \subset V_t$ para $s < t$, temos $\int_{V_s} |\nabla u_m|^p dx \le \int_{V_t} |\nabla u_m|^p dx$. Logo:
+	$$\int_{V_t} |u_m|^p dx \le 2^p t \int_B |u_m(z, \gamma(z))|^p dz + 2^p \left( \int_0^t s^{p-1} ds \right) \int_{V_t} |\nabla u_m|^p dx$$
+	Calculando a integral $\int_0^t s^{p-1} ds = \tfrac{t^p}{p}$, obtemos:
+	$$\boxed{\int_{V_t} |u_m|^p dx \le 2^p t \int_B |u_m(z, \gamma(z))|^p dz + \frac{2^p t^p}{p} \int_{V_t} |\nabla u_m|^p dx}$$
+	
+	\textbf{(e) Passagem ao Limite $m \to \infty$}:
+	Por hipótese, $u_m \to u$ em $W^{1,p}(U)$, o que implica:
+	\begin{enumerate}[label=(\roman*)]
+		\item $\int_{V_t} |u_m|^p dx \to \int_{V_t} |u|^p dx$.
+		\item $\int_{V_t} |\nabla u_m|^p dx \to \int_{V_t} |\nabla u|^p dx$.
+		\item Como $Tu = 0$, o traço de $u$ na fronteira $\gamma(z)$ é nulo. Portanto, a integral sobre a bola $B$ tende a zero: $\int_B |u_m(z, \gamma(z))|^p dz \to \int_B |Tu|^p dz = 0$.
+	\end{enumerate}
+	Assim, passando ao limite na desigualdade de (d), o primeiro termo tende a zero e obtemos:
+	$$\boxed{\int_{V_t} |u|^p dx \le \frac{2^p t^p}{p} \int_{V_t} |\nabla u(x)|^p dx}$$
+}
+
+\sintese{
+	A demonstração estabeleceu um controle da norma $L^p$ de $u$ em uma vizinhança da fronteira através de seu gradiente, dado que o traço é nulo. O fluxo lógico foi:
+	$$\boxed{\text{TFC Vertical} \to \text{Hölder} \to \text{Integrais Iteradas} \to \text{Convexidade} \to \text{Limite } Tu=0}.$$
+}
+
+\aprofundamento{
+	Este resultado é um passo técnico crucial para provar que funções com traço nulo podem ser estendidas por zero para fora do domínio mantendo a regularidade $W^{1,p}$. A desigualdade final mostra que a \textbf{massa} de $u$ perto da fronteira é dominada pelo gradiente, o que caracteriza a natureza do espaço $W_0^{1,p}(U)$. Esse tipo de estimativa é a base para provar a densidade de $C_0^\infty(U)$ em $W_0^{1,p}(U)$, pois permite controlar o erro de aproximação em camadas finas próximas à borda.
+}
 
 %%%% QUESTÃO 132 %%%%
+
+
+%%%% QUESTÃO 133 %%%%
 \questao{
 	Seja $U \subset \Omega$ e $u \in W_0^{1,p}(U)$. Mostre que a função $\overline{u} : \Omega \to \mathbb{R}$, dada por $\overline{u} = u$ em $U$ e $\overline{u} = 0$ em $\Omega \setminus U$, está em $W_0^{1,p}(\Omega)$.
 }
@@ -3488,7 +3680,7 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	Este resultado é fundamental para a definição de soluções fracas em domínios complexos. Ele permite que possamos "embutir" problemas definidos em subdomínios dentro de espaços globais sem introduzir singularidades artificiais na fronteira. Do ponto de vista da teoria de traços, isso confirma que se $T u = 0$ em $\partial U$, a função pode ser estendida a zero externamente sem que o gradiente fraco adquira uma componente de medida (delta) na interface $\partial U$.
 }
 
-%%%% QUESTÃO 133 %%%%
+%%%% QUESTÃO 134 %%%%
 \questao{
 	Suponha que $u \in W^{1,1}(\mathbb{R}^n)$ e $c > 0$ são tais que $|\nabla u(x)| \le c|u(x)|$, q.t.p. em $\mathbb{R}^n$. Mostre que $u \in C^{0, \gamma}(\mathbb{R}^n)$, para todo $\gamma \in (0, 1)$.
 }
@@ -3547,7 +3739,7 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 
 \setcounter{numquestao}{136} % Define o valor atual como 136
 
-%%%% QUESTÃO 137 %%%%
+%%%% QUESTÃO 138 %%%%
 \questao{
 	Seja $u \in W^{1,p}(U)$ e suponha que $u$ e suas derivadas fracas $\partial_j u$ são contínuas em $U$. Mostre que $u \in C^1(U)$. (Atenção, dizer que a derivada fraca é contínua não implica que $u$ é derivável no sentido clássico. Não antes deste exercício)
 }
@@ -3596,7 +3788,7 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 
 \setcounter{numquestao}{149} % Define o valor atual como 149
 
-%%%% QUESTÃO 150 %%%%
+%%%% QUESTÃO 151 %%%%
 \questao{
 	Dê um exemplo de uma função $u \in W^{2,p}(U)$ tal que $u^+ \notin W^{2,p}(U)$.
 }
