@@ -4086,7 +4086,7 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 			\node[above, yshift=3pt, blue, font=\footnotesize] at (3.0,0.5) {Imersão Compacta ($\hookrightarrow\hookrightarrow$)};
 			
 			% Detalhe do ganho de equicontinuidade
-			\node[font=\footnotesize, gray, align=center] at (3.0, -0.7) {O "gap" $\beta - \alpha > 0$ absorve oscilações \\ e garante convergência forte};
+			\node[font=\footnotesize, gray, align=center] at (3.0, -0.8) {O "gap" $\beta - \alpha > 0$ absorve oscilações \\ e garante convergência forte};
 		\end{tikzpicture}
 	\end{center}
 }
@@ -4174,7 +4174,27 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 		\item Para o item (a), repetiremos a imersão de Sobolev duas vezes para elevar a integrabilidade do gradiente até um nível $p^{**} > n$, finalizando com Morrey para a função $u$.
 	\end{enumerate}
 }
-
+\begin{center}
+	\begin{tikzpicture}[scale=1.2, >=stealth]
+		% Eixo horizontal representando p
+		\draw[->, thin] (0,0) -- (8.5,0) node[right] {\footnotesize $p$};
+		
+		% Marcações dos limites no eixo
+		\draw[thin] (1.5,0.05) -- (1.5,-0.05) node[below=2pt] {\footnotesize $\frac{n}{3}$};
+		\draw[thin] (3.8,0.05) -- (3.8,-0.05) node[below=2pt] {\footnotesize $\frac{n}{2}$};
+		\draw[thin] (6.5,0.05) -- (6.5,-0.05) node[below=2pt] {\footnotesize $n$};
+		
+		% Barras de intervalos flutuantes com cores distintas para cada caso
+		\draw[|-|, thin, blue] (1.55, 0.4) -- (3.75, 0.4) node[midway, above] {\footnotesize (a) $C^{0,\alpha}$};
+		\draw[|-|, thin, teal] (3.85, 0.4) -- (6.45, 0.4) node[midway, above] {\footnotesize (b) $C^{1,\alpha}$};
+		\draw[|->, thin, purple] (6.55, 0.4) -- (8.2, 0.4) node[midway, above] {\footnotesize (c) $C^{2,\alpha}$};
+		
+		% Linhas guias tracejadas sutis ligando o eixo aos intervalos
+		\draw[dashed, gray, ultra thin] (1.5, 0) -- (1.5, 0.35);
+		\draw[dashed, gray, ultra thin] (3.8, 0) -- (3.8, 0.35);
+		\draw[dashed, gray, ultra thin] (6.5, 0) -- (6.5, 0.35);
+	\end{tikzpicture}
+\end{center}
 \solucao{\par
 	Seja $u \in W^{3,p}(U)$. Isso implica que $u$ e todas as suas derivadas até a terceira ordem pertencem a $L^p(U)$. Denotaremos por $\nabla^k u$ as derivadas de ordem $k$.
 	
@@ -4205,6 +4225,26 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	$$u \in C^{0, \alpha}(\overline{U}), \quad \text{com } \alpha = 1 - \frac{n}{(p^*)^*} = 1 - \frac{n(n-2p)}{np} = 1 - \frac{n-2p}{p} = \frac{p - n + 2p}{p} = 3 - \frac{n}{p}$$
 	Concluímos que:
 	$$\boxed{W^{3,p}(U) \hookrightarrow C^{0,\alpha}(\overline{U}), \quad \text{com } \alpha = 3 - \frac{n}{p}}$$
+	\begin{center}
+		\begin{tikzpicture}[scale=1.2, >=stealth]
+			% Níveis de regularidade (degraus da escada)
+			\node (n3) at (0, 3) {\footnotesize $\nabla^2 u \in W^{1,p}$};
+			\node (n2) at (2.8, 1.5) {\footnotesize $\nabla u \in W^{1,p^*}$};
+			\node (n1) at (5.6, 0) {\footnotesize $u \in W^{1,(p^*)^*}$};
+			
+			% Setas de iteração (Imersões de Sobolev descendo a escada)
+			\draw[->, thin] (n3) -- (n2) node[midway, below left, font=\tiny, text=black] {Sobolev ($p < n$)};
+			\draw[->, thin] (n2) -- (n1) node[midway, below left, font=\tiny, text=black] {Sobolev ($p^* < n$)};
+			
+			% Setas de saída horizontal para os espaços de Hölder (Ativação de Morrey)
+			\draw[->, thin, blue] (n3) -- (2.3, 3) node[right, font=\footnotesize] {Se $p > n \implies u \in C^{2,\alpha}$ \quad \textcolor{black}{\textbf{(c)}}};
+			\draw[->, thin, blue] (n2) -- (5.1, 1.5) node[right, font=\footnotesize] {Se $p^* > n \implies u \in C^{1,\alpha}$ \quad \textcolor{black}{\textbf{(b)}}};
+			\draw[->, thin, blue] (n1) -- (7.9, 0) node[right, font=\footnotesize] {Se $(p^*)^* > n \implies u \in C^{0,\alpha}$ \quad \textcolor{black}{\textbf{(a)}}};
+			
+			% Legenda explicativa acoplada ao gráfico com linguagem matemática formal
+			\node[text width=17cm, align=justify, font=\footnotesize, text=black] at (4.5, -1.2) {\textbf{Leitura do diagrama:} Da esquerda para a direita e de cima para baixo. A iteração das imersões de Sobolev permite trocar ordens de derivação por ganhos de integrabilidade (reduzindo derivadas fracas para aumentar o expoente $p$). O processo iterativo se encerra quando o expoente resultante ultrapassa a dimensão $n$, momento em que o Teorema de Morrey assegura a imersão da função no respectivo espaço de Hölder.};
+		\end{tikzpicture}
+	\end{center}
 }
 
 \sintese{
@@ -4218,7 +4258,101 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 }
 
 %%%% QUESTÃO 140 %%%%
+\questao{
+	Seja $U$ um domínio limitado em $\mathbb{R}^n$, com fronteira suave. Mostre que
+	\begin{enumerate}[label=(\alph*)]
+		\item $W^{4,p}(U) \hookrightarrow C^{0,\alpha}(\overline{U})$, onde $\alpha = 4 - \frac{n}{p}$, quando $\frac{n}{4} < p < \frac{n}{3}$;
+		\item $W^{4,p}(U) \hookrightarrow C^{1,\alpha}(\overline{U})$, onde $\alpha = 3 - \frac{n}{p}$, quando $\frac{n}{3} < p < \frac{n}{2}$;
+		\item $W^{4,p}(U) \hookrightarrow C^{2,\alpha}(\overline{U})$, onde $\alpha = 2 - \frac{n}{p}$, quando $\frac{n}{2} < p < n$;
+		\item $W^{4,p}(U) \hookrightarrow C^{3,\alpha}(\overline{U})$, onde $\alpha = 1 - \frac{n}{p}$, quando $p > n$.
+	\end{enumerate}
+}
 
+\analise{
+	\textbf{Análise do Enunciado}: O problema expande a teoria de imersões para o espaço de Sobolev de quarta ordem $W^{4,p}(U)$. O objetivo é mapear como a integrabilidade das derivadas de quarta ordem ($p$) se traduz em regularidade Hölderiana clássica ($C^{k,\alpha}$) através da compensação entre a ordem de derivação e o decaimento do erro.
+	
+	\textbf{Fundamentação Teórica}: 
+	\begin{itemize}
+		\item \textbf{Imersões Sucessivas}: Cada aplicação da Imersão de Sobolev eleva o expoente de integrabilidade ($p \to p^*$) ao custo de uma ordem de derivada fraca.
+		\item \textbf{Cálculo de Expoentes}: O expoente crítico após $j$ imersões é dado por $p^{(j)} = \frac{np}{n-jp}$.
+		\item \textbf{Critério de Morrey}: A transição para o espaço de Hölder ocorre no momento em que o expoente de integrabilidade acumulado supera a dimensão do espaço ($p^{(j)} > n$).
+	\end{itemize}
+	
+	\textbf{Estratégias}: Seguiremos a lógica de \textit{bootstrap} descendente: partiremos das derivadas de maior ordem e aplicaremos Sobolev sucessivamente até que o expoente permita a aplicação da Desigualdade de Morrey no nível de derivação desejado.
+}
+
+\begin{center}
+	\begin{tikzpicture}[scale=0.9, >=stealth]
+		% Eixo horizontal representando p
+		\draw[->, thin] (0,0) -- (10.5,0) node[right] {\footnotesize $p$};
+		
+		% Marcações dos limites no eixo
+		\draw[thin] (1.5,0.05) -- (1.5,-0.05) node[below=2pt] {\footnotesize $\frac{n}{4}$};
+		\draw[thin] (3.8,0.05) -- (3.8,-0.05) node[below=2pt] {\footnotesize $\frac{n}{3}$};
+		\draw[thin] (6.2,0.05) -- (6.2,-0.05) node[below=2pt] {\footnotesize $\frac{n}{2}$};
+		\draw[thin] (8.5,0.05) -- (8.5,-0.05) node[below=2pt] {\footnotesize $n$};
+		
+		% Barras de intervalos flutuantes
+		\draw[|-|, thin, blue] (1.55, 0.4) -- (3.75, 0.4) node[midway, above] {\footnotesize (a) $C^{0,\alpha}$};
+		\draw[|-|, thin, teal] (3.85, 0.4) -- (6.15, 0.4) node[midway, above] {\footnotesize (b) $C^{1,\alpha}$};
+		\draw[|-|, thin, orange!80!black] (6.25, 0.4) -- (8.45, 0.4) node[midway, above] {\footnotesize (c) $C^{2,\alpha}$};
+		\draw[|->, thin, purple] (8.55, 0.4) -- (10.2, 0.4) node[midway, above] {\footnotesize (d) $C^{3,\alpha}$};
+		
+		% Linhas guias
+		\draw[dashed, gray, ultra thin] (1.5, 0) -- (1.5, 0.35);
+		\draw[dashed, gray, ultra thin] (3.8, 0) -- (3.8, 0.35);
+		\draw[dashed, gray, ultra thin] (6.2, 0) -- (6.2, 0.35);
+		\draw[dashed, gray, ultra thin] (8.5, 0) -- (8.5, 0.35);
+	\end{tikzpicture}
+\end{center}
+
+\solucao{\par
+	Seja $u \in W^{4,p}(U)$. Denotamos por $\nabla^k u$ o conjunto das derivadas de ordem $k$.
+	
+	\textbf{(d) Caso $p > n$}:
+	As derivadas de terceira ordem satisfazem $\nabla^3 u \in W^{1,p}(U)$. Como $p > n$, a imersão de Morrey é imediata para $\nabla^3 u$:
+	$$\nabla^3 u \in C^{0, \alpha}(\overline{U}), \quad \alpha = 1 - \frac{n}{p} \implies \boxed{u \in C^{3, \alpha}(\overline{U})}$$
+	
+	\textbf{(c) Caso $\frac{n}{2} < p < n$}:
+	Para $\nabla^3 u \in W^{1,p}(U)$, temos $\nabla^3 u \in L^{p^*}(U)$ com $p^* = \frac{np}{n-p}$. Como $p > n/2$, então $p^* > n$. Logo, as derivadas de segunda ordem satisfazem $\nabla^2 u \in W^{1, p^*}(U)$. Aplicando Morrey:
+	$$\alpha = 1 - \frac{n}{p^*} = 1 - \frac{n-p}{p} = \frac{2p - n}{p} = 2 - \frac{n}{p} \implies \boxed{u \in C^{2, \alpha}(\overline{U})}$$
+	
+	\textbf{(b) Caso $\frac{n}{3} < p < \frac{n}{2}$}:
+	Realizamos duas imersões de Sobolev: $\nabla^3 u \in L^{p^*}(U)$ e $\nabla^2 u \in L^{p^{**}}(U)$, com $p^{**} = \frac{np}{n-2p}$. Como $p > n/3$, então $p^{**} > n$. Assim, $\nabla u \in W^{1, p^{**}}(U)$. Aplicando Morrey:
+	$$\alpha = 1 - \frac{n}{p^{**}} = 1 - \frac{n-2p}{p} = \frac{3p - n}{p} = 3 - \frac{n}{p} \implies \boxed{u \in C^{1, \alpha}(\overline{U})}$$
+	
+	\textbf{(a) Caso $\frac{n}{4} < p < \frac{n}{3}$}:
+	Realizamos três imersões: $\nabla^3 u \to L^{p^*}$, $\nabla^2 u \to L^{p^{**}}$, $\nabla u \to L^{p^{***}}$ com $p^{***} = \frac{np}{n-3p}$. Como $p > n/4$, então $p^{***} > n$. Logo, $u \in W^{1, p^{***}}(U)$. Aplicando Morrey:
+	$$\alpha = 1 - \frac{n}{p^{***}} = 1 - \frac{n-3p}{p} = \frac{4p - n}{p} = 4 - \frac{n}{p} \implies \boxed{u \in C^{0, \alpha}(\overline{U})}$$
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=0.9, >=stealth]
+			\node (n4) at (0, 4.5) {\footnotesize $\nabla^3 u \in W^{1,p}$};
+			\node (n3) at (2.5, 3) {\footnotesize $\nabla^2 u \in W^{1,p^*}$};
+			\node (n2) at (5.0, 1.5) {\footnotesize $\nabla u \in W^{1,p^{**}}$};
+			\node (n1) at (7.5, 0) {\footnotesize $u \in W^{1,p^{***}}$};
+			
+			\draw[->, thin] (n4) -- (n3) node[midway, below left, font=\tiny, text=black] {Sobolev ($p<n$)};
+			\draw[->, thin] (n3) -- (n2) node[midway, below left, font=\tiny, text=black] {Sobolev ($p^{*}<n$)};
+			\draw[->, thin] (n2) -- (n1) node[midway, below left, font=\tiny, text=black] {Sobolev ($p^{**}<n$)};
+			
+			\draw[->, thin, blue] (n4) -- (2.0, 4.5) node[right, font=\footnotesize] {Se $p > n \to C^{3,\alpha}$ \quad \textbf{(d)}};
+			\draw[->, thin, blue] (n3) -- (4.5, 3) node[right, font=\footnotesize] {Se $p^* > n \to C^{2,\alpha}$ \quad \textbf{(c)}};
+			\draw[->, thin, blue] (n2) -- (7.0, 1.5) node[right, font=\footnotesize] {Se $p^{**} > n \to C^{1,\alpha}$ \quad \textbf{(b)}};
+			\draw[->, thin, blue] (n1) -- (9.5, 0) node[right, font=\footnotesize] {Se $p^{***} > n \to C^{0,\alpha}$ \quad \textbf{(a)}};
+			
+			\node[text width=17cm, align=justify, font=\footnotesize, text=black] at (5.0, -1.2) {\textbf{Leitura do diagrama:} A estrutura iterativa demonstra a troca de ordens de derivação por ganhos de integrabilidade. O processo de imersão de Sobolev reduz o grau de derivação clássica para elevar o expoente $p$ até que este ultrapasse a barreira crítica $n$, permitindo a conversão final para a escala de Hölder via Morrey.};
+		\end{tikzpicture}
+	\end{center}
+}
+
+\sintese{
+	A prova consolidou a regra geral de imersão: para $u \in W^{k,p}$, a regularidade Hölderiana $C^{m,\alpha}$ é atingida quando $k - \frac{n}{p} = m + \alpha$. Vimos que a integrabilidade das derivadas de quarta ordem atua como uma reserva de energia que pode ser convertida em suavidade de ordens inferiores.
+}
+
+\aprofundamento{
+	Este exercício completa a intuição sobre os teoremas de imersão de Sobolev. O parâmetro $s = k - n/p$ é conhecido como o \textbf{índice de regularidade real}. Se $s$ não for inteiro, a função terá $\lfloor s \rfloor$ derivadas clássicas e a última será Hölder-contínua com expoente $s - \lfloor s \rfloor$. Este é o fundamento para a definição dos espaços de Besov e Triebel-Lizorkin em análise harmônica.
+}
 
 
 \setcounter{numquestao}{150} % Define o valor atual como 150
