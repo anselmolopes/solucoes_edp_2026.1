@@ -1138,7 +1138,7 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 		\item $0 \le u \le 1$, $\text{supp } u = \overline{B_2(0)}$;
 		\item $u \in W^{1,p}(\mathbb{R}^n)$;
 		\item Para cada $\varepsilon > 0$, mostre que $u_\varepsilon(x) = \sigma(\frac{x}{\varepsilon})$ está em $W^{1,p}(\mathbb{R}^n)$ e
-		$$\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p \le \frac{|B_{2\varepsilon}(0) \setminus B_\varepsilon(0)|}{\varepsilon^p} = n\alpha(n)(2^n - 1)\varepsilon^{n-p}.$$
+		$$\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p \le \frac{|B_{2\varepsilon}(0) \setminus B_\varepsilon(0)|}{\varepsilon^p} = \alpha(n)(2^n - 1)\varepsilon^{n-p}.$$
 		\item Se $n > p$, então $\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)} \to 0$, quando $\varepsilon \to 0$, e consequentemente, $u_\varepsilon \to 0$ em $W^{1,p}(\mathbb{R}^n)$.
 \end{enumerate}}
 
@@ -1183,9 +1183,9 @@ Para a resolução da Questão 91, utilizaremos o seguinte resultado fundamental
 	Pela regra da cadeia, a derivada fraca é $\nabla u_\varepsilon(x) = \frac{1}{\varepsilon} \sigma'(\frac{|x|}{\varepsilon}) \frac{x}{|x|}$. Calculamos a norma integrando sobre o anel onde $\sigma' \neq 0$, isto é, $1 < \frac{|x|}{\varepsilon} < 2 \implies \varepsilon < |x| < 2\varepsilon$:
 	\begin{align*}
 		\|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p &= \int_{B_{2\varepsilon}(0) \setminus B_\varepsilon(0)} \left| \frac{1}{\varepsilon} \sigma'\left(\frac{|x|}{\varepsilon}\right) \right|^p dx \\
-		&= \frac{1}{\varepsilon^p} \int_{B_{2\varepsilon}(0) \setminus B_\varepsilon(0)} 1 dx = \frac{\alpha(n)((2\varepsilon)^n - \varepsilon^n)}{\varepsilon^p} = \alpha(n)(2^n - 1)\varepsilon^{n-p}.
+		&= \frac{1}{\varepsilon^p} \int_{B_{2\varepsilon}(0) \setminus B_\varepsilon(0)} 1 dx = \frac{\alpha(n)((2\varepsilon)^n - \varepsilon^n)}
+		{\varepsilon^p} = \alpha(n)(2^n - 1)\varepsilon^{n-p}.
 	\end{align*}
-	\textit{Note que a expressão do enunciado $n\alpha(n)(2^n-1)\varepsilon^{n-p}$ sugere a utilização da área da superfície $\omega_n = n\alpha(n)$, porém a integração direta do volume resulta em $\alpha(n)(2^n - 1)\varepsilon^{n-p}$.}
 	
 	\textbf{(e)} Se $n > p$, o expoente $n-p$ é positivo, implicando que:
 	$$\lim_{\varepsilon \to 0} \|\nabla u_\varepsilon\|_{L^p(\mathbb{R}^n)}^p = \lim_{\varepsilon \to 0} \alpha(n)(2^n - 1)\varepsilon^{n-p} = 0$$
@@ -3238,57 +3238,51 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 }
 
 \analise{
-	\textbf{Análise do Enunciado}: O problema apresenta uma identidade integral que envolve a energia do gradiente, um termo fonte $f$ e uma integral de contorno ponderada por um campo vetorial $a$. O objetivo é extrair a equação diferencial governante no interior do domínio $U$ e a condição de contorno na fronteira $\partial U$. 
+	\textbf{Análise do Enunciado}: O problema exige extrair uma EDP forte e sua respectiva condição de contorno a partir de uma formulação integral (variacional). A dificuldade e o charme da questão estão em isolar o que acontece no interior do domínio do que acontece em sua fronteira.
 	
 	\textbf{Fundamentação Teórica}: 
 	\begin{itemize}
-		\item \textbf{Primeira Identidade de Green}: Para $u \in H^2(U)$ e $v \in C^1(\overline{U})$, temos 
-		$$\int_U \nabla u \cdot \nabla v \, dx = - \int_U (\Delta u) v \, dx + \int_{\partial U} v \frac{\partial u}{\partial \nu} d\sigma.$$
-		\item \textbf{Definição de Derivada Normal}: A derivada normal $\frac{\partial u}{\partial \nu}$ é a projeção do gradiente sobre o vetor normal exterior: $\frac{\partial u}{\partial \nu} = \nabla u \cdot \nu = \sum_{j=1}^n \nu_j \frac{\partial u}{\partial x_j}$.
-		\item \textbf{Lema Fundamental do Cálculo de Variações}: Se $\int_U g \phi \, dx = 0$ para toda $\phi \in C_0^\infty(U)$, então $g = 0$ quase sempre em $U$.
+		\item \textbf{Primeira Identidade de Green (via Traço)}: Como visto na Questão 127, para $u \in H^2(U)$ e $v \in C^1(\overline{U})$, temos a validade da relação $\int_U \nabla u \cdot \nabla v \, dx = - \int_U (\Delta u) v \, dx + \int_{\partial U} v \left[ \sum_{j=1}^n \nu_j T \left( \frac{\partial u}{\partial x_j} \right) \right] d\sigma$.
+		\item \textbf{Anulação de Borda ($C_0^\infty$)}: Usaremos a inclusão $C_0^\infty(U) \subset C^1(\overline{U})$ para utilizar funções teste nulas na fronteira, isolando assim a equação diferencial no interior de $U$.
+		\item \textbf{Densidade na Fronteira}: Para a condição de contorno, usaremos o fato de que a restrição de funções de $C^1(\overline{U})$ à fronteira é densa em $L^2(\partial U)$, o que permite aplicar o Lema Fundamental do Cálculo de Variações na variedade $\partial U$.
 	\end{itemize}
-	
-	\textbf{Estratégias}:
-	\begin{enumerate}
-		\item Substituiremos a integral $\int_U \nabla u \cdot \nabla v \, dx$ utilizando a Primeira Identidade de Green.
-		\item Reorganizaremos a equação para agrupar todos os termos integrais de volume de um lado e os de superfície do outro.
-		\item Primeiro, escolheremos funções teste $v$ com suporte compacto ($v \in C_0^\infty(U)$) para anular a fronteira e identificar $-\Delta u = f$.
-		\item Em seguida, com a equação do interior satisfeita, utilizaremos a liberdade de escolha de $v$ na fronteira para identificar a condição de contorno.
-	\end{enumerate}
 }
 
-\solucao{\par
-	Iniciamos aplicando a Primeira Identidade de Green ao termo $\int_U \nabla u \cdot \nabla v \, dx$:
-	$$\int_U \nabla u \cdot \nabla v \, dx = - \int_U (\Delta u) v \, dx + \int_{\partial U} v \frac{\partial u}{\partial \nu} d\sigma$$
-	Substituímos esta expressão na identidade fornecida no enunciado:
-	$$- \int_U (\Delta u) v \, dx + \int_{\partial U} v \frac{\partial u}{\partial \nu} d\sigma - \int_U f v \, dx = \int_{\partial U} v \left[ \sum_{j=1}^n a_j T \left( \frac{\partial u}{\partial x_j} \right) \right] d\sigma$$
-	Reorganizando a equação para agrupar os termos de volume e superfície, obtemos:
-	$$\int_U (-\Delta u - f) v \, dx + \int_{\partial U} v \left( \frac{\partial u}{\partial \nu} - \sum_{j=1}^n a_j T \left( \frac{\partial u}{\partial x_j} \right) \right) d\sigma = 0 \quad (\ast)$$
+\solucao{
+	Pela Primeira Identidade de Green (Questão 127), como $u \in H^2(U)$ e $v \in C^1(\overline{U})$, reescrevemos o termo de energia do gradiente inserindo o operador traço:
+	$$\int_U \nabla u \cdot \nabla v \, dx = - \int_U (\Delta u) v \, dx + \int_{\partial U} v \left[ \sum_{j=1}^n \nu_j T \left( \frac{\partial u}{\partial x_j} \right) \right] d\sigma$$
 	
-	\textbf{1. Identificação da Equação no Interior}:
-	Para isolar o comportamento em $U$, escolhemos funções teste $v \in C_0^\infty(U)$. Por definição, tais funções anulam-se na fronteira $\partial U$, logo o termo de superfície em $(\ast)$ desaparece:
+	Substituindo esta identidade na igualdade dada na hipótese e agrupando os termos de volume e de superfície, obtemos:
+	$$\int_U (-\Delta u - f) v \, dx + \int_{\partial U} v \left[ \sum_{j=1}^n (\nu_j - a_j) T \left( \frac{\partial u}{\partial x_j} \right) \right] d\sigma = 0 \quad (\ast)$$
+	
+	\textbf{1. Identificação da Equação no Interior ($U$)}:
+	A identidade $(\ast)$ é válida para todo $v \in C^1(\overline{U})$. Escolhendo $v \in C_0^\infty(U) \subset C^1(\overline{U})$, temos $v\big|_{\partial U} = 0$. A integral de superfície anula-se, restando:
 	$$\int_U (-\Delta u - f) v \, dx = 0, \quad \forall v \in C_0^\infty(U)$$
-	Pelo Lema Fundamental do Cálculo de Variações, a função dentro da integral deve ser nula quase sempre em $U$. Portanto:
-	$$\boxed{-\Delta u = f(x) \text{ em } U}$$
 	
-	\textbf{2. Identificação da Condição de Contorno}:
-	Agora que provamos que $-\Delta u - f = 0$ q.s. em $U$, o termo de volume na equação $(\ast)$ é nulo para qualquer $v \in C^1(\overline{U})$. A identidade reduz-se a:
-	$$\int_{\partial U} v \left( \frac{\partial u}{\partial \nu} - \sum_{j=1}^n a_j T \left( \frac{\partial u}{\partial x_j} \right) \right) d\sigma = 0, \quad \forall v \in C^1(\overline{U})$$
-	Como a igualdade deve valer para qualquer função $v$ na fronteira, o termo entre parênteses deve ser nulo quase sempre em $\partial U$:
-	$$\frac{\partial u}{\partial \nu} - \sum_{j=1}^n a_j T \left( \frac{\partial u}{\partial x_j} \right) = 0$$
-	Lembrando que a derivada normal é $\frac{\partial u}{\partial \nu} = \sum_{j=1}^n \nu_j T \left( \frac{\partial u}{\partial x_j} \right)$, substituímos na expressão:
-	$$\sum_{j=1}^n \nu_j T \left( \frac{\partial u}{\partial x_j} \right) - \sum_{j=1}^n a_j T \left( \frac{\partial u}{\partial x_j} \right) = 0 \implies \sum_{j=1}^n (\nu_j - a_j) T \left( \frac{\partial u}{\partial x_j} \right) = 0$$
-	Multiplicando a equação por $-1$, obtemos a forma solicitada:
-	$$\boxed{\sum_{j=1}^n (a_j - \nu_j) T \left( \frac{\partial u}{\partial x_j} \right) = 0, \text{ sobre } \partial U}$$
+	Como $u \in H^2(U)$, temos por definição que $\Delta u \in L^2(U)$. Assumindo a integrabilidade natural do termo fonte $f \in L^2(U)$ para que o funcional seja contínuo, garantimos que a combinação $(-\Delta u - f) \in L^2(U)$. Pelo Lema Fundamental do Cálculo de Variações, concluímos que:
+	$$\boxed{-\Delta u = f(x) \quad \text{q.s. em } U}$$
+	
+	\textbf{2. Identificação da Condição de Contorno ($\partial U$)}:
+	Sendo $-\Delta u - f = 0$ q.s. em $U$, a integral de volume em $(\ast)$ zera para \textit{qualquer} $v \in C^1(\overline{U})$. A identidade reduz-se à fronteira:
+	$$\int_{\partial U} v \left[ \sum_{j=1}^n (\nu_j - a_j) T \left( \frac{\partial u}{\partial x_j} \right) \right] d\sigma = 0, \quad \forall v \in C^1(\overline{U})$$
+	
+	Defina $g = \sum_{j=1}^n (\nu_j - a_j) T \left( \frac{\partial u}{\partial x_j} \right)$. Como $u \in H^2(U)$, a teoria do traço assegura que $T(\partial_{x_j} u) \in L^2(\partial U)$, logo $g \in L^2(\partial U)$.
+	
+	Pela densidade de $C^1(\overline{U})$ em $L^2(\partial U)$ com respeito à norma $\|\cdot\|_{L^2(\partial U)}$, existe uma sequência $\{v_k\} \subset C^1(\overline{U})$ tal que $v_k \to g$ na norma $L^2(\partial U)$. Substituindo $v_k$ na identidade integral e passando ao limite, obtemos:
+	$$\|g\|_{L^2(\partial U)}^2 = \int_{\partial U} |g|^2 \, d\sigma = \lim_{k \to \infty} \int_{\partial U} v_k g \, d\sigma = 0$$
+	
+	Portanto, $\|g\|_{L^2(\partial U)} = 0 \implies g = 0$ q.s. em $\partial U$. Concluímos que:
+	$$\sum_{j=1}^n (\nu_j - a_j) T \left( \frac{\partial u}{\partial x_j} \right) = 0 \implies \boxed{\sum_{j=1}^n (a_j - \nu_j) T \left( \frac{\partial u}{\partial x_j} \right) = 0 \text{ sobre } \partial U}$$
 }
 
 \sintese{
-	A demonstração utilizou a Primeira Identidade de Green para decompor a formulação integral em contribuições de volume e de superfície. O fluxo lógico foi:
-	$$\boxed{\text{Identidade de Green} \to \text{Teste em } C_0^\infty(U) \to \text{Equação Forte} \to \text{Isolamento da Fronteira} \to \text{Condição de Contorno}}.$$
+	A demonstração utilizou a Primeira Identidade de Green para desacoplar a influência do volume da influência da fronteira. O fluxo lógico foi:
+	$$\boxed{\text{Green} \to \text{Teste em } C_0^\infty(U) \to \text{Equação Forte} \to \text{Isolamento da Fronteira} \to \text{Traço de } \nabla u \to \text{Condição de Contorno}}.$$
+	A prova destaca a dependência da regularidade $H^2$ para que o Operador Traço $T$ possa ser aplicado às derivadas de $u$.
 }
 
 \aprofundamento{
-	Este problema exemplifica como as condições de contorno de Robin (ou condições mistas) surgem naturalmente de formulações fracas. A expressão $\sum a_j \partial_j u$ representa um fluxo de saída generalizado. Quando esse fluxo é comparável à derivada normal $\partial_\nu u$, temos uma condição de equilíbrio na fronteira. Esse tipo de análise é crucial para derivar as equações de Euler-Lagrange em problemas de minimização de energia onde o funcional inclui termos de borda.
+	Este exercício demonstra a transição entre a formulação variacional e a formulação forte de um problema de valor de contorno. A condição final é uma generalização da condição de Neumann. Enquanto a condição de Neumann clássica exige $\frac{\partial u}{\partial \nu} = g$, aqui temos uma condição onde o fluxo na fronteira é ponderado por um campo vetorial $a$. Se $a = \nu$, a condição torna-se trivial; se $a = 0$, recuperamos a condição de Neumann homogênea. Essa estrutura é fundamental no estudo de problemas de transmissão e em modelos de difusão com absorção na fronteira.
 }
 
 %%%% QUESTÃO 129 %%%%
