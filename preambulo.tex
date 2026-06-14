@@ -1,3 +1,7 @@
+% =============================================================================
+% PREÂMBULO INTEGRAL CUSTOMIZADO
+% =============================================================================
+
 % --- Pacotes de Geometria e Tipografia ---
 \usepackage[a4paper,lmargin=1.5cm,rmargin=1.5cm,tmargin=1.2cm,bmargin=1.5cm]{geometry}
 \usepackage[brazilian]{babel}
@@ -16,7 +20,6 @@
 \usepackage{esint}
 
 % --- Tikz e Referências ---
-
 \usepackage{csquotes} % Elimina o aviso do babel
 \usepackage{caption}
 \usepackage{tikz}
@@ -77,7 +80,7 @@
 \newbool{showsintese}
 \setbool{showsintese}{true}
 
-\newbool{showaprofundamento} % Corrigido o erro de digitação aqui
+\newbool{showaprofundamento} 
 \setbool{showaprofundamento}{true}
 
 \newbool{showtheorem}
@@ -85,6 +88,9 @@
 
 \newbool{showproof}
 \setbool{showproof}{true}
+
+\newbool{showtextoauxiliar}
+\setbool{showtextoauxiliar}{true} 
 
 % =============================================================================
 % COMANDOS ESTRUTURAIS DO PROJETO
@@ -97,7 +103,7 @@
 % --- Ambientes Condicionais de Teoremas e Provas ---
 \makeatletter
 \@ifundefined{theorem*}{%
-	\theoremstyle{definition} % <-- ADICIONE ESTA LINHA AQUI
+	\theoremstyle{definition} 
 	\newtheorem*{theorem*}{Teorema}%
 }{}
 \makeatother
@@ -118,7 +124,7 @@
 
 \newenvironment{prova}{%
 	\ifbool{showproof}{%
-		\begin{proof}[\normalfont\underline{Demonstração}:] % <-- Adicionados os dois pontos aqui dentro
+		\begin{proof}[\normalfont\underline{Demonstração}:] 
 		}{%
 			\setbox0=\vbox\bgroup
 		}%
@@ -130,62 +136,118 @@
 	}%
 }
 
-% 1. Questão: Enunciado literal
+% --- Comando Customizado: Texto Auxiliar Solto Condicional ---
+\newcommand{\textoauxiliar}[1]{%
+	\ifbool{showtextoauxiliar}{%
+		\par\vspace{3pt}%
+		#1% Renderiza apenas o texto solto, sem cabeçalho
+		\par\vspace{3pt}%
+	}{}%
+}
+
+\newcounter{numquestao}
+
+% =============================================================================
+% SISTEMA INTELIGENTE DE SELEÇÃO DE QUESTÕES
+% =============================================================================
+
+% 1. Controle de Estados
+\newbool{showcurrentQ}
+\setbool{showcurrentQ}{true} 
+
+\newbool{modoisolado}
+\setbool{modoisolado}{false} 
+
+% 2. Comandos de Seleção Otimizados para Listas (Separados por vírgula)
+\newcommand{\ocultarquestao}[1]{%
+	\foreach \q in {#1} {%
+		\csgdef{hideQ\q}{true}% Usa csgdef global para escapar o escopo do foreach do tikz
+	}%
+}
+
+\newcommand{\mostrarapenasquestao}[1]{%
+	\setbool{modoisolado}{true}%
+	\foreach \q in {#1} {%
+		\csgdef{showOnlyQ\q}{true}%
+	}%
+}
+
+% 3. Sobrescrita do Comando Questão
 \newcommand{\questao}[1]{%
-	\stepcounter{numquestao}%
-	\hypertarget{dest.\listid.\arabic{numquestao}}{}%
-	\bookmark[level=1, dest={dest.\listid.\arabic{numquestao}}]{Questão \arabic{numquestao}}%
-	\begin{tcolorbox}[
-		enhanced, sharp corners, boxrule=0.5pt,
-		colback=gray!6!white, colframe=black,         
-		left=1pt, right=1pt, top=1pt, bottom=1pt,
-		width=1\textwidth, before skip=3pt, after skip=3pt,
-		fontupper=\normalfont
-		]%
-		\mbox{\textbf{Questão \arabic{numquestao}.}}\hspace{0.3em}\ignorespaces#1%
-	\end{tcolorbox}%
+	\stepcounter{numquestao}% Avança o contador SEMPRE, mantendo a numeração original 
+	%
+	% Lógica de Visibilidade Dinâmica
+	\setbool{showcurrentQ}{true}%
+	\ifbool{modoisolado}{%
+		\ifcsdef{showOnlyQ\arabic{numquestao}}{}{\setbool{showcurrentQ}{false}}%
+	}{%
+		\ifcsdef{hideQ\arabic{numquestao}}{\setbool{showcurrentQ}{false}}{}%
+	}%
+	%
+	% Renderização Condicional
+	\ifbool{showcurrentQ}{%
+		\hypertarget{dest.\listid.\arabic{numquestao}}{}%
+		\bookmark[level=1, dest={dest.\listid.\arabic{numquestao}}]{Questão \arabic{numquestao}}%
+		\begin{tcolorbox}[
+			enhanced, sharp corners, boxrule=0.5pt,
+			colback=gray!6!white, colframe=black,         
+			left=1pt, right=1pt, top=1pt, bottom=1pt,
+			width=1\textwidth, before skip=3pt, after skip=3pt,
+			fontupper=\normalfont
+			]%
+			\mbox{\textbf{Questão \arabic{numquestao}.}}\hspace{0.3em}\ignorespaces#1%
+		\end{tcolorbox}%
+	}{}%
 }
 
-% 2. Análise: Reflexão, Fundamentação e Estratégia
+% 4. Condicionais em cascata para os blocos da resolução 
 \newcommand{\analise}[1]{%
-	\ifbool{showanalise}{%
-		\par\vspace{5pt}\textbf{\underline{Análise e Estratégia}}:\par 
-		#1\par
+	\ifbool{showcurrentQ}{%
+		\ifbool{showanalise}{%
+			\par\vspace{5pt}\textbf{\underline{Análise e Estratégia}}:\par 
+			#1\par
+		}{}%
 	}{}%
 }
 
-% 3. Solução: Desenvolvimento Formal
 \newcommand{\solucao}[1]{%
-	\par\vspace{5pt}
-	\textbf{\underline{Solução}}:\par
-	#1 \hfill$\blacksquare$
-	\par
-}
-
-% 4. Solução Alternativa: Outras abordagens
-\newcommand{\solucaoalt}[1]{%
-	\par\vspace{5pt}
-	\textbf{\underline{Solução Alternativa}}:\par 
-	#1 \hfill$\blacksquare$
-	\par
-}
-
-% 5. Síntese: O mapa da construção e fatos matemáticos
-\newcommand{\sintese}[1]{%
-	\ifbool{showsintese}{%
-		\par\vspace{5pt}\textbf{\underline{Síntese da Construção}}:\par 
-		#1\par
+	\ifbool{showcurrentQ}{%
+		\par\vspace{5pt}
+		\textbf{\underline{Solução}}:\par
+		#1 \hfill$\blacksquare$
+		\par
 	}{}%
 }
 
-% 6. Aprofundamento: O ambiente para discussões mais aprofundadas e generalizações
+\newcommand{\solucaoalt}[1]{%
+	\ifbool{showcurrentQ}{%
+		\ifbool{showanalise}{%
+			\par\vspace{5pt}
+			\textbf{\underline{Solução Alternativa}}:\par 
+			#1 \hfill$\blacksquare$
+			\par
+		}{}%
+	}{}%
+}
+
+\newcommand{\sintese}[1]{%
+	\ifbool{showcurrentQ}{%
+		\ifbool{showsintese}{%
+			\par\vspace{5pt}\textbf{\underline{Síntese da Construção}}:\par 
+			#1\par
+		}{}%
+	}{}%
+}
+
 \newcommand{\aprofundamento}[1]{%
-	\ifbool{showaprofundamento}{%
-		\linhaestilizada
-		\par\noindent\textbf{\underline{Aprofundamento Teórico}}\par
-		#1
-		\par
-		\linhaestilizada
+	\ifbool{showcurrentQ}{%
+		\ifbool{showaprofundamento}{%
+			\linhaestilizada
+			\par\noindent\textbf{\underline{Aprofundamento Teórico}}\par
+			#1
+			\par
+			\linhaestilizada
+		}{}%
 	}{}%
 }
 
@@ -199,6 +261,5 @@
 \newcommand{\Hspace}[1]{H^#1}
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\dist}{dist}
-\newcounter{numquestao}
 \newcommand{\FF}{\mathcal{F}} 
 \newcommand{\invFF}{\mathcal{F}^{-1}}

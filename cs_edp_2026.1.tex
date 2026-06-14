@@ -119,13 +119,32 @@
 		\vspace{0.2cm}
 		O documento utiliza interruptores lógicos no \texttt{preambulo.tex} para controlar a exibição de blocos analíticos. É possível gerar versões diferentes do PDF alterando os valores de \texttt{true} (exibe) para \texttt{false} (oculta):
 		\begin{itemize}
-			\item \texttt{\textbackslash setbool\{showanalise\}\{false\}} $\longrightarrow$ Oculta a \textbf{Análise e Fundamentação Teórica}.
+			\item \texttt{\textbackslash setbool\{showanalise\}\{false\}} $\longrightarrow$ Oculta a \textbf{Análise e Estratégia}.
 			\item \texttt{\textbackslash setbool\{showsintese\}\{false\}} $\longrightarrow$ Oculta a \textbf{Síntese da Construção}.
 			\item \texttt{\textbackslash setbool\{showaprofundamento\}\{false\}} $\longrightarrow$ Oculta o \textbf{Aprofundamento Teórico}.
-			\item \texttt{\textbackslash setbool\{showtheorem\}\{false\}} $\longrightarrow$ Oculta o \textbf{Teorema Auxiliar}.
-			\item \texttt{\textbackslash setbool\{showproof\}\{false\}} $\longrightarrow$ Oculta a \textbf{Demonstração (prova) do Teorema}.
+			\item \texttt{\textbackslash setbool\{showtheorem\}\{false\}} $\longrightarrow$ Oculta os blocos de \textbf{Teoremas}.
+			\item \texttt{\textbackslash setbool\{showproof\}\{false\}} $\longrightarrow$ Oculta as \textbf{Demonstrações (provas)}.
+			\item \texttt{\textbackslash setbool\{showtextoauxiliar\}\{false\}} $\longrightarrow$ Oculta comentários e \textbf{Textos Auxiliares} inseridos fora das caixas de questões.
 		\end{itemize}
 		Isso permite alternar entre uma versão de estudo aprofundado e uma versão focada apenas nos resultados.
+	\end{tcolorbox}
+	
+	\begin{tcolorbox}[
+		enhanced, 
+		sharp corners, 
+		boxrule=0.5pt, 
+		colback=white, 
+		colframe=gray!40, % Cinza claro e discreto
+		left=10pt, right=10pt, top=10pt, bottom=10pt
+		]
+		\textbf{Filtros de Questões}
+		
+		\vspace{0.2cm}
+		Você pode omitir ou isolar questões específicas passando os números separados por vírgula no código:
+		\begin{itemize}
+			\item \texttt{\textbackslash ocultarquestao\{3, 85, 89\}} $\longrightarrow$ Oculta as questões listadas e suas soluções, mantendo a numeração automática das demais.
+			\item \texttt{\textbackslash mostrarapenasquestao\{109, 112\}} $\longrightarrow$ Oculta \textbf{todas} as questões do documento, exibindo apenas as que estiverem na lista.
+		\end{itemize}
 	\end{tcolorbox}
 	
 	\begin{tcolorbox}[
