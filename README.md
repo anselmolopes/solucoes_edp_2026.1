@@ -20,11 +20,10 @@ A estruturação do projeto segue rigorosamente o fluxo das listas de exercício
 Para garantir a clareza e a reprodutibilidade do raciocínio, cada problema é resolvido seguindo um fluxo modular, desenhado como uma escada de complexidade:
 
 1. **Enunciado da Questão:** Transcrição literal do problema para definição do desafio.
-2. **Análise e Fundamentação Teórica:** Identificação dos fatos matemáticos envolvidos e a base teórica necessária.
-3. **Estratégia para Solução:** O roteiro lógico e o plano de ataque antes da execução formal.
-4. **Solução:** O desenvolvimento exaustivo e rigoroso, sem omissões e com referências cruzadas.
-5. **Síntese da Construção:** Um fechamento reflexivo sobre a lógica da montagem e a lição extraída.
-6. **Aprofundamento Teórico:** Espaço dedicado a reflexões extensas, conexões com teoremas avançados, discussões sobre regularidade em espaços de Sobolev ou generalizações do problema.
+2. **Análise e Estratégia:** Identificação dos fatos matemáticos envolvidos, base teórica necessária e o plano de ataque antes da execução formal.
+3. **Solução:** O desenvolvimento exaustivo e rigoroso, sem omissões e com referências cruzadas.
+4. **Síntese da Construção:** Um fechamento reflexivo sobre a lógica da montagem e a lição extraída.
+5. **Aprofundamento Teórico:** Espaço dedicado a reflexões extensas, conexões com teoremas avançados, discussões sobre regularidade em espaços de Sobolev ou generalizações do problema.
 
 ---
 
@@ -39,16 +38,25 @@ Para garantir a renderização correta da bibliografia e do sumário, a sequênc
 *Dica: Recomenda-se o uso do `latexmk` no TeXstudio para automatizar este processo.*
 
 ### 🧩 Modularidade com `subfiles`
-Para otimizar o tempo de compilação, utilizei o pacote `subfiles`. Isso permite que você compile:
+Para tempo otimizado de compilação, utilizei o pacote `subfiles`. Isso permite que você compile:
 - **O Documento Completo:** Compilando o arquivo principal `cs_edp_2026.1.tex`.
 - **Um Tópico Específico:** Compilando diretamente o arquivo `.tex` da seção desejada (ex: `solucao_eqonda.tex`), herdando automaticamente todo o preâmbulo.
 
 ### 👁️ Customização de Visibilidade
-No arquivo `preambulo.tex`, implementei "interruptores" lógicos que permitem gerar versões diferentes do PDF (estudo aprofundado vs. versão resumida):
+No arquivo `preambulo.tex`, implementei "interruptores" lógicos globais que permitem gerar versões diferentes do PDF (estudo aprofundado vs. versão resumida) alterando os valores de `true` para `false`:
 
-- `\setbool{showanalise}{true/false}` $\rightarrow$ Controla a exibição da **Análise e Fundamentação**.
+- `\setbool{showanalise}{true/false}` $\rightarrow$ Controla a exibição da **Análise e Estratégia**.
 - `\setbool{showsintese}{true/false}` $\rightarrow$ Controla a exibição da **Síntese da Construção**.
--  `\setbool{showaprofundamento}{true/false}` $\longrightarrow$ Controla a exibição do **Aprofundamento**.
+- `\setbool{showaprofundamento}{true/false}` $\rightarrow$ Controla a exibição do **Aprofundamento Teórico**.
+- `\setbool{showtheorem}{true/false}` $\rightarrow$ Controla a exibição de **Teoremas Auxiliares**.
+- `\setbool{showproof}{true/false}` $\rightarrow$ Controla a exibição das **Demonstrações (Provas)**.
+- `\setbool{showtextoauxiliar}{true/false}` $\rightarrow$ Controla a exibição de notas e **Textos Auxiliares** livres.
+
+### 🎛️ Filtros de Questões
+É possível omitir ou isolar questões específicas passando os números desejados em listas separadas por vírgula diretamente no código:
+
+- `\ocultarquestao{3, 85, 89}` $\rightarrow$ Oculta as questões listadas e suas soluções, mantendo a numeração automática das demais intacta.
+- `\mostrarapenasquestao{109, 112}` $\rightarrow$ Ativa o modo isolado, ocultando todo o documento e exibindo apenas as questões da lista.
 
 ---
 
@@ -56,7 +64,7 @@ No arquivo `preambulo.tex`, implementei "interruptores" lógicos que permitem ge
 
 Este material é distribuído sob a **Licença CC BY-NC-SA 4.0** (Atribuição-NãoComercial-CompartilhaIgual).
 
-Sugestões, críticas ou correções são muito bem-vindas e podem ser enviadas via:
+Sugestões, críticas ou correções são muito bem-vandidas e podem ser enviadas via:
 👉 [Formulário de Observações](https://forms.gle/UcBrKWL7YxdXCX7y9)
 
 ---
