@@ -8,7 +8,8 @@
 	\section*{Espaços de Sobolev}
 }{}
 
-%\mostrarapenasquestao{109,112}
+%\mostrarapenasquestao{112,117,118,119,120,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140}
+
 %%%% QUESTÃO 85 %%%%
 \questao{Seja $f : \mathbb{R} \to \mathbb{R}$ em $f \in C^{0,\alpha}(\mathbb{R})$, isto quer dizer que $f$ é limitado ($|f(t)| \le \|f\|_\infty$, para todo $t \in \mathbb{R}$) e
 	$$[f]_\alpha = \sup_{t \neq s} \frac{|f(t) - f(s)|}{|s - t|^\alpha} < \infty.$$
@@ -2545,10 +2546,10 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	$$\|v\|_{W^{1,p}(U_0)}^p = \int_U (|v|^p + |\nabla v|^p) dx + \int_{U_-} (|v|^p + |\nabla v|^p) dx$$
 	Como $v = u$ em $U$, a primeira integral é $\|u\|_{W^{1,p}(U)}^p$. Analisaremos agora a região $U_-$.
 	
-	\textbf{A. Estimativa de $\|v\|_{L^p(U_-)}^p$}:
+	\textbf{1. Estimativa de $\|v\|_{L^p(U_-)}^p$}:
 	Pela definição de $v$ em $U_-$, temos:
 	$$|v(z, x_n)| \le 3|u(z, 2\gamma(z) - x_n)| + 4|u(z, \tfrac{3}{2}\gamma(z) - \tfrac{x_n}{2})|$$
-	Aplicando a \textbf{Desigualdade de Convexidade} $|a+b|^p \le 2^{p-1}(|a|^p + |b|^p)$, obtemos:
+	Aplicando a \textbf{Desigualdade de Convexidade}\footnote{Caso particular da \textbf{Desigualdade de Jensen} aplicada à função convexa $f(x) = |x|^p$ ($p \ge 1$), escolhendo os pontos $a$ e $b$ com pesos iguais $\lambda = \tfrac{1}{2}$.} $|a+b|^p \le 2^{p-1}(|a|^p + |b|^p)$, obtemos:
 	$$|v(z, x_n)|^p \le 2^{p-1} \left( 3^p |u(z, 2\gamma(z) - x_n)|^p + 4^p |u(z, \tfrac{3}{2}\gamma(z) - \tfrac{x_n}{2})|^p \right)$$
 	Integramos sobre $U_-$ utilizando a decomposição $\int_{U_-} \dots dx = \int_B \int_{-\infty}^{\gamma(z)} \dots dx_n dz$:
 	$$\int_{U_-} |v|^p dx \le 2^{p-1} \int_B \left( \int_{-\infty}^{\gamma(z)} 3^p |u(z, 2\gamma(z) - x_n)|^p dx_n + \int_{-\infty}^{\gamma(z)} 4^p |u(z, \tfrac{3}{2}\gamma(z) - \tfrac{x_n}{2})|^p dx_n \right) dz$$
@@ -2562,7 +2563,7 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	$$\int_{U_-} |v|^p dx \le 2^{p-1} \int_B \left( 3^p \int_{\gamma(z)}^{\infty} |u(z, s_1)|^p ds_1 + 4^p \cdot 2 \int_{\gamma(z)}^{\infty} |u(z, s_2)|^p ds_2 \right) dz$$
 	$$\int_{U_-} |v|^p dx \le 2^{p-1}(3^p + 2 \cdot 4^p) \int_U |u|^p dx = 2^{p-1}(3^p + 2 \cdot 4^p) \|u\|_{L^p(U)}^p$$
 	
-	\textbf{B. Estimativa de $\|\nabla v\|_{L^p(U_-)}^p$}:
+	\textbf{2. Estimativa de $\|\nabla v\|_{L^p(U_-)}^p$}:
 	O gradiente de $v$ é composto pelas derivadas tangenciais $\nabla_z v$ e a derivada normal $\partial_{x_n} v$. 
 	
 	Para a derivada normal, a regra da cadeia implica:
@@ -2573,12 +2574,12 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 		&\quad + 4 \left[ \nabla_z u(z, \tfrac{3}{2}\gamma - \tfrac{x_n}{2}) + \partial_{x_n} u(z, \tfrac{3}{2}\gamma - \tfrac{x_n}{2}) \cdot \tfrac{3}{2}\nabla \gamma(z) \right]
 	\end{align*}
 	
-	Aplicando a \textbf{Desigualdade de Minkowski} e a cota $\|\nabla \gamma\|_\infty$, estimamos o gradiente $|\nabla v| = \sqrt{|\nabla_z v|^2 + |\partial_{x_n} v|^2} \le |\nabla_z v| + |\partial_{x_n} v|$, obtemos:
+	Aplicando a \textbf{Desigualdade de Minkowski} e a cota $\|\nabla \gamma\|_\infty$, vamos estimar o gradiente $$|\nabla v| = \sqrt{|\nabla_z v|^2 + |\partial_{x_n} v|^2} \le |\nabla_z v| + |\partial_{x_n} v|,$$ obtendo:
 	\begin{align*}
 		|\nabla v(z, x_n)| &\le 3|\nabla u(z, 2\gamma - x_n)| + 6\|\nabla \gamma\|_\infty |\partial_{x_n} u(z, 2\gamma - x_n)| \\
 		&\quad + 2|\partial_{x_n} u(z, \tfrac{3}{2}\gamma - \tfrac{x_n}{2})| + 4|\nabla u(z, \tfrac{3}{2}\gamma - \tfrac{x_n}{2})| + 6\|\nabla \gamma\|_\infty |\partial_{x_n} u(z, \tfrac{3}{2}\gamma - \tfrac{x_n}{2})|
 	\end{align*}
-	Agrupando os termos em função dos pontos refletidos $P_1 = (z, 2\gamma - x_n)$ e $P_2 = (z, \tfrac{3}{2}\gamma - \tfrac{x_n}{2})$:
+	Agrupando os termos em função dos pontos refletidos $P_1 = (z, 2\gamma - x_n)$ e $P_2 = (z, \tfrac{3}{2}\gamma - \tfrac{x_n}{2})$, temos que:
 	$$|\nabla v(z, x_n)| \le (3 + 6\|\nabla \gamma\|_\infty) |\nabla u(P_1)| + (6 + 6\|\nabla \gamma\|_\infty) |\nabla u(P_2)|$$
 	Elevando à potência $p$ e utilizando novamente a desigualdade de convexidade $|a+b|^p \le 2^{p-1}(|a|^p + |b|^p)$, segue que:
 	$$|\nabla v(z, x_n)|^p \le 2^{p-1} \left[ (3 + 6\|\nabla \gamma\|_\infty)^p |\nabla u(P_1)|^p + (6 + 6\|\nabla \gamma\|_\infty)^p |\nabla u(P_2)|^p \right]$$
@@ -3319,14 +3320,11 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	$$\int_{\partial U} u (V \cdot \nu) \, d\sigma \ge \int_{\partial U} \rho u \, d\sigma = \rho \int_{\partial U} u \, d\sigma = \rho \|u\|_{L^1(\partial U)}$$
 	No lado direito, aplicamos a \textbf{Desigualdade de Cauchy-Schwarz} para vetores em $\mathbb{R}^n$, que afirma que $|a \cdot b| \le |a||b|$. Logo:
 	\begin{align*}
-		\int_U (\nabla u \cdot V + u \, \text{div } V) \, dx &\le \int_U |\nabla u \cdot V + u \, \text{div } V| \, dx \\
-		&\le \int_U (|\nabla u \cdot V| + |u \, \text{div } V|) \, dx \\
-		&\le \int_U (|\nabla u||V| + |u||\text{div } V|) \, dx
+		\int_U (\nabla u \cdot V + u \, \text{div } V) \, dx &\le \int_U |\nabla u \cdot V + u \, \text{div } V| \, dx \le \int_U (|\nabla u \cdot V| + |u \, \text{div } V|) \, dx \le \int_U (|\nabla u||V| + |u||\text{div } V|) \, dx
 	\end{align*}
 	Utilizando a hipótese $|V(x)| + |\text{div } V(x)| \le C$, podemos escrever:
 	\begin{align*}
-		\int_U (|\nabla u||V| + |u||\text{div } V|) \, dx &\le \int_U \max\{|V|, |\text{div } V|\} (|\nabla u| + |u|) \, dx \\
-		&\le C \int_U (|\nabla u| + |u|) \, dx = C \|u\|_{W^{1,1}(U)}
+		\int_U (|\nabla u||V| + |u||\text{div } V|) \, dx &\le \int_U \max\{|V|, |\text{div } V|\} (|\nabla u| + |u|) \, dx \le C \int_U (|\nabla u| + |u|) \, dx = C \|u\|_{W^{1,1}(U)}
 	\end{align*}
 	Unindo as duas estimativas, obtemos:
 	$$\boxed{\rho \|u\|_{L^1(\partial U)} \le C \|u\|_{W^{1,1}(U)}}$$
@@ -3340,10 +3338,8 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	
 	Para calcular $\nabla u_k$, aplicamos a \textbf{Regra da Cadeia}:
 	\begin{align*}
-		\nabla u_k(x) &= \nabla \left( \sqrt{v(x)^2 + k^{-2}} - k^{-1} \right) \\
-		&= \frac{1}{2\sqrt{v(x)^2 + k^{-2}}} \cdot \nabla (v(x)^2 + k^{-2}) \\
-		&= \frac{1}{2\sqrt{v(x)^2 + k^{-2}}} \cdot (2v(x) \nabla v(x)) \\
-		&= \frac{v(x) \nabla v(x)}{\sqrt{v(x)^2 + k^{-2}}}
+		\nabla u_k(x) &= \nabla \left( \sqrt{v(x)^2 + k^{-2}} - k^{-1} \right) = \frac{1}{2\sqrt{v(x)^2 + k^{-2}}} \cdot \nabla (v(x)^2 + k^{-2})\\ 
+		&= \frac{1}{2\sqrt{v(x)^2 + k^{-2}}} \cdot (2v(x) \nabla v(x)) = \frac{v(x) \nabla v(x)}{\sqrt{v(x)^2 + k^{-2}}}
 	\end{align*}
 	Visto que $u_k \in C^1(\overline{U})$ e $u_k \ge 0$, podemos aplicar o resultado do item (a) diretamente:
 	$$\boxed{\rho \int_{\partial U} u_k \, d\sigma \le C \int_U (|\nabla u_k| + |u_k|) \, dx}$$
@@ -3412,8 +3408,7 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	Somando as duas integrais:
 	\begin{align*}
 		\int_U u \partial_j \phi \, dx &= - \left( \int_{U_1} \partial_j v \phi \, dx + \int_{U_2} \partial_j w \phi \, dx \right) + \int_\Gamma (T_p v \nu_{1,j} \phi + T_p w \nu_{2,j} \phi) \, d\sigma \\
-		&= - \int_U g_j \phi \, dx + \int_\Gamma (T_p v \nu_{1,j} \phi - T_p w \nu_{1,j} \phi) \, d\sigma \\
-		&= - \int_U g_j \phi \, dx + \int_\Gamma (T_p v - T_p w) \nu_{1,j} \phi \, d\sigma
+		&= - \int_U g_j \phi \, dx + \int_\Gamma (T_p v \nu_{1,j} \phi - T_p w \nu_{1,j} \phi) \, d\sigma = - \int_U g_j \phi \, dx + \int_\Gamma (T_p v - T_p w) \nu_{1,j} \phi \, d\sigma
 	\end{align*}
 	Pela hipótese fundamental do enunciado, $T_p v = T_p w$ quase sempre em $\Gamma$, logo a integral de superfície é identicamente nula.
 	
@@ -3448,6 +3443,7 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	\end{enumerate}
 }
 
+\analise{
 \begin{figure}[htbp!]
 	\begin{center}
 		\begin{tikzpicture}[scale=1.3, >=stealth]
@@ -3545,8 +3541,6 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	\caption*{\footnotesize{Representação geométrica do cilindro vertical $U_0$ centrado na origem com base esférica $B \subset \mathbb{R}^{n-1}$ de raio $r$. O domínio aberto $U$ (região superior sombreada) é limitado inferiormente pelo gráfico da função de classe $C^1$, $x_n = \gamma(z)$. A faixa destacada em azul representa o corte de controle $V_t$, cuja espessura vertical uniforme é dada por $t > 0$. O segmento retilíneo em destaque (vermelho) ilustra a direção unidimensional de integração na variável $x_n$ para um ponto fixado $z \in B$.}}
 	\label{fig:nucleo_traco}
 \end{figure}
-
-\analise{
 	\textbf{Análise do Enunciado}: O problema visa estabelecer uma estimativa de controle da norma de $u$ em uma região estreita próxima à fronteira ($V_t$) em função da norma do gradiente. O uso de funções $u_m \in C^1$ permite a aplicação direta do Teorema Fundamental do Cálculo, enquanto o limite $m \to \infty$ estende o resultado para $W^{1,p}$. A condição de traço nulo ($Tu=0$) será a chave para a anulação de termos no limite final.
 	
 	\textbf{Fundamentação Teórica}: 
@@ -3700,12 +3694,12 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 		\int_U |\nabla(u - \bar{u})|^p dx &\le 2^{p-1} \int_{V_t} |1-g|^p |\nabla u|^p dx + 2^{p-1} \int_{V_t} |u|^p |\nabla g|^p dx \\
 		&\le 2^{p-1} \int_{V_t} |\nabla u|^p dx + 2^{p-1} \left( \frac{4(1 + \|\nabla \gamma\|_\infty)}{t} \right)^p \int_{V_t} |u|^p dx
 	\end{align*}
-	Substituindo as cotas fornecidas no enunciado para $\int_{V_t} |\nabla u|^p$ e $\int_{V_t} |u|^p$:
+	Substituindo as limitações dadas na hipótese para $\int_{V_t} |\nabla u|^p$ e $\int_{V_t} |u|^p$, segue que:
 	\begin{align*}
 		\int_U |\nabla(u - \bar{u})|^p dx &\le 2^{p-1} \left[ \frac{\varepsilon^p}{(16 + 16\|\nabla \gamma\|_\infty)^p} + \frac{4^p(1 + \|\nabla \gamma\|_\infty)^p}{t^p} \frac{t^p \varepsilon^p}{(8 + 8\|\nabla \gamma\|_\infty)^p} \right] \\
 		&= 2^{p-1} \left[ \frac{\varepsilon^p}{(2K)^p} + \frac{4^p(1 + \|\nabla \gamma\|_\infty)^p \varepsilon^p}{K^p} \right] \le \frac{\varepsilon^p}{2^p}
 	\end{align*}
-	Sendo assim, $\|u - \bar{u}\|_{W^{1,p}(U)} \le \frac{\varepsilon}{2}$. Somando as contribuições:
+	Sendo assim, $\|u - \bar{u}\|_{W^{1,p}(U)} \le \frac{\varepsilon}{2}$. Somando, obtemos que:
 	$$\|u - v\|_{W^{1,p}(U)} \le \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon$$
 	$$\boxed{\|u - v\|_{W^{1,p}(U)} \le \varepsilon}$$
 }
@@ -3828,7 +3822,7 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 			% Região de Sobolev Clássica (1 < q <= n)
 			\draw[dashed, gray] (1,0) -- (1,0.8);
 			\draw[dashed, gray] (5,0) -- (5,0.8);
-			\draw[<->, thick, gray] (1,0.6) -- (5,0.6) node[midway, above] {\footnotesize Regime Sobolev ($u \in L^{q^*}$)};
+			\draw[<->, thick, gray] (1,0.6) -- (5,0.6) node[midway, above] {\footnotesize Sobolev ($u \in L^{q^*}$)};
 			
 			% Região de Morrey (q > n) -> Ativação do Hölder
 			\draw[|->, ultra thick, teal] (5, 1.3) -- (9.5, 1.3) node[midway, above=2pt] {\textbf{Imersão de Morrey} ($q > n$)};
@@ -3876,7 +3870,7 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	\end{enumerate}
 }
 
-\solucao{\par
+\solucao{
 	\textbf{1. Demonstração da Imersão $W^{1,n}(U) \hookrightarrow L^q(U)$}:
 	Seja $u \in W^{1,n}(U)$. Como $U$ é um domínio limitado, a desigualdade de Hölder implica que $L^n(U) \subset L^p(U)$ para todo $1 \le p < n$. Consequentemente, temos que $u \in W^{1,p}(U)$ para qualquer $p \in [1, n)$.
 	
@@ -4175,28 +4169,28 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 		\item Para o item (b), utilizaremos a imersão de Sobolev para elevar a integrabilidade das derivadas de segunda ordem para um nível $p^* > n$, permitindo então aplicar Morrey às derivadas de primeira ordem.
 		\item Para o item (a), repetiremos a imersão de Sobolev duas vezes para elevar a integrabilidade do gradiente até um nível $p^{**} > n$, finalizando com Morrey para a função $u$.
 	\end{enumerate}
+	\begin{center}
+		\begin{tikzpicture}[scale=1.2, >=stealth]
+			% Eixo horizontal representando p
+			\draw[->, thin] (0,0) -- (8.5,0) node[right] {\footnotesize $p$};
+			
+			% Marcações dos limites no eixo
+			\draw[thin] (1.5,0.05) -- (1.5,-0.05) node[below=2pt] {\footnotesize $\frac{n}{3}$};
+			\draw[thin] (3.8,0.05) -- (3.8,-0.05) node[below=2pt] {\footnotesize $\frac{n}{2}$};
+			\draw[thin] (6.5,0.05) -- (6.5,-0.05) node[below=2pt] {\footnotesize $n$};
+			
+			% Barras de intervalos flutuantes com cores distintas para cada caso
+			\draw[|-|, thin, blue] (1.55, 0.4) -- (3.75, 0.4) node[midway, above] {\footnotesize (a) $C^{0,\alpha}$};
+			\draw[|-|, thin, teal] (3.85, 0.4) -- (6.45, 0.4) node[midway, above] {\footnotesize (b) $C^{1,\alpha}$};
+			\draw[|->, thin, purple] (6.55, 0.4) -- (8.2, 0.4) node[midway, above] {\footnotesize (c) $C^{2,\alpha}$};
+			
+			% Linhas guias tracejadas sutis ligando o eixo aos intervalos
+			\draw[dashed, gray, ultra thin] (1.5, 0) -- (1.5, 0.35);
+			\draw[dashed, gray, ultra thin] (3.8, 0) -- (3.8, 0.35);
+			\draw[dashed, gray, ultra thin] (6.5, 0) -- (6.5, 0.35);
+		\end{tikzpicture}
+	\end{center}
 }
-\begin{center}
-	\begin{tikzpicture}[scale=1.2, >=stealth]
-		% Eixo horizontal representando p
-		\draw[->, thin] (0,0) -- (8.5,0) node[right] {\footnotesize $p$};
-		
-		% Marcações dos limites no eixo
-		\draw[thin] (1.5,0.05) -- (1.5,-0.05) node[below=2pt] {\footnotesize $\frac{n}{3}$};
-		\draw[thin] (3.8,0.05) -- (3.8,-0.05) node[below=2pt] {\footnotesize $\frac{n}{2}$};
-		\draw[thin] (6.5,0.05) -- (6.5,-0.05) node[below=2pt] {\footnotesize $n$};
-		
-		% Barras de intervalos flutuantes com cores distintas para cada caso
-		\draw[|-|, thin, blue] (1.55, 0.4) -- (3.75, 0.4) node[midway, above] {\footnotesize (a) $C^{0,\alpha}$};
-		\draw[|-|, thin, teal] (3.85, 0.4) -- (6.45, 0.4) node[midway, above] {\footnotesize (b) $C^{1,\alpha}$};
-		\draw[|->, thin, purple] (6.55, 0.4) -- (8.2, 0.4) node[midway, above] {\footnotesize (c) $C^{2,\alpha}$};
-		
-		% Linhas guias tracejadas sutis ligando o eixo aos intervalos
-		\draw[dashed, gray, ultra thin] (1.5, 0) -- (1.5, 0.35);
-		\draw[dashed, gray, ultra thin] (3.8, 0) -- (3.8, 0.35);
-		\draw[dashed, gray, ultra thin] (6.5, 0) -- (6.5, 0.35);
-	\end{tikzpicture}
-\end{center}
 \solucao{\par
 	Seja $u \in W^{3,p}(U)$. Isso implica que $u$ e todas as suas derivadas até a terceira ordem pertencem a $L^p(U)$. Denotaremos por $\nabla^k u$ as derivadas de ordem $k$.
 	
@@ -4281,32 +4275,31 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	\end{itemize}
 	
 	\textbf{Estratégias}: Seguiremos a lógica de \textit{bootstrap} descendente: partiremos das derivadas de maior ordem e aplicaremos Sobolev sucessivamente até que o expoente permita a aplicação da Desigualdade de Morrey no nível de derivação desejado.
+	\begin{center}
+		\begin{tikzpicture}[scale=0.9, >=stealth]
+			% Eixo horizontal representando p
+			\draw[->, thin] (0,0) -- (10.5,0) node[right] {\footnotesize $p$};
+			
+			% Marcações dos limites no eixo
+			\draw[thin] (1.5,0.05) -- (1.5,-0.05) node[below=2pt] {\footnotesize $\frac{n}{4}$};
+			\draw[thin] (3.8,0.05) -- (3.8,-0.05) node[below=2pt] {\footnotesize $\frac{n}{3}$};
+			\draw[thin] (6.2,0.05) -- (6.2,-0.05) node[below=2pt] {\footnotesize $\frac{n}{2}$};
+			\draw[thin] (8.5,0.05) -- (8.5,-0.05) node[below=2pt] {\footnotesize $n$};
+			
+			% Barras de intervalos flutuantes
+			\draw[|-|, thin, blue] (1.55, 0.4) -- (3.75, 0.4) node[midway, above] {\footnotesize (a) $C^{0,\alpha}$};
+			\draw[|-|, thin, teal] (3.85, 0.4) -- (6.15, 0.4) node[midway, above] {\footnotesize (b) $C^{1,\alpha}$};
+			\draw[|-|, thin, orange!80!black] (6.25, 0.4) -- (8.45, 0.4) node[midway, above] {\footnotesize (c) $C^{2,\alpha}$};
+			\draw[|->, thin, purple] (8.55, 0.4) -- (10.2, 0.4) node[midway, above] {\footnotesize (d) $C^{3,\alpha}$};
+			
+			% Linhas guias
+			\draw[dashed, gray, ultra thin] (1.5, 0) -- (1.5, 0.35);
+			\draw[dashed, gray, ultra thin] (3.8, 0) -- (3.8, 0.35);
+			\draw[dashed, gray, ultra thin] (6.2, 0) -- (6.2, 0.35);
+			\draw[dashed, gray, ultra thin] (8.5, 0) -- (8.5, 0.35);
+		\end{tikzpicture}
+	\end{center}
 }
-
-\begin{center}
-	\begin{tikzpicture}[scale=0.9, >=stealth]
-		% Eixo horizontal representando p
-		\draw[->, thin] (0,0) -- (10.5,0) node[right] {\footnotesize $p$};
-		
-		% Marcações dos limites no eixo
-		\draw[thin] (1.5,0.05) -- (1.5,-0.05) node[below=2pt] {\footnotesize $\frac{n}{4}$};
-		\draw[thin] (3.8,0.05) -- (3.8,-0.05) node[below=2pt] {\footnotesize $\frac{n}{3}$};
-		\draw[thin] (6.2,0.05) -- (6.2,-0.05) node[below=2pt] {\footnotesize $\frac{n}{2}$};
-		\draw[thin] (8.5,0.05) -- (8.5,-0.05) node[below=2pt] {\footnotesize $n$};
-		
-		% Barras de intervalos flutuantes
-		\draw[|-|, thin, blue] (1.55, 0.4) -- (3.75, 0.4) node[midway, above] {\footnotesize (a) $C^{0,\alpha}$};
-		\draw[|-|, thin, teal] (3.85, 0.4) -- (6.15, 0.4) node[midway, above] {\footnotesize (b) $C^{1,\alpha}$};
-		\draw[|-|, thin, orange!80!black] (6.25, 0.4) -- (8.45, 0.4) node[midway, above] {\footnotesize (c) $C^{2,\alpha}$};
-		\draw[|->, thin, purple] (8.55, 0.4) -- (10.2, 0.4) node[midway, above] {\footnotesize (d) $C^{3,\alpha}$};
-		
-		% Linhas guias
-		\draw[dashed, gray, ultra thin] (1.5, 0) -- (1.5, 0.35);
-		\draw[dashed, gray, ultra thin] (3.8, 0) -- (3.8, 0.35);
-		\draw[dashed, gray, ultra thin] (6.2, 0) -- (6.2, 0.35);
-		\draw[dashed, gray, ultra thin] (8.5, 0) -- (8.5, 0.35);
-	\end{tikzpicture}
-\end{center}
 
 \solucao{\par
 	Seja $u \in W^{4,p}(U)$. Denotamos por $\nabla^k u$ o conjunto das derivadas de ordem $k$.
