@@ -175,6 +175,7 @@
 % 3. Sobrescrita do Comando Questão
 \newcommand{\questao}[1]{%
 	\stepcounter{numquestao}% Avança o contador SEMPRE, mantendo a numeração original 
+	\setcounter{equation}{0}% <--- GARANTE QUE A QUESTÃO ZERE AS EQUAÇÕES GERAIS
 	%
 	% Lógica de Visibilidade Dinâmica
 	\setbool{showcurrentQ}{true}%
@@ -212,6 +213,7 @@
 
 \newcommand{\solucao}[1]{%
 	\ifbool{showcurrentQ}{%
+		\setcounter{equation}{0}% <--- ADICIONE ESTA LINHA AQUI
 		\par\vspace{5pt}
 		\textbf{\underline{Solução}}:\par
 		#1 \hfill$\blacksquare$
@@ -222,6 +224,7 @@
 \newcommand{\solucaoalt}[1]{%
 	\ifbool{showcurrentQ}{%
 		\ifbool{showanalise}{%
+			\setcounter{equation}{0}% <--- ADICIONE ESTA LINHA AQUI
 			\par\vspace{5pt}
 			\textbf{\underline{Solução Alternativa}}:\par 
 			#1 \hfill$\blacksquare$
@@ -251,6 +254,24 @@
 	}{}%
 }
 
+% Comando \resultadoextra: Teoremas ou definições auxiliares
+\newcommand{\resultadoextra}[2]{%
+	\setcounter{equation}{0}% <--- ADICIONE ESTA LINHA AQUI
+	\begin{tcolorbox}[
+		enhanced,
+		sharp corners,
+		boxrule=0.5pt,
+		colback=gray!6!white, 
+		colframe=black,         
+		left=1pt, right=1pt, top=1pt, bottom=1pt,
+		width=1\textwidth,
+		before skip=3pt,
+		after skip=3pt,
+		fontupper=\normalfont
+		]%
+		\mbox{\textbf{#1}}\hspace{0.3em}\ignorespaces#2%
+	\end{tcolorbox}%
+}
 % =============================================================================
 % OPERADORES E NOTAÇÃO DE ANÁLISE
 % =============================================================================

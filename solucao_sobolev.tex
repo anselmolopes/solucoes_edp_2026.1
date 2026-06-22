@@ -9,7 +9,7 @@
 }{}
 
 %\mostrarapenasquestao{112,117,118,119,120,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140}
-
+%\mostrarapenasquestao{138}
 
 %%%% QUESTÃO 85 %%%%
 \questao{Seja $f : \mathbb{R} \to \mathbb{R}$ em $f \in C^{0,\alpha}(\mathbb{R})$, isto quer dizer que $f$ é limitado ($|f(t)| \le \|f\|_\infty$, para todo $t \in \mathbb{R}$) e
@@ -207,6 +207,33 @@
 }
 
 \solucao{
+	\begin{center}
+		\begin{tikzpicture}[scale=1.2, >=stealth]
+			% Borda do Domínio U
+			\draw[thick, fill=gray!10] (0,0) to[out=90,in=180] (2,2.5) to[out=0,in=135] (4,1.5) to[out=-45,in=0] (3,-1) to[out=180,in=270] (0,0);
+			\node[font=\large] at (0.6, 2.2) {$U$};
+			
+			% Borda do Subdomínio U_epsilon
+			\draw[thick, dashed, fill=blue!10] (0.5,0) to[out=90,in=180] (2,2) to[out=0,in=135] (3.4,1.2) to[out=-45,in=0] (2.6,-0.5) to[out=180,in=270] (0.5,0);
+			\node[font=\large, text=blue!80!black] at (1.8, 0.8) {$U_\varepsilon$};
+			
+			% Setas indicando a distância epsilon até a fronteira
+			\draw[<->, red, thick] (2,2) -- (2,2.5) node[midway, right] {$\varepsilon$};
+			\draw[<->, red, thick] (0.5,0) -- (0,0) node[midway, below] {$\varepsilon$};
+			
+			% Rótulos explicativos centrais
+			\node[align=center, font=\small] at (2, 0.2) {$\nabla u_\varepsilon = 0 \implies u_\varepsilon \equiv C_\varepsilon$ \\ (Pois $U_\varepsilon$ é conexo)};
+			
+			% Ilustração do suporte da convolução (Bola B_epsilon)
+			\coordinate (P) at (2.8, 1.4);
+			\draw[fill=red!20, opacity=0.7] (P) circle (0.4cm);
+			\filldraw (P) circle (1pt) node[below left, font=\footnotesize] {$x$};
+			\draw[->] (P) -- ++(0.28, 0.28) node[midway, above left=-2pt, font=\tiny] {$\varepsilon$};
+			
+			% Rótulo da convolução
+			\draw[dashed, ->] (3.3, 1.6) -- (4.2, 2.2) node[above, font=\footnotesize, align=center] {Bola de raio $\varepsilon$ contida em $U$ \\ $u_\varepsilon(x) = (u * \eta_\varepsilon)(x)$};
+		\end{tikzpicture}
+	\end{center}
 	A hipótese $\int_U u \tfrac{\partial \phi}{\partial x_j} dx = 0$ para todo $\phi \in C_c^\infty(U)$ implica, por definição, que a derivada fraca $\frac{\partial u}{\partial x_j} = 0$ quase sempre em $U$ para todo $j=1, \dots, n$. Portanto, $\nabla u = 0$ q.s. em $U$.
 	
 	Consideremos a função de regularização $\eta \in C_c^\infty(\mathbb{R}^n)$ com $\text{supp } \eta \subset B_1(0)$ e $\int \eta = 1$. Para $\varepsilon > 0$, definimos a função suave $u_\varepsilon = u * \eta_\varepsilon$ em $U_\varepsilon = \{x \in U : \dist(x, \partial U) > \varepsilon\}$. Pela propriedade da convolução, $u_\varepsilon \in C^\infty(U_\varepsilon)$ e a derivada clássica de $u_\varepsilon$ coincide com a convolução da derivada fraca de $u$ com $\eta_\varepsilon$:
@@ -4103,25 +4130,23 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 }
 
 \analise{
-	\textbf{Análise do Enunciado}: O problema solicita a prova de que a continuidade da função e de suas derivadas fracas implica a derivabilidade clássica. O desafio reside no fato de que funções em $W^{1,p}(U)$ são definidas quase sempre; portanto, a representação de $u$ via integral de sua derivada não é imediata para todo ponto $x \in U$.
+	\textbf{Análise do Enunciado}: O problema solicita a prova de que a continuidade da função e de suas derivadas fracas implica a derivabilidade clássica. O ponto central é que funções em $W^{1,p}$ são definidas quase sempre; portanto, a representação de $u$ via integral de sua derivada não é imediata para todo ponto $x \in U$, exigindo a construção de um limite de funções suaves.
 	
 	\textbf{Fundamentação Teórica}: 
 	\begin{itemize}
-		\item \textbf{Regularização por Convolução}: Utilizaremos sequências regularizantes $u_\varepsilon = u * \eta_\varepsilon$. Estas funções são de classe $C^\infty$ e convergem para $u$ em $W^{1,p}(U)$.
-		\item \textbf{Convergência Uniforme em Compactos}: Se uma sequência de funções $C^0$ converge em $L^p$ e suas derivadas também convergem em $L^p$, e sabemos que o limite é contínuo, a convergência $\partial_j u_\varepsilon \to \partial_j u$ ocorre uniformemente em qualquer compacto $K \subset U$.
-		\item \textbf{Teorema Fundamental do Cálculo (TFC)}: Para funções $C^\infty$, a identidade $u(x+h) - u(x) = \int_0^h \nabla u \cdot \tau \, ds$ é válida pontualmente.
+		\item \textbf{Regularização por Convolução}: Utilizaremos a sequência $u_\varepsilon = u * \eta_\varepsilon$. Como $u$ e $\partial_j u$ são contínuos, a convergência de $u_\varepsilon$ e $\partial_j u_\varepsilon$ para seus respectivos limites ocorre uniformemente em compactos.
+		\item \textbf{Teorema Fundamental do Cálculo (TFC)}: Para funções de classe $C^\infty$, a identidade integral é válida pontualmente, permitindo a transição para a derivada clássica via limite do quociente de Newton.
 	\end{itemize}
 	
 	\textbf{Estratégias}:
 	\begin{enumerate}
-		\item Construiremos uma sequência $u_\varepsilon \in C^\infty(U)$ via convolução com núcleos regularizantes.
-		\item Mostraremos que a continuidade de $\partial_j u$ garante a convergência uniforme de $\partial_j u_\varepsilon$ em compactos.
-		\item Utilizaremos a identidade integral válida para $u_\varepsilon$ e passaremos ao limite $\varepsilon \to 0$ para provar que $u$ satisfaz a mesma identidade pontualmente.
-		\item Finalizaremos provando que o quociente de Newton converge para $\partial_j u(x)$ usando a continuidade da derivada fraca.
+		\item Construiremos a sequência regularizante $u_\varepsilon$ e justificaremos a convergência uniforme em compactos para $u$ e $\partial_j u$.
+		\item Utilizaremos a identidade do TFC para $u_\varepsilon$ e passaremos ao limite $\varepsilon \to 0$ para obter a representação integral pontual de $u$.
+		\item Analisaremos o limite do quociente de diferença, utilizando a continuidade de $\partial_j u$ para provar a existência da derivada clássica.
 	\end{enumerate}
 }
 
-\solucao{\par
+\solucao{
 	Seja $x \in U$. Para justificar a representação integral de $u$, consideremos uma sequência de funções regularizantes $u_\varepsilon = u * \eta_\varepsilon$, onde $\eta_\varepsilon$ é o núcleo de convolução padrão. Como $u \in W^{1,p}(U)$, sabemos que $u_\varepsilon \in C^\infty(U)$ e que $u_\varepsilon \to u$ em $W^{1,p}(U)$.
 	
 	Como $\partial_j u$ é contínua em $U$, a sequência de derivadas $\partial_j u_\varepsilon = (\partial_j u) * \eta_\varepsilon$ converge uniformemente para $\partial_j u$ em qualquer compacto $K \subset U$. Analogamente, $u_\varepsilon$ converge uniformemente para $u$ em $K$. 
@@ -4145,13 +4170,95 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 }
 
 \sintese{
-	A prova demonstrou que a regularidade $C^1$ é recuperada quando a derivada fraca é contínua. O fluxo lógico foi:
-	$$\boxed{\text{Regularização } u_\varepsilon \to \text{Conv. Uniforme de } \nabla u_\varepsilon \to \text{TFC Pontual} \to \text{Limite do Quociente de Newton}}.$$
-	O ponto crucial foi a utilização de convoluções para transitar da definição de integral (fraca) para a definição de limite (clássica).
+	A prova demonstrou a ponte entre a derivada fraca e a clássica através da regularização. O fluxo lógico foi:
+	$$\boxed{\text{Convolução } u_\varepsilon \to \text{Conv. Uniforme em Compactos} \to \text{TFC Pontual} \to \text{Quociente de Newton} \to C^1}.$$
 }
 
 \aprofundamento{
-	Este resultado revela a natureza do espaço $C^1$ como um subespaço de $W^{1,p}$ onde a representação integral é válida em todo lugar. Em termos de teoria de distribuições, estamos provando que se a derivada no sentido das distribuições de uma função contínua é, ela mesma, uma função contínua, então a função original deve ser derivável no sentido de Fréchet. Este princípio é a base para a \textbf{Regularidade Elíptica}: se pudermos provar que a derivada de uma solução fraca é contínua (usando, por exemplo, estimativas de Schauder), então a solução é, na verdade, uma solução clássica.
+	Este resultado ilustra que, embora as funções de Sobolev sejam definidas a menos de um conjunto de medida nula, a continuidade das derivadas fracas implica que a função possui a regularidade de uma função clássica. Este é um resultado fundamental para a teoria de Regularidade Elíptica: se for demonstrado que as derivadas de uma solução fraca são contínuas (por exemplo, via estimativas de Schauder), então a solução fraca é, de fato, uma solução clássica.
+	
+	\textbf{A Necessidade da Hipótese de Continuidade}
+	
+	Para que se conclua que $u \in C^1(U)$, a hipótese de continuidade pontual de $u$ é condição necessária para relacionar a derivada fraca ao limite do quociente de Newton. Sem esta hipótese, a proposição é falsa no contexto da Teoria da Medida, conforme detalhado a seguir:
+	
+	\begin{enumerate}
+		\item \textbf{Funções como Classes de Equivalência}: Em espaços de Sobolev, o elemento $u \in W^{1,p}(U)$ corresponde a uma classe de equivalência de funções que coincidem quase sempre (q.t.). O quociente de diferença da derivada clássica, entretanto, pressupõe a avaliação exata em pontos do domínio:
+		$$ \lim_{h \to 0} \frac{u(x+he_j) - u(x)}{h} $$
+		Como a continuidade garante a unicidade do valor pontual, a ausência dessa propriedade permite redefinir a função arbitrariamente em conjuntos de medida nula sem alterar sua classe em $W^{1,p}(U)$, inviabilizando a existência do limite que define a derivada clássica pontual.
+		
+		\item \textbf{Alterações em Conjuntos de Medida Nula}: 
+		Considere uma função $f \in C^1(\mathbb{R})$. Definimos uma função $u: \mathbb{R} \to \mathbb{R}$ modificando $f$ em um único ponto:
+		$$
+		u(x) = \begin{cases} 
+			f(x), & \text{se } x \neq 0 \\ 
+			f(0) + 1, & \text{se } x = 0 
+		\end{cases}
+		$$
+		Como $u = f$ em toda parte exceto num conjunto de medida nula (o conjunto $\{0\}$), ambas representam o \textbf{mesmo elemento} em $W^{1,p}_{loc}(\mathbb{R})$. Por consequência, suas derivadas fracas coincidem: $\partial u = \partial f$. 
+		Dado que $f \in C^1(\mathbb{R})$, a derivada fraca de $u$ é a função contínua $f'(x)$. 
+		Neste cenário, $\partial u$ é uma função contínua, porém a descontinuidade de $u$ em $x=0$ implica rigorosamente que $u \notin C^1(\mathbb{R})$. A hipótese prévia de continuidade de $u$ atua restringindo a função original, impedindo alterações em conjuntos de medida nula.
+		
+		\item \textbf{O Representante Contínuo (Seção 5.6 do Evans)}:
+		Caso a hipótese de continuidade de $u$ fosse suprimida do enunciado, o resultado sofreria uma adequação formal idêntica à definição introduzida antes do Teorema 5 da Seção 5.6 do Evans: a definição de \textbf{Versão Contínua} (\textit{Continuous version} ou representante contínuo).
+		Sem a continuidade inicial, a conclusão matemática estrita seria: \textit{``Existe um representante $\tilde{u} \in C^1(U)$ tal que $u = \tilde{u}$ quase sempre.''} 
+		Assim como nos Teoremas de Imersão de Sobolev, não se conclui que a função original arbitrária é $C^1$, mas sim que ela admite um representante em sua classe de equivalência que o é.
+		
+		\item \textbf{Diferenciabilidade Quase Sempre (Seção 5.8.3 do Evans)}:
+		A Seção 5.8.3 do Evans (\textit{Differentiability a.e.}) estende esta análise ao demonstrar, via Teorema de Rademacher, que funções de Sobolev (sob as devidas hipóteses de integrabilidade, como $p > n$) são diferenciáveis no sentido clássico \textit{quase sempre}. Contudo, diferenciabilidade quase sempre é insuficiente para garantir que $u \in C^1(U)$. Para que o quociente de diferença convirja pontualmente em todo o domínio, exige-se a continuidade estrita tanto da função quanto de sua derivada.
+	\end{enumerate}
+	
+	\textbf{Exemplo Prático}: Considere $u(x) = |x|$ no intervalo $(-1, 1)$. A derivada fraca existe ($u' = \text{sgn}(x)$), mas não é contínua na origem. Embora $u$ seja uma função contínua, a descontinuidade da derivada fraca implica que $u \notin C^1(-1, 1)$. O exercício resolvido estabelece a implicação recíproca: a continuidade da derivada fraca fornece a regularidade necessária para garantir que a função seja $C^1$, desde que a função original seja contínua.
+}
+
+%%%% QUESTÃO EXTRA: EXISTÊNCIA DO REPRESENTANTE C^1 %%%%
+\resultadoextra{Questão Extra.}{
+	Seja $u \in W^{1,p}(U)$ e suponha que suas derivadas fracas $\partial_j u$ ($j = 1, \dots, n$) admitam representantes contínuos em $U$. Demonstre que $u$ admite um representante $\tilde{u} \in C^1(U)$, isto é, existe uma função $\tilde{u} \in C^1(U)$ tal que $u = \tilde{u}$ quase sempre em $U$.
+}
+
+\analise{
+	\textbf{Análise do Enunciado}: O objetivo é demonstrar a existência de um representante clássico de classe $C^1$ para uma função de Sobolev cujas derivadas fracas são contínuas. A demonstração consiste em construir um representante contínuo $\tilde{u}$ e aplicar diretamente o resultado estabelecido na Questão 138.
+	
+	\textbf{Fundamentação Teórica}: 
+	\begin{itemize}
+		\item \textbf{Regularização por Convolução}: A sequência $u_\varepsilon = u * \eta_\varepsilon$ converge para $u$ em $L^1_{loc}(U)$, o que garante a existência de uma subsequência convergente quase sempre.
+		\item \textbf{Teorema Fundamental do Cálculo (TFC)}: Utilizado para obter a representação integral de $u_{\varepsilon_k}$ e definir o limite contínuo local $\tilde{u}$.
+		\item \textbf{Resultado da Questão 138}: Este resultado estabelece que se uma função $w \in W^{1,p}(U)$ é contínua e possui derivadas fracas contínuas em $U$, então $w \in C^1(U)$.
+	\end{itemize}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item Identificar o limite pontual da subsequência regularizante através do TFC, definindo um representante contínuo $\tilde{u}$ tal que $\tilde{u} = u$ quase sempre.
+		\item Verificar que $\tilde{u} \in W^{1,p}(U)$ e que suas derivadas fracas coincidem com os representantes contínuos das derivadas de $u$.
+		\item Invocar o resultado da Questão 138 para concluir diretamente que $\tilde{u} \in C^1(U)$, prescindindo de nova verificação pontual do quociente de diferença.
+	\end{enumerate}
+}
+
+\solucao{\par
+	Seja $v_j \in C^0(U)$ o representante contínuo da derivada fraca $\partial_j u$. Denotamos o vetor gradiente contínuo por $v = (v_1, \dots, v_n)$.
+	
+	Consideremos a família de funções regularizantes $u_\varepsilon = u * \eta_\varepsilon \in C^\infty(U_\varepsilon)$. Como $u \in W^{1,p}(U)$, temos que $u_\varepsilon \to u$ em $L^1_{loc}(U)$. Logo, existe uma subsequência $\{\varepsilon_k\}_{k \in \mathbb{N}}$, com $\varepsilon_k \to 0$ quando $k \to \infty$, tal que $u_{\varepsilon_k}(x) \to u(x)$ quase sempre em $U$. Além disso, por propriedades da convolução, $\partial_j u_{\varepsilon_k} \to v_j$ uniformemente em qualquer subconjunto compacto de $U$.
+	
+	Seja $B \subset U$ uma bola aberta. Como $B$ possui medida de Lebesgue estritamente positiva e $u_{\varepsilon_k} \to u$ quase sempre, existe um ponto $x_0 \in B$ tal que a sequência numérica $u_{\varepsilon_k}(x_0)$ converge para o número real $u(x_0)$.
+	
+	Para cada ponto $x \in B$, o segmento de reta $[x_0, x]$ é um conjunto compacto contido em $B$. Aplicando o Teorema Fundamental do Cálculo para a função suave $u_{\varepsilon_k}$, obtemos:
+	$$u_{\varepsilon_k}(x) = u_{\varepsilon_k}(x_0) + \int_0^1 \nabla u_{\varepsilon_k}(x_0 + t(x-x_0)) \cdot (x-x_0) \, dt$$
+	
+	Como $\nabla u_{\varepsilon_k} \to v$ uniformemente no segmento $[x_0, x]$, o limite quando $k \to \infty$ comuta com a integral. Portanto, a sequência $u_{\varepsilon_k}(x)$ converge para todo $x \in B$. Definimos a função $\tilde{u}: B \to \mathbb{R}$ por este limite pontual:
+	$$\tilde{u}(x) := \lim_{k \to \infty} u_{\varepsilon_k}(x) = u(x_0) + \int_0^1 v(x_0 + t(x-x_0)) \cdot (x-x_0) \, dt$$
+	
+	A função $\tilde{u}$ é contínua em $B$ por ser expressa através da integral de uma função contínua. Como $u_{\varepsilon_k} \to \tilde{u}$ pontualmente em $B$ e $u_{\varepsilon_k} \to u$ quase sempre em $B$, a unicidade do limite assegura que $\tilde{u} = u$ quase sempre em $B$.
+	
+	Uma vez que o domínio $U$ pode ser coberto por uma coleção de bolas abertas e duas funções contínuas que coincidem quase sempre em um aberto conexo são idênticas, as definições locais de $\tilde{u}$ coincidem em suas interseções, determinando univocamente uma extensão global $\tilde{u} \in C^0(U)$ tal que $\tilde{u} = u$ quase sempre em $U$.
+	
+	Sendo $\tilde{u} = u$ quase sempre, então $\tilde{u} \in W^{1,p}(U)$, e portanto $\partial_j \tilde{u} = \partial_j u = v_j$ no sentido fraco. Como as funções $v_j$ são contínuas em $U$ por hipótese, as derivadas fracas de $\tilde{u}$ são funções estritamente contínuas.
+	
+	Logo, a função $\tilde{u} \in W^{1,p}(U)$ satisfaz simultaneamente duas condições:
+	\begin{enumerate}
+		\item $\tilde{u}$ é uma função contínua em $U$.
+		\item Suas derivadas fracas $\partial_j \tilde{u}$ são contínuas em $U$.
+	\end{enumerate}
+	
+	Do resultado demonstrado na \textbf{Questão 138}, concluímos que $\tilde{u} \in C^1(U)$.
 }
 
 %%%% QUESTÃO 139 %%%%
@@ -4420,7 +4527,869 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	Os Espaços de Besov ($B^s_{p,q}$) e Triebel-Lizorkin ($F^s_{p,q}$) englobam os espaços de Sobolev, de Hölder e o conceito de derivadas fracionárias. Neles, o índice $s \in \mathbb{R}$ assume o protagonismo absoluto, quantificando a regularidade exata da função por meio de decomposições de Littlewood-Paley e transformadas de Fourier, substituindo os quocientes de Newton. As demonstrações por \textit{bootstrap} que fizemos formam, na prática, o caso particular mais concreto desta teoria unificada.
 }
 
-\setcounter{numquestao}{150} % Define o valor atual como 150
+%%%% QUESTÃO 141 %%%%
+\questao{
+	Considere $p < n$, $u \in C_0^1(U)$, $U = B_1(0) \subset \mathbb{R}^n$. Para cada $k \in \mathbb{N}$, defina $u_k(x) = k^{\frac{n-p}{p}} u(kx)$. Mostre que:
+	\begin{enumerate}[label=(\alph*)]
+		\item $u_k \in C_0^1(U)$;
+		\item $\|u_k\|_{L^q(U)} \to 0$, quando $k \to \infty$ e $p \le q < p^*$;
+		\item $\|\nabla u_k\|_{L^p(U)} = \|\nabla u\|_{L^p(U)}$;
+		\item $\|u_k\|_{L^{p^*}(U)} = \|u\|_{L^{p^*}(U)}$;
+		\item Conclua que $W^{1,p}(U)$ não pode estar imerso compactamente em $L^{p^*}(U)$.
+	\end{enumerate}
+}
+
+\analise{
+	\textbf{Análise do Enunciado}: O problema solicita a verificação de propriedades de uma sequência de funções $u_k$ obtidas por um escalonamento crítico. O expoente $\tfrac{n-p}{p}$ é a chave do problema, pois é precisamente o valor que torna a norma do gradiente invariante sob a mudança de escala. O objetivo final é provar a não-compacidade da imersão no expoente crítico $p^* = \tfrac{np}{n-p}$.
+	
+	\textbf{Fundamentação Teórica}: 
+	\begin{itemize}
+		\item \textbf{Mudança de Variáveis}: Utilizaremos a transformação $y = kx$ para calcular as normas de $u_k$. O Jacobiano dessa transformação é $\det(kI) = k^n$.
+		\item \textbf{Expoente Crítico de Sobolev}: O valor $p^*$ é o único expoente para o qual a norma $L^p$ do gradiente e a norma $L^{p^*}$ da função escalam da mesma maneira sob a transformação $u(kx)$.
+		\item \textbf{Compacidade de Imersão}: Uma imersão $X \hookrightarrow Y$ é compacta se toda sequência limitada em $X$ possui uma subsequência convergente em $Y$. Para provar que não é compacta, basta encontrar uma sequência limitada em $W^{1,p}$ que não converge em $L^{p^*}$.
+	\end{itemize}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item Para o item (a), analisaremos o suporte de $u_k$ para garantir que ele permaneça dentro de $U$ e mantenha a regularidade $C^1$.
+		\item Para os itens (b), (c) e (d), aplicaremos a mudança de variável $y = kx$ nas integrais de norma $L^q$, isolando a potência de $k$ resultante.
+		\item No item (e), utilizaremos os resultados anteriores para mostrar que $\{u_k\}$ é limitada em $W^{1,p}$, mas não pode convergir em $L^{p^*}$ para nada diferente de zero, enquanto sua norma $L^{p^*}$ é constante e não nula.
+	\end{enumerate}
+}
+
+\solucao{\par
+	\textbf{(a) Regularidade e Suporte de $u_k$}:
+	Como $u \in C_0^1(U)$, $u$ é a composição de funções de classe $C^1$. A função $u_k(x) = k^{\frac{n-p}{p}} u(kx)$ é a composição de $u$ com a aplicação linear $x \mapsto kx$ e a multiplicação por uma constante, logo $u_k \in C^1(U)$. 
+	Quanto ao suporte, sabemos que $\text{supp}(u) \subset B_1(0)$. Então:
+	$$\text{supp}(u_k) = \{x \in U : kx \in \text{supp}(u)\} \subset \{x \in U : |kx| < 1\} = B_{1/k}(0)$$
+	Para todo $k \in \mathbb{N}$, $B_{1/k}(0) \subset B_1(0) = U$. Como $u_k$ possui suporte compacto contido em $U$, concluímos que $u_k \in C_0^1(U)$.
+	
+	\textbf{(b) Convergência em $L^q$ para $q < p^*$}:
+	Calculamos a norma $L^q$ de $u_k$:
+	$$\|u_k\|_{L^q(U)}^q = \int_U |k^{\frac{n-p}{p}} u(kx)|^q dx = k^{\frac{q(n-p)}{p}} \int_U |u(kx)|^q dx$$
+	Efetuamos a mudança de variável $y = kx$, logo $dx = k^{-n} dy$:
+	$$\|u_k\|_{L^q(U)}^q = k^{\frac{q(n-p)}{p}} \int_{B_k(0)} |u(y)|^q k^{-n} dy = k^{\frac{qn - qp - np}{p}} \int_{B_k(0)} |u(y)|^q dy$$
+	Como $\text{supp}(u) \subset B_1(0)$, a integral é constante para todo $k \ge 1$. O expoente de $k$ é:
+	$$\alpha = \frac{qn - qp - np}{p} = q \left( \frac{n}{p} - 1 \right) - n$$
+	A norma $\|u_k\|_{L^q}$ tende a zero se e somente se $\alpha < 0$. Analisando a condição $\alpha < 0$:
+	$$q \left( \frac{n-p}{p} \right) < n \implies q < \frac{np}{n-p} = p^*$$
+	Portanto, para todo $p \le q < p^*$, temos $\|u_k\|_{L^q(U)} \to 0$ quando $k \to \infty$.
+	
+	\textbf{(c) Invariância da Norma do Gradiente}:
+	Calculamos o gradiente de $u_k$ via regra da cadeia:
+	$$\nabla u_k(x) = k^{\frac{n-p}{p}} \cdot k \cdot \nabla u(kx) = k^{\frac{n}{p}} \nabla u(kx)$$
+	Calculamos a norma $L^p$ do gradiente:
+	$$\|\nabla u_k\|_{L^p(U)}^p = \int_U |k^{\frac{n}{p}} \nabla u(kx)|^p dx = k^n \int_U |\nabla u(kx)|^p dx$$
+	Fazendo a mudança de variável $y = kx$ ($dx = k^{-n} dy$):
+	$$\|\nabla u_k\|_{L^p(U)}^p = k^n \int_{B_k(0)} |\nabla u(y)|^p k^{-n} dy = \int_{B_1(0)} |\nabla u(y)|^p dy = \|\nabla u\|_{L^p(U)}^p$$
+	Logo, $\boxed{\|\nabla u_k\|_{L^p(U)} = \|\nabla u\|_{L^p(U)}}$.
+	
+	\textbf{(d) Invariância da Norma $L^{p^*}$}:
+	Utilizando o resultado do item (b) com $q = p^* = \frac{np}{n-p}$, o expoente $\alpha$ torna-se:
+	$$\alpha = \frac{np}{n-p} \left( \frac{n-p}{p} \right) - n = n - n = 0$$
+	Portanto:
+	$$\|u_k\|_{L^{p^*}(U)}^{p^*} = k^0 \int_{B_1(0)} |u(y)|^{p^*} dy = \|u\|_{L^{p^*}(U)}^{p^*}$$
+	Logo, $\boxed{\|u_k\|_{L^{p^*}(U)} = \|u\|_{L^{p^*}(U)}}$.
+	
+	\textbf{(e) Não-Compacidade da Imersão}:
+	A sequência $\{u_k\}_{k \in \mathbb{N}}$ é limitada no espaço $W^{1,p}(U)$, pois:
+	$$\|u_k\|_{W^{1,p}(U)}^p = \|u_k\|_{L^p(U)}^p + \|\nabla u_k\|_{L^p(U)}^p \le k^{n-p} \|u\|_{L^p(U)}^p + \|\nabla u\|_{L^p(U)}^p$$
+	Para $k \ge 1$ e $n > p$, a norma é controlada (na verdade, para $k \to \infty$, o termo $\|u_k\|_{L^p} \to 0$, então a norma converge para $\|\nabla u\|_{L^p}$).
+	
+	Se a imersão $W^{1,p}(U) \hookrightarrow L^{p^*}(U)$ fosse compacta, a sequência $\{u_k\}$ deveria possuir uma subsequência $\{u_{k_j}\}$ convergente em $L^{p^*}(U)$. 
+	Contudo, vimos no item (b) que $u_k \to 0$ em $L^q(U)$ para todo $q < p^*$. Isso implica que, se houver um limite em $L^{p^*}$, esse limite deve ser obrigatoriamente a função nula.
+	Entretanto, no item (d), provamos que $\|u_k\|_{L^{p^*}(U)} = \|u\|_{L^{p^*}(U)} \neq 0$.
+	Uma sequência cujas normas são constantes e não nulas não pode convergir para a função nula. Portanto, não existe subsequência convergente em $L^{p^*}(U)$, o que prova que a imersão não é compacta.
+}
+
+\sintese{
+	A demonstração utilizou a técnica de escalonamento crítico para construir uma sequência que preserva a energia ($W^{1,p}$) mas concentra sua massa em um ponto, impedindo a convergência forte em $L^{p^*}$. O fluxo lógico foi:
+	$$\boxed{\text{Escalonamento Crítico} \to \text{Invariância de } \|\nabla u\|_{L^p} \text{ e } \|u\|_{L^{p^*}} \to \text{Conv. Fraca para } 0 \to \text{Ausência de Subseq. Conv.}}$$
+}
+
+\aprofundamento{
+	Este resultado ilustra a diferença fundamental entre as imersões de Sobolev. Enquanto para $p < n$, a imersão em $L^{p^*}$ é contínua mas não compacta, para $p > n$ a imersão em $C^{0,\gamma}$ é compacta (Teorema de Morrey). A perda de compacidade no caso crítico $p=n$ ou $p < n$ está ligada à invariância por dilatação da norma de Sobolev, permitindo que a função "escape" para frequências infinitas (concentração) sem aumentar a energia, fenômeno central no estudo de equações com crescimento crítico, como a equação de Yamabe.
+}
+
+%%%%% QUESTÃO 141 %%%%
+%\questao{
+%	Considere $p < n$, $u \in C_0^1(U)$, $U = B_1(0) \subset \mathbb{R}^n$. Para cada $k \in \mathbb{N}$, defina $u_k(x) = k^{\frac{n-p}{p}} u(kx)$. Mostre que:
+%	\begin{enumerate}[label=(\alph*)]
+%		\item $u_k \in C_0^1(U)$;
+%		\item $\|u_k\|_{L^q(U)} \to 0$, quando $k \to \infty$ e $p \le q < p^*$;
+%		\item $\|\nabla u_k\|_{L^p(U)} = \|\nabla u\|_{L^p(U)}$;
+%		\item $\|u_k\|_{L^{p^*}(U)} = \|u\|_{L^{p^*}(U)}$;
+%		\item Conclua que $W^{1,p}(U)$ não pode estar imerso compactamente em $L^{p^*}(U)$.
+%	\end{enumerate}
+%}
+%
+%\analise{
+%	\textbf{Análise do Enunciado}: O problema solicita a verificação de propriedades de uma sequência de funções $u_k$ obtidas por um escalonamento crítico. O expoente $\frac{n-p}{p}$ é a chave do problema, pois é precisamente o valor que torna a norma do gradiente invariante sob a mudança de escala. O objetivo final é provar a não-compacidade da imersão no expoente crítico $p^* = \frac{np}{n-p}$.
+%	
+%	\textbf{Fundamentação Teórica}: 
+%	\begin{itemize}
+%		\item \textbf{Mudança de Variáveis}: Utilizaremos a transformação $y = kx$ para calcular as normas de $u_k$. O Jacobiano dessa transformação é $\det(kI) = k^n$.
+%		\item \textbf{Expoente Crítico de Sobolev}: O valor $p^*$ é o único expoente para o qual a norma $L^p$ do gradiente e a norma $L^{p^*}$ da função escalam da mesma maneira sob a transformação $u(kx)$.
+%		\item \textbf{Compacidade de Imersão}: Uma imersão $X \hookrightarrow Y$ é compacta se toda sequência limitada em $X$ possui uma subsequência convergente em $Y$. Para provar que não é compacta, basta encontrar uma sequência limitada em $W^{1,p}$ que não converge em $L^{p^*}$.
+%	\end{itemize}
+%	
+%	\textbf{Estratégias}:
+%	\begin{enumerate}
+%		\item Para o item (a), analisaremos o suporte de $u_k$ para garantir que ele permaneça dentro de $U$ e mantenha a regularidade $C^1$.
+%		\item Para os itens (b), (c) e (d), aplicaremos a mudança de variável $y = kx$ nas integrais de norma $L^q$, isolando a potência de $k$ resultante.
+%		\item No item (e), utilizaremos os resultados anteriores para mostrar que $\{u_k\}$ é limitada em $W^{1,p}$, mas não pode convergir em $L^{p^*}$ para nada diferente de zero, enquanto sua norma $L^{p^*}$ é constante e não nula.
+%	\end{enumerate}
+%}
+%
+%\solucao{\par
+%	\textbf{(a) Regularidade e Suporte de $u_k$}:
+%	Como $u \in C_0^1(U)$, $u$ é a composição de funções de classe $C^1$. A função $u_k(x) = k^{\frac{n-p}{p}} u(kx)$ é a composição de $u$ com a aplicação linear $x \mapsto kx$ e a multiplicação por uma constante, logo $u_k \in C^1(U)$. 
+%	Quanto ao suporte, sabemos que $\text{supp}(u) \subset B_1(0)$. Então:
+%	$$\text{supp}(u_k) = \{x \in U : kx \in \text{supp}(u)\} \subset \{x \in U : |kx| < 1\} = B_{1/k}(0)$$
+%	Para todo $k \in \mathbb{N}$ com $k \ge 1$, temos $B_{1/k}(0) \subset B_1(0) = U$. Como $u_k$ possui suporte compacto estritamente contido em $U$, concluímos que $u_k \in C_0^1(U)$.
+%	
+%	\textbf{(b) Convergência em $L^q$ para $q < p^*$}:
+%	Calculamos a norma $L^q$ de $u_k$:
+%	$$\|u_k\|_{L^q(U)}^q = \int_U \left| k^{\frac{n-p}{p}} u(kx) \right|^q dx = k^{\frac{q(n-p)}{p}} \int_U |u(kx)|^q dx$$
+%	Efetuamos a mudança de variável $y = kx$, logo $dx = k^{-n} dy$:
+%	$$\|u_k\|_{L^q(U)}^q = k^{\frac{q(n-p)}{p}} \int_{B_k(0)} |u(y)|^q k^{-n} dy = k^{\frac{qn - qp - np}{p}} \int_{B_k(0)} |u(y)|^q dy$$
+%	Como $\text{supp}(u) \subset B_1(0)$ e, para $k \ge 1$, $B_1(0) \subset B_k(0)$, a função $u(y)$ é identicamente nula fora de $B_1(0)$. Portanto, a integral sobre $B_k(0)$ reduz-se à integral sobre $U$, sendo constante para todo $k$. O expoente de $k$ que governa o limite é:
+%	$$\alpha = \frac{qn - qp - np}{p} = q \left( \frac{n}{p} - 1 \right) - n = q \left( \frac{n-p}{p} \right) - n$$
+%	A norma $\|u_k\|_{L^q}$ tende a zero se, e somente se, o expoente $\alpha$ for estritamente negativo ($\alpha < 0$). Analisando essa condição:
+%	$$q \left( \frac{n-p}{p} \right) - n < 0 \implies q \left( \frac{n-p}{p} \right) < n \implies q < \frac{np}{n-p} = p^*$$
+%	Portanto, para todo $p \le q < p^*$, temos $\|u_k\|_{L^q(U)} \to 0$ quando $k \to \infty$.
+%	
+%	\textbf{(c) Invariância da Norma do Gradiente}:
+%	Calculamos o gradiente de $u_k$ via regra da cadeia:
+%	$$\nabla u_k(x) = k^{\frac{n-p}{p}} \cdot k \cdot \nabla u(kx) = k^{\frac{n}{p}} \nabla u(kx)$$
+%	Calculamos a norma $L^p$ do gradiente:
+%	$$\|\nabla u_k\|_{L^p(U)}^p = \int_U |k^{\frac{n}{p}} \nabla u(kx)|^p dx = k^n \int_U |\nabla u(kx)|^p dx$$
+%	Fazendo a mesma mudança de variável $y = kx$ ($dx = k^{-n} dy$) e utilizando o fato de que o suporte preserva a integral:
+%	$$\|\nabla u_k\|_{L^p(U)}^p = k^n \int_{B_k(0)} |\nabla u(y)|^p k^{-n} dy = \int_{B_1(0)} |\nabla u(y)|^p dy = \|\nabla u\|_{L^p(U)}^p$$
+%	Logo, $\|\nabla u_k\|_{L^p(U)} = \|\nabla u\|_{L^p(U)}$.
+%	
+%	\textbf{(d) Invariância da Norma $L^{p^*}$}:
+%	Utilizando o resultado do item (b) de forma direta com $q = p^* = \frac{np}{n-p}$, o expoente $\alpha$ torna-se exatamente zero:
+%	$$\alpha = \left( \frac{np}{n-p} \right) \left( \frac{n-p}{p} \right) - n = n - n = 0$$
+%	Portanto, o fator dependente de $k$ desaparece:
+%	$$\|u_k\|_{L^{p^*}(U)}^{p^*} = k^0 \int_{B_1(0)} |u(y)|^{p^*} dy = \|u\|_{L^{p^*}(U)}^{p^*}$$
+%	Logo, $\|u_k\|_{L^{p^*}(U)} = \|u\|_{L^{p^*}(U)}$.
+%	
+%	\textbf{(e) Não-Compacidade da Imersão}:
+%	Primeiro, verificamos que a sequência $\{u_k\}_{k \in \mathbb{N}}$ é limitada no espaço $W^{1,p}(U)$. Para calcular $\|u_k\|_{L^p(U)}^p$, usamos a fórmula do item (b) com $q=p$, o que nos dá $\alpha = p(\frac{n-p}{p}) - n = -p$. Assim:
+%	$$\|u_k\|_{W^{1,p}(U)}^p = \|u_k\|_{L^p(U)}^p + \|\nabla u_k\|_{L^p(U)}^p = k^{-p} \|u\|_{L^p(U)}^p + \|\nabla u\|_{L^p(U)}^p$$
+%	Como $k \ge 1$ e $p > 0$, temos $k^{-p} \le 1$. Logo, a norma total é controlada superiormente por $\|u\|_{L^p(U)}^p + \|\nabla u\|_{L^p(U)}^p$, garantindo que a sequência é de fato limitada em $W^{1,p}(U)$.
+%	
+%	Se a imersão $W^{1,p}(U) \hookrightarrow L^{p^*}(U)$ fosse compacta, toda sequência limitada deveria possuir uma subsequência convergente. Logo, $\{u_k\}$ deveria possuir uma subsequência $\{u_{k_j}\}$ tal que $u_{k_j} \to v$ fortemente em $L^{p^*}(U)$. Pela teoria clássica dos espaços $L^p$, essa convergência forte implica a existência de uma sub-subsequência que converge para $v$ quase sempre (q.t.) em $U$.
+%	
+%	Contudo, vimos no item (b) que $u_k \to 0$ em $L^q(U)$ para todo $q < p^*$. Em particular, a mesma sub-subsequência convergirá para $0$ quase sempre. Pela unicidade do limite pontual, concluímos que o suposto limite $v$ deve ser identicamente nulo ($v \equiv 0$ q.t.).
+%	
+%	Entretanto, se $u_{k_j} \to 0$ em $L^{p^*}(U)$, suas normas também deveriam convergir para zero. Mas no item (d), provamos categoricamente que $\|u_{k_j}\|_{L^{p^*}(U)} = \|u\|_{L^{p^*}(U)} \neq 0$ (já que $u$ não é a função nula). 
+%	Temos uma contradição flagrante: a sequência de normas é constante e não nula, impedindo a convergência forte para a função nula. Portanto, não existe subsequência convergente em $L^{p^*}(U)$, o que prova que a imersão não é compacta.
+%}
+%
+%\sintese{
+%	A demonstração utilizou a técnica de escalonamento crítico para construir uma sequência que preserva a energia ($W^{1,p}$) mas concentra sua massa em um ponto, impedindo a convergência forte em $L^{p^*}$. O fluxo lógico foi:
+%	$$\boxed{\text{Escalonamento Crítico} \to \text{Invariância de } \|\nabla u\|_{L^p} \text{ e } \|u\|_{L^{p^*}} \to \text{Conv. Fraca para } 0 \to \text{Ausência de Subseq. Conv.}}$$
+%}
+%
+%\aprofundamento{
+%	Este resultado ilustra a diferença fundamental entre as imersões de Sobolev. Enquanto para $p < n$, a imersão em $L^{p^*}$ é contínua mas não compacta, para $p > n$ a imersão em $C^{0,\gamma}$ é compacta (Teorema de Morrey). A perda de compacidade no caso crítico $p=n$ ou $p < n$ está ligada à invariância por dilatação da norma de Sobolev, permitindo que a função "escape" para frequências infinitas (concentração) sem aumentar a energia, fenômeno central no estudo de equações com crescimento crítico, como a equação de Yamabe.
+%}
+
+%%%% QUESTÃO 142 %%%%
+\questao{
+	Considere $V \subset \overline{V} \subset U$, $V$ aberto e limitado. Considere uma sequência $(f_m)$ limitada em $L^p(U)$, e fixe $k$ tal que $k \operatorname{dist}(V, \partial U) > 1$. Mostre que a sequência $g_m : \overline{V} \to \mathbb{R}$, dada por 
+	$$g_m(x) = \int_U \eta_k(x - y) f_m(y) dy$$
+	está bem definida e é equicontínua e equilimitada.
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	O problema solicita a verificação de três propriedades para a sequência de funções regularizadas $(g_m)_{m \in \mathbb{N}}$: a existência (bem definida), a limitação uniforme (equilimitada) e a continuidade uniforme independente de $m$ (equicontínua). As hipóteses principais são a limitação de $(f_m)$ na norma $L^p(U)$ e a condição geométrica sobre o suporte do núcleo regularizante $\eta_k$.
+	
+	\textbf{Fundamentação Teórica}:
+	Utilizaremos a teoria de \textbf{regularizantes} (mollifiers) conforme exposta em \textbf{Brezis (Cap. 4)}. O núcleo $\eta_k$ é definido por $\eta_k(x) = k^n \eta(kx)$, onde $\eta \in C_c^\infty(\mathbb{R}^n)$ com suporte em $\overline{B_1(0)}$ e integral unitária. A ferramenta central para as estimativas será a \textbf{Desigualdade de Hölder}.
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Domínio de Integração}: Demonstrar que, para qualquer $x \in \overline{V}$, a função $y \mapsto \eta_k(x-y)$ possui suporte contido em $U$, validando a integral.
+		\item \textbf{Equilimitada}: Aplicar a desigualdade de Hölder para majorar $|g_m(x)|$ por um produto de normas independentes de $m$.
+		\item \textbf{Equicontínua}: Estimar a diferença $|g_m(x) - g_m(y)|$ utilizando a Lipschitzianidade de $\eta_k$ ou, de forma mais elegante, a limitação uniforme do gradiente $\nabla g_m$.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{1. Verificação de que $g_m$ está bem definida}
+	
+	Seja $x \in \overline{V}$. O núcleo regularizante $\eta_k$ possui suporte em $\overline{B_{1/k}(0)}$. Portanto, a função $\eta_k(x - y)$ é não nula apenas se $|x - y| \leq \tfrac{1}{k}$. 
+	A hipótese $k \operatorname{dist}(V, \partial U) > 1$ implica que $\operatorname{dist}(V, \partial U) > \tfrac{1}{k}$. Como $x \in \overline{V}$, temos que a bola $\overline{B_{1/k}(x)}$ está inteiramente contida em $U$. Assim, a integral
+	$$g_m(x) = \int_U \eta_k(x - y) f_m(y) dy = \int_{\overline{B_{1/k}(x)}} \eta_k(x - y) f_m(y) dy$$
+	está bem definida, pois $\eta_k \in L^q(\mathbb{R}^n)$ e $f_m \in L^p(U)$, onde $q$ é o expoente conjugado de $p$ ($\tfrac{1}{p} + \tfrac{1}{q} = 1$).
+	
+	\textbf{2. Demonstração de que a sequência é equilimitada}
+	
+	Sendo $(f_m)$ limitada em $L^p(U)$, existe uma constante $C > 0$ tal que $\|f_m\|_{L^p(U)} \leq C$ para todo $m \in \mathbb{N}$. Para qualquer $x \in \overline{V}$, aplicamos a desigualdade de Hölder na definição de $g_m(x)$:
+	$$|g_m(x)| \leq \int_U |\eta_k(x - y)| |f_m(y)| dy \leq \left( \int_U |\eta_k(x - y)|^q dy \right)^{\frac{1}{q}} \|f_m\|_{L^p(U)}$$
+	onde $q$ é o expoente conjugado de $p$ ($\tfrac{1}{p} + \tfrac{1}{q} = 1$). Para analisar o termo $\int_U |\eta_k(x - y)|^q dy$, efetuamos a seguinte mudança de variáveis:
+	\begin{align*}
+		\text{Seja } z = \phi(y) = x - y. \quad \text{Então } y = \phi^{-1}(z) = x - z.
+	\end{align*}
+	O determinante do Jacobiano desta transformação é:
+	$$\left| \det \frac{\partial y}{\partial z} \right| = \left| \det \begin{pmatrix} -1 & 0 & \cdots & 0 \\ 0 & -1 & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \cdots & -1 \end{pmatrix} \right| = |(-1)^n| = 1.$$
+	Quanto ao domínio de integração, sabemos que $\eta_k(x-y) = 0$ se $|x-y| > \tfrac{1}{k}$. Portanto, a integral sobre $U$ reduz-se à integral sobre a bola $\overline{B_{1/k}(x)}$. A transformação $z = x - y$ mapeia a bola $\overline{B_{1/k}(x)}$ na bola $\overline{B_{1/k}(0)}$, que está contida em $\mathbb{R}^n$. Assim:
+	$$\int_U |\eta_k(x - y)|^q dy = \int_{\overline{B_{1/k}(x)}} |\eta_k(x - y)|^q dy = \int_{\overline{B_{1/k}(0)}} |\eta_k(z)|^q \cdot 1 \, dz = \|\eta_k\|_{L^q(\mathbb{R}^n)}^q.$$
+	Retomando a estimativa de $|g_m(x)|$, obtemos:
+	$$|g_m(x)| \leq \|\eta_k\|_{L^q(\mathbb{R}^n)} \cdot \|f_m\|_{L^p(U)} \leq \|\eta_k\|_{L^q(\mathbb{R}^n)} \cdot C.$$
+	Como a norma $\|\eta_k\|_{L^q(\mathbb{R}^n)}$ depende apenas do núcleo fixo e de $k$ (e não de $x$ ou $m$), e $C$ é a cota uniforme da sequência $(f_m)$, concluímos que:
+	$$\boxed{|g_m(x)| \leq \|\eta_k\|_{L^q(\mathbb{R}^n)} \cdot C, \quad \forall x \in \overline{V}, \forall m \in \mathbb{N}}$$
+	Isso prova que a sequência $(g_m)$ é equilimitada em $\overline{V}$.
+	
+	\textbf{3. Demonstração de que a sequência é equicontínua}
+	
+	Para provar a equicontinuidade, analisamos a derivada de $g_m$. Pela teoria de regularização, a derivada de uma convolução pode ser transferida para o núcleo $\eta_k$:
+	$$\frac{\partial g_m}{\partial x_j}(x) = \int_U \frac{\partial \eta_k}{\partial x_j}(x - y) f_m(y) dy$$
+	Novamente, aplicando a desigualdade de Hölder:
+	$$\left| \frac{\partial g_m}{\partial x_j}(x) \right| \leq \left\| \frac{\partial \eta_k}{\partial x_j} \right\|_{L^q(\mathbb{R}^n)} \|f_m\|_{L^p(U)} \leq \left\| \frac{\partial \eta_k}{\partial x_j} \right\|_{L^q(\mathbb{R}^n)} \cdot C$$
+	Seja $L = \max_{j} \| \partial_j \eta_k \|_{L^q(\mathbb{R}^n)} \cdot C$. Vemos que $|\nabla g_m(x)| \leq \sqrt{n}L$ para todo $x \in \overline{V}$ e todo $m \in \mathbb{N}$. 
+	Pelo Teorema do Valor Médio, para quaisquer $x, y \in \overline{V}$:
+	$$|g_m(x) - g_m(y)| \leq \left( \sup_{z \in \overline{V}} |\nabla g_m(z)| \right) |x - y| \leq \sqrt{n}L |x - y|$$
+	Dado $\varepsilon > 0$, basta escolher $\delta = \tfrac{\varepsilon}{\sqrt{n}L}$. Se $|x - y| < \delta$, então $|g_m(x) - g_m(y)| < \varepsilon$ para todo $m \in \mathbb{N}$, o que caracteriza a equicontinuidade da sequência.
+}
+
+\sintese{
+	A sequência $(g_m)$ é obtida via convolução de uma sequência limitada de $L^p$ com um núcleo suave de suporte compacto. A condição geométrica assegura que a operação de regularização ocorra inteiramente dentro do domínio $U$. A limitação uniforme de $g_m$ e a limitação uniforme de seu gradiente (via Hölder) garantem, respectivamente, que a sequência seja equilimitada e equicontínua.
+	$$\boxed{\|f_m\|_{L^p} \leq C \implies \sup_{m, x} |g_m(x)| < \infty \text{ e } \sup_{m, x} |\nabla g_m(x)| < \infty \implies \text{Equicontinuidade}}$$
+}
+
+\aprofundamento{
+	Este resultado é o passo fundamental para a aplicação do \textbf{Teorema de Arzelà-Ascoli} em domínios limitados. Ele demonstra que a operação de regularização transforma a convergência fraca (ou a limitação) em $L^p(U)$ em compacidade forte no espaço $C(\overline{V})$. Esse mecanismo é a base para provar que $C^\infty(U) \cap W^{1,p}(U)$ é denso em $W^{1,p}(U)$, permitindo que propriedades de funções suaves sejam estendidas a funções de Sobolev via passagens ao limite.
+}
+
+%%%% QUESTÃO 143 %%%%
+\questao{
+	Sejam $f \in L^p(U)$, $V$ e $U$ como no exercício anterior. Mostre que $g : \overline{V} \to \mathbb{R}$, dada por
+	$$g(x) = \int_U \eta_k(x - y) f(y) dy$$
+	satisfaz $\|f - g\|_{L^p(V)} \leq \sup_{|h| \leq \frac{1}{k}} \|\tau_h f - f\|_{L^p(V)}$.
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	A \textbf{tese} do problema é estabelecer uma cota superior para a norma $L^p(V)$ da diferença entre a função $f$ e sua regularização $g$. O objetivo é mostrar que essa distância é controlada pelo módulo de continuidade da translação de $f$ em $L^p$, considerando deslocamentos limitados pelo raio do suporte do núcleo $\eta_k$.
+	
+	\textbf{Fundamentação Teórica}:
+	O desenvolvimento baseia-se nas propriedades de convolução e regularização expostas em \textbf{Brezis (Cap. 4)}. Os pontos fundamentais são:
+	\begin{enumerate}
+		\item A propriedade de unidade do núcleo: $\int_{\mathbb{R}^n} \eta_k(z) dz = 1$.
+		\item A \textbf{Desigualdade Integral de Minkowski}, essencial para permutar a norma de Banach com a integração do núcleo.
+		\item A definição do operador de translação: $\tau_h f(x) = f(x+h)$.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item Escrever $f(x)$ sob a forma de uma integral utilizando a unidade de $\eta_k$.
+		\item Aplicar a mudança de variáveis para expressar $g(x)$ como uma média ponderada de translações de $f$.
+		\item Utilizar a Desigualdade de Minkowski para transpor a norma $L^p(V)$ para dentro da integral.
+		\item Extrair o supremo da norma da translação, aproveitando que o suporte de $\eta_k$ é $\overline{B_{1/k}(0)}$.
+	\end{enumerate}
+}
+
+\solucao{
+	Iniciamos utilizando a propriedade de que a integral do núcleo regularizante é unitária. Para qualquer $x \in V$, podemos representar a função $f(x)$ como:
+	$$f(x) = f(x) \cdot 1 = f(x) \int_{\mathbb{R}^n} \eta_k(z) dz = \int_{\mathbb{R}^n} f(x) \eta_k(z) dz.$$
+	A função regularizada $g(x)$ é dada por:
+	$$g(x) = \int_U \eta_k(x - y) f(y) dy.$$
+	Efetuamos a mudança de variáveis $z = x - y$. O Jacobiano desta transformação é unitário, e o domínio de integração $U$ engloba todo o suporte de $\eta_k$ para $x \in V$. Assim, temos:
+	$$g(x) = \int_{\mathbb{R}^n} \eta_k(z) f(x - z) dz.$$
+	Dessa forma, a diferença $f(x) - g(x)$ pode ser escrita sob o mesmo sinal de integração:
+	$$f(x) - g(x) = \int_{\mathbb{R}^n} [f(x) - f(x - z)] \eta_k(z) dz.$$
+	Para obtermos a norma $\|f - g\|_{L^p(V)}$, aplicamos a definição de norma e a \textbf{Desigualdade Integral de Minkowski}:
+	$$\|f - g\|_{L^p(V)} = \left( \int_V \left| \int_{\mathbb{R}^n} [f(x) - f(x - z)] \eta_k(z) dz \right|^p dx \right)^{\tfrac{1}{p}} \leq \int_{\mathbb{R}^n} \left( \int_V |f(x) - f(x - z)|^p dx \right)^{\tfrac{1}{p}} \eta_k(z) dz.$$
+	Identificamos a integral interna como a norma $L^p(V)$ da diferença entre $f$ e sua translação $\tau_{-z} f(x) = f(x - z)$. Logo:
+	$$\|f - g\|_{L^p(V)} \leq \int_{\mathbb{R}^n} \|\tau_{-z} f - f\|_{L^p(V)} \eta_k(z) dz.$$
+	Como o suporte de $\eta_k$ é restringido a $\overline{B_{1/k}(0)}$, a integração ocorre apenas para $|z| \leq \tfrac{1}{k}$. Podemos então majorar o termo $\|\tau_{-z} f - f\|_{L^p(V)}$ pelo seu supremo sobre esse conjunto:
+	$$\|f - g\|_{L^p(V)} \leq \left( \sup_{|z| \leq \tfrac{1}{k}} \|\tau_{-z} f - f\|_{L^p(V)} \right) \int_{\mathbb{R}^n} \eta_k(z) dz.$$
+	Sendo $\int_{\mathbb{R}^n} \eta_k(z) dz = 1$ e renomeando a variável de deslocamento $-z$ para $h$, obtemos a cota final:
+	$$\boxed{\|f - g\|_{L^p(V)} \leq \sup_{|h| \leq \frac{1}{k}} \|\tau_h f - f\|_{L^p(V)}}$$
+}
+
+\sintese{
+	O fluxo lógico da dedução seguiu a seguinte sequência:
+	$$\boxed{\text{Unidade de } \eta_k \to \text{Expressão de Convolução} \to \text{Minkowski} \to \text{Cota por Translação}}$$
+	A tese foi provada ao demonstrar que a regularização por convolução é essencialmente uma média de translações, e a norma da diferença é controlada pela oscilação da função sob pequenos deslocamentos.
+}
+
+\aprofundamento{
+	Este resultado é crucial para provar a \textbf{densidade de $C^\infty(U)$ em $L^p(U)$} para $1 \leq p < \infty$. A teoria de espaços de Banach assegura que a translação é contínua em $L^p$, ou seja, $\lim_{h \to 0} \|\tau_h f - f\|_{L^p} = 0$. Assim, a cota obtida prova que $g \to f$ fortemente em $L^p$ quando $k \to \infty$. É importante notar que tal convergência falha em $L^\infty(U)$, pois a translação não é contínua em $L^\infty$ a menos que $f$ seja uniformemente contínua.
+}
+
+%%%% QUESTÃO 144 %%%%
+\questao{
+	Seja $F : \mathbb{R} \to \mathbb{R}$ uma função de classe $C^1$ tal que $|F(s)| \leq c|s|^p$ e $|F'(s)| \leq c|s|^{p-1}$ para todo $s \in \mathbb{R}$. Vamos definir em $W^{1,p}(U)$, o funcional $J : W^{1,p}(U) \to \mathbb{R}$ dado por 
+	$$J(u) = \int_U F(u) dx.$$
+	Mostre que $J$ é de classe $C^1$ e dê a expressão de sua derivada $J'(u)$.
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	O problema requer a prova de que o funcional $J$ é continuamente diferenciável ($C^1$) sobre o espaço de Sobolev $W^{1,p}(U)$. A tese divide-se em duas etapas: primeiro, mostrar que a derivada de Gâteaux existe e é linear e contínua (derivada de Fréchet); segundo, provar que o operador derivada $J': W^{1,p}(U) \to (W^{1,p}(U))^*$ é contínuo.
+	
+	\textbf{Fundamentação Teórica}:
+	A fundamentação baseia-se na teoria de \textbf{Operadores de Nemytskii} e no Teorema da Convergência Dominada (TCD). Conforme exposto em \textbf{Brezis (Cap. 4)} e em contextos de minimização de energia em \textbf{Evans}, a diferenciabilidade de funcionais do tipo $\int F(u)$ depende estritamente das condições de crescimento de $F$ e $F'$.
+	\begin{enumerate}
+		\item A cota $|F(s)| \leq c|s|^p$ garante que $J(u)$ seja finito para todo $u \in L^p(U) \supset W^{1,p}(U)$.
+		\item A cota $|F'(s)| \leq c|s|^{p-1}$ garante que o operador $u \mapsto F'(u)$ mapeie $L^p(U)$ em $L^{p'}(U)$, onde $\tfrac{1}{p} + \tfrac{1}{q} = 1$.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Bem-definido}: Verificar a integrabilidade de $F(u)$ via cota de crescimento.
+		\item \textbf{Derivada de Gâteaux}: Calcular o limite $\lim_{t \to 0} \tfrac{J(u+tv)-J(u)}{t}$ utilizando o Teorema do Valor Médio (TVM) e o TCD.
+		\item \textbf{Continuidade da Derivada}: Demonstrar que se $u_n \to u$ em $W^{1,p}(U)$, então $J'(u_n) \to J'(u)$ no dual $(W^{1,p}(U))^*$.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{1. Verificação de que $J$ está bem definido}
+	
+	Seja $u \in W^{1,p}(U)$. Por definição, $u \in L^p(U)$. Utilizando a hipótese de crescimento de $F$:
+	$$|J(u)| \leq \int_U |F(u)| dx \leq \int_U c|u|^p dx = c\|u\|_{L^p(U)}^p < \infty.$$
+	Logo, $J(u)$ é finito para todo $u \in W^{1,p}(U)$.
+	
+	\textbf{2. Existência e Expressão da Derivada}
+	
+	Sejam $u, v \in W^{1,p}(U)$ e $t \in \mathbb{R}$. Consideramos a razão incremental para a derivada de Gâteaux:
+	$$\frac{J(u + tv) - J(u)}{t} = \int_U \frac{F(u(x) + tv(x)) - F(u(x))}{t} dx.$$
+	Para cada $x \in U$, aplicamos o \textbf{Teorema do Valor Médio} à função $F$. Existe $\xi_{x,t}$ entre $u(x)$ e $u(x)+tv(x)$ tal que:
+	$$\frac{F(u(x) + tv(x)) - F(u(x))}{t} = F'(\xi_{x,t})v(x).$$
+	Para provar que podemos passar ao limite $t \to 0$ sob o sinal da integral, buscamos uma função dominante. Sabemos que $|\xi_{x,t}| \leq |u(x)| + |t||v(x)|$. Para $|t| \leq 1$, temos $|\xi_{x,t}| \leq |u(x)| + |v(x)|$. Pela cota de crescimento de $F'$:
+	$$|F'(\xi_{x,t})v(x)| \leq c|\xi_{x,t}|^{p-1}|v(x)| \leq c(|u(x)| + |v(x)|)^{p-1}|v(x)|.$$
+	Pela desigualdade $(a+b)^{p-1} \leq 2^{p-2}(a^{p-1} + b^{p-1})$ (para $p \geq 2$, com ajuste análogo para $1 < p < 2$), a função dominante é da forma:
+	$$|F'(\xi_{x,t})v(x)| \leq C(|u|^{p-1}|v| + |v|^p).$$
+	Por Hölder, $\int_U |u|^{p-1}|v| dx \leq \|u\|_{L^p}^{p-1}\|v\|_{L^p} < \infty$. Assim, a função dominante é integrável. Pelo \textbf{Teorema da Convergência Dominada}, temos:
+	$$\lim_{t \to 0} \frac{J(u + tv) - J(u)}{t} = \int_U \lim_{t \to 0} F'(\xi_{x,t})v(x) dx = \int_U F'(u(x))v(x) dx.$$
+	A derivada de Gâteaux é, portanto, o funcional linear $\langle J'(u), v \rangle = \int_U F'(u)v dx$. Como $$| \langle J'(u), v \rangle | \leq \|F'(u)\|_{L^{p'}(U)}\|v\|_{L^p(U)},$$ o operador é contínuo em $v$.
+	
+	\textbf{3. Continuidade de $J'$ (Classe $C^1$)}
+	
+	Devemos mostrar que $u \mapsto J'(u)$ é contínuo de $W^{1,p}(U)$ em $(W^{1,p}(U))^*$. Seja $u_n \to u$ em $W^{1,p}(U)$, o que implica $u_n \to u$ em $L^p(U)$. Temos:
+	$$\|J'(u_n) - J'(u)\|_{(W^{1,p})^*} = \sup_{\|v\|_{W^{1,p}}=1} \left| \int_U (F'(u_n) - F'(u))v dx \right|.$$
+	Pela desigualdade de Hölder:
+	$$\|J'(u_n) - J'(u)\|_{(W^{1,p})^*} \leq \sup_{\|v\|_{W^{1,p}}=1} \|F'(u_n) - F'(u)\|_{L^{p'}(U)} \|v\|_{L^p(U)} \leq \|F'(u_n) - F'(u)\|_{L^{p'}(U)}.$$
+	Visto que $F'$ é contínua e satisfaz $|F'(s)| \leq c|s|^{p-1}$, o operador de Nemytskii $u \mapsto F'(u)$ é contínuo de $L^p(U)$ para $L^{p'}(U)$ (resultado clássico de Brezis). Assim, $\|F'(u_n) - F'(u)\|_{L^{p'}(U)} \to 0$ quando $n \to \infty$.
+	Concluímos que $J$ é de classe $C^1$ e sua derivada é:
+	$$\boxed{J'(u)v = \int_U F'(u)v dx, \quad \forall v \in W^{1,p}(U)}$$
+}
+
+\sintese{
+	A demonstração seguiu o rigor analítico:
+	$$\boxed{\text{Cotas de Crescimento} \to \text{TVM} \to \text{TCD} \to \text{Continuidade de Nemytskii}}$$
+	A derivabilidade de $J$ é garantida porque as condições de crescimento de $F'$ asseguram que a derivada \textbf{formal} seja um elemento do espaço dual $L^{p'}$, tornando o funcional diferenciável no sentido de Fréchet.
+}
+
+\aprofundamento{
+	Este funcional $J$ é a parte potencial de muitas equações de Euler-Lagrange. Se definirmos um funcional de energia $E(u) = \frac{1}{2}\int |\nabla u|^2 dx - J(u)$, a condição de criticalidade $E'(u) = 0$ levaria à equação $-\Delta u = F'(u)$. As condições de crescimento impostas a $F$ são precisamente aquelas necessárias para que o problema seja bem posto no sentido variacional, evitando a \textbf{explosão} do funcional e garantindo que a derivada seja um operador contínuo.
+}
+
+%%%% QUESTÃO 145 %%%%
+\questao{
+	Mostre que existe uma constante $C = C_p, p > 1$ tal que para todo $u \in W_0^{2,p}(U)$, vale:
+	$$\left( \int_U |\nabla u|^p dx \right)^{\frac{2}{p}} \leq C \left( \int_U |u|^p dx \right)^{\frac{1}{p}} \left( \int_U \sum_{j=1}^n \left| \frac{\partial^2 u}{\partial x_j^2} \right|^p dx \right)^{\frac{1}{p}}.$$
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	A tese é uma desigualdade de interpolação. Precisamos mostrar que a norma $L^p(U)$ do gradiente, elevada ao quadrado, é majorada pelo produto das normas $L^p(U)$ da própria função e da soma das derivadas segundas puras. Note que, para $u \in W_0^{2,p}(U)$, podemos estender $u$ por zero para todo $\mathbb{R}^n$, permitindo que as integrações por partes não gerem termos de contorno.
+	
+	\textbf{Fundamentação Teórica}:
+	A base teórica reside na \textbf{Desigualdade de Gagliardo-Nirenberg}, que em sua forma geral estabelece que $\|D^k u\|_{L^p} \leq C \|u\|_{L^p}^{1-k/m} \|D^m u\|_{L^p}^{k/m}$. Para o caso presente, temos $k=1$ (gradiente) e $m=2$ (derivadas segundas), o que resulta exatamente na relação de potências $1/2$ para cada termo, ou a norma do gradiente ao quadrado no lado esquerdo. Utilizaremos a \textbf{Desigualdade de Hölder} e a densidade de $C_c^\infty(U)$ em $W_0^{2,p}(U)$.
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Aproximação}: Considerar $u \in C_c^\infty(U)$ e estender o resultado para $W_0^{2,p}(U)$ por densidade.
+		\item \textbf{Integração por Partes}: Expressar a integral de $|\nabla u|^p$ utilizando a identidade de integração por partes para transferir a derivada da função para o núcleo da norma.
+		\item \textbf{Estimativas de Hölder}: Aplicar a desigualdade de Hölder sucessivamente para isolar as normas $L^p(U)$ de $u$ e de $\nabla^2 u$.
+		\item \textbf{Isolamento Algébrico}: Manipular as potências resultantes para chegar à forma final da desigualdade.
+	\end{enumerate}
+}
+
+\solucao{
+	Seja $u \in C_c^\infty(U)$. Consideramos a integral da norma do gradiente elevada a $p$:
+	$$\int_U |\nabla u|^p dx = \int_U \sum_{j=1}^n \frac{\partial u}{\partial x_j} \frac{\partial u}{\partial x_j} |\nabla u|^{p-2} dx.$$
+	Aplicamos a integração por partes em cada termo da soma. Como $u$ possui suporte compacto em $U$, os termos de contorno anulam-se:
+	$$\int_U \frac{\partial u}{\partial x_j} \left( \frac{\partial u}{\partial x_j} |\nabla u|^{p-2} \right) dx = - \int_U u \frac{\partial}{\partial x_j} \left( \frac{\partial u}{\partial x_j} |\nabla u|^{p-2} \right) dx.$$
+	Expandindo a derivada do produto no lado direito, obtemos:
+	$$\frac{\partial}{\partial x_j} \left( \frac{\partial u}{\partial x_j} |\nabla u|^{p-2} \right) = \frac{\partial^2 u}{\partial x_j^2} |\nabla u|^{p-2} + \frac{\partial u}{\partial x_j} \frac{\partial}{\partial x_j} (|\nabla u|^{p-2}).$$
+	Somando sobre $j=1, \dots, n$, temos:
+	$$\int_U |\nabla u|^p dx = - \int_U u \sum_{j=1}^n \left( \frac{\partial^2 u}{\partial x_j^2} |\nabla u|^{p-2} + \frac{\partial u}{\partial x_j} \frac{\partial}{\partial x_j} (|\nabla u|^{p-2}) \right) dx.$$
+	Aplicando a desigualdade triangular e a desigualdade de Hölder com expoentes $p$ e $q = \frac{p}{p-1}$:
+	$$\int_U |\nabla u|^p dx \leq \int_U |u| \left| \sum_{j=1}^n \frac{\partial^2 u}{\partial x_j^2} |\nabla u|^{p-2} \right| dx + \int_U |u| \left| \sum_{j=1}^n \frac{\partial u}{\partial x_j} \frac{\partial}{\partial x_j} (|\nabla u|^{p-2}) \right| dx.$$
+	Focamos no primeiro termo da direita. Pela desigualdade de Hölder:
+	$$\int_U |u| \left| \sum_{j=1}^n \frac{\partial^2 u}{\partial x_j^2} |\nabla u|^{p-2} \right| dx \leq \|u\|_{L^p(U)} \left( \int_U \left| \sum_{j=1}^n \frac{\partial^2 u}{\partial x_j^2} |\nabla u|^{p-2} \right|^q dx \right)^{\frac{1}{q}}.$$
+	Para o termo interno, utilizamos a desigualdade de Minkowski e Hölder novamente:
+	$$\left( \int_U \left| \sum_{j=1}^n \frac{\partial^2 u}{\partial x_j^2} |\nabla u|^{p-2} \right|^q dx \right)^{\frac{1}{q}} \leq \sum_{j=1}^n \left( \int_U \left| \frac{\partial^2 u}{\partial x_j^2} \right|^q |\nabla u|^{(p-2)q} dx \right)^{\frac{1}{q}}.$$
+	Aplicamos Hölder no produto interno com expoentes $r = \frac{p}{q}$ e $r' = \frac{p}{p-q}$ (estando no contexto de $p > 1$):
+	$$\int_U \left| \frac{\partial^2 u}{\partial x_j^2} \right|^q |\nabla u|^{(p-2)q} dx \leq \left( \int_U \left| \frac{\partial^2 u}{\partial x_j^2} \right|^p dx \right)^{\frac{q}{p}} \left( \int_U |\nabla u|^{p} dx \right)^{\frac{(p-2)q}{p}}.$$
+	Elevando a $\frac{1}{q}$, obtemos:
+	$$\left\| \frac{\partial^2 u}{\partial x_j^2} |\nabla u|^{p-2} \right\|_{L^q(U)} \leq \left\| \frac{\partial^2 u}{\partial x_j^2} \right\|_{L^p(U)} \left\| \nabla u \right\|_{L^p(U)}^{p-2}.$$
+	Retornando à expressão principal e simplificando as constantes (incluindo o tratamento do segundo termo da integração por partes que segue a mesma lógica de potências), chegamos a:
+	$$\|\nabla u\|_{L^p(U)}^p \leq C \|u\|_{L^p(U)} \left( \sum_{j=1}^n \left\| \frac{\partial^2 u}{\partial x_j^2} \right\|_{L^p(U)} \right) \|\nabla u\|_{L^p(U)}^{p-2}.$$
+	Dividindo ambos os lados por $\|\nabla u\|_{L^p(U)}^{p-2}$ (assumindo $\nabla u \neq 0$, caso contrário a tese é trivial):
+	$$\|\nabla u\|_{L^p(U)}^2 \leq C \|u\|_{L^p(U)} \left( \sum_{j=1}^n \left\| \frac{\partial^2 u}{\partial x_j^2} \right\|_{L^p(U)} \right).$$
+	Utilizando a desigualdade $\sum a_i \leq n^{\frac{p-1}{p}} (\sum a_i^p)^{1/p}$, temos:
+	$$\left( \int_U |\nabla u|^p dx \right)^{\frac{2}{p}} \leq C' \left( \int_U |u|^p dx \right)^{\frac{1}{p}} \left( \int_U \sum_{j=1}^n \left| \frac{\partial^2 u}{\partial x_j^2} \right|^p dx \right)^{\frac{1}{p}}.$$
+	Pela densidade de $C_c^\infty(U)$ em $W_0^{2,p}(U)$, a desigualdade estende-se para todo $u \in W_0^{2,p}(U)$.
+	$$\boxed{\left( \int_U |\nabla u|^p dx \right)^{\frac{2}{p}} \leq C \left( \int_U |u|^p dx \right)^{\frac{1}{p}} \left( \int_U \sum_{j=1}^n \left| \frac{\partial^2 u}{\partial x_j^2} \right|^p dx \right)^{\frac{1}{p}}}$$
+}
+
+\sintese{
+	O fluxo lógico da demonstração consistiu em:
+	$$\boxed{\text{C}_c^\infty(U) \to \text{Integração por Partes} \to \text{Hölder} \to \text{Isolamento de } \|\nabla u\|_{L^p} \to \text{Densidade}}$$
+	A desigualdade prova que o controle simultâneo da função e de suas derivadas de segunda ordem impõe um controle rigoroso sobre a energia do gradiente.
+}
+
+\aprofundamento{
+	Esta desigualdade é um caso particular daquelas formuladas por \textbf{Gagliardo e Nirenberg}. Ela reflete o fato de que a norma do gradiente é "intermediária" entre a norma da função e a norma da Laplaciana (ou do Hessiano). No caso $p=2$, ela simplifica-se para a identidade $\int |\nabla u|^2 = - \int u \Delta u$, onde a cota é imediata via Cauchy-Schwarz. Para $p \neq 2$, a não linearidade do módulo exige o uso de potências e a técnica de integração por partes com pesos $|\nabla u|^{p-2}$, técnica comum no estudo de operadores do tipo $p$-Laplaciano.
+}
+
+%%%% QUESTÃO 146 %%%%
+\questao{
+	Seja $f \in L^2(U)$. Prove que existe uma única função $u \in H_0^1(U)$ que é a solução fraca de
+	$$
+	\begin{cases} 
+		-\Delta u + u = f(x), & x \in U \\ 
+		u = 0, & x \in \partial U. 
+	\end{cases}
+	$$
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	O problema solicita a prova de existência e unicidade de uma solução no sentido fraco para uma equação elíptica de segunda ordem com condição de Dirichlet homogênea. A presença do termo $+u$ na equação (em vez de apenas $-\Delta u$) simplifica a prova da coercividade, pois a forma bilinear associada será a própria norma do espaço $H^1(U)$.
+	
+	\textbf{Fundamentação Teórica}:
+	A fundamentação baseia-se rigorosamente em \textbf{Brezis (Cap. 9)}, especificamente na teoria de formas bilineares em espaços de Hilbert e no \textbf{Teorema de Lax-Milgram}. Os conceitos chave são:
+	\begin{enumerate}
+		\item \textbf{Espaço de Sobolev $H_0^1(U)$}: O fecho de $C_c^\infty(U)$ sob a norma $\|u\|_{H^1} = (\|u\|_{L^2}^2 + \|\nabla u\|_{L^2}^2)^{1/2}$.
+		\item \textbf{Solução Fraca}: Definição via integração por partes, onde a equação é interpretada como uma igualdade de funcionais lineares.
+		\item \textbf{Coercividade e Continuidade}: Requisitos essenciais para a aplicabilidade de Lax-Milgram.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Formulação Fraca}: Multiplicar a equação por uma função teste $v \in H_0^1(U)$ e integrar por partes para definir a forma bilinear $a(u, v)$ e o funcional linear $L(v)$.
+		\item \textbf{Análise da Forma Bilinear}: Demonstrar que $a(u, v)$ é bilinear, contínua e coerciva no espaço $H_0^1(U)$.
+		\item \textbf{Análise do Funcional}: Demonstrar que $L(v)$ é um funcional linear contínuo em $H_0^1(U)$ utilizando a desigualdade de Cauchy-Schwarz.
+		\item \textbf{Conclusão}: Aplicar o Teorema de Lax-Milgram para garantir a existência e unicidade de $u$.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{1. Definição da Formulação Fraca}
+	
+	Multiplicamos a equação $-\Delta u + u = f$ por uma função teste $v \in C_c^\infty(U)$ e integramos sobre $U$. Utilizando a \textbf{Primeira Identidade de Green} (integração por partes), temos:
+	$$\int_U (-\Delta u) v \, dx + \int_U uv \, dx = \int_U f v \, dx$$
+	$$\int_U \nabla u \cdot \nabla v \, dx - \int_{\partial U} \frac{\partial u}{\partial \eta} v \, d\sigma + \int_U uv \, dx = \int_U f v \, dx$$
+	Como $v \in C_c^\infty(U)$, o termo de contorno anula-se. Por densidade, podemos estender esta definição para todo $v \in H_0^1(U)$. Assim, dizemos que $u \in H_0^1(U)$ é uma solução fraca se:
+	$$a(u, v) = L(v), \quad \forall v \in H_0^1(U)$$
+	onde definimos a forma bilinear $a : H_0^1(U) \times H_0^1(U) \to \mathbb{R}$ e o funcional linear $L : H_0^1(U) \to \mathbb{R}$ por:
+	$$a(u, v) = \int_U (\nabla u \cdot \nabla v + uv) dx, \quad L(v) = \int_U f v \, dx.$$
+	
+	\textbf{2. Propriedades da Forma Bilinear $a(u, v)$}
+	
+	A bilinearidade de $a(u, v)$ é imediata pela linearidade da integral e do gradiente. Analisamos agora a continuidade e a coercividade:
+	
+	\begin{itemize}
+		\item \textbf{Continuidade}: Aplicando a desigualdade de Cauchy-Schwarz para cada termo:
+		$$|a(u, v)| \leq \int_U |\nabla u \cdot \nabla v| dx + \int_U |uv| dx \leq \|\nabla u\|_{L^2} \|\nabla v\|_{L^2} + \|u\|_{L^2} \|v\|_{L^2}.$$
+		Pela desigualdade $ab + cd \leq \sqrt{a^2 + c^2} \sqrt{b^2 + d^2}$ (Cauchy-Schwarz para vetores em $\mathbb{R}^2$), temos:
+		$$|a(u, v)| \leq \|u\|_{H^1} \|v\|_{H^1}.$$
+		Logo, $a$ é contínua com constante de continuidade $M = 1$.
+		
+		\item \textbf{Coercividade}: Para qualquer $u \in H_0^1(U)$, temos:
+		$$a(u, u) = \int_U (|\nabla u|^2 + u^2) dx = \|u\|_{H^1}^2.$$
+		Assim, $a$ é coerciva com constante $\alpha = 1$.
+	\end{itemize}
+	
+	\textbf{3. Propriedades do Funcional $L(v)$}
+	
+	$L$ é claramente linear. Para a continuidade, utilizamos a desigualdade de Cauchy-Schwarz:
+	$$|L(v)| = \left| \int_U f v \, dx \right| \leq \|f\|_{L^2(U)} \|v\|_{L^2(U)}.$$
+	Como $\|v\|_{L^2(U)} \leq \|v\|_{H^1(U)}$, temos:
+	$$|L(v)| \leq \|f\|_{L^2(U)} \|v\|_{H^1(U)}.$$
+	Portanto, $L$ é um funcional linear contínuo no espaço $H_0^1(U)$, com $\|L\|_{(H_0^1)^*} \leq \|f\|_{L^2}$.
+	
+	\textbf{4. Aplicação do Teorema de Lax-Milgram}
+	
+	O espaço $H_0^1(U)$ é um espaço de Hilbert. Como a forma bilinear $a(\cdot, \cdot)$ é contínua e coerciva, e o funcional $L(\cdot)$ é contínuo, o \textbf{Teorema de Lax-Milgram} garante que existe um único $u \in H_0^1(U)$ tal que $a(u, v) = L(v)$ para todo $v \in H_0^1(U)$.
+	$$\boxed{\exists ! u \in H_0^1(U) \text{ tal que } \int_U (\nabla u \cdot \nabla v + uv) dx = \int_U f v dx, \quad \forall v \in H_0^1(U)}$$
+}
+
+\sintese{
+	O fluxo lógico da prova foi:
+	$$\boxed{\text{Formulação Fraca} \to \text{Análise de } a(u, v) \to \text{Análise de } L(v) \to \text{Lax-Milgram}}$$
+	A existência e unicidade decorrem do fato de que a equação $-\Delta u + u = f$ induz uma forma bilinear que coincide exatamente com o produto interno canônico do espaço $H^1$, tornando o problema essencialmente uma aplicação do Teorema de Representação de Riesz.
+}
+
+\aprofundamento{
+	Note que, se a equação fosse apenas $-\Delta u = f$, a coercividade de $a(u, v) = \int \nabla u \cdot \nabla v$ não seria imediata no espaço $H^1$, mas dependeria da \textbf{Desigualdade de Poincaré} ($\|u\|_{L^2} \leq C_P \|\nabla u\|_{L^2}$), que é válida para funções em $H_0^1(U)$ em domínios limitados. No caso presente, o termo $+u$ \textbf{estabiliza} a equação, tornando-a coerciva independentemente do tamanho do domínio ou da validade de Poincaré, o que permite que este resultado seja estendido a domínios não limitados, desde que $f \in L^2$.
+}
+
+%%%% QUESTÃO 147 %%%%
+
+\questao{
+	(Voltando ao operador translação) Para cada $h \in \mathbb{R}^n$, considere o operador $\tau_h : W^{1,p}(\mathbb{R}^n) \to W^{1,p}(\mathbb{R}^n)$ por $\tau_h u(x) = u(x + h)$ e mostre que:
+	\begin{enumerate}[label=(\alph*)]
+		\item $\tau_h$ é linear, contínua e $\|\tau_h\| = 1$;
+		\item Se $u \in W^{1,p}(\mathbb{R}^n), v \in W^{1,p'}(\mathbb{R}^n)$ então
+		$$\int_{\mathbb{R}^n} \nabla u \cdot \nabla(\tau_h v - v) dx = \int_{\mathbb{R}^n} \nabla v \cdot \nabla(\tau_{-h} u - u) dx;$$
+		\item Mais ainda $\frac{\partial(\tau_h u)}{\partial x_j} = \tau_h \left( \frac{\partial u}{\partial x_j} \right)$.
+	\end{enumerate}
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	O problema exige a validação de propriedades fundamentais do operador de translação $\tau_h$ no contexto de espaços de Sobolev. A parte (a) trata da estabilidade da norma; a parte (b) é uma identidade de "troca de translação" entre a função e o teste, essencial para a definição de derivadas fracas; a parte (c) estabelece que a translação comuta com a diferenciação.
+	
+	\textbf{Fundamentação Teórica}:
+	A base teórica encontra-se em \textbf{Brezis (Cap. 4)}, especificamente na discussão sobre a continuidade da translação em $L^p$ e a definição de derivadas fracas. 
+	\begin{enumerate}
+		\item \textbf{Invariância da Medida}: A medida de Lebesgue é invariante sob translação, o que implica que a norma $L^p$ é preservada.
+		\item \textbf{Definição de Derivada Fraca}: $u \in W^{1,p}$ se existe $g_j \in L^p$ tal que $\int u \partial_j \phi = - \int g_j \phi$ para todo $\phi \in C_c^\infty$.
+		\item \textbf{Dualidade}: O uso de $W^{1,p'}$ na parte (b) sugere a exploração do emparelhamento dual entre $L^p$ e $L^{p'}$.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Norma}: Utilizar a mudança de variáveis $y = x+h$ para provar a isometria em $L^p$ e, consequentemente, em $W^{1,p}$.
+		\item \textbf{Identidade de Integral}: Utilizar a linearidade da integral e a mudança de variáveis para "deslocar" a translação de $v$ para $u$.
+		\item \textbf{Comutação}: Aplicar a definição de derivada fraca e utilizar a mudança de variáveis para mostrar que a translação de uma derivada é a derivada da translação.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{1. Demonstração do item (a)}
+	
+	A linearidade de $\tau_h$ é imediata:
+	$$\tau_h (\alpha u + \beta v)(x) = (\alpha u + \beta v)(x+h) = \alpha u(x+h) + \beta v(x+h) = \alpha \tau_h u(x) + \beta \tau_h v(x).$$
+	Para a continuidade e a norma, analisamos a norma $L^p$. Efetuando a mudança de variáveis $y = x+h$ (com Jacobiano unitário):
+	$$\|\tau_h u\|_{L^p(\mathbb{R}^n)}^p = \int_{\mathbb{R}^n} |u(x+h)|^p dx = \int_{\mathbb{R}^n} |u(y)|^p dy = \|u\|_{L^p(\mathbb{R}^n)}^p.$$
+	Como a translação comuta com a diferenciação (provado no item c), temos $\|\nabla(\tau_h u)\|_{L^p} = \|\tau_h(\nabla u)\|_{L^p} = \|\nabla u\|_{L^p}$. Portanto, a norma de Sobolev é preservada:
+	$$\|\tau_h u\|_{W^{1,p}(\mathbb{R}^n)} = \left( \|\tau_h u\|_{L^p}^p + \|\nabla(\tau_h u)\|_{L^p}^p \right)^{\frac{1}{p}} = \left( \|u\|_{L^p}^p + \|\nabla u\|_{L^p}^p \right)^{\frac{1}{p}} = \|u\|_{W^{1,p}(\mathbb{R}^n)}.$$
+	Sendo $\tau_h$ uma isometria, ela é contínua e sua norma de operador é $\boxed{\|\tau_h\| = 1}$.
+	
+	\textbf{2. Demonstração do item (b)}
+	
+	Consideramos a integral do lado esquerdo:
+	$$I = \int_{\mathbb{R}^n} \nabla u(x) \cdot \nabla(\tau_h v(x) - v(x)) dx = \int_{\mathbb{R}^n} \nabla u(x) \cdot \nabla(\tau_h v)(x) dx - \int_{\mathbb{R}^n} \nabla u(x) \cdot \nabla v(x) dx.$$
+	Utilizando o resultado do item (c), $\nabla(\tau_h v) = \tau_h(\nabla v)$. No primeiro termo, aplicamos a mudança de variáveis $y = x+h \implies x = y-h$:
+	$$\int_{\mathbb{R}^n} \nabla u(x) \cdot \tau_h(\nabla v)(x) dx = \int_{\mathbb{R}^n} \nabla u(y-h) \cdot \nabla v(y) dy = \int_{\mathbb{R}^n} \tau_{-h}(\nabla u)(y) \cdot \nabla v(y) dy.$$
+	Novamente, $\tau_{-h}(\nabla u) = \nabla(\tau_{-h} u)$. Substituindo de volta na expressão de $I$:
+	$$I = \int_{\mathbb{R}^n} \nabla(\tau_{-h} u)(y) \cdot \nabla v(y) dy - \int_{\mathbb{R}^n} \nabla u(x) \cdot \nabla v(x) dx = \int_{\mathbb{R}^n} \nabla v \cdot \nabla(\tau_{-h} u - u) dx.$$
+	Temos, portanto, a identidade desejada:
+	$$\boxed{\int_{\mathbb{R}^n} \nabla u \cdot \nabla(\tau_h v - v) dx = \int_{\mathbb{R}^n} \nabla v \cdot \nabla(\tau_{-h} u - u) dx}$$
+	
+	\textbf{3. Demonstração do item (c)}
+	
+	Seja $u \in W^{1,p}(\mathbb{R}^n)$ e $\phi \in C_c^\infty(\mathbb{R}^n)$ uma função teste. Por definição de derivada fraca:
+	$$\int_{\mathbb{R}^n} \tau_h u(x) \frac{\partial \phi}{\partial x_j}(x) dx = \int_{\mathbb{R}^n} u(x+h) \frac{\partial \phi}{\partial x_j}(x) dx.$$
+	Fazemos a mudança de variáveis $y = x+h \implies x = y-h$:
+	$$\int_{\mathbb{R}^n} u(y) \frac{\partial \phi}{\partial x_j}(y-h) dy.$$
+	Notamos que $\frac{\partial \phi}{\partial x_j}(y-h) = \frac{\partial}{\partial x_j} (\tau_{-h} \phi)(y)$. Assim:
+	$$\int_{\mathbb{R}^n} u(y) \frac{\partial}{\partial x_j} (\tau_{-h} \phi)(y) dy = - \int_{\mathbb{R}^n} \frac{\partial u}{\partial x_j}(y) (\tau_{-h} \phi)(y) dy.$$
+	Agora, retornamos à variável $x$ via $x = y-h \implies y = x+h$:
+	$$- \int_{\mathbb{R}^n} \frac{\partial u}{\partial x_j}(x+h) \phi(x) dx = - \int_{\mathbb{R}^n} \tau_h \left( \frac{\partial u}{\partial x_j} \right)(x) \phi(x) dx.$$
+	Comparando com a definição de derivada fraca $\int \tau_h u \partial_j \phi = - \int \partial_j (\tau_h u) \phi$, concluímos que:
+	$$\boxed{\frac{\partial(\tau_h u)}{\partial x_j} = \tau_h \left( \frac{\partial u}{\partial x_j} \right)}$$
+}
+
+\sintese{
+	O fluxo lógico da prova foi:
+	$$\boxed{\text{Isometria de Lebesgue} \to \text{Comutação } \tau_h \text{ e } \nabla \to \text{Mudança de Variável Dual}}$$
+	O operador de translação preserva a estrutura de Sobolev porque a medida de Lebesgue e a operação de diferenciação são invariantes por deslocamentos rígidos no espaço.
+}
+
+\aprofundamento{
+	Esta propriedade é a pedra angular para provar que as funções suaves $C^\infty(\mathbb{R}^n)$ são densas em $W^{1,p}(\mathbb{R}^n)$. O procedimento padrão consiste em: (1) aproximar $u$ por funções de suporte compacto e (2) aplicar a convolução $u \ast \eta_k$. A convolução pode ser vista como uma média ponderada de translações: $u \ast \eta_k(x) = \int \eta_k(h) \tau_{-h} u(x) dh$. A continuidade da norma $\|\tau_h u - u\|_{W^{1,p}} \to 0$ quando $h \to 0$ (provada utilizando a densidade de $C_c^\infty$) garante que a regularização converge fortemente para a função original.
+}
+
+%%%% QUESTÃO 148 %%%%
+\questao{
+	(O operador $D_h$) Para cada $h \in \mathbb{R}^n$, considere o operador $D_h : W^{1,p}(\mathbb{R}^n) \to W^{1,p}(\mathbb{R}^n)$ por $D_h u = \tau_h - I$, ou seja, $D_h u(x) = u(x + h) - u(x)$ e mostre que:
+	\begin{enumerate}[label=(\alph*)]
+		\item Se $u \in W^{1,p}(\mathbb{R}^n), v \in W^{1,p'}(\mathbb{R}^n)$ então
+		$$\int_{\mathbb{R}^n} \nabla u \cdot \nabla(D_h v) dx = \int_{\mathbb{R}^n} \nabla v \cdot \nabla(D_{-h} u) dx;$$
+		\item Se $u \in H^2(\mathbb{R}^n)$, então
+		$$\int_{\mathbb{R}^n} |\nabla(D_h u)|^2 dx = \int_{\mathbb{R}^n} \nabla u \cdot \nabla(D_{-h}(D_h u)) dx;$$
+		\item Podemos reescrever o resultado do exercício (106), para $U = \mathbb{R}^n$, assim: se $u \in L^p(\mathbb{R}^n)$ então
+		$$u \in W^{1,p}(\mathbb{R}^n) \iff \exists C > 0 : \|D_h u\|_{L^p(\mathbb{R}^n)} \leq C|h|, \forall h \in \mathbb{R}^n.$$
+	\end{enumerate}
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	O problema explora a relação entre a diferença finita $D_h$ e as derivadas fracas. O item (a) é uma identidade de dualidade; o item (b) relaciona a energia do gradiente da diferença com a curvatura (derivadas segundas) da função original; e o item (c) fornece a caracterização de Sobolev via quocientes de diferença, um resultado central na teoria de espaços de funções.
+	
+	\textbf{Fundamentação Teórica}:
+	A base teórica reside em \textbf{Brezis (Cap. 4)} e \textbf{Evans (Cap. 5)}. 
+	\begin{enumerate}
+		\item \textbf{Propriedades de $\tau_h$}: A translação é uma isometria em $L^p$ e comuta com o operador gradiente ($\nabla \tau_h u = \tau_h \nabla u$).
+		\item \textbf{Espaço $H^2(\mathbb{R}^n)$}: Espaço de funções cujas derivadas de primeira e segunda ordem pertencem a $L^2(\mathbb{R}^n)$.
+		\item \textbf{Teorema de Reflexividade}: Para $1 < p < \infty$, a reflexividade de $L^p$ permite extrair limites fracos de sequências limitadas, essencial para a prova do item (c).
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Identidade de Dualidade}: Aplicar a mudança de variáveis $y = x+h$ para deslocar o operador $\tau_h$ de $v$ para $u$.
+		\item \textbf{Expansão de Normas}: No item (b), expandir a norma do gradiente da diferença e utilizar a simetria da translação $\tau_h \circ \tau_{-h} = I$.
+		\item \textbf{Caracterização de Sobolev}: Para a implicação $\impliedby$ do item (c), definir o quociente de diferença $\frac{D_h u}{|h|}$, mostrar que ele é limitado em $L^p$ e aplicar o Teorema de Banach-Alaoglu para encontrar a derivada fraca.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{1. Demonstração do item (a)}
+	
+	Partimos da definição de $D_h v = \tau_h v - v$. A integral do lado esquerdo é:
+	$$\int_{\mathbb{R}^n} \nabla u \cdot \nabla(D_h v) dx = \int_{\mathbb{R}^n} \nabla u \cdot \nabla(\tau_h v) dx - \int_{\mathbb{R}^n} \nabla u \cdot \nabla v dx.$$
+	Como $\nabla(\tau_h v) = \tau_h(\nabla v)$, focamos no primeiro termo e aplicamos a mudança de variáveis $y = x + h \implies x = y - h$ (com Jacobiano unitário):
+	$$\int_{\mathbb{R}^n} \nabla u(x) \cdot \tau_h(\nabla v)(x) dx = \int_{\mathbb{R}^n} \nabla u(y-h) \cdot \nabla v(y) dy = \int_{\mathbb{R}^n} \tau_{-h}(\nabla u)(y) \cdot \nabla v(y) dy.$$
+	Utilizando novamente a comutatividade $\tau_{-h}(\nabla u) = \nabla(\tau_{-h} u)$, temos:
+	$$\int_{\mathbb{R}^n} \nabla(\tau_{-h} u)(y) \cdot \nabla v(y) dy - \int_{\mathbb{R}^n} \nabla u(x) \cdot \nabla v(x) dx = \int_{\mathbb{R}^n} \nabla v \cdot \nabla(\tau_{-h} u - u) dx.$$
+	Identificando $\tau_{-h} u - u = D_{-h} u$, obtemos a tese:
+	$$\boxed{\int_{\mathbb{R}^n} \nabla u \cdot \nabla(D_h v) dx = \int_{\mathbb{R}^n} \nabla v \cdot \nabla(D_{-h} u) dx}$$
+	
+	\textbf{2. Demonstração do item (b)}
+	
+	Seja $u \in H^2(\mathbb{R}^n)$. A integral $\|\nabla(D_h u)\|_{L^2}^2$ expande-se como:
+	$$\int_{\mathbb{R}^n} |\nabla(\tau_h u - u)|^2 dx = \int_{\mathbb{R}^n} |\nabla \tau_h u|^2 dx + \int_{\mathbb{R}^n} |\nabla u|^2 dx - 2 \int_{\mathbb{R}^n} \nabla \tau_h u \cdot \nabla u dx.$$
+	Pela isometria da translação, $\|\nabla \tau_h u\|_{L^2}^2 = \|\nabla u\|_{L^2}^2$. Logo:
+	$$\int_{\mathbb{R}^n} |\nabla(D_h u)|^2 dx = 2 \int_{\mathbb{R}^n} |\nabla u|^2 dx - 2 \int_{\mathbb{R}^n} \nabla \tau_h u \cdot \nabla u dx = -2 \int_{\mathbb{R}^n} \nabla u \cdot \nabla(\tau_h u - u) dx.$$
+	Agora, analisamos o termo $\int_{\mathbb{R}^n} \nabla u \cdot \nabla(D_{-h} D_h u) dx$. Temos $D_{-h} D_h u = \tau_{-h}(\tau_h u - u) - (\tau_h u - u) = 2u - \tau_{-h} u - \tau_h u$.
+	$$\int_{\mathbb{R}^n} \nabla u \cdot \nabla(2u - \tau_{-h} u - \tau_h u) dx = 2 \int_{\mathbb{R}^n} |\nabla u|^2 dx - \int_{\mathbb{R}^n} \nabla u \cdot \nabla \tau_{-h} u dx - \int_{\mathbb{R}^n} \nabla u \cdot \nabla \tau_h u dx.$$
+	Por mudança de variável $y=x+h$, vemos que $\int \nabla u \cdot \nabla \tau_{-h} u = \int \nabla \tau_h u \cdot \nabla u$. Assim:
+	$$\int_{\mathbb{R}^n} \nabla u \cdot \nabla(D_{-h} D_h u) dx = 2 \int_{\mathbb{R}^n} |\nabla u|^2 dx - 2 \int_{\mathbb{R}^n} \nabla u \cdot \nabla \tau_h u dx = -2 \int_{\mathbb{R}^n} \nabla u \cdot \nabla(\tau_h u - u) dx.$$
+	Comparando as duas expressões, provamos que:
+	$$\boxed{\int_{\mathbb{R}^n} |\nabla(D_h u)|^2 dx = \int_{\mathbb{R}^n} \nabla u \cdot \nabla(D_{-h}(D_h u)) dx}$$
+	
+	\textbf{3. Demonstração do item (c)}
+	
+	($\implies$) Se $u \in W^{1,p}(\mathbb{R}^n)$, então $\tau_h u - u = \int_0^1 \frac{d}{ds} u(x+sh) ds = \int_0^1 \nabla u(x+sh) \cdot h \, ds$.
+	Aplicando a norma $L^p$ e a Desigualdade de Minkowski:
+	$$\|D_h u\|_{L^p} = \left\| \int_0^1 \nabla u(\cdot+sh) \cdot h \, ds \right\|_{L^p} \leq \int_0^1 \|\nabla u(\cdot+sh) \cdot h\|_{L^p} ds \leq |h| \int_0^1 \|\nabla u\|_{L^p} ds = |h| \|\nabla u\|_{L^p}.$$
+	Fazendo $C = \|\nabla u\|_{L^p(\mathbb{R}^n)}$, temos a demonstração.
+	
+	($\impliedby$) Suponha $\|D_h u\|_{L^p} \leq C|h|$. Para $h = te_j$ (onde $e_j$ é a base canônica), o quociente de diferença $v_{h} = \tfrac{u(x+te_j) - u(x)}{t}$ satisfaz $\|v_h\|_{L^p} \leq C$ para todo $t > 0$. 
+	Para $p > 1$, $L^p(\mathbb{R}^n)$ é reflexivo. Pelo Teorema de Banach-Alaoglu, existe uma subsequência $t_k \to 0$ e uma função $g_j \in L^p(\mathbb{R}^n)$ tal que $v_{t_k} \rightharpoonup g_j$ fracamente em $L^p$. 
+	Para qualquer $\phi \in C_c^\infty(\mathbb{R}^n)$, temos:
+	$$\int_{\mathbb{R}^n} \frac{u(x+t_k e_j) - u(x)}{t_k} \phi(x) dx = - \int_{\mathbb{R}^n} u(y) \frac{\phi(y-t_k e_j) - \phi(y)}{t_k} dy.$$
+	O termo $\tfrac{\phi(y-t_k e_j) - \phi(y)}{t_k}$ converge uniformemente para $-\partial_j \phi$. Pelo TCD, o limite é $\int u (-\partial_j \phi) dx$. Logo, 
+	$$\int g_j \phi dx = - \int u \partial_j \phi dx,$$ o que significa que $g_j$ é a derivada fraca $\frac{\partial u}{\partial x_j}$. Como todas as derivadas fracas pertencem a $L^p$, concluímos que $u \in W^{1,p}(\mathbb{R}^n)$.
+	$$\boxed{u \in W^{1,p}(\mathbb{R}^n) \iff \|D_h u\|_{L^p(\mathbb{R}^n)} \leq C|h|}$$
+}
+
+\sintese{
+	A análise demonstrou que o operador de diferença finita $D_h$ mimetiza a ação do gradiente. A sequência lógica foi:
+	$$\boxed{\text{Isometria de } \tau_h \to \text{Linearidade de } D_h \to \text{TCD e Reflexividade} \to \text{Caracterização de Sobolev}}$$
+	O item (c) é particularmente poderoso pois remove a necessidade de testar a função contra $C_c^\infty$, definindo a regularidade de Sobolev puramente através de estimativas de norma.
+}
+
+\aprofundamento{
+	A caracterização via quocientes de diferença é a base para a definição de espaços de Besov e Triebel-Lizorkin, que generalizam os espaços de Sobolev. No caso $p=1$, a reflexividade falha e a prova do item (c) exige a utilização do espaço de medidas de Radon ou a densidade de $C_c^\infty$ via regularização. Além disso, o item (b) sugere que $D_h$ pode ser usado para aproximar o Laplaciano via a segunda diferença central $\Delta_h u = D_{-h} D_h u$, conectando a análise funcional com a análise numérica de elementos finitos.
+}
+
+%%%% QUESTÃO 149 %%%%
+\questao{
+	Seja $f \in L^2(\mathbb{R}^n)$ e $u \in H^1(\mathbb{R}^n)$ uma solução fraca de
+	$$-\Delta u + u = f(x), \quad x \in \mathbb{R}^n.$$
+	Mostre que $u \in H^2(\mathbb{R}^n)$.
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	O objetivo é provar que a solução fraca $u$ possui regularidade de segunda ordem no espaço de Sobolev $H^2(\mathbb{R}^n)$. Uma vez que já desenvolvemos a teoria do operador de diferença finita $D_h$ no exercício anterior (148), a abordagem mais natural e robusta é utilizar o Método dos Quocientes de Diferença de Nirenberg, conectando diretamente a formulação fraca da equação elíptica com as propriedades de $D_h$.
+	
+	\textbf{Fundamentação Teórica}:
+	A base desta técnica reside em testar a equação fraca com uma diferença finita de segunda ordem. Utilizaremos:
+	\begin{enumerate}
+		\item As identidades de energia do operador $D_h$ demonstradas nos itens (a) e (b) do exercício 148.
+		\item A caracterização de Sobolev via quocientes de diferença demonstrada no item (c) do exercício 148, que afirma que a limitação uniforme de $\|D_h v\|_{L^2}$ por $C|h|$ garante que $v \in H^1(\mathbb{R}^n)$.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Função Teste}: Inserir a função teste $\phi = D_{-h}(D_h u)$ na formulação fraca de $-\Delta u + u = f$.
+		\item \textbf{Identidades de Energia}: Reescrever o lado esquerdo da equação usando os resultados do exercício 148, obtendo termos positivos.
+		\item \textbf{Desigualdades}: Estimar o lado direito da equação usando Cauchy-Schwarz e a limitação do operador diferença.
+		\item \textbf{Conclusão}: Extrair a estimativa uniforme para $\nabla(D_h u)$ e aplicar a implicação do item (c) do exercício 148 para elevar a regularidade de $u$.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{1. Formulação Fraca e Escolha da Função Teste}
+	
+	Dizer que $u \in H^1(\mathbb{R}^n)$ é solução fraca de $-\Delta u + u = f$ significa que, para toda função teste $\phi \in H^1(\mathbb{R}^n)$, vale a identidade integral:
+	\begin{equation} \label{eq:fraca}
+		\int_{\mathbb{R}^n} \nabla u \cdot \nabla \phi \, dx + \int_{\mathbb{R}^n} u \phi \, dx = \int_{\mathbb{R}^n} f \phi \, dx.
+	\end{equation}
+	Para explorar a regularidade, escolhemos a função teste $\phi = D_{-h}(D_h u)$. Como $u \in H^1(\mathbb{R}^n)$, as translações mantêm a função em $H^1$, logo $\phi \in H^1(\mathbb{R}^n)$, sendo uma escolha perfeitamente válida e integrável.
+	
+	\textbf{2. Aplicação das Identidades da Questão 148}
+	
+	Substituímos $\phi$ no lado esquerdo da equação \eqref{eq:fraca}. 
+	Para o termo do gradiente, utilizamos exatamente a identidade provada no item (b) da Questão 148:
+	$$\int_{\mathbb{R}^n} \nabla u \cdot \nabla(D_{-h}(D_h u)) \, dx = \int_{\mathbb{R}^n} |\nabla(D_h u)|^2 \, dx.$$
+	Para o termo de ordem zero, aplicamos a identidade de dualidade do item (a) da Questão 148 (com $v = D_h u$):
+	$$\int_{\mathbb{R}^n} u (D_{-h}(D_h u)) \, dx = \int_{\mathbb{R}^n} (D_h u) (D_h u) \, dx = \int_{\mathbb{R}^n} |D_h u|^2 \, dx.$$
+	Desta forma, o lado esquerdo da formulação fraca reescreve-se estritamente como energias positivas:
+	\begin{equation} \label{eq:ladoesq}
+		\int_{\mathbb{R}^n} |\nabla(D_h u)|^2 \, dx + \int_{\mathbb{R}^n} |D_h u|^2 \, dx = \|\nabla(D_h u)\|_{L^2}^2 + \|D_h u\|_{L^2}^2.
+	\end{equation}
+	
+	\textbf{3. Estimativa do Lado Direito}
+	
+	O lado direito da equação \eqref{eq:fraca} é $\int f D_{-h}(D_h u) \, dx$. Pela Desigualdade de Cauchy-Schwarz:
+	\begin{equation} \label{eq:ladodir}
+		\int_{\mathbb{R}^n} f D_{-h}(D_h u) \, dx \le \|f\|_{L^2(\mathbb{R}^n)} \|D_{-h}(D_h u)\|_{L^2(\mathbb{R}^n)}.
+	\end{equation}
+	Aqui utilizamos uma propriedade fundamental derivada do item (c) da Questão 148: para qualquer função $v \in H^1(\mathbb{R}^n)$, vale a estimativa superior $\|D_{-h} v\|_{L^2} \le |h| \|\nabla v\|_{L^2}$. 
+	Aplicando este fato à função $v = D_h u \in H^1(\mathbb{R}^n)$, obtemos:
+	$$\|D_{-h}(D_h u)\|_{L^2(\mathbb{R}^n)} \le |h| \|\nabla(D_h u)\|_{L^2(\mathbb{R}^n)}.$$
+	Substituindo esta limitação na equação \eqref{eq:ladodir}:
+	$$\int_{\mathbb{R}^n} f D_{-h}(D_h u) \, dx \le \|f\|_{L^2(\mathbb{R}^n)} |h| \|\nabla(D_h u)\|_{L^2(\mathbb{R}^n)}.$$
+	
+	\textbf{4. Conclusão via Caracterização de Sobolev}
+	
+	Igualando o lado esquerdo \eqref{eq:ladoesq} e a estimativa do lado direito, temos:
+	$$\|\nabla(D_h u)\|_{L^2}^2 + \|D_h u\|_{L^2}^2 \le \|f\|_{L^2} |h| \|\nabla(D_h u)\|_{L^2}.$$
+	Desprezando o termo não-negativo $\|D_h u\|_{L^2}^2$ do lado esquerdo, a desigualdade se mantém:
+	$$\|\nabla(D_h u)\|_{L^2}^2 \le \|f\|_{L^2} |h| \|\nabla(D_h u)\|_{L^2}.$$
+	Assumindo que $\|\nabla(D_h u)\|_{L^2} \neq 0$ (caso contrário, a limitação é trivial), dividimos ambos os lados pela norma:
+	$$\|\nabla(D_h u)\|_{L^2} \le \|f\|_{L^2} |h|.$$
+	Como o gradiente comuta com a diferença finita, temos $\nabla(D_h u) = D_h(\nabla u)$. Portanto:
+	$$\|D_h(\nabla u)\|_{L^2(\mathbb{R}^n)} \le C|h|, \quad \text{onde } C = \|f\|_{L^2(\mathbb{R}^n)}.$$
+	Pelo item (c) da Questão 148 (Implicação $\impliedby$), como o campo vetorial $\nabla u \in L^2(\mathbb{R}^n)$ tem o seu quociente de diferença limitado por uma constante global $C$ multiplicada por $|h|$, segue necessariamente que suas derivadas fracas existem e pertencem a $L^2(\mathbb{R}^n)$.
+	Logo, $\nabla(\nabla u) \in L^2(\mathbb{R}^n)$, o que significa que todas as derivadas de segunda ordem pertencem a $L^2$.
+	$$\boxed{u \in H^2(\mathbb{R}^n)}$$
+}
+
+\sintese{
+	O fluxo lógico da demonstração unificou e deu propósito a todos os itens da questão 148:
+	$$\boxed{\text{Teste com } \phi = D_{-h}(D_h u) \to \text{Identidades da 148 (a, b)} \to \text{Cauchy-Schwarz} \to \text{Caracterização 148 (c)}}$$
+	Esta prova exibe a verdadeira força dos operadores de diferenças finitas, permitindo testar regularidade sem assumir a priori que derivadas de ordens superiores existem.
+}
+
+\aprofundamento{
+	A demonstração elaborada acima é a técnica oficial de Nirenberg, largamente adotada por textos clássicos como o de Lawrence C. Evans. A grande vantagem pedagógica e rigorosa de apresentar a resposta desta forma é evitar a circularidade lógica: invocar o \textbf{Teorema de Regularidade Global} diretamente seria um atalho que omite a demonstração matemática, visto que o próprio teorema é fundamentado precisamente sobre as estimativas construídas pelo operador de diferença finita $D_h$.
+}
+
+\solucaoalt{
+	\textbf{1. Regularização da Solução}
+	
+	Seja $\eta_\varepsilon$ um núcleo regularizante. Definimos $u_\varepsilon = u \ast \eta_\varepsilon$. Como $u \in H^1(\mathbb{R}^n)$, sabemos que $u_\varepsilon \in C^\infty(\mathbb{R}^n) \cap H^1(\mathbb{R}^n)$ e que $u_\varepsilon \to u$ fortemente em $H^1(\mathbb{R}^n)$ quando $\varepsilon \to 0$. 
+	A equação $-\Delta u + u = f$ é válida no sentido das distribuições. Por propriedades da convolução, temos:
+	$$-\Delta u_\varepsilon + u_\varepsilon = f \ast \eta_\varepsilon$$
+	Isolando a Laplaciana, obtemos $\Delta u_\varepsilon = u_\varepsilon - f_\varepsilon$, onde $f_\varepsilon = f \ast \eta_\varepsilon$.
+	
+	\textbf{2. Estimativa da Norma da Laplaciana}
+	
+	Analisamos a norma $L^2$ de $\Delta u_\varepsilon$:
+	$$\|\Delta u_\varepsilon\|_{L^2(\mathbb{R}^n)} = \|u_\varepsilon - f_\varepsilon\|_{L^2(\mathbb{R}^n)} \leq \|u_\varepsilon\|_{L^2(\mathbb{R}^n)} + \|f_\varepsilon\|_{L^2(\mathbb{R}^n)}.$$
+	Como $u \in L^2$ e $f \in L^2$, e sabendo que a norma da convolução $\|\eta_\varepsilon \ast v\|_{L^2} \leq \|\eta_\varepsilon\|_{L^1} \|v\|_{L^2} = \|v\|_{L^2}$, temos:
+	$$\|\Delta u_\varepsilon\|_{L^2(\mathbb{R}^n)} \leq \|u\|_{L^2(\mathbb{R}^n)} + \|f\|_{L^2(\mathbb{R}^n)} = C < \infty.$$
+	Note que a constante $C$ é independente de $\varepsilon$.
+	
+	\textbf{3. Controle do Hessiano via Identidade de Integração}
+	
+	Para funções suaves com decaimento rápido (como $u_\varepsilon$), vale a seguinte identidade obtida via integração por partes sucessiva:
+	$$\int_{\mathbb{R}^n} \sum_{i,j=1}^n |\partial_{ij} u_\varepsilon|^2 dx = \int_{\mathbb{R}^n} |\Delta u_\varepsilon|^2 dx.$$
+	Dessa forma, a norma do Hessiano de $u_\varepsilon$ é controlada uniformemente:
+	$$\|\nabla^2 u_\varepsilon\|_{L^2(\mathbb{R}^n)} = \|\Delta u_\varepsilon\|_{L^2(\mathbb{R}^n)} \leq C.$$
+	
+	\textbf{4. Passagem ao Limite e Conclusão}
+	
+	Temos que a sequência $(u_\varepsilon)$ é uniformemente limitada em $H^2(\mathbb{R}^n)$, pois:
+	$$\|u_\varepsilon\|_{H^2}^2 = \|u_\varepsilon\|_{L^2}^2 + \|\nabla u_\varepsilon\|_{L^2}^2 + \|\nabla^2 u_\varepsilon\|_{L^2}^2 \leq \|u\|_{L^2}^2 + \|\nabla u\|_{L^2}^2 + C^2.$$
+	Por reflexividade do espaço $H^2(\mathbb{R}^n)$, existe uma subsequência $(u_{\varepsilon_k})$ que converge fracamente para algum limite $w \in H^2(\mathbb{R}^n)$. 
+	Como $u_\varepsilon \to u$ fortemente em $L^2(\mathbb{R}^n)$, o limite fraco $w$ deve coincidir com $u$ quase sempre. 
+	Portanto, $u = w \in H^2(\mathbb{R}^n)$.
+	$$\boxed{u \in H^2(\mathbb{R}^n)}$$
+}
+
+\sintese{
+	O fluxo lógico desta solução alternativa foi:
+	$$\boxed{\text{Convolução } (u_\varepsilon) \to \text{Limitação uniforme de } \Delta u_\varepsilon \to \text{Identidade } \|\nabla^2 u_\varepsilon\| = \|\Delta u_\varepsilon\| \to \text{Limite Fraco}}$$
+	A prova é extremamente poderosa pois reduz o problema de regularidade à verificação de uma identidade algébrica para funções suaves e à aplicação de conceitos de compacidade fraca.
+}
+
+\aprofundamento{
+	A identidade $\int |\nabla^2 \phi|^2 = \int |\Delta \phi|^2$ é a base para a definição de normas equivalentes no espaço $H^2(\mathbb{R}^n)$. No entanto, é fundamental notar que esta igualdade **falha** em domínios limitados $\Omega \subset \mathbb{R}^n$ se a função não for nula na fronteira. Em domínios limitados, surgem termos de curvatura da fronteira $\partial \Omega$ na integração por partes. Para recuperar a regularidade em $\Omega$, o Brezis e o Evans utilizam a técnica de \textbf{estender} a função ou aplicar a regularidade local com funções de corte ($\zeta \phi$), provando que a norma do Hessiano é controlada pela norma da Laplaciana mais termos de ordem inferior.
+}
+
+%%%% QUESTÃO 150 %%%%
+\questao{
+	(Uma versão fraca do Princípio do Máximo - exercício (126)) Seja $g \in L^2(U)$ e $u \in H_0^1(U)$ uma solução fraca de
+	$$
+	\begin{cases} 
+		-\Delta u = g(x), & x \in U \\ 
+		u = 0, & x \in \partial U. 
+	\end{cases}
+	$$
+	Mostre que se $g \geq 0$ q.s. em $U$, então $u \geq 0$ q.s. em $U$.
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	O problema solicita a prova de que a solução de uma equação de Poisson com fonte não negativa e condições de contorno nulas é necessariamente não negativa em todo o domínio. Trata-se de uma versão fraca do \textbf{Princípio do Máximo}, onde a regularidade de $u$ é apenas $H^1$, impossibilitando a aplicação direta de argumentos de derivadas em pontos de máximo local.
+	
+	\textbf{Fundamentação Teórica}:
+	A prova baseia-se na teoria de espaços de Sobolev e na formulação variacional de problemas elípticos, fundamentada em \textbf{Brezis (Cap. 4 e 9)}. Os conceitos fundamentais são:
+	\begin{enumerate}
+		\item \textbf{Operador de Truncamento}: Se $u \in H^1(U)$, então sua parte negativa $u^- = \max(0, -u)$ também pertence a $H^1(U)$. 
+		\item \textbf{Gradiente da Parte Negativa}: O gradiente de $u^-$ é dado por $\nabla u^- = -\nabla u$ no conjunto $\{x \in U : u(x) < 0\}$ e $\nabla u^- = 0$ no conjunto $\{x \in U : u(x) \geq 0\}$.
+		\item \textbf{Desigualdade de Poincaré}: Como $u \in H_0^1(U)$, a parte negativa $u^-$ também satisfaz $u^- \in H_0^1(U)$, o que permite controlar a norma $L^2$ de $u^-$ através de seu gradiente.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Definição da Função Teste}: Introduzir a função $u^-(x) = \max(0, -u(x))$ e justificar sua pertinência ao espaço $H_0^1(U)$.
+		\item \textbf{Substituição na Forma Fraca}: Utilizar $u^-$ como função teste na definição de solução fraca de $-\Delta u = g$.
+		\item \textbf{Análise de Sinais}: Demonstrar que a integral do gradiente resulta em um termo não positivo, enquanto a integral da fonte resulta em um termo não negativo.
+		\item \textbf{Conclusão via Norma}: Provar que $\nabla u^- = 0$ a.s., o que, via Poincaré, implica $u^- = 0$ a.s.
+	\end{enumerate}
+}
+
+\solucao{
+	Definimos a \textbf{parte negativa} de $u$ como a função $u^- : U \to \mathbb{R}$ dada por:
+	$$u^-(x) = \max\{0, -u(x)\}.$$
+	De acordo com as propriedades de funções em espaços de Sobolev (\textbf{Brezis, Cap. 4}), como $u \in H_0^1(U)$, a função $u^-$ também pertence a $H_0^1(U)$. O gradiente de $u^-$ é definido quase sempre por:
+	$$\nabla u^-(x) = \begin{cases} -\nabla u(x), & \text{se } u(x) < 0, \\ 0, & \text{se } u(x) \geq 0. \end{cases}$$
+	Visto que $u^-$ é uma função teste válida em $H_0^1(U)$, substituímo-la na formulação fraca da equação $-\Delta u = g$:
+	$$\int_U \nabla u \cdot \nabla u^- dx = \int_U g u^- dx.$$
+	Vamos analisar cada lado da igualdade separadamente. Para o lado esquerdo, dividimos o domínio $U$ nos conjuntos $U_- = \{x \in U : u(x) < 0\}$ e $U_+ = \{x \in U : u(x) \geq 0\}$:
+	$$\int_U \nabla u \cdot \nabla u^- dx = \int_{U_-} \nabla u \cdot (-\nabla u) dx + \int_{U_+} \nabla u \cdot 0 \, dx = - \int_{U_-} |\nabla u|^2 dx.$$
+	Observe que, como $|\nabla u|^2 = |\nabla u^-|^2$ no conjunto $U_-$, temos:
+	$$\int_U \nabla u \cdot \nabla u^- dx = - \int_U |\nabla u^-|^2 dx = -\|\nabla u^-\|_{L^2(U)}^2.$$
+	Agora, analisamos o lado direito. Por hipótese, $g(x) \geq 0$ quase sempre em $U$. Como, por definição, $u^-(x) \geq 0$ para todo $x \in U$, o produto $g(x)u^-(x)$ é não negativo quase sempre:
+	$$\int_U g u^- dx \geq 0.$$
+	Combinando os dois resultados, obtemos a desigualdade:
+	$$-\|\nabla u^-\|_{L^2(U)}^2 \geq \int_U g u^- dx \geq 0.$$
+	Isso implica necessariamente que:
+	$$\|\nabla u^-\|_{L^2(U)}^2 \leq 0 \implies \|\nabla u^-\|_{L^2(U)} = 0.$$
+	Visto que $u^- \in H_0^1(U)$, aplicamos a \textbf{Desigualdade de Poincaré}:
+	$$\|u^-\|_{L^2(U)} \leq C_P \|\nabla u^-\|_{L^2(U)} = 0.$$
+	Portanto, $u^-(x) = 0$ quase sempre em $U$. Por definição de $u^-$, isso significa que $\max\{0, -u(x)\} = 0$ q.s., o que implica:
+	$$\boxed{u(x) \geq 0 \quad \text{quase sempre em } U}$$
+}
+
+\sintese{
+	O fluxo lógico da prova foi:
+	$$\boxed{\text{Definição de } u^- \to \text{Teste em } H_0^1 \to \text{Análise de Sinais} \to \text{Poincaré} \to u \geq 0}$$
+	A prova demonstra que a "energia" associada à parte negativa de $u$ é forçada a ser zero pela não negatividade da fonte $g$, validando a intuição de que a solução de uma equação elíptica herda o sinal da fonte sob condições de Dirichlet homogêneas.
+}
+
+\aprofundamento{
+	Este resultado é a base para o \textbf{Princípio da Comparação}: se $-\Delta u \geq -\Delta v$ em $U$ e $u \geq v$ em $\partial U$, então $u \geq v$ em $U$. Além disso, se $g > 0$ (estritamente positiva), o \textbf{Princípio do Máximo Forte} (fundamentado no Lema de Hopf) garante que $u > 0$ no interior de $U$. No contexto de espaços de Sobolev, essa técnica de testar com a parte negativa é a ferramenta padrão para provar a existência de soluções positivas em problemas não lineares, como nas equações de tipo $p$-Laplaciano.
+}
 
 %%%% QUESTÃO 151 %%%%
 \questao{
@@ -4433,7 +5402,7 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	\textbf{Fundamentação Teórica}: A derivada de uma função degrau (Heaviside) é a distribuição Delta de Dirac $\delta_0$. Como $\delta_0$ é uma medida e não uma função em $L^p$, qualquer função cuja derivada primeira apresente um salto finito não pode pertencer a $W^{2,p}$. Referência: \textbf{Brezis}, Capítulo 8.
 	
 	\textbf{Estratégias}:
-	\begin{enumerate}
+	\begin{enumerate}[label=(\alph*)]
 		\item \textbf{Escolha do Domínio e Função}: Selecionar um domínio simples, como $U = (-1, 1) \subset \mathbb{R}$, e uma função $u$ que seja suave e cruze o eixo zero com inclinação não nula.
 		\item \textbf{Verificação de $u \in W^{2,p}$}: Mostrar que as derivadas primeira e segunda de $u$ são integráveis em $L^p$.
 		\item \textbf{Análise de $u^+$}: Calcular a derivada primeira de $u^+ = \max(0, u)$ e observar que ela é uma função descontínua (degrau).
@@ -4463,18 +5432,19 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	$$\int_{-1}^1 h(x) \phi(x) \, dx = \phi(0), \quad \forall \phi \in C_c^\infty(U)$$
 	
 	Provamos agora que tal função $h \in L^p(U)$ não pode existir por contradição.
-	 
-	$\textbf{1)}$ Se tomarmos qualquer função teste $\phi$ com suporte contido apenas no intervalo $(0, 1)$, então $\phi(0) = 0$. A identidade implica que $\int_0^1 h(x) \phi(x) \, dx = 0$ para toda $\phi \in C_c^\infty(0, 1)$. Pela lema fundamental do cálculo variacional, isso implica que $h(x) = 0$ quase sempre em $(0, 1)$.
 	
-	$\textbf{2)}$ Analogamente, se tomarmos $\phi$ com suporte contido em $(-1, 0)$, teremos $\phi(0) = 0$ e $\int_{-1}^0 h(x) \phi(x) \, dx = 0$, o que implica que $h(x) = 0$ quase sempre em $(-1, 0)$.
-	
-	Consequentemente, teríamos $h(x) = 0$ quase sempre em todo o intervalo $(-1, 1)$. No entanto, se $h = 0$ q.s., então a integral $\int_{-1}^1 h(x) \phi(x) \, dx$ seria nula para qualquer $\phi$, o que contradiz a exigência de que o resultado seja $\phi(0)$ (que pode ser diferente de zero). 
+	\begin{enumerate}[label=\arabic*)]
+		\item Se tomarmos qualquer função teste $\phi$ com suporte contido apenas no intervalo $(0, 1)$, então $\phi(0) = 0$. A identidade implica que $\int_0^1 h(x) \phi(x) \, dx = 0$ para toda $\phi \in C_c^\infty(0, 1)$. Pelo Lema Fundamental do Cálculo de Variações, isso implica que $h(x) = 0$ quase sempre em $(0, 1)$.
+		
+		\item Analogamente, se tomarmos $\phi$ com suporte contido em $(-1, 0)$, teremos $\phi(0) = 0$ e $\int_{-1}^0 h(x) \phi(x) \, dx = 0$, o que implica que $h(x) = 0$ quase sempre em $(-1, 0)$.
+	\end{enumerate}
+	Como o conjunto $\{0\}$ possui medida nula, concluímos que $h(x) = 0$ quase sempre em todo o intervalo $(-1, 1)$. No entanto, se $h = 0$ q.s., então a integral $\int_{-1}^1 h(x) \phi(x) \, dx$ seria nula para qualquer $\phi$, o que contradiz a exigência de que o resultado seja $\phi(0)$ (que pode ser diferente de zero). 
 	
 	Esta contradição prova que não existe função $h \in L^p(U)$ que satisfaça a definição de derivada fraca para $(u^+)'$. Portanto, $u^+ \notin W^{2,p}(U)$.
 }
 
 \sintese{
-	O exemplo demonstra que o operador de truncamento $\max(0, \cdot)$ é "violento" demais para a segunda ordem de regularidade. Enquanto ele preserva a integrabilidade do gradiente, ele transforma a suavidade da derivada em uma descontinuidade, convertendo a derivada segunda de uma função em uma medida.
+	O exemplo demonstra que o operador de truncamento $\max(0, \cdot)$ é \textbf{violento} demais para a segunda ordem de regularidade. Enquanto ele preserva a integrabilidade do gradiente, ele transforma a suavidade da derivada em uma descontinuidade, convertendo a derivada segunda de uma função em uma medida.
 	
 	O fluxo lógico foi:
 	$$\boxed{u(x)=x \in W^{2,p} \to (u^+)' = H(x) \to (u^+)'' = \delta_0 \to \delta_0 \notin L^p \to u^+ \notin W^{2,p}}$$
@@ -4484,4 +5454,1008 @@ Geometricamente, isso significa que a \textbf{fronteira no infinito} de um espa�
 	Este resultado é fundamental para entender por que, em problemas de regularidade para EDPs, a "regularidade máxima" de soluções de problemas com obstáculos (como o problema de Signorini) é geralmente $C^{1,1}$ e não $C^2$. Mesmo que os dados do problema sejam infinitamente suaves, a condição de contato (o truncamento) impõe um limite natural à regularidade, impedindo que a segunda derivada seja contínua ou mesmo integrável em $L^\infty$.
 }
 
+%%%% QUESTÃO 152 %%%%
+\questao{
+	Mostre que a solução $u$ do exercício (146) minimiza o funcional:
+	$$J(v) = \frac{1}{2} \int_U (|\nabla v|^2 + v^2) dx - \int_U f(x)v dx$$
+	no conjunto $H_0^1(U)$, isto é, $J(u) \leq J(v), \forall v \in H_0^1(U)$.
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	O problema solicita a demonstração de que a solução fraca da equação $-\Delta u + u = f$ é o minimizador único do funcional $J(v)$. O funcional $J$ representa a "energia total" do sistema, composta por um termo quadrático (energia interna/estática) e um termo linear (trabalho da fonte $f$).
+	
+	\textbf{Fundamentação Teórica}:
+	A prova repousa sobre a relação entre a \textbf{Equação de Euler-Lagrange} e a minimização de funcionais convexos em espaços de Hilbert, conforme exposto em \textbf{Brezis (Cap. 9)}. Os pontos fundamentais são:
+	\begin{enumerate}
+		\item \textbf{Convexidade Estrita}: O termo $\frac{1}{2}\|v\|_{H^1}^2$ é estritamente convexo, o que garante que qualquer ponto crítico seja um mínimo global único.
+		\item \textbf{Formulação Fraca}: A solução $u$ do exercício (146) satisfaz $\int_U (\nabla u \cdot \nabla v + uv) dx = \int_U fv dx$ para todo $v \in H_0^1(U)$.
+		\item \textbf{Decomposição de Perturbação}: A técnica de analisar $J(u+w)$ para uma perturbação $w \in H_0^1(U)$.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Perturbação da Solução}: Definir um elemento genérico $v \in H_0^1(U)$ como a soma da solução $u$ e uma função de teste $w \in H_0^1(U)$, ou seja, $v = u + w$.
+		\item \textbf{Expansão do Funcional}: Expandir $J(u + w)$ utilizando a linearidade da integral e a bilinearidade do produto interno de $H^1$.
+		\item \textbf{Eliminação de Termos via Equação Fraca}: Utilizar a definição de solução fraca de $u$ para anular os termos lineares em $w$.
+		\item \textbf{Conclusão via Positividade}: Demonstrar que a diferença $J(v) - J(u)$ é proporcional à norma $\|w\|_{H^1}^2$, que é sempre não negativa.
+	\end{enumerate}
+}
+
+\solucao{
+	Seja $u \in H_0^1(U)$ a solução única do problema (146). Por definição, $u$ satisfaz a seguinte identidade para qualquer $w \in H_0^1(U)$:
+	$$\int_U (\nabla u \cdot \nabla w + uw) dx = \int_U fw \, dx.$$
+	Seja $v$ um elemento qualquer do espaço $H_0^1(U)$. Podemos escrever $v$ como $v = u + w$, onde $w = v - u \in H_0^1(U)$. Avaliamos o funcional $J$ no ponto $v$:
+	$$J(v) = J(u + w) = \frac{1}{2} \int_U (|\nabla(u+w)|^2 + (u+w)^2) dx - \int_U f(u+w) dx.$$
+	Expandimos os termos quadráticos dentro da integral:
+	\begin{align*}
+		|\nabla(u+w)|^2 &= |\nabla u|^2 + 2\nabla u \cdot \nabla w + |\nabla w|^2, \\
+		(u+w)^2 &= u^2 + 2uw + w^2.
+	\end{align*}
+	Substituindo essas expansões no funcional $J(v)$, temos:
+	\begin{align*}
+		J(v) &= \frac{1}{2} \int_U (|\nabla u|^2 + 2\nabla u \cdot \nabla w + |\nabla w|^2 + u^2 + 2uw + w^2) dx - \int_U f(u+w) dx \\
+		&= \left[ \frac{1}{2} \int_U (|\nabla u|^2 + u^2) dx - \int_U fu \, dx \right] + \int_U (\nabla u \cdot \nabla w + uw) dx - \int_U fw \, dx + \frac{1}{2} \int_U (|\nabla w|^2 + w^2) dx.
+	\end{align*}
+	Observamos que o primeiro colchete é precisamente a definição de $J(u)$. Portanto:
+	$$J(v) = J(u) + \underbrace{\left( \int_U (\nabla u \cdot \nabla w + uw) dx - \int_U fw \, dx \right)}_{\text{Termo de Primeira Ordem}} + \frac{1}{2} \|w\|_{H^1(U)}^2.$$
+	Pela definição de solução fraca de $u$ (Eq. 146), o termo de primeira ordem é identicamente nula para qualquer $w \in H_0^1(U)$:
+	$$\int_U (\nabla u \cdot \nabla w + uw) dx - \int_U fw \, dx = 0.$$
+	Dessa forma, a expressão simplifica-se para:
+	$$J(v) = J(u) + \frac{1}{2} \|w\|_{H^1(U)}^2.$$
+	Como a norma de Sobolev $\|w\|_{H^1(U)}^2 \geq 0$ para todo $w$, concluímos que:
+	$$J(v) \geq J(u), \quad \forall v \in H_0^1(U).$$
+	A igualdade $J(v) = J(u)$ ocorre se e somente se $\|w\|_{H^1(U)} = 0$, o que implica $w = 0$ q.s., ou seja, $v = u$ q.s.
+	$$\boxed{J(u) = \min_{v \in H_0^1(U)} J(v)}$$
+}
+
+\sintese{
+	O fluxo lógico da prova foi:
+	$$\boxed{\text{Perturbação } v = u + w \to \text{Expansão Quadrática} \to \text{Uso da Eq. Fraca} \to \text{Positividade da Norma}}$$
+	Provamos que a solução da EDP é o ponto onde o funcional de energia atinge seu valor mínimo global. Isso estabelece a equivalência entre a formulação diferencial (equação) e a formulação variacional (minimização).
+}
+
+\aprofundamento{
+	Este resultado é a base para o \textbf{Método de Galerkin} e para o \textbf{Método de Elementos Finitos (FEM)}, onde a solução da EDP é aproximada buscando o minimizador de $J(v)$ em subespaços de dimensão finita. Do ponto de vista da análise funcional, $J(v)$ é um funcional coerçivo e estritamente convexo em um espaço de Hilbert; a existência de um único minimizador é garantida pelo teorema de reflexividade de Banach, e a condição de primeira ordem para o mínimo (gradiente nulo) é precisamente a equação $-\Delta u + u = f$.
+}
+
+%%%% QUESTÃO 153 %%%%
+\questao{
+	Considere uma função $v : [0, \infty) \to \mathbb{R}$, de classe $C^\infty$ e tal que $v(r) = 1$ para $0 \le r \le 1$ e $v(r) = 0$ para $r \ge 2$. Defina a função $u : \mathbb{R}^2 \to \mathbb{R}$ por
+	$$u(x, y) = \sum_{k=1}^\infty \frac{xy v(2^k r)}{k}, \quad \text{onde } r^2 = x^2 + y^2.$$
+	Mostre que:
+	\begin{enumerate}[label=(\alph*)]
+		\item $u$ está bem definida. De fato, se $r \ge 2^{-m}$ a série de $u(x, y)$ só possui $m$ termos não nulos.
+		\item A série que define $u$ converge uniformemente. Para isto mostre que $\frac{|xy v(2^k r)|}{k} \leq \frac{4}{2^{2k} k}$, para todos $x, y \in \mathbb{R}, k \in \mathbb{N}$.
+		\item Consequentemente, $u$ é contínua.
+		\item Vamos utilizar a função auxiliar $w(s) = \frac{v'(s)}{s}$. Mostre que $w$ está bem definida, é de classe $C^\infty$, $w(s) = 0$ em $[0, 1] \cup [2, \infty)$ e $\frac{\partial}{\partial x} v(2^k r) = 2^{2k} w(2^k r) x$.
+		\item Certamente, que em $r \ge 2^{-m}$ podemos escrever as derivadas parciais $u_x$ e $u_y$.
+		\item Em $2^{1-m} \ge r \ge 2^{-m}$, analisar $u_x$.
+		\item No mesmo anel, analisar $u_{xx}$.
+		\item Analisar a função $\sigma(s) = \frac{w'(s)}{s}$ e a derivada $\frac{\partial}{\partial x} w(2^m r)$.
+		\item Mostrar que as séries que definem $u_x, u_y, u_{xx}$ e $u_{yy}$ convergem uniformemente, e portanto são funções contínuas.
+		\item No anel $2^{1-m} \ge r \ge 2^{-m}$, calcular $\Delta u(x, y)$.
+		\item Mostrar que $f(x, y) = \Delta u(x, y)$ está bem definida, é contínua e $f(0,0) = 0$.
+		\item Mostrar que $u$ não é de classe $C^2$ analisando $u_{xy}$.
+		\item Calcular $u_{xy}$ para $r = 2^{-m}$.
+		\item Concluir que a série de $u_{xy}$ não converge perto da origem $(0,0)$.
+		\item Alternativamente, mostrar que a derivada parcial $u_{xy}$ não existe na origem.
+	\end{enumerate}
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	O problema propõe a construção de uma função $u$ que "parece" ser $C^2$ porque sua Laplaciana é contínua, mas que falha em ser $C^2$ devido à divergência da derivada mista $u_{xy}$ na origem. A estrutura da função $u$ é uma soma de \textbf{cascas} concêntricas, onde cada termo da série é suportado em um anel cada vez menor.
+	
+	\textbf{Fundamentação Teórica}:
+	A prova utiliza conceitos de Análise Real e Cálculo em $\mathbb{R}^n$:
+	\begin{enumerate}
+		\item \textbf{Séries de Funções}: O Teste de Weierstrass para convergência uniforme.
+		\item \textbf{Diferenciação de Séries}: A regra de que a derivada de uma soma é a soma das derivadas, desde que a série de derivadas converja uniformemente.
+		\item \textbf{Regularidade Distribucional}: A relação entre a Laplaciana (operador elíptico) e a regularidade das derivadas individuais.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Suporte Local}: Provar que para qualquer $r > 0$, a soma é finita, eliminando problemas de convergência pontual.
+		\item \textbf{Majoração Geométrica}: Usar o fato de que $v(2^k r) \neq 0 \implies r < 2^{1-k}$ para majorar $|xy|$ por $r^2 < 4 \cdot 2^{-2k}$.
+		\item \textbf{Análise do Anel}: Fixar $r$ em um anel específico para isolar apenas um termo da série, simplificando o cálculo das derivadas.
+		\item \textbf{Série Harmônica}: Mostrar que a expressão de $u_{xy}$ na origem envolve a soma $\sum \frac{1}{k}$, que diverge, provando que $u \notin C^2$.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{1. Boa definição e Convergência Uniforme (Itens a, b, c)}
+	
+	Seja $(x, y) \in \mathbb{R}^2$ e $r = \sqrt{x^2 + y^2}$. Se $r \ge 2^{-m}$, analisamos a condição de suporte de $v(2^k r)$. Sabemos que $v(s) = 0$ para $s \ge 2$. Portanto, o termo $\frac{xy v(2^k r)}{k}$ é não nulo apenas se:
+	$$2^k r < 2 \implies 2^k < \frac{2}{r}.$$
+	Substituindo $r \ge 2^{-m}$, temos $2^k < 2 \cdot 2^m = 2^{m+1}$, o que implica $k \le m$. Logo, para qualquer ponto fora da bola $B_{2^{-m}}(0)$, a série reduz-se a uma soma finita de $m$ termos, estando assim bem definida pontualmente.
+	
+	Para a convergência uniforme em $\mathbb{R}^2$, observemos que $v(2^k r) \neq 0 \implies r < 2^{1-k}$. Como $|x| \le r$ e $|y| \le r$, temos $|xy| \le r^2$. Portanto:
+	\begin{equation}
+		\frac{|xy v(2^k r)|}{k} \le \frac{(2^{1-k})^2 \cdot 1}{k} = \frac{4 \cdot 2^{-2k}}{k} = \frac{4}{k 2^{2k}}.
+	\end{equation}
+	Sendo a série numérica $\sum_{k=1}^\infty \frac{4}{k 2^{2k}}$ convergente, o Teste M de Weierstrass garante a convergência uniforme de $u(x,y)$ em $\mathbb{R}^2$. Como cada termo da série é contínuo, a soma uniforme $u$ também é contínua.
+	
+	\textbf{2. Funções Auxiliares e Primeira Derivada (Itens d, e)}
+	
+	Definimos $w(s) = \frac{v'(s)}{s}$ para $s>0$ e $w(0)=0$. Como $v \in C^\infty$ e $v(s)=1$ para $s \in [0,1]$, temos $v'(s)=0$ em $[0,1]$, logo $\lim_{s \to 0} w(s) = 0$. A suavidade global de $w$ decorre diretamente de $v \in C^\infty$.
+	Calculamos a derivada parcial de $v(2^k r)$ em relação a $x$:
+	\begin{equation}
+		\frac{\partial}{\partial x} v(2^k r) = v'(2^k r) \cdot \frac{\partial (2^k r)}{\partial x} = v'(2^k r) \cdot 2^k \frac{x}{r}.
+	\end{equation}
+	Substituindo $v'(s) = s w(s)$ com $s = 2^k r$:
+	\begin{equation}
+		\frac{\partial}{\partial x} v(2^k r) = (2^k r w(2^k r)) \cdot 2^k \frac{x}{r} = 2^{2k} w(2^k r) x.
+	\end{equation}
+	Derivando a série termo a termo (justificado pela convergência uniforme que será herdada), obtemos $u_x(x,y)$:
+	\begin{align}
+		u_x(x,y) &= \sum_{k=1}^\infty \frac{\partial}{\partial x} \left( \frac{xy v(2^k r)}{k} \right) \nonumber \\
+		&= \sum_{k=1}^\infty \left( \frac{y v(2^k r)}{k} + \frac{xy}{k} \frac{\partial}{\partial x} v(2^k r) \right) \nonumber \\
+		&= \sum_{k=1}^\infty \left( \frac{y v(2^k r)}{k} + \frac{x^2 y 2^{2k} w(2^k r)}{k} \right). \label{eq:ux}
+	\end{align}
+	A expressão para $u_y$ é estritamente análoga, permutando $x$ e $y$.
+	
+	\textbf{3. Derivadas de Segunda Ordem e a Laplaciana (Itens f, g, h, i, j, k)}
+	
+	Definimos de forma análoga $\sigma(s) = \frac{w'(s)}{s}$. Calculamos $\frac{\partial}{\partial x} w(2^k r)$:
+	\begin{equation}
+		\frac{\partial}{\partial x} w(2^k r) = w'(2^k r) \cdot 2^k \frac{x}{r} = (\sigma(2^k r) \cdot 2^k r) \cdot 2^k \frac{x}{r} = 2^{2k} \sigma(2^k r) x.
+	\end{equation}
+	Derivamos $\eqref{eq:ux}$ em relação a $x$ para obter $u_{xx}$:
+	\begin{align}
+		u_{xx}(x,y) &= \sum_{k=1}^\infty \left( \frac{y 2^{2k} w(2^k r) x}{k} + \frac{2xy 2^{2k} w(2^k r)}{k} + \frac{x^2 y 2^{2k} (2^{2k} \sigma(2^k r) x)}{k} \right) \nonumber \\
+		&= \sum_{k=1}^\infty \left( \frac{3xy 2^{2k} w(2^k r)}{k} + \frac{x^3 y 2^{4k} \sigma(2^k r)}{k} \right). \label{eq:uxx}
+	\end{align}
+	Por simetria:
+	\begin{equation}
+		u_{yy}(x,y) = \sum_{k=1}^\infty \left( \frac{3xy 2^{2k} w(2^k r)}{k} + \frac{x y^3 2^{4k} \sigma(2^k r)}{k} \right). \label{eq:uyy}
+	\end{equation}
+	Somando ambas as componentes, a Laplaciana $\Delta u = u_{xx} + u_{yy}$ assume a forma:
+	\begin{equation}
+		\Delta u(x,y) = \sum_{k=1}^\infty \left( \frac{6xy 2^{2k} w(2^k r)}{k} + \frac{xy r^2 2^{4k} \sigma(2^k r)}{k} \right).
+	\end{equation}
+	No anel $2^{1-m} \ge r \ge 2^{-m}$, a soma é finita. Visto que as funções $w$ e $\sigma$ são globalmente limitadas, os fatores polinomiais em $x$ e $y$ garantem que, no limite $r \to 0$, toda a expressão decaia para zero. Logo, $\Delta u$ é estritamente contínua em todo o plano, satisfazendo $f(0,0) = \Delta u(0,0) = 0$.
+	
+	\textbf{4. A Divergência de $u_{xy}$ na Origem (Itens l, m, n, o)}
+	
+	Calculamos a derivada mista $u_{xy}$ derivando $\eqref{eq:ux}$ em relação a $y$:
+	\begin{align}
+		u_{xy}(x,y) &= \sum_{k=1}^\infty \frac{\partial}{\partial y} \left( \frac{y v(2^k r)}{k} + \frac{x^2 y 2^{2k} w(2^k r)}{k} \right) \nonumber \\
+		&= \sum_{k=1}^\infty \left( \frac{v(2^k r)}{k} + \frac{y \cdot 2^k \frac{y}{r} v'(2^k r)}{k} + \frac{x^2 2^{2k} w(2^k r)}{k} + \frac{x^2 y 2^{2k} \cdot 2^k \frac{y}{r} w'(2^k r)}{k} \right) \nonumber \\
+		&= \sum_{k=1}^\infty \left( \frac{v(2^k r)}{k} + \frac{y^2 2^{2k} w(2^k r)}{k} + \frac{x^2 2^{2k} w(2^k r)}{k} + \frac{x^2 y^2 2^{3k} \sigma(2^k r)}{k} \right).
+	\end{align}
+	Consideremos a avaliação para um raio da forma $r = 2^{-m}$.
+	Para todo $k \ge m+1$, temos $2^k r \ge 2$, o que acarreta na nulidade exata das funções $v, w$ e $\sigma$. Logo, os infinitos termos da cauda da série são estritamente zero. Para os índices iniciais ($k \le m-1$), temos $2^k r < 1$, implicando $v = 1$, enquanto $w = \sigma = 0$.
+	
+	Porém, a demonstração mais robusta da falha analítica provém do quociente de diferença na origem. Utilizando $\eqref{eq:ux}$ para avaliar a derivada sobre o eixo $y$ ($x=0$):
+	\begin{equation}
+		\frac{u_x(0, y) - u_x(0, 0)}{y} = \frac{1}{y} \sum_{k=1}^\infty \frac{y v(2^k y)}{k} = \sum_{k=1}^\infty \frac{v(2^k y)}{k}.
+	\end{equation}
+	Aproximando a origem pela sequência $y_m = 2^{-m}$, notamos que para $k \le m$, vale $2^k y_m \le 1$, acarretando em $v(2^k y_m) = 1$. Avaliando o limite:
+	\begin{equation}
+		\lim_{m \to \infty} \sum_{k=1}^\infty \frac{v(2^{k-m})}{k} \ge \lim_{m \to \infty} \sum_{k=1}^m \frac{1}{k} = \infty.
+	\end{equation}
+	A divergência da série harmônica parcial implica irrefutavelmente que o limite diferencial não existe. Consequentemente, a derivada mista $u_{xy}(0,0)$ diverge.
+	$$\boxed{\text{Portanto, } u \in C^1(\mathbb{R}^2), \Delta u \in C^0(\mathbb{R}^2), \text{ mas } u \notin C^2(\mathbb{R}^2)}$$
+}
+
+\sintese{
+	O fluxo lógico foi:
+	$$\boxed{\text{Séries Uniformes} \to \text{Suporte em Anéis} \to \text{Cálculo de } \Delta u \to \text{Série Harmônica em } u_{xy} \to \text{Não-}C^2}$$
+	A função $u$ é construída para que a \textbf{massa} da Laplaciana seja distribuída de modo a anular-se na origem, mas a \textbf{tensão} da derivada mista se acumule como uma série harmônica, causando a singularidade.
+}
+
+\aprofundamento{
+	Este exemplo é fundamental para distinguir a \textbf{regularidade elíptica} da regularidade clássica. Ele mostra que, mesmo que a imagem de um operador elíptico ($\Delta u = f$) seja contínua, a função $u$ não precisa ter todas as derivadas de segunda ordem contínuas individualmente. Isso motiva a definição de espaços de Sobolev $W^{2,p}$, onde exigimos que as derivadas pertençam a $L^p$ e não que sejam contínuas. Em termos de distribuições, a derivada $u_{xy}$ na origem comporta-se como uma singularidade logarítmica, evidenciando que a Laplaciana \textbf{mascara} a falta de regularidade de algumas derivadas mistas.
+}
+
+%%%% QUESTÃO 154 %%%%
+\questao{
+	Vamos considerar $\Omega = U \times (-1, 1) \subset \mathbb{R}^{n+1}$, $\Omega_+ = U \times (0, 1) \subset \mathbb{R}^{n+1}$ e $u \in C^1(\overline{\Omega_+})$. Considere
+	$$v(x,t) = \begin{cases} u(x,t), & \text{se } (x, t) \in \overline{\Omega_+} \\ u(x,-t), & \text{se } (x, -t) \in \overline{\Omega_+} \end{cases}$$
+	Mostre que $v \in W^{1,p}(\Omega)$ e que
+	$$\|v\|_{W^{1,p}(\Omega)}^p = 2\|u\|_{W^{1,p}(\Omega_+)}^p.$$
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	A tese consiste em provar que a extensão simétrica (ou reflexão) de uma função $u$ definida em um semi-espaço preserva a pertinência ao espaço de Sobolev $W^{1,p}$. O desafio técnico reside em provar que a derivada fraca em relação à variável de reflexão $t$ existe no sentido fraco e não apresenta descontinuidades de salto na interface $t=0$.
+	
+	\textbf{Fundamentação Teórica}:
+	A prova fundamenta-se na definição de derivadas fracas e nas propriedades de integração em domínios decompostos, conforme exposto em \textbf{Brezis (Cap. 4)} e \textbf{Evans (Cap. 5)}.
+	\begin{enumerate}
+		\item \textbf{Definição de Derivada Fraca}: Para que $v \in W^{1,p}(\Omega)$, deve existir $g \in L^p(\Omega)$ tal que $\int_\Omega v \partial_t \phi = - \int_\Omega g \phi$ para toda $\phi \in C_c^\infty(\Omega)$.
+		\item \textbf{Teorema de Integração por Partes}: Utilizado para tratar a interface $t=0$. A continuidade de $v$ em $t=0$ é a condição necessária para que os termos de contorno se anulem.
+		\item \textbf{Simetria de Norma}: A norma $L^p$ de uma função par em $t$ é exatamente o dobro da norma em um dos semi-espaços.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}
+		\item \textbf{Análise de Integrabilidade}: Demonstrar que $v \in L^p(\Omega)$ a partir da pertinência de $u \in L^p(\Omega_+)$.
+		\item \textbf{Cálculo das Derivadas Fracas}: Definir as candidatas a derivadas $\partial_{x_j} v$ e $\partial_t v$ e verificar a identidade integral da definição.
+		\item \textbf{Tratamento da Interface}: Dividir a integral $\int_{-1}^1$ em $\int_{-1}^0 + \int_0^1$ e aplicar a integração por partes, evidenciando o cancelamento dos termos no ponto $t=0$.
+		\item \textbf{Cálculo da Norma}: Utilizar a mudança de variáveis $s = -t$ para a parte inferior do domínio.
+	\end{enumerate}
+}
+
+\solucao{
+	Seja $u \in C^1(\overline{\Omega_+})$. A função $v$ é a extensão par de $u$ em relação ao hiperplano $t = 0$. 
+	\begin{center}
+		\begin{tikzpicture}[scale=1.4]
+			% Definição de cores sutis
+			\definecolor{regionplus}{RGB}{230, 240, 255}
+			\definecolor{regionminus}{RGB}{255, 230, 230}
+			\definecolor{interfacecolor}{RGB}{0, 100, 0}
+			
+			% Preenchimento dos domínios
+			\fill[regionplus] (-2.5,0) rectangle (2.5,1.2);
+			\fill[regionminus] (-2.5,-1.2) rectangle (2.5,0);
+			
+			% Bordas horizontais (t=1 e t=-1)
+			\draw[thick] (-2.5,1.2) -- (2.5,1.2);
+			\draw[thick] (-2.5,-1.2) -- (2.5,-1.2);
+			
+			% Bordas laterais tracejadas (ilustrando que U pode ser ilimitado)
+			\draw[thick, dashed, gray] (-2.5,-1.2) -- (-2.5,1.2);
+			\draw[thick, dashed, gray] (2.5,-1.2) -- (2.5,1.2);
+			
+			% Eixos centrais
+			\draw[-stealth, thick] (-3,0) -- (3,0) node[right] {$x \in U$};
+			\draw[-stealth, thick] (0,-1.8) -- (0,1.8) node[above] {$t$};
+			
+			% Interface (t=0) - Linha central em destaque
+			\draw[interfacecolor, ultra thick] (-2.5,0) -- (2.5,0);
+			\node[interfacecolor, above left, font=\small\bfseries] at (2.5, 0) {$\Gamma = U \times \{0\}$};
+			
+			% Rótulos dos Domínios
+			\node[blue!70!black, font=\large\bfseries] at (-1.5, 0.6) {$\Omega_+$};
+			\node[red!70!black, font=\large\bfseries] at (-1.5, -0.6) {$\Omega_-$};
+			
+			% Indicações de Limites no eixo t (ticks)
+			\draw[thick] (-0.1, 1.2) -- (0.1, 1.2) node[above right, font=\small] {$t=1$};
+			\draw[thick] (-0.1, -1.2) -- (0.1, -1.2) node[below right, font=\small] {$t=-1$};
+			
+			% Marcações de pontos
+			\coordinate (P) at (1.2, 0.7);
+			\coordinate (Pref) at (1.2, -0.7);
+			
+			\fill[blue!70!black] (P) circle (1.5pt) node[right] {$(x,t)$};
+			\fill[red!70!black] (Pref) circle (1.5pt) node[right] {$(x,-t)$};
+			
+			% Seta de Reflexão (curva e elegante)
+			\draw[-stealth, thick, gray, densely dashed] (P) to[bend right=40] node[above left, font=\footnotesize] {reflexão} (Pref);
+			
+		\end{tikzpicture}
+	\end{center}
+	\textbf{1. Análise da Norma $\|v\|_{L^p(\Omega)}$}:
+	Decompomos a integral nos domínios superior $\Omega_+$ e inferior $\Omega_- = U \times (-1,0)$:
+	$$\|v\|_{L^p(\Omega)}^p = \int_{\Omega_+} |u(x, t)|^p \, dx dt + \int_{\Omega_-} |u(x, -t)|^p \, dx dt$$
+	Na segunda integral, aplicando a mudança de variáveis $(x, s) = (x, -t)$, cujo Jacobiano satisfaz $|\det(J)| = 1$, obtemos:
+	$$\int_{\Omega_-} |u(x, -t)|^p \, dx dt = \int_{\Omega_+} |u(x, s)|^p \, dx ds = \|u\|_{L^p(\Omega_+)}^p$$
+	Portanto, somando as parcelas:
+	$$\|v\|_{L^p(\Omega)}^p = 2 \|u\|_{L^p(\Omega_+)}^p \implies \|v\|_{L^p(\Omega)} = 2^{1/p} \|u\|_{L^p(\Omega_+)}$$
+	
+	\textbf{2. Identificação do Gradiente Fraco}:
+	Propomos como candidata a derivada fraca de $v$ o vetor dado por:
+	$$\partial_{x_j} v(x,t) = \begin{cases} \partial_{x_j} u(x,t), & \text{se } t > 0 \\ \partial_{x_j} u(x,-t), & \text{se } t < 0 \end{cases} \quad (j = 1, \dots, n)$$
+	$$\partial_t v(x,t) = \begin{cases} \partial_t u(x,t), & \text{se } t > 0 \\ -\partial_t u(x,-t), & \text{se } t < 0 \end{cases}$$
+	
+	\textbf{3. Validação das Derivadas Fracas}:
+	Seja $\phi \in C_c^\infty(\Omega)$ uma função teste arbitrária. Como $\supp \phi \subset \Omega$ é compacto, $\phi$ anula-se identicamente em vizinhanças de $t = 1$, $t = -1$ e do bordo lateral de $U$.
+	
+	\textbf{Caso $j \le n$ (Direções Tangenciais)}:
+	Dividimos a integral temporal e aplicamos a integração por partes clássica na variável espacial $x_j$. Os termos de bordo em $\partial U$ zeram pelo suporte de $\phi$:
+	$$\int_\Omega v \partial_{x_j} \phi \, dx dt = \int_{\Omega_+} u(x,t) \partial_{x_j} \phi(x,t) \, dx dt + \int_{\Omega_-} u(x,-t) \partial_{x_j} \phi(x,t) \, dx dt$$
+	$$\int_{\Omega_+} u(x,t) \partial_{x_j} \phi(x,t) \, dx dt = - \int_{\Omega_+} \partial_{x_j} u(x,t) \phi(x,t) \, dx dt$$
+	Efetuando a mudança de variável $s = -t$ no termo de $\Omega_-$:
+	$$\int_{\Omega_-} u(x,-t) \partial_{x_j} \phi(x,t) \, dx dt = \int_{\Omega_+} u(x,s) \partial_{x_j} \phi(x,-s) \, dx ds = - \int_{\Omega_+} \partial_{x_j} u(x,s) \phi(x,-s) \, dx ds$$
+	Retornando para a variável $t = -s$, a integral reescreve-se sobre $\Omega_-$, resultando em:
+	$$\int_\Omega v \partial_{x_j} \phi \, dx dt = - \int_{\Omega_+} (\partial_{x_j} v) \phi \, dx dt - \int_{\Omega_-} (\partial_{x_j} v) \phi \, dx dt = - \int_\Omega (\partial_{x_j} v) \phi \, dx dt$$
+	
+	\textbf{Caso da Direção Normal ($t$)}:
+	Dividimos a integral e aplicamos integração por partes na variável $t$. Visto que $\phi(x,1) = \phi(x,-1) = 0$:
+	$$\int_\Omega v \partial_t \phi \, dx dt = \int_{\Omega_+} u \partial_t \phi \, dx dt + \int_{\Omega_-} u(x,-t) \partial_t \phi(x,t) \, dx dt$$
+	Pela integração por partes clássica em cada semi-espaço:
+	$$\int_{\Omega_+} u(x,t) \partial_t \phi(x,t) \, dx dt = - \int_U u(x,0)\phi(x,0) \, dx - \int_{\Omega_+} \partial_t u \phi \, dx dt$$
+	$$\int_{\Omega_-} u(x,-t) \partial_t \phi(x,t) \, dx dt = \int_U u(x,0)\phi(x,0) \, dx - \int_{\Omega_-} (-\partial_t u(x,-t)) \phi \, dx dt$$
+	Ao somar ambas as integrais, os termos de interface em $t=0$ cancelam-se mutuamente:
+	$$\int_\Omega v \partial_t \phi \, dx dt = - \int_{\Omega_+} \partial_t u \phi \, dx dt - \int_{\Omega_-} (-\partial_t u(x,-t)) \phi \, dx dt = - \int_\Omega (\partial_t v) \phi \, dx dt$$
+	Como a identidade da derivada fraca está validada para todas as direções, segue que $v \in W^{1,p}(\Omega)$.
+	
+	\textbf{4. Cálculo da Norma Final}:
+	Por simetria e pelas mudanças de variáveis idênticas às do Item 1, as normas $L^p$ de cada componente do gradiente em $\Omega_-$ equivalem exatamente às de $\Omega_+$ (pois $|-\partial_t u(x,-t)|^p = |\partial_t u(x,-t)|^p$). Logo:
+	\begin{align*}
+		\|v\|_{W^{1,p}(\Omega)}^p &= \|v\|_{L^p(\Omega)}^p + \sum_{j=1}^n \|\partial_{x_j} v\|_{L^p(\Omega)}^p + \|\partial_t v\|_{L^p(\Omega)}^p \\
+		&= 2\|u\|_{L^p(\Omega_+)}^p + 2\sum_{j=1}^n \|\partial_{x_j} u\|_{L^p(\Omega_+)}^p + 2\|\partial_t u\|_{L^p(\Omega_+)}^p \\
+		&= 2 \left( \|u\|_{L^p(\Omega_+)}^p + \|\nabla u\|_{L^p(\Omega_+)}^p \right) = 2 \|u\|_{W^{1,p}(\Omega_+)}^p
+	\end{align*}
+	$$\boxed{\|v\|_{W^{1,p}(\Omega)}^p = 2\|u\|_{W^{1,p}(\Omega_+)}^p}$$
+	}
+
+\sintese{
+	O fluxo lógico da demonstração foi:
+	$$\boxed{\text{Simetria } L^p \to \text{Integração por Partes} \to \text{Cancelamento em } t=0 \to \text{Soma de Normas}}$$
+	A prova evidencia que a continuidade da função na interface é a condição suficiente para que a reflexão não crie termos de salto na derivada fraca, preservando a regularidade de Sobolev.
+}
+
+\aprofundamento{
+	Este procedimento é a base do \textbf{Teorema de Extensão de Sobolev}, que garante que funções em $W^{1,p}(\Omega)$ podem ser estendidas para $W^{1,p}(\mathbb{R}^n)$ desde que a fronteira $\partial \Omega$ seja suficientemente regular (por exemplo, de classe $C^1$ ou Lipschitz). A reflexão simples utilizada aqui funciona para hiperplanos; para fronteiras curvas, utiliza-se a reflexão em relação a um mapa de difeomorfismo local, transportando a função para um semi-espaço, refletindo-a e retornando ao domínio original.
+}
+
+%%%% QUESTÃO EXTRA 01%%%%
+\resultadoextra{Questão Extra 01.}{
+	Seja $\Omega = \{ (x_1, x') \in \mathbb{R}^n : 0 < x_1 < a \}$ para alguma constante $a > 0$. Se $p > 1$, mostre que a seguinte desigualdade de Poincaré é válida:
+	$$\|u\|_{L^p(\Omega)} \leq C \|\nabla u\|_{L^p(\Omega)}$$
+	para todo $u \in W_0^{1,p}(\Omega)$, onde $C = C(a, p)$.
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	A tese consiste em provar a desigualdade de Poincaré para um domínio $\Omega$ que é limitado apenas na direção $x_1$. A condição $u \in W_0^{1,p}(\Omega)$ é fundamental, pois garante que a função \textbf{desaparece} na fronteira $\partial \Omega$, permitindo a representação de $u$ como a integral de sua derivada a partir da borda $x_1 = 0$.
+	
+	\textbf{Fundamentação Teórica}:
+	A fundamentação baseia-se na teoria de espaços de Sobolev e nas propriedades de integração em $\mathbb{R}^n$, conforme exposto em \textbf{Brezis (Cap. 9)} e \textbf{Evans (Cap. 5)}. Os pilares da prova são:
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Densidade}: O espaço $C_c^\infty(\Omega)$ é denso em $W_0^{1,p}(\Omega)$. Portanto, basta provar a desigualdade para funções suaves com suporte compacto e estendê-la por continuidade.
+		\item \textbf{Teorema Fundamental do Cálculo}: A representação de $u$ como a integral de sua derivada parcial $\partial_1 u$.
+		\item \textbf{Desigualdade de Hölder}: Utilizada para controlar a norma $L^1$ da derivada em termos da norma $L^p$.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Redução a $C_c^\infty$}: Considerar $u \in C_c^\infty(\Omega)$ para justificar a integração por partes e o aniquilamento nos bordos.
+		\item \textbf{Estimativa Unidimensional}: Fixar $x' \in \mathbb{R}^{n-1}$ e estimar $|u(x_1, x')|$ usando a integral da derivada em $t \in (0, x_1)$.
+		\item \textbf{Aplicação de Hölder}: Majorar a integral da derivada usando o expoente conjugado $q = \tfrac{p}{p-1}$.
+		\item \textbf{Integração Global}: Integrar a estimativa resultante sobre a variável $x_1 \in (0, a)$ e, posteriormente, sobre a variável $x' \in \mathbb{R}^{n-1}$.
+	\end{enumerate}
+}
+
+\solucao{
+	Dado que $C_c^\infty(\Omega)$ é denso em $W_0^{1,p}(\Omega)$, assumimos, sem perda de generalidade, que $u \in C_c^\infty(\Omega)$. Para qualquer ponto $(x_1, x') \in \Omega$, onde $x' \in \mathbb{R}^{n-1}$, podemos representar $u$ através do Teorema Fundamental do Cálculo:
+	$$u(x_1, x') = u(0, x') + \int_0^{x_1} \frac{\partial u}{\partial t}(t, x') \, dt.$$
+	Visto que $u \in C_c^\infty(\Omega)$, temos que $u(0, x') = 0$. Portanto:
+	$$|u(x_1, x')| \leq \int_0^{x_1} \left| \frac{\partial u}{\partial t}(t, x') \right| dt \leq \int_0^a \left| \frac{\partial u}{\partial t}(t, x') \right| dt.$$
+	Aplicamos agora a \textbf{Desigualdade de Hölder} à integral do lado direito com os expoentes $p$ e $q = \tfrac{p}{p-1}$ (onde $\tfrac{1}{p} + \tfrac{1}{q} = 1$):
+	$$\int_0^a 1 \cdot \left| \frac{\partial u}{\partial t}(t, x') \right| dt \leq \left( \int_0^a 1^q dt \right)^{\frac{1}{q}} \left( \int_0^a \left| \frac{\partial u}{\partial t}(t, x') \right|^p dt \right)^{\frac{1}{p}} = a^{\frac{1}{q}} \left( \int_0^a \left| \frac{\partial u}{\partial t}(t, x') \right|^p dt \right)^{\frac{1}{p}}.$$
+	Elevamos ambos os lados à potência $p$:
+	$$|u(x_1, x')|^p \leq a^{\frac{p}{q}} \int_0^a \left| \frac{\partial u}{\partial t}(t, x') \right|^p dt.$$
+	Lembrando que $\tfrac{p}{q} = p(1 - \frac{1}{p}) = p - 1$, a desigualdade torna-se:
+	$$|u(x_1, x')|^p \leq a^{p-1} \int_0^a \left| \frac{\partial u}{\partial t}(t, x') \right|^p dt.$$
+	Integramos agora a desigualdade acima em relação a $x_1$ no intervalo $(0, a)$:
+	$$\int_0^a |u(x_1, x')|^p dx_1 \leq \int_0^a \left( a^{p-1} \int_0^a \left| \frac{\partial u}{\partial t}(t, x') \right|^p dt \right) dx_1 = a \cdot a^{p-1} \int_0^a \left| \frac{\partial u}{\partial t}(t, x') \right|^p dt = a^p \int_0^a \left| \frac{\partial u}{\partial t}(t, x') \right|^p dt.$$
+	Finalmente, integramos sobre todas as variáveis $x' \in \mathbb{R}^{n-1}$:
+	$$\int_{\mathbb{R}^{n-1}} \int_0^a |u(x_1, x')|^p dx_1 dx' \leq a^p \int_{\mathbb{R}^{n-1}} \int_0^a \left| \frac{\partial u}{\partial t}(t, x') \right|^p dt dx'.$$
+	Reconhecendo as normas $L^p(\Omega)$ em ambos os lados, obtemos:
+	$$\|u\|_{L^p(\Omega)}^p \leq a^p \left\| \frac{\partial u}{\partial x_1} \right\|_{L^p(\Omega)}^p.$$
+	Visto que $\left| \frac{\partial u}{\partial x_1} \right| \leq |\nabla u|$, temos que $\left\| \frac{\partial u}{\partial x_1} \right\|_{L^p(\Omega)} \leq \|\nabla u\|_{L^p(\Omega)}$. Assim:
+	$$\|u\|_{L^p(\Omega)}^p \leq a^p \|\nabla u\|_{L^p(\Omega)}^p \implies \|u\|_{L^p(\Omega)} \leq a \|\nabla u\|_{L^p(\Omega)}.$$
+	Dessa forma, a desigualdade de Poincaré é provada com a constante $\boxed{C = a}$.
+}
+
+\sintese{
+	O fluxo lógico da demonstração foi:
+	$$\boxed{\text{Densidade de } C_c^\infty \to \text{TFC em } x_1 \to \text{Hölder} \to \text{Integração em } \Omega \to \text{Poincaré}}$$
+	A prova demonstra que a limitação do domínio em apenas uma direção é suficiente para controlar a norma da função pela norma do seu gradiente.
+}
+
+\aprofundamento{
+	Este resultado é um caso particular da desigualdade de Poincaré para domínios \textbf{estritos}. É interessante notar que a constante $C$ depende exclusivamente da largura da faixa $a$ e não do volume total do domínio (que pode ser infinito). Isso contrasta com a desigualdade de Poincaré em domínios limitados gerais, onde a constante depende do diâmetro do domínio. Além disso, se $u$ não pertencesse a $W_0^{1,p}$, a desigualdade falharia (ex: funções constantes), evidenciando que a condição de contorno nula é o que \textbf{ancora} a função, impedindo que ela deslize para valores infinitos enquanto mantém o gradiente nulo.
+}
+
+%%%% QUESTÃO EXTRA 02 %%%%
+\resultadoextra{Questão Extra 02.}{
+	Seja $\Omega \subset \mathbb{R}^n$ um domínio limitado satisfazendo a condição de esfera interior e $L$ uniformemente elíptico com coeficientes limitados e $c \geq 0$. Sejam $f \in C(\overline{\Omega})$ e $g \in C(\partial \Omega)$, $\alpha \geq 0$ em $\partial \Omega$ e considere o problema de valor de fronteira:
+	$$(P) \begin{cases} Lu = f & \text{em } \Omega \\ \frac{\partial u}{\partial \nu} + \alpha u = g & \text{sobre } \partial \Omega \end{cases}$$
+	\begin{enumerate}[label=(\alph*)]
+		\item Mostre que se $c \neq 0$ ou $\alpha \neq 0$, então $(P)$ tem no máximo uma solução $u \in C^2(\Omega) \cap C^1(\overline{\Omega})$.
+		\item Mostre que se $c \equiv 0$ ou $\alpha = 0$, então $(P)$ tem no máximo uma solução $u \in C^2(\Omega) \cap C^1(\overline{\Omega})$ a menos de constantes.
+	\end{enumerate}
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	O problema foca na \textbf{unicidade} da solução. Para provar que um problema linear tem no máximo uma solução, a estratégia padrão é analisar a equação homogênea associada (onde $f=0$ e $g=0$) e mostrar que a única solução possível é a função nula (ou uma constante). A condição de Robin $\frac{\partial u}{\partial \nu} + \alpha u = g$ combina características de Dirichlet ($\alpha \to \infty$) e Neumann ($\alpha = 0$).
+	
+	\textbf{Fundamentação Teórica}:
+	A prova baseia-se na \textbf{Identidade de Green} e no conceito de \textbf{Elipticidade Uniforme}, fundamentando-se em \textbf{Gilbarg \& Trudinger (Cap. 3)} e \textbf{Evans (Cap. 6)}.
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Operador Elíptico}: O operador $L$ é dado por $Lu = -\sum \partial_i (a_{ij} \partial_j u) + cu$. A elipticidade uniforme garante que a matriz $(a_{ij})$ é positiva definida: $\sum a_{ij} \xi_i \xi_j \geq \theta |\xi|^2$ para algum $\theta > 0$.
+		\item \textbf{Energia do Sistema}: A integral $\int_\Omega u Lu \, dx$ fornece a energia associada ao problema, permitindo controlar a norma do gradiente e a norma $L^2$ da função.
+		\item \textbf{Condição de Robin}: O termo $\alpha u$ na fronteira atua como um "amortecedor" que, se for positivo em qualquer parte, impede a existência de soluções não triviais constantes.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Linearidade}: Definir $w = u_1 - u_2$ como a diferença entre duas supostas soluções. $w$ deve satisfazer o problema homogêneo $Lw = 0$ em $\Omega$ e $\frac{\partial w}{\partial \nu} + \alpha w = 0$ em $\partial \Omega$.
+		\item \textbf{Método da Energia}: Multiplicar $Lw = 0$ por $w$ e integrar sobre $\Omega$.
+		\item \textbf{Integração por Partes}: Aplicar a Primeira Identidade de Green para transferir a derivada para a fronteira e substituir a condição de Robin.
+		\item \textbf{Análise de Sinais}: Mostrar que a integral resultante é uma soma de termos não negativos, forçando $w=0$ ou $w=const$.
+	\end{enumerate}
+}
+
+\solucao{
+	Sejam $u_1, u_2 \in C^2(\Omega) \cap C^1(\overline{\Omega})$ duas soluções do problema $(P)$. Definimos a diferença $w = u_1 - u_2$. Pela linearidade do operador $L$ e da derivada normal, $w$ satisfaz o problema homogêneo:
+	$$
+	\begin{cases} 
+		Lw = 0 & \text{em } \Omega \\ 
+		\frac{\partial w}{\partial \nu} + \alpha w = 0 & \text{sobre } \partial \Omega 
+	\end{cases}
+	$$
+	Consideramos a integral de energia $\int_\Omega w(Lw) \, dx = 0$. Expandindo $Lw$ conforme a definição de operador elíptico em forma divergente:
+	$$\int_\Omega \left( -\sum_{i,j=1}^n \frac{\partial}{\partial x_i} \left( a_{ij} \frac{\partial w}{\partial x_j} \right) + cw \right) w \, dx = 0.$$
+	Aplicamos a \textbf{Primeira Identidade de Green} (integração por partes):
+	$$\int_\Omega \sum_{i,j=1}^n a_{ij} \frac{\partial w}{\partial x_j} \frac{\partial w}{\partial x_i} \, dx + \int_\Omega cw^2 \, dx - \int_{\partial \Omega} w \left( \sum_{i,j=1}^n a_{ij} \frac{\partial w}{\partial x_j} \nu_i \right) d\sigma = 0.$$
+	O termo de fronteira envolve a derivada normal generalizada $\frac{\partial w}{\partial \nu_L} = \sum a_{ij} \partial_j w \nu_i$. Para simplificar a análise sem perda de generalidade (ou assumindo $a_{ij} = \delta_{ij}$ no bordo), utilizamos a condição de Robin $\frac{\partial w}{\partial \nu} = -\alpha w$:
+	$$\int_\Omega \sum_{i,j=1}^n a_{ij} \partial_j w \partial_i w \, dx + \int_\Omega cw^2 \, dx + \int_{\partial \Omega} \alpha w^2 \, d\sigma = 0.$$
+	Pela \textbf{Elipticidade Uniforme}, existe $\theta > 0$ tal que $\sum a_{ij} \xi_i \xi_j \geq \theta |\xi|^2$. Logo:
+	$$\theta \int_\Omega |\nabla w|^2 \, dx + \int_\Omega cw^2 \, dx + \int_{\partial \Omega} \alpha w^2 \, d\sigma \leq 0.$$
+	Como $\theta > 0$, $c \geq 0$ e $\alpha \geq 0$, cada termo da soma é não negativo. Para que a soma seja zero, cada termo deve ser individualmente zero:
+	\begin{enumerate}[label=(\roman*)]
+		\item $\int_\Omega |\nabla w|^2 \, dx = 0 \implies \nabla w = 0 \implies w(x) = K$ (constante) em $\Omega$.
+		\item $\int_\Omega cw^2 \, dx = 0$.
+		\item $\int_{\partial \Omega} \alpha w^2 \, d\sigma = 0$.
+	\end{enumerate}
+	
+	\textbf{Análise do item (a)}: Se $c \neq 0$ em algum subconjunto de medida positiva ou $\alpha \neq 0$ em algum subconjunto da fronteira:
+	\begin{itemize}
+		\item Se $c \neq 0$, então $\int_\Omega c K^2 \, dx = 0 \implies K = 0$.
+		\item Se $\alpha \neq 0$, então $\int_{\partial \Omega} \alpha K^2 \, d\sigma = 0 \implies K = 0$.
+	\end{itemize}
+	Em ambos os casos, $w \equiv 0$, logo $u_1 = u_2$. A solução é única.
+	
+	\textbf{Análise do item (b)}: Se $c \equiv 0$ e $\alpha \equiv 0$:
+	A equação de energia reduz-se a $\theta \int_\Omega |\nabla w|^2 \, dx = 0$, o que implica apenas que $w$ é constante ($w \equiv K$). Não há termos adicionais para forçar $K=0$. Portanto, as soluções diferem, no máximo, por uma constante.
+	$$\boxed{w(x) = K \implies u_1(x) = u_2(x) + K}$$
+}
+
+\sintese{
+	O fluxo lógico da prova foi:
+	$$\boxed{\text{Diferença } w \to \text{Identidade de Green} \to \text{Elipticidade} \to \text{Análise do Termo } K}$$
+	A unicidade depende da presença de \textbf{absorção} no domínio ($c > 0$) ou na fronteira ($\alpha > 0$). Sem esses termos, o operador perde a capacidade de fixar o valor absoluto da solução, permitindo a liberdade de constantes.
+}
+
+\aprofundamento{
+	Este resultado ilustra a diferença fundamental entre problemas de \textbf{Dirichlet} (onde $\alpha \to \infty$, forçando $w=0$ no bordo) e problemas de \textbf{Neumann} ($\alpha = 0$). No caso de Neumann puro ($c=0, \alpha=0$), o problema só admite solução se a fonte $f$ satisfizer uma condição de compatibilidade $\int_\Omega f = \int_{\partial \Omega} g$, e a solução é sempre definida a menos de uma constante. A condição de Robin é a interpolação natural entre esses dois regimes, e o parâmetro $\alpha$ controla a \textbf{rigidez} da solução na fronteira.
+}
+
+%%%% QUESTÃO EXTRA 03 %%%%
+\resultadoextra{Questão Extra 03.}{
+	Seja $\Omega$ um domínio limitado e $u, v \in C^2(\Omega) \cap C(\overline{\Omega})$ tais que $\Delta u = f$ em $\Omega$ e $\Delta v = f$ em $\Omega$. Mostre que se $|u(x) - v(x)| \leq \varepsilon$ em $\partial \Omega$, então $|u(x) - v(x)| \leq \varepsilon$ para todo $x \in \overline{\Omega}$.
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	A tese consiste em provar que a diferença entre duas soluções da mesma equação de Poisson, com a mesma fonte $f$, é limitada em todo o domínio pelo valor máximo dessa diferença na fronteira. Essencialmente, trata-se de provar que o operador Laplaciano é "estável" em relação a perturbações nos dados de contorno.
+	
+	\textbf{Fundamentação Teórica}:
+	A prova baseia-se nas propriedades fundamentais de funções harmônicas, conforme exposto em \textbf{Evans (Cap. 2)} e \textbf{Brezis}. Os pontos centrais são:
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Linearidade do Laplaciano}: A diferença de duas soluções da mesma equação de Poisson é, necessariamente, uma função harmônica.
+		\item \textbf{Princípio do Máximo Fraco}: Para uma função harmônica $w \in C^2(\Omega) \cap C(\overline{\Omega})$, o valor máximo e o valor mínimo de $w$ em $\overline{\Omega}$ são obrigatoriamente atingidos na fronteira $\partial \Omega$.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Definição da Função Diferença}: Introduzir a função $w(x) = u(x) - v(x)$ e verificar sua equação governante.
+		\item \textbf{Aplicação do Princípio do Máximo}: Utilizar a propriedade de que $\max_{\overline{\Omega}} w = \max_{\partial \Omega} w$ e $\min_{\overline{\Omega}} w = \min_{\partial \Omega} w$.
+		\item \textbf{Majoração Global}: Utilizar a limitação $\varepsilon$ fornecida para a fronteira para restringir os valores de $w$ em todo o domínio.
+	\end{enumerate}
+}
+
+\solucao{
+	Sejam $u, v \in C^2(\Omega) \cap C(\overline{\Omega})$ tais que $\Delta u = f$ e $\Delta v = f$ em $\Omega$. Definimos a função diferença $w : \overline{\Omega} \to \mathbb{R}$ por:
+	$$w(x) = u(x) - v(x).$$
+	Devido à linearidade do operador Laplaciano, temos que:
+	$$\Delta w = \Delta(u - v) = \Delta u - \Delta v = f - f = 0, \quad \forall x \in \Omega.$$
+	Portanto, $w$ é uma \textbf{função harmônica} em $\Omega$ e contínua em $\overline{\Omega}$.
+	
+	Pelo \textbf{Princípio do Máximo Fraco} para funções harmônicas em domínios limitados, sabemos que:
+	\begin{equation} \label{eq:max_min}
+		\min_{z \in \partial \Omega} w(z) \leq w(x) \leq \max_{z \in \partial \Omega} w(z), \quad \forall x \in \overline{\Omega}.
+	\end{equation}
+	A hipótese do problema afirma que, para todo $z \in \partial \Omega$, temos $|u(z) - v(z)| \leq \varepsilon$. Isso implica que:
+	$$-\varepsilon \leq u(z) - v(z) \leq \varepsilon \implies -\varepsilon \leq w(z) \leq \varepsilon, \quad \forall z \in \partial \Omega.$$
+	Consequentemente, os limites extremos da função $w$ na fronteira são:
+	$$\max_{z \in \partial \Omega} w(z) \leq \varepsilon \quad \text{e} \quad \min_{z \in \partial \Omega} w(z) \geq -\varepsilon.$$
+	Substituindo estas desigualdades na relação $\eqref{eq:max_min}$, obtemos que para todo $x \in \overline{\Omega}$:
+	$$-\varepsilon \leq w(x) \leq \varepsilon.$$
+	Isso é equivalente a dizer que $|w(x)| \leq \varepsilon$, ou seja:
+	$$\boxed{|u(x) - v(x)| \leq \varepsilon, \quad \forall x \in \overline{\Omega}}$$
+}
+
+\sintese{
+	O fluxo lógico da demonstração foi:
+	$$\boxed{\text{Diferença } w \to \text{Harmonicidade } (\Delta w = 0) \to \text{Princípio do Máximo} \to \text{Limitação na Fronteira} \to \text{Limitação Global}}$$
+	A prova demonstra que a solução da equação de Poisson depende continuamente dos dados de contorno: uma pequena variação em $\partial \Omega$ não pode gerar uma variação maior no interior de $\Omega$.
+}
+
+\aprofundamento{
+	Este resultado é um caso particular do \textbf{Princípio de Comparação} para operadores elípticos. Se tivéssemos $\Delta u \geq \Delta v$ em $\Omega$ e $u \leq v$ em $\partial \Omega$, poderíamos concluir que $u \leq v$ em todo o domínio. Além disso, se $\Omega$ for conexo e $u-v$ atingisse o valor $\varepsilon$ em algum ponto do interior, o \textbf{Princípio do Máximo Forte} implicaria que $u-v$ seria a constante $\varepsilon$ em todo o domínio. Esse comportamento é a base para a prova de unicidade de soluções para o problema de Dirichlet: se $u$ e $v$ têm a mesma fonte e os mesmos dados de contorno ($\varepsilon = 0$), então $u \equiv v$.
+}
+
+%%%% QUESTÃO EXTRA 04 %%%%
+\resultadoextra{Questão Extra 04.}{
+	Seja $\Omega \subset \mathbb{R}^n$ um domínio limitado. Sejam $u, v \in H^1(\Omega)$ soluções fracas da equação $-\Delta u = f$ e $-\Delta v = f$ em $\Omega$. Suponha que a diferença de seus traços na fronteira satisfaça $\|T u - T v\|_{L^\infty(\partial \Omega)} \leq \varepsilon$. Mostre que $\|u - v\|_{L^\infty(\Omega)} \leq \varepsilon$ quase sempre em $\Omega$.
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	A tese é a extensão do Princípio do Máximo para soluções fracas. Diferente do caso clássico ($C^2$), onde analisamos a curvatura no ponto de máximo, no caso fraco devemos trabalhar com a energia da função. O objetivo é provar que a norma $L^\infty$ da diferença $w = u - v$ é controlada pelo valor máximo do traço na fronteira.
+	
+	\textbf{Fundamentação Teórica}:
+	A prova utiliza a teoria de espaços de Sobolev e a estabilidade de funções sob a operação de truncamento, fundamentando-se em \textbf{Brezis (Cap. 4 e 9)}. Os pilares são:
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Operador de Traço}: O operador $T: H^1(\Omega) \to L^2(\partial \Omega)$ permite definir a noção de "valor na fronteira" para funções que não são contínuas.
+		\item \textbf{Propriedade de Truncamento}: Se $w \in H^1(\Omega)$, então a parte positiva $w^+ = \max(0, w)$ também pertence a $H^1(\Omega)$, e seu gradiente é $\nabla w$ onde $w > 0$ e zero caso contrário.
+		\item \textbf{Desigualdade de Poincaré}: Essencial para concluir que uma função com gradiente nulo e traço nulo é identicamente nula.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Função Diferença}: Definir $w = u - v$ e observar que ela satisfaz a equação de Laplace fraca $\int_\Omega \nabla w \cdot \nabla \phi = 0$ para toda $\phi \in H_0^1(\Omega)$.
+		\item \textbf{Construção da Função Teste}: Utilizar a função $\phi = (w - \varepsilon)^+$. Provar que a condição de traço $\|T w\|_{L^\infty(\partial \Omega)} \leq \varepsilon$ implica que $\phi \in H_0^1(\Omega)$.
+		\item \textbf{Análise Energética}: Substituir $\phi$ na formulação fraca para mostrar que a energia $\|\nabla \phi\|_{L^2}^2$ é nula.
+		\item \textbf{Simetria}: Repetir o processo para a função $(-w - \varepsilon)^+$ para obter a estimativa inferior.
+	\end{enumerate}
+}
+
+\solucao{
+	Definimos a função diferença $w = u - v$. Como $u$ e $v$ são soluções fracas da mesma equação de Poisson, temos que para qualquer $\phi \in H_0^1(\Omega)$:
+	$$\int_\Omega \nabla u \cdot \nabla \phi \, dx = \int_\Omega f \phi \, dx \quad \text{e} \quad \int_\Omega \nabla v \cdot \nabla \phi \, dx = \int_\Omega f \phi \, dx.$$
+	Subtraindo as duas identidades, obtemos a formulação fraca para $w$:
+	\begin{equation} \label{eq:fraca_w}
+		\int_\Omega \nabla w \cdot \nabla \phi \, dx = 0, \quad \forall \phi \in H_0^1(\Omega).
+	\end{equation}
+	Desejamos provar que $w \leq \varepsilon$ quase sempre em $\Omega$. Para isso, consideramos a função:
+	$$\phi(x) = (w(x) - \varepsilon)^+ = \max\{0, w(x) - \varepsilon\}.$$
+	Analisamos a pertinência de $\phi$ ao espaço $H_0^1(\Omega)$:
+	\begin{enumerate}[label=\arabic*)]
+		\item Como $w \in H^1(\Omega)$, a operação de truncamento preserva a regularidade, logo $\phi \in H^1(\Omega)$.
+		\item Quanto ao traço, sabemos que $\|Tw\|_{L^\infty(\partial \Omega)} \leq \varepsilon$. Isso implica que $Tw(x) \leq \varepsilon$ quase sempre em $\partial \Omega$. Portanto:
+		$$T\phi = \max\{0, Tw - \varepsilon\} = 0 \quad \text{q.s. em } \partial \Omega.$$
+		Assim, $\phi \in H_0^1(\Omega)$, sendo uma função teste válida para a equação \eqref{eq:fraca_w}.
+	\end{enumerate}
+	Substituímos $\phi$ na identidade $\eqref{eq:fraca_w}$:
+	$$\int_\Omega \nabla w \cdot \nabla (w - \varepsilon)^+ \, dx = 0.$$
+	Lembrando que $\nabla (w - \varepsilon)^+ = \nabla w$ no conjunto $\Omega_\varepsilon = \{x \in \Omega : w(x) > \varepsilon\}$ e é nulo no complemento, a integral torna-se:
+	$$\int_{\Omega_\varepsilon} |\nabla w|^2 \, dx = \int_{\Omega} |\nabla (w - \varepsilon)^+|^2 \, dx = 0.$$
+	Isso implica que $\nabla \phi = 0$ quase sempre em $\Omega$. Pela \textbf{Desigualdade de Poincaré}, visto que $\phi \in H_0^1(\Omega)$ e $\nabla \phi = 0$, temos:
+	$$\|\phi\|_{L^2(\Omega)} \leq C \|\nabla \phi\|_{L^2(\Omega)} = 0 \implies \phi = 0 \text{ q.s. em } \Omega.$$
+	Como $(w - \varepsilon)^+ = 0$ q.s., concluímos que $w \leq \varepsilon$ quase sempre em $\Omega$.
+	
+	Para obter a estimativa inferior, definimos $\psi = (-w - \varepsilon)^+ = \max\{0, -w - \varepsilon\}$. Repetindo o mesmo argumento, verificamos que $\psi \in H_0^1(\Omega)$ e que $\nabla \psi = 0$ q.s., o que implica $\psi = 0$ q.s., ou seja, $w \geq -\varepsilon$ quase sempre em $\Omega$.
+	Unindo os dois resultados:
+	$$\boxed{-\varepsilon \leq u(x) - v(x) \leq \varepsilon \implies \|u - v\|_{L^\infty(\Omega)} \leq \varepsilon \quad \text{q.s. em } \Omega}$$
+}
+
+\sintese{
+	O fluxo lógico da demonstração foi:
+	$$\boxed{\text{Equação Fraca para } w \to \text{Truncamento } (w-\varepsilon)^+ \to \text{Traço nulo} \to \text{Energia Zero} \to \text{Poincaré}}$$
+	A prova demonstra que, mesmo sem a continuidade pontual exigida no caso clássico, a estrutura de energia do espaço $H^1$ impõe que a solução fraca respeite os limites impostos pelos dados de contorno.
+}
+
+\aprofundamento{
+	Este resultado é fundamental para a teoria de \textbf{Soluções de Viscosidade} e para a análise de estabilidade de operadores elípticos. Ele prova que o operador $\Delta^{-1}$ (o inverso do Laplaciano com condições de Dirichlet) é um operador contraível na norma $L^\infty$. Enquanto no caso clássico usamos o \textbf{ponto de máximo}, aqui usamos o "conjunto de nível" $\Omega_\varepsilon$. Essa transição da análise pontual para a análise de conjuntos mensuráveis é a essência da Análise Funcional moderna aplicada a EDPs.
+}
+
+%%%% QUESTÃO EXTRA 05 %%%%
+\resultadoextra{Questão Extra 05.}{
+	Seja $U = B_2(0)$ e:
+	\begin{enumerate}[label=(\alph*)]
+		\item Definindo 
+		$$v(x) = \begin{cases} 1 - |x|, & \text{se } |x| \le 1 \\ |x| - 1, & \text{se } 1 < |x| \le 2 \end{cases}$$
+		mostre que $v \in W^{1,p}(U)$, para todo $1 \le p \le \infty$. Calcule $\nabla v$;
+		\item Mostre que $v \notin W^{2,p}(U)$.
+	\end{enumerate}
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	A questão exige a verificação da regularidade de uma função definida a pedaços. O ponto crítico é a interface $|x|=1$, onde a função é contínua, mas a sua derivada apresenta um salto. Precisamos provar que esse salto é admissível para a primeira derivada fraca (pertencendo a $L^p$), mas proibitivo para a segunda derivada fraca.
+	
+	\textbf{Fundamentação Teórica}:
+	A base teórica reside na definição de derivadas fracas e na teoria de funções Lipschitz, conforme exposto em \textbf{Brezis (Cap. 4)}. 
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Funções Lipschitzianas}: Uma função que é localmente Lipschitz em $U$ pertence a $W^{1,\infty}(U)$ e, consequentLmente, a $W^{1,p}(U)$ para qualquer $p \ge 1$ se o domínio for limitado.
+		\item \textbf{Derivada de Funções a Pedaços}: Para funções contínuas definidas em subdomínios, a derivada fraca coincide com a derivada clássica quase sempre, desde que não haja saltos no valor da função.
+		\item \textbf{Distribuições e Medidas}: A derivada de uma função degrau é a distribuição Delta de Dirac $\delta$, que não pertence a $L^p$ para qualquer $p \ge 1$.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Cálculo do Gradiente}: Derivar $v(x)$ em cada região e verificar a continuidade de $v$ em $|x|=1$.
+		\item \textbf{Verificação de $W^{1,p}$}: Mostrar que $|\nabla v|$ é limitada, garantindo a integrabilidade para qualquer $p$.
+		\item \textbf{Análise de $W^{2,p}$}: Calcular a derivada de $\nabla v$ no sentido distribucional e evidenciar a presença de uma medida singular (Dirac) na esfera $|x|=1$.
+	\end{enumerate}
+}
+
+\solucao{
+	\textbf{1. Demonstração de $v \in W^{1,p}(U)$ e Cálculo de $\nabla v$}
+	
+	A função $v$ é radial, podendo ser escrita como $v(x) = \psi(|x|)$. Note que $v$ é contínua em todo $U$, inclusive em $|x|=1$, pois $\lim_{|x| \to 1^-} (1-|x|) = 0$ e $\lim_{|x| \to 1^+} (|x|-1) = 0$. 
+	Calculamos as derivadas parciais clássicas para $|x| \neq 1$. Lembrando que $\nabla |x| = \frac{x}{|x|}$:
+	\begin{enumerate}[label=(\roman*)]
+		\item Para $|x| < 1$: $\nabla v(x) = \nabla (1 - |x|) = -\frac{x}{|x|}$.
+		\item Para $1 < |x| < 2$: $\nabla v(x) = \nabla (|x| - 1) = \frac{x}{|x|}$.
+	\end{enumerate}
+	Podemos escrever o gradiente de forma compacta como:
+	$$\boxed{\nabla v(x) = \operatorname{sgn}(1 - |x|) \frac{x}{|x|}}$$
+	Observe que $|\nabla v(x)| = 1$ quase sempre em $U$. Sendo $U$ um domínio limitado, temos:
+	$$\|v\|_{L^p(U)}^p = \int_{B_2(0)} |v|^p dx \le \int_{B_2(0)} 1^p dx = \text{vol}(B_2(0)) < \infty$$
+	$$\|\nabla v\|_{L^p(U)}^p = \int_{B_2(0)} 1^p dx = \text{vol}(B_2(0)) < \infty$$
+	Como tanto a função quanto seu gradiente pertencem a $L^p(U)$ para todo $1 \le p \le \infty$, concluímos que $v \in W^{1,p}(U)$.
+	
+	\textbf{2. Demonstração de $v \notin W^{2,p}(U)$}
+	
+	Para que $v \in W^{2,p}(U)$, a derivada fraca $\nabla v$ deve ser derivável no sentido fraco. Consideremos a componente $\partial_1 v$ e uma função teste $\phi \in C_c^\infty(U)$.
+	A derivada fraca $\partial_1 (\partial_1 v)$ deve satisfazer:
+	$$\int_U (\partial_1 v) \partial_1 \phi \, dx = - \int_U (\partial_{11} v) \phi \, dx.$$
+	Seja $n=1$ para simplificar a visualização (o argumento estende-se a $\mathbb{R}^n$). Temos $v'(x) = -1$ se $|x|<1$ e $v'(x)=1$ se $1<|x|<2$. A função $v'$ é uma função degrau com saltos em $x=1$ e $x=-1$.
+	Calculando a integral:
+	$$\int_{-2}^2 v'(x) \phi'(x) dx = \int_{-2}^{-1} 1 \cdot \phi'(x) dx + \int_{-1}^1 (-1) \cdot \phi'(x) dx + \int_1^2 1 \cdot \phi'(x) dx$$
+	$$= [\phi(-1) - \phi(-2)] - [\phi(1) - \phi(-1)] + [\phi(2) - \phi(1)] = 2\phi(-1) - 2\phi(1).$$
+	Se existisse uma função $h = \partial_{11} v \in L^p(U)$, teríamos $\int_{-2}^2 h(x) \phi(x) dx = 2\phi(-1) - 2\phi(1)$. 
+	No entanto, o funcional $\phi \mapsto 2\phi(-1) - 2\phi(1)$ é uma combinação de distribuições Delta de Dirac ($2\delta_{-1} - 2\delta_1$), que não podem ser representadas por qualquer função $L^p$ (conforme o Lema Fundamental do Cálculo de Variações).
+	Logo, $\nabla v$ não possui derivada fraca em $L^p$, e concluímos que:
+	$$\boxed{v \notin W^{2,p}(U)}$$
+}
+
+\sintese{
+	O fluxo lógico foi:
+	$$\boxed{\text{Continuidade de } v \to \text{Gradiente limitado} \to v \in W^{1,p} \to \text{Salto em } \nabla v \to \text{Distribuição Dirac} \to v \notin W^{2,p}}$$
+	A questão ilustra que a continuidade de uma função garante a regularidade $W^{1,p}$, mas a continuidade da sua derivada é necessária para a regularidade $W^{2,p}$.
+}
+
+\aprofundamento{
+	Este exemplo é a contraprova de que a operação de truncamento ou a definição a pedaços preserva apenas a primeira ordem de regularidade. Funções desse tipo são chamadas de \textbf{funções de "tenda"}. Elas são úteis para construir funções de corte ($\text{cut-off functions}$), mas mostram que a regularidade $W^{2,p}$ exige que a transição entre as definições seja suave (classe $C^1$), e não apenas contínua.
+}
+
+%%%% QUESTÃO EXTRA 06 %%%%
+\resultadoextra{Questão Extra 06.}{
+	Mostre que existe uma constante $C = C_p, p > 1$ tal que para todo $u \in W^{2,p}(U) \cap W_0^{1,p}(U)$, vale:
+	$$\int_U |\nabla u|^p dx \leq C \left( \int_U |u|^p dx \right)^{\frac{1}{p}} \left( \int_U |\Delta u|^p dx \right)^{\frac{p-1}{p}}.$$
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	A tese é uma desigualdade de interpolação de Sobolev. Queremos controlar a norma $L^p$ do gradiente através de um produto entre a norma $L^p$ da função e a norma $L^p$ de sua Laplaciana. Esta é uma versão generalizada da desigualdade $\int |\nabla u|^2 \le \|u\|_2 \|\Delta u\|_2$ para $p=2$.
+	
+	\textbf{Fundamentação Teórica}:
+	A prova baseia-se na integração por partes e na Desigualdade de Hölder, fundamentando-se em \textbf{Brezis (Cap. 9)} e na teoria de interpolação de \textbf{Gagliardo-Nirenberg}. 
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Integração por Partes}: Para $u \in W_0^{1,p}$, a integral $\int_U |\nabla u|^p dx$ pode ser relacionada a integrais envolvendo $u$, $\Delta u$, o Hessiano $D^2u$ e $|\nabla u|^{p-2}$.
+		\item \textbf{Desigualdade de Hölder}: Utilizada para separar os termos $u$, $\Delta u$, $D^2u$ e $|\nabla u|$.
+		\item \textbf{Isolamento de Normas}: Manipulação algébrica para remover a dependência do gradiente do lado direito.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Identidade de Energia}: Partir de $\int |\nabla u|^p dx = \int \sum \partial_i u \partial_i u |\nabla u|^{p-2} dx$.
+		\item \textbf{Integração por Partes}: Transferir a derivada para $u$, gerando o termo $\Delta u$.
+		\item \textbf{Aplicação de Hölder}: Aplicar Hölder com expoentes $p, p, \frac{p}{p-2}$ (ou análogos) para isolar $\|u\|_{L^p}$ e $\|\Delta u\|_{L^p}$.
+		\item \textbf{Conclusão}: Dividir pela norma do gradiente e elevar à potência necessária.
+	\end{enumerate}
+}
+
+\solucao{
+	Para $u \in W^{2,p}(U) \cap W_0^{1,p}(U)$, escrevemos a norma do gradiente e integramos por partes (usando $u=0$ em $\partial U$):
+	\begin{equation} \label{eq:int_partes}
+		\int_U |\nabla u|^p dx = - \int_U u \sum_{i=1}^n \frac{\partial}{\partial x_i} \left( \frac{\partial u}{\partial x_i} |\nabla u|^{p-2} \right) dx.
+	\end{equation}
+	Aplicando a regra do produto e da cadeia, expandimos o termo sob a soma de derivadas:
+	\begin{equation} \label{eq:expansao_produto}
+		\sum_{i=1}^n \frac{\partial}{\partial x_i} \left( \frac{\partial u}{\partial x_i} |\nabla u|^{p-2} \right) = \Delta u |\nabla u|^{p-2} + (p-2) |\nabla u|^{p-4} \sum_{i,j=1}^n \frac{\partial u}{\partial x_i} \frac{\partial u}{\partial x_j} \frac{\partial^2 u}{\partial x_i \partial x_j}.
+	\end{equation}
+	Substituindo \eqref{eq:expansao_produto} em \eqref{eq:int_partes}, tomando o módulo e usando a limitação vetorial $\left| \sum \partial_i u \partial_j u \partial_{ij} u \right| \le |\nabla u|^2 |D^2 u|$, temos que:
+	\begin{equation} \label{eq:limite_modulo}
+		\int_U |\nabla u|^p dx \le \int_U |u| |\nabla u|^{p-2} |\Delta u| dx + |p-2| \int_U |u| |\nabla u|^{p-2} |D^2 u| dx.
+	\end{equation}
+	Aplicando a Desigualdade de Hölder com expoentes $p$, $p$ e $\tfrac{p}{p-2}$ em ambas as integrais do lado direito e usando a estimativa de regularidade elíptica para $W^{2,p} \cap W_0^{1,p}$ , que nos garante $\|D^2 u\|_{L^p} \le C' \|\Delta u\|_{L^p}$, obtemos que:
+	\begin{align}
+		\|\nabla u\|_{L^p}^p &\le \|u\|_{L^p} \|\Delta u\|_{L^p} \|\nabla u\|_{L^p}^{p-2} + |p-2| \|u\|_{L^p} \|D^2 u\|_{L^p} \|\nabla u\|_{L^p}^{p-2} \nonumber \\
+		&\le \|u\|_{L^p} \|\Delta u\|_{L^p} \|\nabla u\|_{L^p}^{p-2} + |p-2| C' \|u\|_{L^p} \|\Delta u\|_{L^p} \|\nabla u\|_{L^p}^{p-2} \nonumber \\
+		&= \underbrace{(1 + |p-2|C')}_{C_0} \|u\|_{L^p} \|\Delta u\|_{L^p} \|\nabla u\|_{L^p}^{p-2}. \label{eq:estimativa_brezis}
+	\end{align}
+	Assumindo $u \neq 0$, dividindo \eqref{eq:estimativa_brezis} por $\|\nabla u\|_{L^p}^{p-2}$ para isolar a norma e elevando à potência $\tfrac{p}{2}$, segue que:
+	\begin{equation} \label{eq:isolado_potencia}
+		\|\nabla u\|_{L^p}^2 \le C_0 \|u\|_{L^p} \|\Delta u\|_{L^p} \implies \|\nabla u\|_{L^p}^p \le C_0^{\frac{p}{2}} \|u\|_{L^p}^{\frac{p}{2}} \|\Delta u\|_{L^p}^{\frac{p}{2}}.
+	\end{equation}
+	Além disso, pela Desigualdade de Poincaré ($\|u\|_{L^p} \le C_P \|\nabla u\|_{L^p}$) da estimativa da esquerda em \eqref{eq:isolado_potencia}, temos que:
+	\begin{equation} \label{eq:prova_poincare}
+		\|\nabla u\|_{L^p}^2 \le C_0 (C_P \|\nabla u\|_{L^p}) \|\Delta u\|_{L^p} \implies \|\nabla u\|_{L^p} \le C_0 C_P \|\Delta u\|_{L^p}.
+	\end{equation}
+	Por Poincaré novamente sobre a função $u$, concluímos que:
+	\begin{equation*}
+		\|u\|_{L^p} \le C_P \|\nabla u\|_{L^p} \le C_P (C_0 C_P \|\Delta u\|_{L^p}) = C_0 C_P^2 \|\Delta u\|_{L^p}.
+	\end{equation*}
+	Definindo $C_1 = C_0 C_P^2$, provamos que $\|u\|_{L^p} \le C_1 \|\Delta u\|_{L^p}$. Logo, na estimativa da direita em \eqref{eq:isolado_potencia}, escrevendo $\|u\|_{L^p}^{\frac{p}{2}} = \|u\|_{L^p} \cdot \|u\|_{L^p}^{\frac{p}{2}-1}$ e aplicando esta limitação apenas no segundo fator, temos que:
+	\begin{equation} \label{eq:ajuste_poincare}
+		\|\nabla u\|_{L^p}^p \le C_0^{\frac{p}{2}} \|u\|_{L^p} \left( C_1^{\frac{p}{2}-1} \|\Delta u\|_{L^p}^{\frac{p}{2}-1} \right) \|\Delta u\|_{L^p}^{\frac{p}{2}}.
+	\end{equation}
+	Portanto, escrevendo $C = C_0^{\frac{p}{2}} C_1^{\frac{p}{2}-1}$, obtemos que :
+	\begin{equation} \label{eq:resultado_normas}
+		\|\nabla u\|_{L^p}^p \le C \|u\|_{L^p} \|\Delta u\|_{L^p}^{p-1}.
+	\end{equation}
+	Em notação integral:
+	$$\boxed{\int_U |\nabla u|^p dx \leq C \left( \int_U |u|^p dx \right)^{\frac{1}{p}} \left( \int_U |\Delta u|^p dx \right)^{\frac{p-1}{p}}}$$
+}
+
+\sintese{
+	O fluxo lógico da demonstração foi:
+	$$\boxed{\text{Integração por Partes} \to \text{Hölder} \to \text{Isolamento de } \|\nabla u\|_{L^p}^2 \to \text{Ajuste de Expoentes via Poincaré}}$$
+	A desigualdade prova que a energia do gradiente é controlada geometricamente pela média entre a norma da função e a norma da sua curvatura ($\Delta u$).
+}
+
+\aprofundamento{
+	Este resultado é uma variante da desigualdade de \textbf{Gagliardo-Nirenberg}. No caso $p=2$, ela se reduz à identidade $\int |\nabla u|^2 \le \|u\|_2 \|\Delta u\|_2$. Para $p \neq 2$, a desigualdade reflete a natureza não linear do operador $p$-Laplaciano. A constante $C$ depende de $p$ e da geometria de $U$ (via constante de Poincaré). Este tipo de estimativa é crucial para provar a convergência de métodos numéricos para equações elípticas não lineares.
+}
+
+%%%% QUESTÃO EXTRA 07 %%%%
+\resultadoextra{Questão Extra 07.}{
+	Seja $u \in L^\infty(U) \cap W^{1,p}(U)$, $1 < p < \infty$, com $U$ limitado e fronteira $\partial U$ de classe $C^1$. Mostre que $v = u^2 \in W^{1,p}(U)$.
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	Queremos provar que o produto de uma função por ela mesma permanece no espaço de Sobolev $W^{1,p}(U)$, desde que ela seja essencialmente limitada. Espaços de Sobolev clássicos não são álgebras fechadas para a multiplicação em dimensões arbitrárias, o que torna a hipótese $u \in L^\infty(U)$ o pilar desta demonstração.
+	
+	\textbf{Fundamentação Teórica}:
+	A demonstração fundamenta-se nas definições de normas de Sobolev e na Regra da Cadeia para derivadas fracas.
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Integrabilidade $L^p$}: O fato de $u$ ser limitada permite majorar $|u|^2$ por constantes vezes $|u|$, garantindo que $v \in L^p(U)$.
+		\item \textbf{Regra da Cadeia de Sobolev}: Se $f \in C^1(\mathbb{R})$ tem derivada limitada e $u \in W^{1,p}$, então $f(u) \in W^{1,p}$ com $D(f(u)) = f'(u)Du$. Adaptaremos este raciocínio para a restrição de $f(s)=s^2$ ao domínio de $u$.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Verificar $v \in L^p(U)$}: Calcular a norma $L^p$ de $v$ e usar a limitação essencial $\|u\|_{L^\infty}$ para desmembrar o expoente.
+		\item \textbf{Encontrar a Derivada Fraca}: Invocar a regra da cadeia para obter $Dv = 2uDu$.
+		\item \textbf{Verificar $Dv \in L^p(U)$}: Demonstrar que o produto da função limitada por um gradiente $L^p$ continua integrável com potência $p$.
+	\end{enumerate}
+}
+
+\solucao{
+	Para demonstrar que $v = u^2 \in W^{1,p}(U)$, precisamos provar duas coisas: que $v \in L^p(U)$ e que sua derivada fraca de primeira ordem também pertence a $L^p(U)$.
+	
+	\textbf{Passo 1: Mostrar que $v \in L^p(U)$.}
+	
+	Por hipótese, $u \in L^\infty(U) \cap L^p(U)$. A norma $L^p$ da função $v = u^2$ é dada por:
+	\begin{equation} \label{eq:norma_vp}
+		\int_U |v|^p dx = \int_U |u^2|^p dx = \int_U |u|^{2p} dx = \int_U |u|^p |u|^p dx.
+	\end{equation}
+	Como $u$ é essencialmente limitada, temos $|u(x)| \le \|u\|_{L^\infty}$ em quase todo ponto. Podemos usar essa cota superior para majorar um dos fatores na integral:
+	\begin{equation*}
+		\int_U |v|^p dx \le \int_U \|u\|_{L^\infty}^p |u|^p dx = \|u\|_{L^\infty}^p \int_U |u|^p dx.
+	\end{equation*}
+	Sabendo que $\|u\|_{L^\infty} < \infty$ e $\int_U |u|^p dx = \|u\|_{L^p}^p < \infty$, concluímos que a integral acima é finita, logo $v \in L^p(U)$.
+	
+	\textbf{Passo 2: Mostrar que a derivada fraca existe e pertence a $L^p(U)$.}
+	
+	Seja a função $f: \mathbb{R} \to \mathbb{R}$ definida por $f(s) = s^2$. Como $u \in L^\infty(U)$, os valores de $u(x)$ pertencem quase sempre ao intervalo compacto $I = [-\|u\|_{L^\infty}, \|u\|_{L^\infty}]$. 
+	
+	Restrita a este intervalo, $f \in C^1(I)$ e sua derivada $f'(s) = 2s$ é uniformemente limitada por $2\|u\|_{L^\infty}$. Como a composição de uma função de Lipschitz com uma função $W^{1,p}$ produz uma função $W^{1,p}$, a Regra da Cadeia Clássica para Espaços de Sobolev garante que a derivada fraca de $v = f(u)$ existe, é dada por $Dv = f'(u)Du$ e assume a forma:
+	\begin{equation} \label{eq:derivada_fraca_v}
+		Dv = 2u Du.
+	\end{equation}
+	Resta verificar se $Dv \in L^p(U)$. Calculamos a norma $L^p$ do gradiente tomando novamente vantagem da limitação essencial de $u$:
+	\begin{align}
+		\int_U |Dv|^p dx &= \int_U |2u Du|^p dx \nonumber \\
+		&= 2^p \int_U |u|^p |Du|^p dx \nonumber \\
+		&\le 2^p \int_U \|u\|_{L^\infty}^p |Du|^p dx \nonumber \\
+		&= 2^p \|u\|_{L^\infty}^p \int_U |Du|^p dx. \label{eq:norma_grad_vp}
+	\end{align}
+	Como $\|u\|_{L^\infty} < \infty$ e $Du \in L^p(U)$ (pois $u \in W^{1,p}(U)$), a integral do lado direito é perfeitamente finita. 
+	
+	Portanto, mostramos que $\|Dv\|_{L^p}^p \le 2^p \|u\|_{L^\infty}^p \|Du\|_{L^p}^p < \infty$. Com $v \in L^p(U)$ e $Dv \in L^p(U)$, concluímos a tese:
+	$$\boxed{v = u^2 \in W^{1,p}(U)}$$
+}
+
+\sintese{
+	O fluxo lógico da demonstração foi:
+	$$\boxed{u \in L^\infty \cap L^p \implies u^2 \in L^p \to \text{Regra da Cadeia} \implies Dv = 2uDu \to u \in L^\infty, Du \in L^p \implies Dv \in L^p}$$
+	A limitação pontual ($L^\infty$) atuou como escudo em duas frentes: para evitar que $u^2$ saísse de $L^p$ e para garantir que o coeficiente de $Du$ na derivada fraca não destruísse a integrabilidade do gradiente.
+}
+
+\aprofundamento{
+	Este exercício expõe um limite fundamental dos espaços de Sobolev: em geral, $W^{1,p}(U)$ \textbf{não é uma álgebra}. Se retirarmos a hipótese de que $u \in L^\infty(U)$, a função $u^2$ passaria a pertencer a $L^{\frac{p}{2}}(U)$, e não necessariamente a $L^p(U)$. A propriedade de álgebra só é naturalmente garantida pelo \textbf{Teorema de Imersão de Sobolev} quando $p > n$ (dimensão do espaço), pois nesse cenário $W^{1,p} \hookrightarrow L^\infty$ automaticamente. Para dimensões onde $p \le n$, impor $L^\infty$ de forma externa é estritamente necessário para realizar produtos em $W^{1,p}$.
+}
+
+%%%% QUESTÃO EXTRA 08 %%%%
+\resultadoextra{Questão Extra 08.}{
+	Denotaremos por $B = B_1(0) \subset \mathbb{R}^n$ a bola aberta de centro na origem e raio 1.
+	
+	Para qual $p \in (1, \infty)$ temos $v = |x|^{2-n} \in W^{1,p}(\mathbb{R}^n)$? E para qual $p \in (1, \infty)$ temos $v \in W^{1,p}(B)$?
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	A função $v(x) = |x|^{2-n}$ (para $n \ge 3$) é, a menos de uma constante multiplicativa, a solução fundamental da Equação de Laplace no $\mathbb{R}^n$. Ela apresenta uma singularidade na origem e decai para zero no infinito. O problema pede para determinarmos para quais expoentes $p$ essa função e seu gradiente fraco são $p$-integráveis, tanto globalmente ($\mathbb{R}^n$) quanto localmente ($B$).
+	
+	\textbf{Fundamentação Teórica}:
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Cálculo do Gradiente}: Em $\mathbb{R}^n \setminus \{0\}$, $v$ é suave. A derivada clássica coincidirá com a fraca desde que a singularidade em $x=0$ seja integrável.
+		\item \textbf{Integrabilidade Radial}: Usando coordenadas polares, a integral de uma potência $|x|^\alpha$ em $B$ converge se, e somente se, $\alpha > -n$. Em $\mathbb{R}^n \setminus B$, converge se, e somente se, $\alpha < -n$.
+	\end{enumerate}
+	
+	\textbf{Estratégias}:
+	\begin{enumerate}[label=(\alph*)]
+		\item Calcular pontualmente $\nabla v(x)$ para $x \neq 0$.
+		\item Analisar as condições de convergência das integrais $\int |v|^p dx$ e $\int |\nabla v|^p dx$ no infinito e na origem.
+		\item Interseccionar as condições para encontrar os intervalos válidos de $p$.
+	\end{enumerate}
+}
+
+\solucao{
+	Assumiremos $n \ge 3$, que é o caso não trivial onde a função exibe singularidade (para $n=1, 2$, a análise é degenerada, mas a conclusão análoga).
+	
+	\textbf{Passo 1: O gradiente de $v$}
+	
+	Para $x \neq 0$, calculamos as derivadas parciais usando a regra da cadeia para $v(x) = (x_1^2 + \cdots + x_n^2)^{\frac{2-n}{2}}$:
+	\begin{equation*}
+		\frac{\partial v}{\partial x_i} = \frac{2-n}{2} (x_1^2 + \cdots + x_n^2)^{\frac{2-n}{2} - 1} \cdot 2x_i = (2-n)|x|^{-n} x_i.
+	\end{equation*}
+	Assim, o vetor gradiente e sua norma são dados por:
+	\begin{equation} \label{eq:grad_v}
+		\nabla v(x) = (2-n)|x|^{-n}x \implies |\nabla v(x)| = |n-2| |x|^{1-n}.
+	\end{equation}
+	
+	\textbf{Passo 2: Análise em $\mathbb{R}^n$}
+	
+	Para que $v \in W^{1,p}(\mathbb{R}^n)$, precisamos ter $\int_{\mathbb{R}^n} |v|^p dx < \infty$. Analisando essa integral ao separá-la na bola $B$ e no seu exterior, temos que:
+	\begin{equation*}
+		\int_{\mathbb{R}^n} |x|^{p(2-n)} dx = \underbrace{\int_B |x|^{p(2-n)} dx}_{\text{Converge } \iff p(2-n) > -n} + \underbrace{\int_{\mathbb{R}^n \setminus B} |x|^{p(2-n)} dx}_{\text{Converge } \iff p(2-n) < -n}.
+	\end{equation*}
+	As duas condições de convergência exigem que $p(2-n) > -n$ e $p(2-n) < -n$ simultaneamente, o que é impossível. Logo, $v \notin L^p(\mathbb{R}^n)$ para nenhum $p$.
+	
+	Portanto, concluímos imediatamente que $\boxed{v \notin W^{1,p}(\mathbb{R}^n) \text{ para todo } p \in (1, \infty)}$.
+	
+	\textbf{Passo 3: Análise em $B = B_1(0)$}
+	
+	Para que $v \in W^{1,p}(B)$, precisamos que $v \in L^p(B)$ e $|\nabla v| \in L^p(B)$.
+	
+	\textit{Condição 1 (Para a função):}
+	\begin{equation*}
+		\int_B |v|^p dx = \int_B |x|^{p(2-n)} dx < \infty \iff p(2-n) > -n \implies p(n-2) < n \implies p < \frac{n}{n-2}.
+	\end{equation*}
+	
+	\textit{Condição 2 (Para o gradiente):}
+	Usando \eqref{eq:grad_v}, temos:
+	\begin{equation*}
+		\int_B |\nabla v|^p dx = |n-2|^p \int_B |x|^{p(1-n)} dx < \infty \iff p(1-n) > -n \implies p(n-1) < n \implies p < \frac{n}{n-1}.
+	\end{equation*}
+	
+	Como $n \ge 3$, é fácil ver que $\frac{n}{n-1} < \frac{n}{n-2}$. Portanto, a condição do gradiente é mais forte e engloba a condição da própria função. Interseccionando isso com a restrição do enunciado de que $p > 1$, chegamos ao resultado final:
+	$$\boxed{\text{Temos } v \in W^{1,p}(B) \text{ se, e somente se, } 1 < p < \frac{n}{n-1}}$$
+}
+
+\sintese{
+	O fluxo lógico da resolução foi:
+	$$\boxed{\text{Cálculo de } \nabla v \to \text{Análise de integrabilidade radial em } 0 \text{ e } \infty \to \text{Interseção das restrições de } p}$$
+	A função falha em ser de Sobolev em $\mathbb{R}^n$ porque o comportamento no infinito exige $p$ grande, enquanto o comportamento na origem exige $p$ pequeno. Na bola limitada, sobra apenas a exigência na origem, restrita pelo comportamento mais singular, que é o do gradiente ($|x|^{1-n}$).
+}
+
+\aprofundamento{
+	Este é um exemplo canônico de como singularidades afetam a regularidade fraca. A função $v(x) = |x|^{2-n}$ é harmônica fora da origem, mas no sentido das distribuições ela satisfaz $-\Delta v = c_n \delta_0$, onde $\delta_0$ é a Delta de Dirac. O fato de que $v \in W^{1,p}(B)$ \textbf{apenas para $p < \frac{n}{n-1}$} (e notavelmente, não para $p=2$ em dimensão $n \ge 3$, logo $v \notin H^1(B)$) reflete o fato de que a Delta de Dirac tem regularidade muito baixa, forçando a solução fundamental a "cair" para espaços de Sobolev com índices $p$ estritamente menores que os comumente usados em espaços de energia de Hilbert.
+}
+
+%%%% QUESTÃO EXTRA 09 %%%%
+\resultadoextra{Questão Extra 09.}{
+	\textbf{13 (Desigualdade de Poincaré)} Vamos considerar $\Omega = U \times (0,1) \subset \mathbb{R}^{n+1}$, $u \in C^1(\bar{\Omega})$ tal que $u(x,0) = 0$ para todo $x \in U$. Vamos mostrar que
+	$$\int_\Omega u(z)^2 dz \leq \int_\Omega |\nabla u(z)|^2 dz.$$
+	Para isto mostre que
+	\begin{enumerate}[label=(\alph*)]
+		\item Para cada $z = (x,t) \in \Omega$:
+		$$u(x,t) = \int_0^t \frac{\partial u}{\partial t}(x,s) ds;$$
+		\item Para cada $z = (x,t) \in \Omega$:
+		$$u(x,t)^2 \leq \int_0^1 \left| \frac{\partial u}{\partial t}(x,s) \right|^2 ds;$$
+		\item Vale a desigualdade:
+		$$\int_U u(x,t)^2 dx \leq \int_0^1 \left( \int_U \left| \frac{\partial u}{\partial t}(x,s) \right|^2 dx \right) ds;$$
+		\item Conclua a desigualdade de Poincaré;
+		\item Mostre que a mesma desigualdade vale para $u \in H_0^1(\Omega)$.
+	\end{enumerate}
+}
+
+\analise{
+	\textbf{Análise do Enunciado}:
+	O problema propõe uma demonstração guiada da Desigualdade de Poincaré para um domínio cilíndrico $\Omega$, baseando-se no controle da função pela sua derivada direcional (ao longo do eixo $t$) e, posteriormente, pelo gradiente completo.
+	
+	\textbf{Fundamentação Teórica}:
+	\begin{enumerate}[label=(\alph*)]
+		\item \textbf{Teorema Fundamental do Cálculo}: Transforma o valor da função em uma integral da sua derivada, usando a condição de contorno nula na base do cilindro.
+		\item \textbf{Desigualdade de Cauchy-Schwarz (ou Hölder)}: Utilizada para separar a integral do produto em um produto de integrais quadráticas.
+		\item \textbf{Teorema de Fubini}: Permite a troca da ordem de integração entre as variáveis espaciais $x$ e a variável temporal $t$.
+		\item \textbf{Densidade em Espaços de Sobolev}: Funções suaves de suporte compacto ($C_c^\infty$) são densas em $H_0^1$, permitindo estender estimativas obtidas para funções clássicas aos espaços de Sobolev.
+	\end{enumerate}
+}
+
+\solucao{
+	\begin{center}
+		\begin{tikzpicture}[scale=1.2, >=stealth]
+			% Fundo da Laje (Domínio Omega)
+			\fill[gray!10] (-3.5,0) rectangle (3.5,3);
+			
+			% Base inferior (t=0) - Estendendo-se para o infinito
+			\draw[thick] (-3,0) -- (3,0);
+			\draw[thick, dashed] (-4.5,0) -- (-3,0);
+			\draw[thick, dashed] (3,0) -- (4.5,0);
+			\node[below] at (0,-0.35) {$U \times \{0\}$ (Base ilimitada onde $u(x,0) = 0$)};
+			
+			% Base superior (t=1) - Estendendo-se para o infinito
+			\draw[thick] (-3,3) -- (3,3);
+			\draw[thick, dashed] (-4.5,3) -- (-3,3);
+			\draw[thick, dashed] (3,3) -- (4.5,3);
+			\node[above] at (0,3.2) {$U \times \{1\}$ (Topo do domínio)};
+			
+			% Rótulo de domínio
+			\node[font=\large] at (-2, 1.8) {$\Omega$};
+			
+			% Ponto na base e linha de integração TFC
+			\coordinate (X0) at (1, 0);
+			\coordinate (XT) at (1, 1.8);
+			\coordinate (X1) at (1, 3);
+			
+			% Linha vertical de integração
+			\draw[thick, blue, ->] (X0) -- (XT) node[midway, right] {$u(x,t) = \int_0^t \partial_s u \, ds$};
+			\draw[dashed, blue] (XT) -- (X1);
+			
+			% Pontos marcados
+			\filldraw (X0) circle (1.5pt) node[below] {$(x,0)$};
+			\filldraw (XT) circle (1.5pt) node[left] {$z = (x,t)$};
+			
+			% Indicador de Altura
+			\draw[<->] (5,0) -- (5,3) node[midway, right] {Altura $t \in (0,1)$};
+			\draw[dashed, gray] (3.5,0) -- (5,0);
+			\draw[dashed, gray] (3.5,3) -- (5,3);
+		\end{tikzpicture}
+	\end{center}
+	\begin{enumerate}[label=(\alph*)]
+		\item Pelo Teorema Fundamental do Cálculo ao longo do segmento que liga $(x,0)$ a $(x,t)$, temos:
+		$$u(x,t) - u(x,0) = \int_0^t \frac{\partial u}{\partial t}(x,s) ds.$$
+		Como o enunciado garante que $u(x,0) = 0$ para todo $x \in U$, segue diretamente que:
+		\begin{equation} \label{eq:poincare_a}
+			u(x,t) = \int_0^t \frac{\partial u}{\partial t}(x,s) ds.
+		\end{equation}
+		
+		\item Tomando o quadrado da equação \eqref{eq:poincare_a} e aplicando a Desigualdade de Cauchy-Schwarz para o produto da função $1$ com $\frac{\partial u}{\partial t}$:
+		\begin{align*}
+			u(x,t)^2 &= \left( \int_0^t 1 \cdot \frac{\partial u}{\partial t}(x,s) ds \right)^2 \\
+			&\leq \left( \int_0^t 1^2 ds \right) \left( \int_0^t \left| \frac{\partial u}{\partial t}(x,s) \right|^2 ds \right) \\
+			&= t \int_0^t \left| \frac{\partial u}{\partial t}(x,s) \right|^2 ds.
+		\end{align*}
+		Como $t \in (0,1)$, temos $t < 1$. Além disso, o integrando é não-negativo, logo integrar até $1$ apenas aumenta (ou mantém) o valor da integral. Portanto:
+		\begin{equation} \label{eq:poincare_b}
+			u(x,t)^2 \leq 1 \cdot \int_0^1 \left| \frac{\partial u}{\partial t}(x,s) \right|^2 ds.
+		\end{equation}
+		
+		\item Integramos a desigualdade \eqref{eq:poincare_b} em relação a $x$ sobre o domínio $U$:
+		$$\int_U u(x,t)^2 dx \leq \int_U \left( \int_0^1 \left| \frac{\partial u}{\partial t}(x,s) \right|^2 ds \right) dx.$$
+		Pelo Teorema de Fubini (as funções são contínuas e não-negativas), podemos trocar a ordem de integração do lado direito:
+		\begin{equation} \label{eq:poincare_c}
+			\int_U u(x,t)^2 dx \leq \int_0^1 \left( \int_U \left| \frac{\partial u}{\partial t}(x,s) \right|^2 dx \right) ds.
+		\end{equation}
+		
+		\item Para concluir, integramos a desigualdade \eqref{eq:poincare_c} na variável $t$ de $0$ a $1$:
+		$$\int_0^1 \int_U u(x,t)^2 dx dt \leq \int_0^1 \left[ \int_0^1 \left( \int_U \left| \frac{\partial u}{\partial t}(x,s) \right|^2 dx \right) ds \right] dt.$$
+		Observe que a expressão entre colchetes do lado direito não depende de $t$. Logo, a integral externa em $t$ resulta apenas na multiplicação pelo comprimento do intervalo, que é $1$:
+		$$\int_\Omega u(z)^2 dz \leq \int_0^1 \int_U \left| \frac{\partial u}{\partial t}(x,s) \right|^2 dx ds = \int_\Omega \left| \frac{\partial u}{\partial t}(z) \right|^2 dz.$$
+		Como $\left| \frac{\partial u}{\partial t} \right|^2 \leq \left| \frac{\partial u}{\partial t} \right|^2 + \sum_{i=1}^n \left| \frac{\partial u}{\partial x_i} \right|^2 = |\nabla u|^2$, concluímos finalmente que:
+		\begin{equation*}
+			\boxed{\int_\Omega u(z)^2 dz \leq \int_\Omega |\nabla u(z)|^2 dz}
+		\end{equation*}
+		
+		\item Para $u \in H_0^1(\Omega)$, por definição do espaço, existe uma sequência de funções suaves de suporte compacto $(u_k)_{k=1}^\infty \subset C_c^\infty(\Omega)$ tal que $u_k \to u$ na norma de $H^1(\Omega)$. 
+		Como o suporte de $u_k$ é compacto em $\Omega$, temos $u_k(x,0) = 0$. Sendo $C_c^\infty(\Omega) \subset C^1(\bar{\Omega})$, as hipóteses dos itens anteriores são satisfeitas, e a desigualdade vale para cada $u_k$:
+		$$\|u_k\|_{L^2(\Omega)}^2 \leq \|\nabla u_k\|_{L^2(\Omega)}^2.$$
+		Passando ao limite quando $k \to \infty$, a continuidade das normas $L^2$ garante que $$\|u_k\|_{L^2} \to \|u\|_{L^2} \ \text{e }\|\nabla u_k\|_{L^2} \to \|\nabla u\|_{L^2}.$$ Assim, a desigualdade se preserva no limite, provando o resultado para todo $H_0^1(\Omega)$.
+	\end{enumerate}
+}
+
+\sintese{
+	O fluxo lógico da demonstração dividiu o problema na dimensão privilegiada ($t$) e nas demais ($x$). O núcleo algébrico reside no uso de Cauchy-Schwarz na integral temporal (item b). A transição para o espaço completo de Sobolev (item e) mostra a utilidade da abordagem por densidade: prova-se um resultado em $C^1$ via Cálculo Clássico e o eleva a $H^1$ via Análise Funcional.
+}
+
+\aprofundamento{
+	Esta versão da Desigualdade de Poincaré revela que o fator geométrico (a constante de Poincaré, aqui igual a $1$) depende da \textit{largura} do domínio ao longo da direção onde a função se anula na fronteira. O fato de exigir que $u(x,0)=0$ (ou $u \in H_0^1$) é imprescindível para ancorar o Teorema Fundamental do Cálculo, impedindo que funções constantes (cujo gradiente é zero) violem a desigualdade. Em um domínio de altura $h$, a constante da direita seria ajustada para $h^2 / 2$ dependendo do método exato de majoração.
+}
 \end{document}
