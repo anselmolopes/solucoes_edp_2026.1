@@ -83,6 +83,9 @@
 \newbool{showaprofundamento} 
 \setbool{showaprofundamento}{true}
 
+\newbool{showsolucaoalt} 
+\setbool{showsolucaoalt}{true}
+
 \newbool{showtheorem}
 \setbool{showtheorem}{true}
 
@@ -90,7 +93,10 @@
 \setbool{showproof}{true}
 
 \newbool{showtextoauxiliar}
-\setbool{showtextoauxiliar}{true} 
+\setbool{showtextoauxiliar}{true}
+
+\newbool{showresultadoextra}
+\setbool{showresultadoextra}{true}
 
 % =============================================================================
 % COMANDOS ESTRUTURAIS DO PROJETO
@@ -223,7 +229,7 @@
 
 \newcommand{\solucaoalt}[1]{%
 	\ifbool{showcurrentQ}{%
-		\ifbool{showanalise}{%
+		\ifbool{showsolucaoalt}{%
 			\setcounter{equation}{0}% <--- ADICIONE ESTA LINHA AQUI
 			\par\vspace{5pt}
 			\textbf{\underline{Solução Alternativa}}:\par 
@@ -256,21 +262,25 @@
 
 % Comando \resultadoextra: Teoremas ou definições auxiliares
 \newcommand{\resultadoextra}[2]{%
-	\setcounter{equation}{0}% <--- ADICIONE ESTA LINHA AQUI
-	\begin{tcolorbox}[
-		enhanced,
-		sharp corners,
-		boxrule=0.5pt,
-		colback=gray!6!white, 
-		colframe=black,         
-		left=1pt, right=1pt, top=1pt, bottom=1pt,
-		width=1\textwidth,
-		before skip=3pt,
-		after skip=3pt,
-		fontupper=\normalfont
-		]%
-		\mbox{\textbf{#1}}\hspace{0.3em}\ignorespaces#2%
-	\end{tcolorbox}%
+	\ifbool{showcurrentQ}{% <--- Se a questão atual estiver oculta, ele também some
+		\ifbool{showresultadoextra}{% <--- Checa a sua chave global de exibição
+			\setcounter{equation}{0}%
+			\begin{tcolorbox}[
+				enhanced,
+				sharp corners,
+				boxrule=0.5pt,
+				colback=gray!6!white, 
+				colframe=black,         
+				left=1pt, right=1pt, top=1pt, bottom=1pt,
+				width=1\textwidth,
+				before skip=3pt,
+				after skip=3pt,
+				fontupper=\normalfont
+				]%
+				\mbox{\textbf{#1}}\hspace{0.3em}\ignorespaces#2%
+			\end{tcolorbox}%
+		}{}%
+	}{}%
 }
 % =============================================================================
 % OPERADORES E NOTAÇÃO DE ANÁLISE
